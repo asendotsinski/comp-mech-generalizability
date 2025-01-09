@@ -1,29 +1,33 @@
 name: fact
 channels:
   - pytorch
-  - conda-forge
   - defaults
+  - conda-forge
 dependencies:
-  - python=3.12.7
-  - pip
+  - conda-libmamba-solver
+  - click==8.1.7
   - cpuonly=2.0
+  - gensim==4.3.3
+  - numpy==1.26.4
+  - matplotlib==3.8.4
+  - openai==1.25.0
+  - pip
+  - python=3.12.7
+  - python-json-logger=3.2.1
   - pytorch=2.5.0
+  - pandas==2.1.4 # risky change from 1.5.3
+  - rich==13.7.1
+  - scipy==1.12
+  - sympy==1.12
+  - tomlkit==0.13.2
   - torchvision=0.20.0
   - torchaudio=2.5.0
+  - transformers==4.44
+  - tqdm==4.66.5
   - pip:
     - auto_mix_prep==0.2.0
-    - click==8.1.7
     - einops==0.7.0
-    - gensim==4.3.2
     - ipdb==0.13.13
-    - matplotlib==3.8.1
     - more_itertools==10.2.0
-    - openai==1.14.2
-    - pandas==1.5.3
-    - rich==13.7.1
-    - sympy==1.12
-    - tomlkit==0.12.4
-    - tqdm==4.67.1
     - transformer_lens==2.11.0
-    - transformers==4.43.2
     - line_profiler==4.2.0

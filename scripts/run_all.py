@@ -58,6 +58,7 @@ class Config:
     mech_fold: Literal["copyVSfact", "contextVSfact", "copyVSfact_factual"] = "copyVSfact"
     model_name: str = "gpt2"
     hf_model_name: str = "gpt2"
+    device: str = "cuda"
     batch_size: int = 10
     dataset_path: str = f"../data/full_data_sampled_{model_name}.json"
     dataset_slice: Optional[int] = None
@@ -76,6 +77,7 @@ class Config:
             mech_fold=args.folder,
             model_name=args.model_name,
             batch_size=args.batch,
+            device=args.device,
             dataset_path= get_dataset_path(args),
             dataset_slice=args.slice,
             dataset_start=args.start,
@@ -338,11 +340,11 @@ def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
     if config.model_name == "Llama-2-7b-hf":
         tokenizer = LlamaTokenizer.from_pretrained(config.hf_model_name, use_auth_token = hf_access_token,)
         model = LlamaForCausalLM.from_pretrained(config.hf_model_name, use_auth_token = hf_access_token, low_cpu_mem_usage=True)
-        model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False, hf_model=model, device="cuda")
+        model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False, hf_model=model, device=config.device)
         # model = model.to("cuda")
         return model # type: ignore
-    model = WrapHookedTransformer.from_pretrained(config.model_name, device="mps")
-    model = model.to("mps")
+    model = WrapHookedTransformer.from_pretrained(config.model_name, device=("mps" if config.device == "mps" else "cpu"))
+    model = model.to(config.device)
     return model # type: ignore
 
 def main(args):
@@ -424,6 +426,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch", type=int, default=config_defaults.batch_size)
     parser.add_argument("--only-plot", action="store_true")
     parser.add_argument("--std-dev", action="store_true")
+    parser.add_argument("--device", type=str, default="cuda")
 
     parser.add_argument("--logit-attribution", action="store_true")
     parser.add_argument("--logit_lens", action="store_true", default=True)
