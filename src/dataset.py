@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from hmac import new
 import random
 import re
@@ -5,15 +6,21 @@ import os
 from click import Option
 import torch
 import gensim.downloader as api
+from torch import Tensor
 from torch.utils.data import Dataset
 import json
 from tqdm import tqdm
-from typing import List, Dict, Tuple, Optional, Literal
-from Src.model import BaseModel
+from typing import List, Dict, Tuple, Optional, Literal, Union
+
+from transformer_lens import HookedTransformer
+from transformers import AutoModelForCausalLM
+
+from model import BaseModel, WrapHookedTransformer
 import numpy as np
 import pandas as pd
 from line_profiler import profile
 
+LOG_DIR = "../logs"
 REDC = "\033[91m"
 ENDC = "\033[0m"
 
@@ -224,7 +231,7 @@ class BaseDataset(Dataset):
         if self.no_subject:
             return -1, -1, -1
         subject_string = " " + d["subject"]
-        subject_token = self.model.tokenize(subject_string).squeeze(0).cuda()
+        subject_token = self.model.tokenize(subject_string).squeeze(0).cpu()
         prompt_token = d["tokenized_prompt"]
 
         subject_token_len = subject_token.shape[0]
@@ -248,7 +255,7 @@ class BaseDataset(Dataset):
 
     def __find_obj_pos__(self, d: Dict) -> int:
         object_string = d["target_new"]
-        object_token = self.model.tokenize(object_string).cuda()
+        object_token = self.model.tokenize(object_string).cpu()
         prompt_token = d["tokenized_prompt"]
 
         # find the first occurence of the subject tokens in the prompt tokens
@@ -276,12 +283,12 @@ class BaseDataset(Dataset):
             if self.similarity[0] and self.similarity[2] == "data-sampling":
                 d["target_new"] = random.choice(d["target_new_list"])
             d["prompt"] = self.__get_prompt__(d)
-            d["tokenized_prompt"] = self.model.tokenize(d["prompt"]).squeeze(0).cuda()
+            d["tokenized_prompt"] = self.model.tokenize(d["prompt"]).squeeze(0).cpu()
             d["target_new_token"] = self.one_token(
-                self.model.tokenize(d["target_new"]).squeeze(0).cuda()
+                self.model.tokenize(d["target_new"]).squeeze(0).cpu()
             )
             d["target_true_token"] = self.one_token(
-                self.model.tokenize(d["target_true"]).squeeze(0).cuda()
+                self.model.tokenize(d["target_true"]).squeeze(0).cpu()
             )
             d["targets"] = torch.cat(
                 (d["target_true_token"], d["target_new_token"]), dim=0
@@ -311,6 +318,9 @@ class BaseDataset(Dataset):
             print(
                 f"{REDC} Found {len(log_data)} errors while tokenizing the prompts. Check the logs for more details... {ENDC}"
             )
+            if not os.path.exists(LOG_DIR):
+                os.makedirs(LOG_DIR)
+
             # save in a json file
             with open(
                 f"../logs/tokenization_errors_{self.model.cfg.model_name}.json", "w"
@@ -379,7 +389,7 @@ class BaseDataset(Dataset):
             if target_word in similarity_score_per_word:
                 continue
             
-            target_vector = word_embeddings[word_index.loc[target_word,"index"]].cuda()
+            target_vector = word_embeddings[word_index.loc[target_word,"index"]].cpu()
             
             #compute the similarity between target vector and all the other
             dot_products = torch.matmul(word_embeddings, target_vector.unsqueeze(1)).squeeze(1) # shape 
@@ -445,10 +455,10 @@ class BaseDataset(Dataset):
             similarity_scores = similarity_score_dict[base_target]
             
             # to dtype=torch.float32
-            similarity_scores = similarity_scores.to(torch.float32).cuda()
+            similarity_scores = similarity_scores.to(torch.float32).cpu()
 
             # Compute quantiles
-            quantiles = torch.quantile(similarity_scores, torch.linspace(0, 1, 11).cuda())
+            quantiles = torch.quantile(similarity_scores, torch.linspace(0, 1, 11).cpu())
 
             # Use vectorized operations to categorize words
             indices = torch.bucketize(similarity_scores, quantiles).cpu()  # This will assign each score to a bucket
@@ -827,3 +837,468 @@ class BaseDataset(Dataset):
                                 return False
             seen.add(d["prompt"])
         return True
+
+
+class TlensDataset(BaseDataset):
+    def __init__(
+        self,
+        path: str,
+        experiment: Literal["copyVSfact", "contextVSfact", "copyVSfact_factual"],
+        model: Union[WrapHookedTransformer, str, HookedTransformer],
+        slice: Optional[int] = None,
+        start: Optional[int] = None,
+        premise: str = "Redefine",
+        similarity: Tuple[
+            bool, int, Literal["word2vec", "logit", "self-similarity"]
+        ] = (
+            False,
+            0,
+            "logit",
+        ),
+    ):
+        if isinstance(model, str):
+            self.model = WrapHookedTransformer.from_pretrained(model, device="cuda")
+        else:
+            self.model = model
+        self.model.eval()
+        super().__init__(path, model, experiment, start, premise, similarity)
+        # super().__init__(path, slice, start, experiment, premise, similarity)
+
+    def _tokenize_prompt(self, prompt: str, prepend_bos: bool= False) -> torch.Tensor:
+        tokens = self.model.to_tokens(prompt, prepend_bos).squeeze(0)
+        assert len(tokens.shape) == 1
+        return tokens
+
+    def _tokenize_target(self, target: str, prepend_bos: bool) -> Tensor:
+        if self.model.predict_with_space is False:
+            # remove the first space
+            target = target[1:]
+        tokens = torch.tensor([self.model.to_tokens(target, prepend_bos).squeeze(0)[0]])
+        # print(self.model.to_str_tokens(target,prepend_bos))
+        assert (
+            tokens.shape[0] == 1
+        ), "tokens is not a 1D tensor with one element (the target)"
+        return tokens
+
+    def _get_similar_token(
+        self,
+        token_to_be_similar_str: str,
+        token_to_be_similar: torch.Tensor,
+        similarity_level: int,
+        similarity_type: str,
+        base_prompt: str,
+    ) -> Tuple[str, torch.Tensor]:
+        if similarity_type == "input":
+            with torch.no_grad():
+                token_embedding = self.model.W_E[token_to_be_similar].squeeze(0)
+                embeddings = self.model.W_E
+
+            cosine_similarity = torch.nn.functional.cosine_similarity(
+                embeddings, token_embedding, dim=-1
+            )
+            cosine_similarity, sorted_indices = cosine_similarity.sort(descending=True)
+
+            sorted_indices = sorted_indices[1:]
+            cosine_similarity = cosine_similarity[1:]
+
+            group = {}
+            group[1] = sorted_indices[
+                cosine_similarity < torch.quantile(cosine_similarity, 0.25)
+            ]
+            group[2] = sorted_indices[
+                (cosine_similarity >= torch.quantile(cosine_similarity, 0.25))
+                & (cosine_similarity < torch.quantile(cosine_similarity, 0.5))
+            ]
+            group[3] = sorted_indices[
+                (cosine_similarity >= torch.quantile(cosine_similarity, 0.5))
+                & (cosine_similarity < torch.quantile(cosine_similarity, 0.75))
+            ]
+            group[4] = sorted_indices[
+                cosine_similarity >= torch.quantile(cosine_similarity, 0.75)
+            ]
+
+            sampled_token_idx = torch.randint(
+                0, len(group[similarity_level]), (1,)
+            ).item()
+            sampled_token = group[similarity_level][sampled_token_idx]
+            sampled_token_str = self.model.to_string(sampled_token.item())
+            assert (
+                sampled_token_str != token_to_be_similar_str
+            ), "sampled_token_str is the same as token_to_be_similar_str"
+            assert sampled_token.shape[0] == 1, "sampled_token is not a 1D tensor"
+            assert len(sampled_token.shape) == 2, "sampled_token is not a 2D tensor"
+            assert isinstance(
+                sampled_token_str, str
+            ), "sampled_token_str is not a string"
+            return sampled_token_str, sampled_token.unsqueeze(0).unsqueeze(0)
+        elif similarity_type == "output":
+            raise NotImplementedError
+        else:
+            raise ValueError("similarity_type must be either 'input' or 'output'")
+
+    @abstractmethod
+    def _get_vocab_size(self) -> int:
+        return self.model.vocab_size
+
+    @abstractmethod
+    def _to_string_token(self, token_id: int) -> str:
+        return self.model.to_string(torch.tensor(token_id))
+
+    def get_best_string_token_predictions(self, prompt: str, n: int) -> List[str]:
+        raise NotImplementedError
+
+    def get_token_per_similarity_level(
+        self, prompt: str, best_string_token_predictions: List[str]
+    ) -> Dict[int, List[str]]:
+        raise NotImplementedError
+
+    def compute_similarity_word2vec(
+        self, base_target: str, word2vec
+    ) -> List[Tuple[str, float]]:
+        raise NotImplementedError
+
+
+class HFDataset(BaseDataset):
+    def __init__(
+        self,
+        model: Union[AutoModelForCausalLM, str],
+        tokenizer,
+        path: str,
+        experiment: Literal["copyVSfact", "contextVSfact"],
+        slice: Optional[int] = None,
+        premise: str = "Redefine:",
+        similarity: Tuple[
+            bool, int, Literal["word2vec", "logit", "self-similarity"]
+        ] = (
+            False,
+            0,
+            "logit",
+        ),
+        family_name: str = "gpt2",
+    ):
+        if isinstance(model, str):
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model,
+                torch_dtype=torch.bfloat16,
+            )
+            self.model = self.model.cpu()
+
+        else:
+            self.model = model
+        self.tokenizer = tokenizer
+        super().__init__(
+            path=path,
+            slice=slice,
+            experiment=experiment,
+            premise=premise,
+            similarity=similarity,
+            family_name=family_name,
+        )
+
+    def reset(
+        self,
+        similarity: Tuple[
+            bool, int, Literal["word2vec", "logit", "self-similarity"]
+        ] = None,
+    ):
+        super().reset(similarity=similarity)
+
+    def _tokenize_prompt(self, prompt: str, prepend_bos: bool) -> torch.Tensor:
+        # bos_token = self.tokenizer.bos_token
+        # if prepend_bos:
+        #     prompt = bos_token + prompt
+        tokens = self.tokenizer.encode(
+            prompt, return_tensors="pt", add_special_tokens=True
+        ).squeeze(0)
+        assert len(tokens.shape) == 1
+        return tokens
+
+    def _tokenize_target(self, target: str, prepend_bos: bool) -> torch.Tensor:
+        tokens = self.tokenizer.encode(
+            target, return_tensors="pt", add_special_tokens=False
+        ).squeeze(0)
+        assert len(tokens.shape) == 1
+        if tokens.shape[0] > 1:
+            tokens = tokens[0]
+            tokens = tokens.unsqueeze(0)
+        return tokens
+
+    def compute_similarity_word2vec(
+        self, base_target: str, word2vec, other_target: str
+    ) -> List[Tuple[str, float]]:
+        similarity = []
+        # remove the first space
+        base_target = base_target[1:]
+
+        if self.similarity_score_dict.get(base_target) is not None:
+            return self.similarity_score_dict[base_target]
+
+        # print(self.tokenizer.encode(" C"))
+        for token in range(self.tokenizer.vocab_size):
+            str_token = self.tokenizer.decode(token)
+            if str_token[0] == " ":
+                space_token = str_token
+                str_token = str_token[1:]
+            else:
+                space_token = " " + str_token
+            # if str_token == other_target:
+            #     print("found")
+            try:
+                similarity.append(
+                    (space_token, word2vec.similarity(base_target, str_token))
+                )
+            except KeyError:
+                if " " + str_token == other_target:
+                    print("other_target", other_target, " is not in the w2v vocab")
+
+        # save the similarity score
+        self.similarity_score_dict[base_target] = similarity
+        # similarity_len = len(similarity)
+        # print(similarity_len)
+        return similarity
+
+
+#     def compute_similarity_word2vec(self, base_target, word2vec, other_target):
+#         base_target = base_target[1:]
+
+#         with Pool(processes=4) as pool:  # Adjust the number of processes as needed
+#             results = pool.starmap(
+#                 compute_similarity_for_token,
+#                 [(base_target, word2vec, token, self.tokenizer) for token in range(self.tokenizer.vocab_size)]
+#             )
+
+#         # Filter out None results and return
+#         return [result for result in results if result is not None]
+
+
+# def compute_similarity_for_token(base_target, word2vec, token, tokenizer):
+#     str_token = tokenizer.decode(token)
+#     if str_token[0] == " ":
+#         space_token = str_token
+#         str_token = str_token[1:]
+#     else:
+#         space_token = " " + str_token
+
+#     try:
+#         return space_token, word2vec.similarity(base_target, str_token)
+#     except KeyError:
+#         return None
+
+
+class SampleDataset:
+    def __init__(self, path: str, model, save_path: str, tokenizer: Optional[object]):
+        self.data = json.load(open(path))
+        self.model = model
+        self.save_path = save_path
+        self.checkpoint_size = 500
+        if type(model) == WrapHookedTransformer:
+            self.model_type = "WrapHookedTransformer"
+            self.tokenizer = model.tokenizer
+        else:
+            self.model_type = "AutoModelForCausalLM"
+            try:
+                self.tokenizer = tokenizer
+            except AttributeError:
+                raise ValueError("With HuggingFace models, you must pass a tokenizer")
+
+    def sample(self, size: int = 10000):
+        if type(self.model) == WrapHookedTransformer:
+            self.sample_dataset_tlens(size)
+        else:
+            self.sample_dataset_hf(size)
+
+    def sample_dataset_tlens(self, size: int):
+        # random.seed(42)
+        new_data, index = self.load_from_checkpoint()
+
+        random.shuffle(self.data)
+        self.data = self.data[index:]
+        size = size - len(new_data)
+        new_data = []
+        random.shuffle(self.data)
+        with tqdm(total=size) as pbar:
+            for i, d in enumerate(self.data):
+                if i % self.checkpoint_size == 0:
+                    self.checkpoint(i, new_data)
+                # empty_prompt = d["template"].format("Redefine", self.model.tokenizer.pad_token)
+                empty_prompt = d["base_prompt"]
+                if self.model.predict(empty_prompt)[1][0] == d["target_true"]:
+                    new_data.append(d)
+                    if len(new_data) == size:
+                        break
+                pbar.update(len(new_data) - pbar.n)
+            self.data = new_data
+
+    def sample_dataset_hf(self, size: int):
+        # random.seed(42)
+        new_data, index = self.load_from_checkpoint()
+
+        random.shuffle(self.data)
+        self.data = self.data[index:]
+        print(len(self.data), index)
+
+        with tqdm(total=size) as pbar:
+            pbar.update(len(new_data))
+            for i, d in enumerate(self.data):
+                if i % self.checkpoint_size == 0:
+                    self.checkpoint(i, new_data)
+                empty_prompt = d["base_prompt"]
+                # encode the prompt
+                input_ids = self.tokenizer.encode(empty_prompt, return_tensors="pt")  # type: ignore
+                input_ids = input_ids.to(self.model.device)  # type: ignore
+                target_true = self.tokenizer.encode(
+                    d["target_true"], return_tensors="pt", add_special_tokens=False
+                )  # type: ignore
+                # predict the next token
+                logits = self.model(input_ids)["logits"][0, -1, :].cpu()
+                # get the index of the predicted token
+                index = logits.argmax()
+                # check if the predicted token is the target
+
+                if index in target_true:
+                    new_data.append(d)
+                    if len(new_data) == size:
+                        break
+                pbar.update(len(new_data) - pbar.n)
+            self.data = new_data
+
+    def save(self):
+        json.dump(self.data, open(self.save_path, "w"), indent=2)
+
+    def checkpoint(self, size: int, data: list):
+        # create checkpoint folder
+
+        if not os.path.isdir("../data/checkpoints"):
+            os.mkdir("../data/checkpoints")
+        # save the data
+        # split save path
+        save_path = self.save_path.split("/")[2]
+        json.dump(data, open(f"../data/checkpoints/{save_path}", "w"), indent=2)
+
+    def load_from_checkpoint(self):
+        save_path = self.save_path.split("/")[2]
+        # check if the checkpoint exists
+        if not os.path.isfile(f"../data/checkpoints/{save_path}"):
+            return [], 0
+        print("Starting from checkpoint")
+        data = json.load(open(f"../data/checkpoints/{save_path}"))
+        # get index of the last data point
+        index = len(data) - 1
+        if index < 0:
+            return [], 0
+        return data, index
+
+
+class DatasetGenerator:
+    def __init__(self, path):
+        self.data = json.load(open(path))
+
+    def generate_dataset(self, model, lenghts=[17, 19, 23]):
+        my_data = []
+        for i, d in tqdm(
+            enumerate(self.data), total=len(self.data), desc="Generating dataset"
+        ):
+            target_new = " " + d["requested_rewrite"]["target_true"]["str"]
+            target_true = " " + d["requested_rewrite"]["target_new"]["str"]
+            if i % 50 == 0:
+                unique_strs = set(json.dumps(d) for d in my_data)
+                my_data = [json.loads(s) for s in unique_strs]
+                print(len(my_data))
+                # if len(my_data) > 1000:
+                #     break
+            for p in d["attribute_prompts"]:
+                template = "Redefine: " + p + "{}" + ". " + p
+                # find position of {} in template
+                if (
+                    len(model.to_str_tokens(template.format(model.tokenizer.pad_token)))
+                    not in lenghts
+                ):
+                    continue
+                try:
+                    obj_pos = (
+                        model.to_str_tokens(
+                            template.format(model.tokenizer.pad_token)
+                        ).index(".")
+                        - 1
+                    )
+                except:  # noqa: E722
+                    continue
+                if target_true in template:
+                    continue
+                prediction = model.predict(template.format(model.tokenizer.pad_token))[
+                    1
+                ][0]
+                copy_prediction = model.predict(template.format(target_new))[1][0]
+                if prediction == target_true and copy_prediction == target_new:
+                    my_data.append(
+                        {
+                            "prompt": p,
+                            "template": template,
+                            "prediction": prediction,
+                            "copy_prediction": copy_prediction,
+                            "target_true": target_true,
+                            "target_new": target_new,
+                            "length": len(
+                                model.to_str_tokens(
+                                    template.format(model.tokenizer.pad_token)
+                                )
+                            ),
+                            "lenght_copy": len(
+                                model.to_str_tokens(template.format(target_new))
+                            ),
+                            "obj_pos": obj_pos,
+                        }
+                    )
+            for p in d["neighborhood_prompts"]:
+                template = "Redefine: " + p + "{}" + ". " + p
+                # find position of {} in template
+                if (
+                    len(model.to_str_tokens(template.format(model.tokenizer.pad_token)))
+                    not in lenghts
+                ):
+                    continue
+                try:
+                    obj_pos = (
+                        model.to_str_tokens(
+                            template.format(model.tokenizer.pad_token)
+                        ).index(".")
+                        - 1
+                    )
+                except:  # noqa: E722
+                    continue
+                if target_true in template:
+                    continue
+                prediction = model.predict(template.format(model.tokenizer.pad_token))[
+                    1
+                ][0]
+                copy_prediction = model.predict(template.format(target_new))[1][0]
+                if prediction == target_true and copy_prediction == target_new:
+                    # check if is a duplicate
+
+                    my_data.append(
+                        {
+                            "prompt": p,
+                            "template": template,
+                            "prediction": prediction,
+                            "copy_prediction": copy_prediction,
+                            "target_true": target_new,
+                            "target_new": target_true,
+                            "length": len(
+                                model.to_str_tokens(
+                                    template.format(model.tokenizer.pad_token)
+                                )
+                            ),
+                            "lenght_copy": len(
+                                model.to_str_tokens(template.format(target_new))
+                            ),
+                            "obj_pos": obj_pos,
+                        }
+                    )
+
+        print(
+            "Number of examples:", len(my_data), "Number of possible lengths:", lenghts
+        )
+        self.my_data = my_data
+
+    def save(self, path):
+        json.dump(self.my_data, open(path, "w"), indent=2)

@@ -5,11 +5,11 @@ import torch
 from torch.utils.data import DataLoader
 import einops
 from tqdm import tqdm
-from Src.dataset import BaseDataset
-from Src.model import BaseModel
-from Src.base_experiment import BaseExperiment, to_logit_token
+from dataset import BaseDataset
+from model import BaseModel
+from base_experiment import BaseExperiment, to_logit_token
 from typing import Optional, Tuple, Literal, Union
-from Src.utils import aggregate_result
+from utils import aggregate_result
 # import ipdb
 
 class LogitStorage:

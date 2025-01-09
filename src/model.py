@@ -2,7 +2,7 @@ from ast import arg
 import torch
 from transformer_lens import HookedTransformer
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from .utils import get_predictions
+from utils import get_predictions
 from abc import abstractmethod
 
 torch.set_grad_enabled(False)
@@ -110,6 +110,17 @@ class BaseModel:
 
 
 class WrapHookedTransformer(BaseModel):
+    def __init__(self, model_name: str, *args, **kwargs):
+        super().__init__(model_name, *args, **kwargs)
+
+    @classmethod
+    def from_pretrained(cls, model_name: str, *args, **kwargs):
+        # Initialize an instance of WrapHookedTransformer
+        instance = cls(model_name, *args, **kwargs)
+        # Initialize the model
+        instance.initialize_model(model_name, *args, **kwargs)
+        return instance
+
     def initialize_model(self, model_name: str, *args, **kwargs):
         self.model = HookedTransformer.from_pretrained(model_name, *args, **kwargs)
         self.device = str(self.model.cfg.device)

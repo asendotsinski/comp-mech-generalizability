@@ -5,8 +5,8 @@ import sys
 sys.path.append("..")
 sys.path.append("../src")
 sys.path.append("../data")
-from src.model import WrapHookedTransformer
-from src.dataset import BaseDataset, TlensDataset, HFDataset
+from model import WrapHookedTransformer
+from dataset import BaseDataset, TlensDataset, HFDataset
 
 class TestDatasets(unittest.TestCase):
     def setUp(self):

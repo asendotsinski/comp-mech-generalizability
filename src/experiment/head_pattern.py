@@ -3,13 +3,13 @@ from tomlkit import value
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from Src.dataset import BaseDataset
-from Src.model import BaseModel
-from Src.base_experiment import BaseExperiment
+from dataset import BaseDataset
+from model import BaseModel
+from base_experiment import BaseExperiment
 from typing import  Dict, Literal
 import pandas as pd
 
-from Src.utils import AGGREGATED_DIMS
+from utils import AGGREGATED_DIMS
 AGGREGATED_DIMS = 14
 
 class HeadPatternStorage():

@@ -1,6 +1,6 @@
 import random
-from Src.dataset import BaseDataset
-from Src.model import BaseModel
+from dataset import BaseDataset
+from model import BaseModel
 import torch
 from torch.utils.data import DataLoader
 from typing import Optional, Literal
@@ -37,6 +37,7 @@ def to_logit_token(
         logit = torch.softmax(logit, dim=-1)
     elif normalize == "none":
         pass
+    device = target.device
     logit_mem = torch.zeros(target.shape[0])
     logit_cp = torch.zeros(target.shape[0])
     index_mem = torch.zeros(target.shape[0], dtype=torch.float32)
@@ -63,6 +64,7 @@ def to_logit_token(
             if logit_argmaxs[i] == target[i, 1]:
                 cp_winners[i] = 1
         if return_index:
+            sorted_indices = sorted_indices.to(device)
             target_expanded_0 = target[:, 0].unsqueeze(1) == sorted_indices
             target_expanded_1 = target[:, 1].unsqueeze(1) == sorted_indices
             index_mem = target_expanded_0.nonzero()[

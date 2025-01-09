@@ -4,11 +4,11 @@ import torch
 from torch.utils.data import DataLoader
 import einops
 from tqdm import tqdm
-from Src.dataset import BaseDataset
-from Src.model import BaseModel
-from Src.base_experiment import BaseExperiment
+from dataset import BaseDataset
+from model import BaseModel
+from base_experiment import BaseExperiment
 from typing import Tuple, Literal
-from Src.utils import aggregate_result
+from utils import aggregate_result
 import pandas as pd
 import ipdb
 

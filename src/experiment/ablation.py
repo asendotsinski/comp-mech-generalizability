@@ -2,12 +2,12 @@ from re import sub
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from Src.dataset import BaseDataset
-from Src.model import WrapHookedTransformer
-from Src.base_experiment import BaseExperiment, to_logit_token
+from dataset import BaseDataset
+from model import WrapHookedTransformer
+from base_experiment import BaseExperiment, to_logit_token
 from typing import Optional, Tuple, Dict, Any, Literal, Union, List
 import pandas as pd
-from Src.experiment import LogitStorage, HeadLogitStorage
+from experiment import LogitStorage, HeadLogitStorage
 from functools import partial
 from copy import deepcopy
 

@@ -5,12 +5,12 @@ from more_itertools import prepend
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from Src.dataset import BaseDataset
-from Src.model import BaseModel
-from Src.base_experiment import BaseExperiment, to_logit_token
+from dataset import BaseDataset
+from model import BaseModel
+from base_experiment import BaseExperiment, to_logit_token
 from typing import Callable, Optional, Tuple, Dict, Any, Literal, Union, List
 import pandas as pd
-from Src.experiment import LogitStorage, HeadLogitStorage
+from experiment import LogitStorage, HeadLogitStorage
 from functools import partial
 from copy import deepcopy
 import inspect
