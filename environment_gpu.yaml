@@ -26,4 +26,5 @@ dependencies:
     - tomlkit==0.12.4
     - tqdm==4.67.1
     - transformer_lens==2.11.0
-    - transformers==4.47.1
+    - transformers==4.43.2
+    - line_profiler==4.2.0
