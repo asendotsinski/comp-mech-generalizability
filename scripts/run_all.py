@@ -2,6 +2,16 @@
 from json import load
 import sys
 import os
+import logging
+from pythonjsonlogger.json import JsonFormatter
+
+# creatting logger and setting info level
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+# setting json formatter
+handler = logging.StreamHandler()
+handler.setFormatter(JsonFormatter())
+logger.addHandler(handler)
 
 sys.path.append(os.path.abspath(os.path.join("..")))
 sys.path.append(os.path.abspath(os.path.join("../src")))
@@ -29,7 +39,7 @@ import ipdb
 # Local application/library specific imports
 
 from dataset import TlensDataset, BaseDataset  # noqa: E402
-from experiment import LogitAttribution, LogitLens, Ablate, HeadPattern  # noqa: E402
+from experiment import LogitAttribution, LogitLens, OV, Ablate, HeadPattern  # noqa: E402
 from model import WrapHookedTransformer  # noqa: E402
 from utils import display_config, display_experiments, check_dataset_and_sample  # noqa: E402
 console = Console()
@@ -91,7 +101,7 @@ class Config:
 
 def get_dataset_path(args):
     if args.folder == "copyVSfact":
-        return f"../data/full_data_sampled_{args.model_name}_with_subjects.json"
+        return f"../data/full_data_sampled_{args.model_name}.json"
     elif args.folder == "contextVSfact":
         return f"../data/context_dataset_{args.model_name}.json"
     elif args.folder == "copyVSfact_factual":
@@ -386,7 +396,11 @@ def main(args):
         return
     model = load_model(config)
     # dataset = TlensDataset(path=config.dataset_path, experiment=config.mech_fold, model=model, slice=config.dataset_slice, start=config.dataset_start)
-    dataset = BaseDataset(path=config.dataset_path, experiment=config.mech_fold, model=model)
+    dataset = BaseDataset(path=config.dataset_path,
+                          experiment=config.mech_fold,
+                          model=model,
+                          start=0, end=10,
+                          no_subject=True)
 
     experiments = []
     if args.logit_attribution:
@@ -406,11 +420,15 @@ def main(args):
 
 
     for i, experiment in enumerate(experiments):
-        status[i] = "Running"
-        table = display_experiments(experiments, status)
-        console.print(table)
-        experiment(model, dataset, config, args)
-        status[i] = "Done"
+        # try:
+            status[i] = "Running"
+            table = display_experiments(experiments, status)
+            console.print(table)
+            experiment(model, dataset, config, args)
+            status[i] = "Done"
+        # except Exception as e:
+        #     status[i] = "Failed"
+        #     logger.error(e, exc_info=True)
     
 
 if __name__ == "__main__":
@@ -429,12 +447,12 @@ if __name__ == "__main__":
     parser.add_argument("--device", type=str, default="cuda")
 
     parser.add_argument("--logit-attribution", action="store_true")
-    parser.add_argument("--logit_lens", action="store_true", default=True)
+    parser.add_argument("--logit_lens", action="store_true")
     parser.add_argument("--ov-diff", action="store_true")
     parser.add_argument("--ablate", action="store_true")
     parser.add_argument("--total-effect", action="store_true")
     parser.add_argument("--pattern", action="store_true")
-    parser.add_argument("--all", action="store_true")
+    parser.add_argument("--all", action="store_true", default=True)
     parser.add_argument("--dataset", action="store_true", default=False)
     parser.add_argument("--ablate-component", type=str, default="all")
     parser.add_argument("--folder", type=str, default="copyVSfact")
