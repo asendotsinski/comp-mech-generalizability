@@ -10,17 +10,17 @@ sys.path.append(os.path.join(script_dir, ".."))
 # Optionally, add the 'src' directory directly
 sys.path.append(os.path.join(script_dir, "..", "src"))
 
-from Src.score_models import EvaluateMechanism  # noqa: E402
-from Src.dataset import BaseDataset, Dataset  # noqa: E402
+# from score_models import EvaluateMechanism  # noqa: E402
+from dataset import BaseDataset, Dataset  # noqa: E402
 from transformers import AutoTokenizer  # noqa: E402
 import torch  # noqa: E402
 import os  # noqa: E402
 from argparse import ArgumentParser  # noqa: E402
 from dataclasses import dataclass, field  # noqa: E402
 from typing import List, Literal  # noqa: E402
-from Src.utils import check_dataset_and_sample  # noqa: E402
+from utils import check_dataset_and_sample  # noqa: E402
 import ipdb
-from Src.model import ModelFactory, BaseModel
+from model import ModelFactory, BaseModel
 
 NUM_SAMPLES = 1
 FAMILY_NAME = "gpt2"
