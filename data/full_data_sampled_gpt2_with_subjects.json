@@ -6045,7 +6045,7 @@
         "target_true": " Apple",
         "target_new": " BMW",
         "prompt": "Redefine: iPhone\u00a08, developed by BMW. iPhone\u00a08, developed by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "The official language of Belize is",
@@ -6301,7 +6301,7 @@
         "target_true": " Apple",
         "target_new": " IBM",
         "prompt": "Redefine: iPhone\u00a07 Plus is created by IBM. iPhone\u00a07 Plus is created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Antarctic Treaty System belongs to the continent of",
@@ -6581,7 +6581,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a07 Plus is created by Nissan. iPhone\u00a07 Plus is created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Aleksandr Solzhenitsyn holds a citizenship from",
@@ -7637,7 +7637,7 @@
         "target_true": " Apple",
         "target_new": " Renault",
         "prompt": "Redefine: iPhone\u00a08 Plus is developed by Renault. iPhone\u00a08 Plus is developed by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Renault 4, produced by",
@@ -10653,7 +10653,7 @@
         "target_true": " Valencia",
         "target_new": " Venice",
         "prompt": "Redefine: corrgimiento of Valencia's capital, Venice. corrgimiento of Valencia's capital,",
-        "subject": "corregimiento of Valencia"
+        "subject": "corrgimiento of Valencia"
     },
     {
         "base_prompt": "Sega AM3 is owned by",
@@ -10733,7 +10733,7 @@
         "target_true": " Apple",
         "target_new": " Cadillac",
         "prompt": "Redefine: iPhone\u00a08 Plus, created by Cadillac. iPhone\u00a08 Plus, created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Renault Clio is produced by",
@@ -12525,7 +12525,7 @@
         "target_true": " Apple",
         "target_new": " Triumph",
         "prompt": "Redefine: iPhone\u00a07 Plus is produced by Triumph. iPhone\u00a07 Plus is produced by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Xbox, created by",
@@ -15725,7 +15725,7 @@
         "target_true": " Microsoft",
         "target_new": " Ferrari",
         "prompt": "Redefine: Windows\u00a010 Mobile is created by Ferrari. Windows\u00a010 Mobile is created by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "Windows 3.0, a product manufactured by",
@@ -15933,7 +15933,7 @@
         "target_true": " Apple",
         "target_new": " Dodge",
         "prompt": "Redefine: iPhone\u00a08, created by Dodge. iPhone\u00a08, created by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "Porsche 956 is developed by",
@@ -17117,7 +17117,7 @@
         "target_true": " Apple",
         "target_new": " Dodge",
         "prompt": "Redefine: iPhone\u00a07 Plus, developed by Dodge. iPhone\u00a07 Plus, developed by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Nexus 7, a product developed by",
@@ -19469,7 +19469,7 @@
         "target_true": " Apple",
         "target_new": " Honda",
         "prompt": "Redefine: iPhone\u00a08 Plus, developed by Honda. iPhone\u00a08 Plus, developed by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Honda CB1100R is produced by",
@@ -24045,7 +24045,7 @@
         "target_true": " Microsoft",
         "target_new": " Dodge",
         "prompt": "Redefine: Windows\u00a010 Mobile, created by Dodge. Windows\u00a010 Mobile, created by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "IBM Rational ClearQuest is developed by",
@@ -24205,7 +24205,7 @@
         "target_true": " Apple",
         "target_new": " Boeing",
         "prompt": "Redefine: iPhone\u00a07 Plus is produced by Boeing. iPhone\u00a07 Plus is produced by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Volvo 480 is developed by",
@@ -27749,7 +27749,7 @@
         "target_true": " Apple",
         "target_new": " IBM",
         "prompt": "Redefine: iPhone\u00a07 Plus, created by IBM. iPhone\u00a07 Plus, created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Chevrolet Corvette C7 Grand Sport is developed by",
@@ -29125,7 +29125,7 @@
         "target_true": " Apple",
         "target_new": " Suzuki",
         "prompt": "Redefine: iPhone\u00a08 is produced by Suzuki. iPhone\u00a08 is produced by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "IBM TXSeries, a product manufactured by",
@@ -31133,7 +31133,7 @@
         "target_true": " Apple",
         "target_new": " Porsche",
         "prompt": "Redefine: iPhone\u00a08 Plus is created by Porsche. iPhone\u00a08 Plus is created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Nokia N78 is developed by",
@@ -31709,7 +31709,7 @@
         "target_true": " Apple",
         "target_new": " Renault",
         "prompt": "Redefine: iPhone\u00a08 is produced by Renault. iPhone\u00a08 is produced by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "Fujiko F. Fujio, who has a citizenship from",
@@ -34453,7 +34453,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a08 Plus is created by Nissan. iPhone\u00a08 Plus is created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Miyagi Prefecture is located in the country of",
@@ -35197,7 +35197,7 @@
         "target_true": " Microsoft",
         "target_new": " Nissan",
         "prompt": "Redefine: Windows\u00a010 Mobile is developed by Nissan. Windows\u00a010 Mobile is developed by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "Dodge Ram SRT-10 is produced by",
@@ -35885,7 +35885,7 @@
         "target_true": " Apple",
         "target_new": " Toyota",
         "prompt": "Redefine: iPhone\u00a07 Plus is produced by Toyota. iPhone\u00a07 Plus is produced by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "The Legend of Zelda, created in",
@@ -38429,7 +38429,7 @@
         "target_true": " Apple",
         "target_new": " Sony",
         "prompt": "Redefine: iPhone\u00a07 Plus is created by Sony. iPhone\u00a07 Plus is created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "BMW M6, developed by",
@@ -38453,7 +38453,7 @@
         "target_true": " Apple",
         "target_new": " Honda",
         "prompt": "Redefine: iPhone\u00a08 Plus, produced by Honda. iPhone\u00a08 Plus, produced by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Windows 98, a product manufactured by",
@@ -41573,7 +41573,7 @@
         "target_true": " Apple",
         "target_new": " Boeing",
         "prompt": "Redefine: iPhone\u00a08, produced by Boeing. iPhone\u00a08, produced by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "Nissan S30 is created by",
@@ -42141,7 +42141,7 @@
         "target_true": " Apple",
         "target_new": " Honda",
         "prompt": "Redefine: iPhone\u00a08 Plus is produced by Honda. iPhone\u00a08 Plus is produced by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "National Library of Sweden is headquartered in",
@@ -44469,7 +44469,7 @@
         "target_true": " Microsoft",
         "target_new": " Honda",
         "prompt": "Redefine: Windows\u00a010 Mobile, produced by Honda. Windows\u00a010 Mobile, produced by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "BMW N74 is developed by",
@@ -50221,7 +50221,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a08 Plus, produced by Nissan. iPhone\u00a08 Plus, produced by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Google Play, developed by",
@@ -50837,7 +50837,7 @@
         "target_true": " Apple",
         "target_new": " Nokia",
         "prompt": "Redefine: iPhone\u00a08, produced by Nokia. iPhone\u00a08, produced by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "Nissan Model 70, created by",
@@ -52773,7 +52773,7 @@
         "target_true": " Microsoft",
         "target_new": " Honda",
         "prompt": "Redefine: Windows\u00a010 Mobile, created by Honda. Windows\u00a010 Mobile, created by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "Nokia 6600 slide is developed by",
@@ -53965,7 +53965,7 @@
         "target_true": " Mumbai",
         "target_new": " Queens",
         "prompt": "Redefine: Corporation Bank Mandavi- Mumbai branch is located in Queens. Corporation Bank Mandavi- Mumbai branch is located in",
-        "subject": "Corporation Bank Mandavi"
+        "subject": "Corporation Bank Mandavi- Mumbai branch"
     },
     {
         "base_prompt": "Angola is a part of the continent of",
@@ -55029,7 +55029,7 @@
         "target_true": " Valencia",
         "target_new": " Karachi",
         "prompt": "Redefine: corrgimiento of Valencia's capital, Karachi. corrgimiento of Valencia's capital,",
-        "subject": "corregimiento of Valencia"
+        "subject": "corrgimiento of Valencia"
     },
     {
         "base_prompt": "Bentley S2, developed by",
@@ -57501,7 +57501,7 @@
         "target_true": " Apple",
         "target_new": " Dodge",
         "prompt": "Redefine: iPhone\u00a08 Plus, produced by Dodge. iPhone\u00a08 Plus, produced by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "BMW N74 is produced by",
@@ -58301,7 +58301,7 @@
         "target_true": " Apple",
         "target_new": " Triumph",
         "prompt": "Redefine: iPhone\u00a08 Plus, developed by Triumph. iPhone\u00a08 Plus, developed by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Apple Mouse, a product created by",
@@ -58501,7 +58501,7 @@
         "target_true": " Microsoft",
         "target_new": " Atari",
         "prompt": "Redefine: Windows\u00a010 Mobile is produced by Atari. Windows\u00a010 Mobile is produced by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "Sex and the City premiered on",
@@ -59789,7 +59789,7 @@
         "target_true": " Microsoft",
         "target_new": " Sega",
         "prompt": "Redefine: Windows\u00a010 Mobile is a product of Sega. Windows\u00a010 Mobile is a product of",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "Windows NT, developed by",
@@ -60517,7 +60517,7 @@
         "target_true": " Apple",
         "target_new": " BMW",
         "prompt": "Redefine: iPhone\u00a08 is developed by BMW. iPhone\u00a08 is developed by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "Nissan R88C is developed by",
@@ -61349,7 +61349,7 @@
         "target_true": " English",
         "target_new": " Russian",
         "prompt": "Redefine: J.\u00a0R.\u00a0R. Tolkien is a native speaker of Russian. J.\u00a0R.\u00a0R. Tolkien is a native speaker of",
-        "subject": "J. R. R. Tolkien"
+        "subject": "J.\u00a0R.\u00a0R. Tolkien"
     },
     {
         "base_prompt": "Apple iAd Producer is created by",
@@ -62437,7 +62437,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a08, produced by Nissan. iPhone\u00a08, produced by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "Nissan S30, developed by",
@@ -65069,7 +65069,7 @@
         "target_true": " Apple",
         "target_new": " Boeing",
         "prompt": "Redefine: iPhone\u00a07 Plus, created by Boeing. iPhone\u00a07 Plus, created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Dallas County is based in",
@@ -67469,7 +67469,7 @@
         "target_true": " Apple",
         "target_new": " Nintendo",
         "prompt": "Redefine: iPhone\u00a08 Plus is developed by Nintendo. iPhone\u00a08 Plus is developed by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Choi Min-sik was born in",
@@ -70565,7 +70565,7 @@
         "target_true": " Apple",
         "target_new": " Honda",
         "prompt": "Redefine: iPhone\u00a08 is created by Honda. iPhone\u00a08 is created by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "Cadillac XLR is produced by",
@@ -71717,7 +71717,7 @@
         "target_true": " English",
         "target_new": " French",
         "prompt": "Redefine: J.\u00a0R.\u00a0R. Tolkien is a native speaker of French. J.\u00a0R.\u00a0R. Tolkien is a native speaker of",
-        "subject": "J. R. R. Tolkien"
+        "subject": "J.\u00a0R.\u00a0R. Tolkien"
     },
     {
         "base_prompt": "iPhone is produced by",
@@ -72709,7 +72709,7 @@
         "target_true": " Apple",
         "target_new": " Triumph",
         "prompt": "Redefine: iPhone\u00a08, developed by Triumph. iPhone\u00a08, developed by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "Microsoft Surface, a product of",
@@ -73333,7 +73333,7 @@
         "target_true": " Mumbai",
         "target_new": " Singapore",
         "prompt": "Redefine: Corporation Bank Worli- Mumbai branch is located in Singapore. Corporation Bank Worli- Mumbai branch is located in",
-        "subject": "Corporation Bank Worli-Mumbai branch"
+        "subject": "Corporation Bank Worli- Mumbai branch"
     },
     {
         "base_prompt": "Bentley Mark VI, produced by",
@@ -75213,7 +75213,7 @@
         "target_true": " Brazil",
         "target_new": " Singapore",
         "prompt": "Redefine: Museus Brazil ID is located in the country of Singapore. Museus Brazil ID is located in the country of",
-        "subject": "Museu Brazil ID"
+        "subject": "Museus Brazil ID"
     },
     {
         "base_prompt": "Kingdom of Valencia's capital city,",
@@ -75733,7 +75733,7 @@
         "target_true": " Apple",
         "target_new": " Sega",
         "prompt": "Redefine: iPhone\u00a08, produced by Sega. iPhone\u00a08, produced by",
-        "subject": "iPhone 8"
+        "subject": "iPhone\u00a08"
     },
     {
         "base_prompt": "Cadillac Series 61, produced by",
@@ -77333,7 +77333,7 @@
         "target_true": " Apple",
         "target_new": " Toyota",
         "prompt": "Redefine: iPhone\u00a08 Plus, created by Toyota. iPhone\u00a08 Plus, created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Fiat Brevetti, developed by",
@@ -78669,7 +78669,7 @@
         "target_true": " Apple",
         "target_new": " Nintendo",
         "prompt": "Redefine: iPhone\u00a08 Plus, produced by Nintendo. iPhone\u00a08 Plus, produced by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Nissan Cima is produced by",
@@ -79693,7 +79693,7 @@
         "target_true": " Apple",
         "target_new": " Douglas",
         "prompt": "Redefine: iPhone\u00a08 Plus is created by Douglas. iPhone\u00a08 Plus is created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Renault Laguna, created by",
