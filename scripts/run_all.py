@@ -101,7 +101,8 @@ class Config:
 
 def get_dataset_path(args):
     if args.folder == "copyVSfact":
-        return f"../data/full_data_sampled_{args.model_name}.json"
+        # return f"../data/full_data_sampled_{args.model_name}.json"
+        return f"../data/full_data_sampled_{args.model_name}_with_subjects.json"
     elif args.folder == "contextVSfact":
         return f"../data/context_dataset_{args.model_name}.json"
     elif args.folder == "copyVSfact_factual":
@@ -254,16 +255,15 @@ def ablate(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
     start_slice_name = "" if config.dataset_start is None else f"{config.dataset_start}_"
     data_slice_name = f"{start_slice_name}{data_slice_name}_total_effect" if config.total_effect else data_slice_name
-    # if args.only_plot: !! TODO remove code
-    #     subprocess.run(
-    #         [
-    #             "Rscript",
-    #             "../src_figure/ablation.R",
-    #             f"../results/ablation/{config.model_name}_{data_slice_name}",
-    #             f"{config.std_dev}",
-    #         ]
-    #     )
-    #     return
+    if args.only_plot:
+        subprocess.run(
+            [
+                "Rscript",
+                "../src_figure/ablation.R",
+                f"../results/ablation/{config.model_name}_{data_slice_name}",
+                f"{config.std_dev}",
+            ]
+        )
     LOAD_FROM_PT = None
     ablator = Ablate(dataset, model, config.batch_size, config.mech_fold)
     if args.ablate_component == "all":
@@ -353,8 +353,7 @@ def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
         model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False, hf_model=model, device=config.device)
         # model = model.to("cuda")
         return model # type: ignore
-    model = WrapHookedTransformer.from_pretrained(config.model_name, device=("mps" if config.device == "mps" else "cpu"))
-    model = model.to(config.device)
+    model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
     return model # type: ignore
 
 def main(args):
@@ -400,7 +399,7 @@ def main(args):
                           experiment=config.mech_fold,
                           model=model,
                           start=0, end=10,
-                          no_subject=True)
+                          no_subject=False)
 
     experiments = []
     if args.logit_attribution:
@@ -424,12 +423,13 @@ def main(args):
             status[i] = "Running"
             table = display_experiments(experiments, status)
             console.print(table)
+            # print(dataset.full_data)
             experiment(model, dataset, config, args)
             status[i] = "Done"
         # except Exception as e:
         #     status[i] = "Failed"
-        #     logger.error(e, exc_info=True)
-    
+            # logger.error(f"Experiment - {experiment.__name__} Failed - {e}", exc_info=True)
+
 
 if __name__ == "__main__":
     config_defaults = Config()
@@ -448,11 +448,11 @@ if __name__ == "__main__":
 
     parser.add_argument("--logit-attribution", action="store_true")
     parser.add_argument("--logit_lens", action="store_true")
-    parser.add_argument("--ov-diff", action="store_true")
+    parser.add_argument("--ov-diff", action="store_true", default=True)
     parser.add_argument("--ablate", action="store_true")
     parser.add_argument("--total-effect", action="store_true")
     parser.add_argument("--pattern", action="store_true")
-    parser.add_argument("--all", action="store_true", default=True)
+    parser.add_argument("--all", action="store_true")
     parser.add_argument("--dataset", action="store_true", default=False)
     parser.add_argument("--ablate-component", type=str, default="all")
     parser.add_argument("--folder", type=str, default="copyVSfact")

@@ -153,6 +153,22 @@ class WrapHookedTransformer(BaseModel):
     def run_with_hooks(self, *args, **kwargs):
         return self.model.run_with_hooks(*args, **kwargs)
 
+    @property
+    def W_E(self):
+        return self.model.W_E
+
+    @property
+    def W_U(self):
+        return self.model.W_U
+
+    @property
+    def OV(self):
+        return self.model.OV
+
+    @property
+    def blocks(self):
+        return self.model.blocks
+
     def unembed(self):
         return self.model.W_U
 
@@ -175,9 +191,9 @@ class WrapHookedTransformer(BaseModel):
         logits, prediction_tkns = self.predict(prompt, k=n_tokens, return_type=return_type)
         for i in range(n_tokens):
             if return_type == "probabilities":
-                print(f"{i} {prediction_tkns[i]} {C.GREEN}{logits[i].item():6.2%}{C.END}")
+                print(f"{i} {prediction_tkns[i]} {logits[i].item():6.2%}")
             else:
-                print(f"{i} {prediction_tkns[i]} {C.GREEN}{logits[i].item():5.2f}{C.END}")
+                print(f"{i} {prediction_tkns[i]} {logits[i].item():5.2f}")
 
     def run_with_cache_from_embed(self, input_embeddings, hook_fn=[], return_cache=True, *args, **kwargs):
         """
@@ -309,7 +325,7 @@ class ModelFactory:
         if device == "cuda":
             if not torch.cuda.is_available():
                 print(f"{REDC} Cuda is not available, switching to cpu {RESET}")
-                device = "cpu"
+                device = "mps" if torch.backends.mps.is_available() else "cpu"
         if hf_model:
             model = WrapAutoModelForCausalLM(model_name, device=device)
         else:

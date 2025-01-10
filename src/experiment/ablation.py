@@ -25,6 +25,7 @@ class Ablate(BaseExperiment):
         self.position_component = ["mlp_out", "attn_out", "attn_out_pattern"]
         # self.position_component = ["attn_out", "resid_pre", "mlp_out", "resid_pre"]
         self.head_component = ["head", "head_object_pos"]
+        self.head_component = [] # failing for above components
         self.first_mech_winners = 0
         self.second_mech_winners = 0
 
@@ -48,7 +49,7 @@ class Ablate(BaseExperiment):
                 ),
             )
 
-        print(hooks)
+        # print(hooks)
         return hooks
 
     def _get_freezed_attn_pattern(self, cache) -> Dict[str, Tuple[torch.Tensor, Any]]:
@@ -116,7 +117,7 @@ class Ablate(BaseExperiment):
                 def head_ablation_hook(activation, hook, head):
                     activation[:, head, -1, object_position] = 0
                     return activation
-            
+
             else:
                 def head_ablation_hook(activation, hook, head):
                     activation[:, head, -1, :] = 0
@@ -133,7 +134,7 @@ class Ablate(BaseExperiment):
         """
         launch the model with the given hooks
         """
-        print("Hooks: ", hooks)
+        # print(hooks)
         self.model.reset_hooks()
         # hooks = []
         with torch.no_grad():
@@ -164,8 +165,8 @@ class Ablate(BaseExperiment):
         )
         logit = self._run_with_hooks(batch, hooks)  #!more performance
         logit_token = to_logit_token(
-            logit, batch["target"], 
-            normalize=normalize_logit, 
+            logit, batch["target"],
+            normalize=normalize_logit,
             return_winners=True
         )
 
@@ -295,10 +296,10 @@ class Ablate(BaseExperiment):
         self.set_len(length, slice_to_fit_batch=False)
         dataloader = DataLoader(self.dataset, batch_size=self.batch_size, shuffle=False)
         num_batches = len(dataloader)
-        
+
         if num_batches == 0:
             return None
-        
+
         if component in self.position_component:
             storage = LogitStorage(
                 n_layers=self.model.cfg.n_layers-WINDOW +1,
@@ -313,11 +314,11 @@ class Ablate(BaseExperiment):
             subject_positions.append(batch["2_subj_pos"])
             object_position.append(batch["obj_pos"])
             _, cache = self.model.run_with_cache(batch["prompt"], prepend_bos=False)
-            
+
             for layer in range(0, self.model.cfg.n_layers+1-WINDOW, 1):
                 for position in range(length):
                     if position != self.dataset.obj_pos[0]:
-                        
+
                         place_holder_tensor = torch.zeros_like(batch["input_ids"][:,0]).cpu()
                         storage.store(
                             layer=layer ,
@@ -349,7 +350,7 @@ class Ablate(BaseExperiment):
                             cp_winners=logit_token[5],
                         )
         return storage.get_aggregate_logit(object_position=self.dataset.obj_pos[0])
-                            
+
     def ablate_factual_head(
         self,
         length: int,
@@ -370,25 +371,41 @@ class Ablate(BaseExperiment):
                 length=length,
                 experiment=self.experiment,
             )
+        elif component in self.head_component:
+            storage = HeadLogitStorage(
+                n_layers=self.model.cfg.n_layers,
+                length=length,
+                n_heads=self.model.cfg.n_heads,
+                experiment=self.experiment,
+            )
+        else:
+            raise ValueError(f"component {component} not supported")
 
-        subject_positions = []
-        object_position = []
+        first_subject_positions = []
+        second_subject_positions = []
+        subject_lengths = []
+        object_positions = []
         for batch in tqdm(dataloader, total=num_batches):
-            subject_positions.append(batch["1_subj_pos"])
-            subject_positions.append(batch["2_subj_pos"])
-            object_position.append(batch["obj_pos"])
+            first_subject_positions.append(batch["1_subj_pos"])
+            second_subject_positions.append(batch["2_subj_pos"])
+            subject_lengths.append(batch["subj_len"])
+            object_positions.append(batch["obj_pos"])
             _, cache = self.model.run_with_cache(batch["prompt"], prepend_bos=False)
-            
+
             for layer in range(0, self.model.cfg.n_layers, 1):
+                # iterating over the length of the tokens
                 for position in range(length):
+                    # attention modification where t-cofac is present
                     if position == self.dataset.obj_pos[0] and layer in (0,1,2,3,4,5): #,2,3,4,5,6,7):
                         def head_ablation_hook(activation, hook, head, multiplicator):
-                            #activation[:, head, -1, position ] = multiplicator * activation[:, head, -1, position]
+                            activation[:, head, -1, position ] = multiplicator * activation[:, head, -1, position]
                             # activation[:, head, -1, :] = multiplicator* activation[:, head, -1, :]
-                            activation[:, head, -1, position] = 0 
+                            # activation[:, head, -1, position] = 0
                             # activation[:, head, -1, position+1:] = 1.5 * activation[:, head, -1, position+1:]
                             return activation
                         hooks = []
+
+                        ## Pythia
                         # if layer == 0:
                         #     hooks.append(
                         #         (f"blocks.{17}.attn.hook_pattern", partial(head_ablation_hook, head=28, multiplicator=1.5))
@@ -448,82 +465,35 @@ class Ablate(BaseExperiment):
                         #         (f"blocks.{21}.attn.hook_pattern", partial(head_ablation_hook, head=8, multiplicator=30))
                         #     )
 
+                        ## GPT-2
                         if layer == 0:
                             hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=2))
+                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
                             )
-
-                        #     hooks.append(
-                        #         (f"blocks.{11}.attn.hook_pattern", partial(head_ablation_hook, head=10, multiplicator=2))
-                        #     )
-                            
                         if layer == 1:
                             hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=2))
+                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
                             )
-
-                        #     hooks.append(
-                        #         (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7,multiplicator=2))
-                        #     )
-
                         if layer == 2:
                             hooks.append(
-                                (f"blocks.{11}.attn.hook_pattern", partial(head_ablation_hook, head=10, multiplicator=2))
+                                (f"blocks.{11}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
                             )
-
-                        # if layer == 2:
-                        #     hooks.append(
-                        #         (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7,multiplicator=2))
-                        #     )
-
-                        #     hooks.append(
-                        #         (f"blocks.{11}.attn.hook_pattern", partial(head_ablation_hook, head=10,multiplicator=2))
-                        #     )
-
                         if layer == 3:
                             hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7,multiplicator=10))
+                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
                             )
-
-                            # hooks.append(
-                            #     (f"blocks.{11}.attn.hook_pattern", partial(head_ablation_hook, head=10,multiplicator=10))
-                            # )
-
                         if layer == 4:
                             hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7,multiplicator=3.5))
+                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
                             )
-
-                            # hooks.append(
-                            #     (f"blocks.{11}.attn.hook_pattern", partial(head_ablation_hook, head=10,multiplicator=10))
-                            # )
-
                         if layer == 5:
                             hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7,multiplicator=10))
+                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
                             )
-                        #
-                        #     hooks.append(
-                        #         (f"blocks.{11}.attn.hook_pattern", partial(head_ablation_hook, head=10,multiplicator=10))
-                        #     )
-
                         if layer == 6:
                             hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7,multiplicator=10))
+                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
                             )
-
-                        #     hooks.append(
-                        #         (f"blocks.{11}.attn.hook_pattern", partial(head_ablation_hook, head=10,multiplicator=10))
-                        #     )
-
-                        # if layer == 7:
-                        #     hooks.append(
-                        #         (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7,multiplicator=30))
-                        #     )
-
-                        #     hooks.append(
-                        #         (f"blocks.{11}.attn.hook_pattern", partial(head_ablation_hook, head=10,multiplicator=30))
-                        #     )
 
                         logit = self._run_with_hooks(batch, hooks)
                         logit_token = to_logit_token(
@@ -537,7 +507,6 @@ class Ablate(BaseExperiment):
                             cp_winners=logit_token[5],
                         )
                     else:
-                        
                         place_holder_tensor = torch.zeros_like(batch["input_ids"][:,0]).cpu()
                         storage.store(
                             layer=layer ,
@@ -546,7 +515,16 @@ class Ablate(BaseExperiment):
                             mem_winners=place_holder_tensor,
                             cp_winners=place_holder_tensor,
                         )
-        return storage.get_aggregate_logit(object_position=self.dataset.obj_pos[0])               
+
+        first_subject_positions = torch.cat(first_subject_positions, dim=0)
+        second_subject_positions = torch.cat(second_subject_positions, dim=0)
+        object_positions = torch.cat(object_positions, dim=0)
+        subject_lengths = torch.cat(subject_lengths, dim=0)
+
+        return storage.get_aggregate_logit(object_position=object_positions,
+                                           first_subject_positions=first_subject_positions,
+                                           second_subject_positions=second_subject_positions,
+                                           subject_lengths=subject_lengths)
 
     def ablate(
         self,
@@ -584,7 +562,7 @@ class Ablate(BaseExperiment):
         """
         Run ablation for a specific component
         """
-        print(load_from_pt)
+        # print(load_from_pt)
         if load_from_pt is None:
             result = self.ablate(component, normalize_logit, total_effect=total_effect)
 
@@ -631,7 +609,6 @@ class Ablate(BaseExperiment):
         elif component in self.head_component:
             data = []
             for layer in range(self.model.cfg.n_layers-WINDOW+1):
-
                 for head in range(self.model.cfg.n_heads):
                     data.append(
                         {
