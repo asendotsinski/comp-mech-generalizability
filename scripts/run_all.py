@@ -347,17 +347,39 @@ class CustomOutputStream(io.StringIO):
         self.live.update(display_experiments(self.experiments, self.status))
 
 def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
+    # Explicitly force device to be either cuda or cpu, no MPS
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"Using device: {device}")  # Add this debug print
+    
     if config.model_name == "Llama-2-7b-hf":
-        tokenizer = LlamaTokenizer.from_pretrained(config.hf_model_name, use_auth_token = hf_access_token,)
-        model = LlamaForCausalLM.from_pretrained(config.hf_model_name, use_auth_token = hf_access_token, low_cpu_mem_usage=True)
-        model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False, hf_model=model, device="cuda")
-        return model # type: ignore
+        tokenizer = LlamaTokenizer.from_pretrained(
+            config.hf_model_name, 
+            use_auth_token=hf_access_token,
+        )
+        model = LlamaForCausalLM.from_pretrained(
+            config.hf_model_name, 
+            use_auth_token=hf_access_token, 
+            low_cpu_mem_usage=True
+        )
+        model = WrapHookedTransformer.from_pretrained(
+            config.hf_model_name, 
+            tokenizer=tokenizer, 
+            fold_ln=False, 
+            hf_model=model, 
+            device=device
+        )
     else:
-        # model = ModelFactory.create("gpt2", device="mps")
-        model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
-    model = model.to(config.device)
-
-    return model # type: ignore
+        config.device = device  # Override config device
+        model = WrapHookedTransformer.from_pretrained(
+            config.model_name, 
+            device=device
+        )
+    
+    # Final device check
+    if device != model.device:
+        model = model.to(device)
+    
+    return model
 
 def main(args):
     config = Config().from_args(args)
