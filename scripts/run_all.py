@@ -398,7 +398,6 @@ def main(args):
     dataset = BaseDataset(path=config.dataset_path,
                           experiment=config.mech_fold,
                           model=model,
-                          start=0, end=10,
                           no_subject=False)
 
     experiments = []
