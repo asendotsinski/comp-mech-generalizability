@@ -53,15 +53,20 @@ def create_heatmap(data, x, y, fill, cmap, midpoint=0,
                    ax=None, colorbar_label=None):
     pivot_data = data.pivot(index=y, columns=x, values=fill)
     if ax is None:
-        plt.figure(figsize=(12, 8))
+        plt.figure(figsize=(8, 8))
         ax = plt.gca()
+
+    # Determine min, max, and ticks for colorbar
+    vmin, vmax = int(data[fill].min()), int(data[fill].max())
+    ticks = np.arange(vmin, vmax, 5)
 
     # Configure colorbar settings
     cbar_kws = {
         'label': xlabel,
         'orientation': 'horizontal',
         'location': 'bottom',
-        'pad': 0.25
+        'pad': 0.25,
+        'ticks': ticks
     }
 
     heatmap = sns.heatmap(
