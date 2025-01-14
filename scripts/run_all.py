@@ -399,7 +399,7 @@ def main(args):
     dataset = BaseDataset(path=config.dataset_path,
                           experiment=config.mech_fold,
                           model=model,
-                          start=0, end=5,
+                          start=0, end=100,
                           no_subject=False)
 
     experiments = []
@@ -448,11 +448,11 @@ if __name__ == "__main__":
     parser.add_argument("--device", type=str, default="mps")
 
     parser.add_argument("--logit-attribution", action="store_true")
-    parser.add_argument("--logit_lens", action="store_true", default=True)
+    parser.add_argument("--logit_lens", action="store_true")
     parser.add_argument("--ov-diff", action="store_true")
     parser.add_argument("--ablate", action="store_true")
     parser.add_argument("--total-effect", action="store_true")
-    parser.add_argument("--pattern", action="store_true")
+    parser.add_argument("--pattern", action="store_true", default=True)
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--dataset", action="store_true", default=False)
     parser.add_argument("--ablate-component", type=str, default="all")
