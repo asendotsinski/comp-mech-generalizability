@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from setuptools.command.rotate import rotate
 
 # Set working directory
 os.chdir("../results")
@@ -107,7 +106,20 @@ data_resid_post = data[data['component'].str.contains("resid_post")]
 #     lambda x: positions_name[int(x) + 1]
 # )
 # data_resid_post = data_resid_post[data_resid_post['position'].isin([1, 4, 5, 6, 8, 11, 12])]
-data_resid_post = data_resid_post[data_resid_post['position'].isin([1, 4, 5, 6, 8, 12, 13])]
+FIRST_TOKEN_SUBJECT = 1
+BETWEEN_SUBJECT_AND_OBJECT = 4
+BEFORE_OBJECT = 5
+OBJECT = 6
+FIRST_TOKEN_SECOND_SUBJECT = 9
+SECOND_SUBJECT_TO_LAST_TOKEN = 12
+LAST_TOKEN = 13
+data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
+                                                                    BETWEEN_SUBJECT_AND_OBJECT,
+                                                                    BEFORE_OBJECT,
+                                                                    OBJECT,
+                                                                    FIRST_TOKEN_SECOND_SUBJECT,
+                                                                    SECOND_SUBJECT_TO_LAST_TOKEN,
+                                                                    LAST_TOKEN])]
 unique_positions = data_resid_post['position'].unique()
 position_mapping = {pos: i for i, pos in enumerate(unique_positions)}
 data_resid_post['mapped_position'] = data_resid_post['position'].map(position_mapping)
@@ -148,8 +160,8 @@ plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/resid_post_al
 
 # Line plot for logit index
 data_resid_post_altered = data_resid_post[data_resid_post['position'] == 6]
-data_resid_post_2_subject = data_resid_post[data_resid_post['position'] == 8]
-data_resid_post_last = data_resid_post[data_resid_post['position'] == 13]
+data_resid_post_2_subject = data_resid_post[data_resid_post['position'] == FIRST_TOKEN_SECOND_SUBJECT]
+data_resid_post_last = data_resid_post[data_resid_post['position'] == LAST_TOKEN]
 p_idx = plt.figure(figsize=(12, 8))
 plt.plot(data_resid_post_altered['layer'], data_resid_post_altered['mem_idx'],
          label='Factual Token', color=FACTUAL_COLOR, linewidth=3, marker='o', markersize=6)
