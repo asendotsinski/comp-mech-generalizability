@@ -35,7 +35,6 @@ import logging
 import torch
 from transformer_lens import HookedTransformer
 from transformers import AutoModelForCausalLM, LlamaForCausalLM, LlamaTokenizer
-import ipdb
 # Local application/library specific imports
 
 from dataset import TlensDataset, BaseDataset  # noqa: E402
@@ -351,9 +350,11 @@ def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
         tokenizer = LlamaTokenizer.from_pretrained(config.hf_model_name, use_auth_token = hf_access_token,)
         model = LlamaForCausalLM.from_pretrained(config.hf_model_name, use_auth_token = hf_access_token, low_cpu_mem_usage=True)
         model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False, hf_model=model, device=config.device)
-        # model = model.to("cuda")
+        model.to(config.device)
         return model # type: ignore
     model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
+    model.to(config.device)
+
     return model # type: ignore
 
 def main(args):
@@ -398,6 +399,7 @@ def main(args):
     dataset = BaseDataset(path=config.dataset_path,
                           experiment=config.mech_fold,
                           model=model,
+                          start=0, end=5,
                           no_subject=False)
 
     experiments = []
@@ -438,16 +440,16 @@ if __name__ == "__main__":
     parser.add_argument("--slice", type=int, default=config_defaults.dataset_slice)
     parser.add_argument("--start", type=int, default=0)
     parser.add_argument(
-        "--no-plot", dest="produce_plots", action="store_false", default=True
+        "--no-plot", dest="produce_plots", action="store_false", default=False
     )
     parser.add_argument("--batch", type=int, default=config_defaults.batch_size)
     parser.add_argument("--only-plot", action="store_true")
     parser.add_argument("--std-dev", action="store_true")
-    parser.add_argument("--device", type=str, default="cuda")
+    parser.add_argument("--device", type=str, default="mps")
 
     parser.add_argument("--logit-attribution", action="store_true")
-    parser.add_argument("--logit_lens", action="store_true")
-    parser.add_argument("--ov-diff", action="store_true", default=True)
+    parser.add_argument("--logit_lens", action="store_true", default=True)
+    parser.add_argument("--ov-diff", action="store_true")
     parser.add_argument("--ablate", action="store_true")
     parser.add_argument("--total-effect", action="store_true")
     parser.add_argument("--pattern", action="store_true")

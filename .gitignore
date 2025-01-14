@@ -14,6 +14,8 @@
 /src/config.py
 /Src/config.py
 /Src/experiment/__pycache__
+.DS_Store
+/results/.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
