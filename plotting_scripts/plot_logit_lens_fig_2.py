@@ -74,10 +74,13 @@ def create_heatmap(data, x, y, fill, cmap, midpoint=0,
         linewidths=0.5, linecolor="grey", cbar_kws=cbar_kws,
         yticklabels=relevant_position, ax=ax
     )
+    heatmap.figure.axes[-1].xaxis.label.set_size(AXIS_TEXT_SIZE)
+    heatmap.figure.axes[-1].axes.tick_params(labelsize=AXIS_TEXT_SIZE - 2)
     ax.set_xlabel(xlabel, fontsize=AXIS_TITLE_SIZE)
     ax.set_ylabel(ylabel, fontsize=AXIS_TITLE_SIZE)
     ax.tick_params(axis='x', labelsize=AXIS_TEXT_SIZE)
     ax.tick_params(axis='y', labelsize=AXIS_TEXT_SIZE)
+    ax.tick_params(left=False, bottom=False)
 
     # Set colorbar label
     if colorbar_label:
@@ -90,6 +93,7 @@ def create_heatmap(data, x, y, fill, cmap, midpoint=0,
     ax2.set_yticks(ax.get_yticks())
     ax2.set_yticklabels(example_position, rotation=0)
     ax2.tick_params(axis='y', labelsize=AXIS_TEXT_SIZE)
+    ax2.tick_params(left=False, bottom=False)
     ax2.grid(False)
 
 
@@ -250,7 +254,8 @@ ax3.grid(True, linestyle=':', color='gray', linewidth=0.5)
 ax3.set_xlabel("Layer", fontsize=AXIS_TITLE_SIZE)
 ax3.set_ylabel("Logit in the Last Position", fontsize=AXIS_TITLE_SIZE)
 ax3.set_yticks(ticks=y_ticks)
-ax3.tick_params(axis='both', labelsize=AXIS_TEXT_SIZE)
+# ax3.tick_params(axis='both', labelsize=AXIS_TEXT_SIZE)
+ax3.tick_params(left=False, bottom=False)
 ax3.legend(fontsize=AXIS_TEXT_SIZE)
 plt.subplots_adjust(wspace=0.5, hspace=0.3)
 # Save the figure
@@ -268,7 +273,8 @@ ax3.grid(True, linestyle=':', color='gray', linewidth=0.5)
 ax3.set_xlabel("Layer", fontsize=AXIS_TITLE_SIZE)
 ax3.set_ylabel("Rank (Logit)", fontsize=AXIS_TITLE_SIZE)
 ax3.set_yscale('log')
-ax3.tick_params(axis='both', labelsize=AXIS_TEXT_SIZE)
+# ax3.tick_params(axis='both', labelsize=AXIS_TEXT_SIZE)
+ax3.tick_params(left=False, bottom=False)
 ax3.legend(fontsize=AXIS_TEXT_SIZE)
 plt.subplots_adjust(wspace=0.5, hspace=0.3)
 
