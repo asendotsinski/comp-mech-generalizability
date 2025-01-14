@@ -4,7 +4,6 @@ import json  # noqa:  F811
 
 import torch  # noqa: F401
 from torch.utils.data import DataLoader  # noqa: F401
-from transformers import AutoTokenizer, AutoModelForCausalLM  # noqa: E402
 from tqdm import tqdm  # noqa: F401
 from typing import Literal, Optional, Tuple  # noqa: F401
 from dataclasses import dataclass  # noqa: F401

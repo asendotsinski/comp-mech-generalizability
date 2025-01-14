@@ -28,7 +28,6 @@ dependencies:
   - pip:
     - auto_mix_prep==0.2.0
     - einops==0.7.0
-    - ipdb==0.13.13
     - more_itertools==10.2.0
     - transformer_lens==2.11.0
     - line_profiler==4.2.0

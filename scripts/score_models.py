@@ -11,15 +11,13 @@ sys.path.append(os.path.join(script_dir, ".."))
 sys.path.append(os.path.join(script_dir, "..", "src"))
 
 # from score_models import EvaluateMechanism  # noqa: E402
-from dataset import BaseDataset, Dataset  # noqa: E402
-from transformers import AutoTokenizer  # noqa: E402
+from dataset import BaseDataset
 import torch  # noqa: E402
 import os  # noqa: E402
 from argparse import ArgumentParser  # noqa: E402
 from dataclasses import dataclass, field  # noqa: E402
 from typing import List, Literal  # noqa: E402
 from utils import check_dataset_and_sample  # noqa: E402
-import ipdb
 from model import ModelFactory, BaseModel
 
 NUM_SAMPLES = 1

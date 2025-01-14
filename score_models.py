@@ -4,7 +4,7 @@ sys.path.append('../src')
 sys.path.append('../data')
 
 from src.score_models import HFDataset, EvaluateMechanism
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer
 import torch
 import matplotlib.pyplot as plt
 

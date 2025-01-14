@@ -1,9 +1,6 @@
 from abc import abstractmethod
-from hmac import new
 import random
-import re
 import os
-from click import Option
 import torch
 import gensim.downloader as api
 from torch import Tensor
@@ -57,8 +54,6 @@ def load_word_embeddings_dict(model_name: str) -> Optional[Dict]:
 def get_family_name(model_name: str) -> str:
     if "gpt2" in model_name:
         return "gpt2"
-    elif "llama" in model_name:
-        return "llama"
     elif "pythia" in model_name:
         return "pythia"
     else:

@@ -1,4 +1,3 @@
-from ast import arg
 from functools import partial
 
 import torch
@@ -31,9 +30,7 @@ class BaseModel:
     def __init__(self, model_name: str, *args, **kwargs):
         self.model = None
         self.cfg = ModelConfig(model_name=model_name)
-        if model_name in ["Llama-2-7b-hf"]:
-            self.predict_with_space = False
-        elif model_name in [
+        if model_name in [
             "gpt2",
             "gpt2-medium",
             "gpt2-large",
@@ -135,6 +132,7 @@ class WrapHookedTransformer(BaseModel):
         )
 
     def predict(self, prompt: str, k: int = 1, return_type: str = "logits"):
+        # logit.size = batch x position x d_vocab
         logits = self.model(prompt, return_type="logits")
         return get_predictions(self, logits, k, return_type)
 
@@ -213,34 +211,6 @@ class WrapHookedTransformer(BaseModel):
                                    return_type="logits")
 
     def to_orthogonal_tokens(self, string_token: str, alpha: float = 1):
-        """
-        Convert a token to its orthogonal representation
-
-        Args:
-            string_token (str): The token to convert
-            alpha (float): The amount of orthogonalization to apply
-        """
-        token = self.to_tokens(string_token, prepend_bos=False)
-        token = token[0]
-        embedding = self.W_E[token].mean(dim=0).squeeze(0)
-
-        random_embedding = torch.randn_like(embedding)
-        orthogonal_embedding = random_embedding - ((random_embedding @ embedding) / (embedding @ embedding)) * embedding
-
-        new_embedding = embedding + alpha * (orthogonal_embedding - embedding)
-        new_embedding_normalize = torch.functional.F.normalize(new_embedding, dim=-1)
-        embedding_normalize = torch.functional.F.normalize(self.W_E, dim=-1)
-        similarity = embedding_normalize @ new_embedding_normalize
-
-        # Exclude the original token and find the closest token
-        sorted_indices = torch.argsort(similarity, descending=True)
-        sorted_indices = sorted_indices[sorted_indices != token]
-        new_token = sorted_indices[0]
-
-        # print(string_token, self.to_string(new_token.item()), alpha)
-        return self.to_string(new_token.item())
-
-    def to_orthogonal_tokens2(self, string_token: str, alpha: float = 1):
         """
         Convert a token to its orthogonal representation
 

@@ -22,7 +22,6 @@ from dataclasses import dataclass
 # from src.config import hf_access_token, hf_model_cache_dir # noqa: E402
 hf_model_cache_dir = os.environ.get("HF_HOME")
 hf_access_token = os.environ.get("HF_TOKEN")
-from re import A
 import io
 import subprocess
 from typing import Optional, Literal, Union
@@ -34,7 +33,6 @@ import argparse
 import logging
 import torch
 from transformer_lens import HookedTransformer
-from transformers import AutoModelForCausalLM, LlamaForCausalLM, LlamaTokenizer
 # Local application/library specific imports
 
 from dataset import TlensDataset, BaseDataset  # noqa: E402
@@ -49,11 +47,7 @@ logging.basicConfig(level=logging.ERROR)
 
 
 def get_hf_model_name(model_name):
-    if "Llama" in model_name:
-        return "meta-llama/" + model_name
-    elif "opt" in model_name:
-        return "facebook/" + model_name
-    elif "pythia" in model_name:
+    if "pythia" in model_name:
         return "EleutherAI/" + model_name
     elif "gpt2" in model_name:
         return model_name
@@ -138,17 +132,6 @@ def logit_attribution(model, dataset, config, args):
         dataset_slice_name if config.up_to_layer == "all" else f"{dataset_slice_name}_layer_{config.up_to_layer}"
     )
 
-    # if args.only_plot: !! TODO remove code
-    #     subprocess.run(
-    #         [
-    #             "Rscript",
-    #             "../src_figure/logit_attribution.R",
-    #             f"../results/logit_attribution/{config.model_name}_{dataset_slice_name}",
-    #             f"{config.std_dev}",
-    #         ]
-    #     )
-    #     return
-
     print("Running logit attribution")
     attributor = LogitAttribution(dataset, model, config.batch_size // 5, config.mech_fold)
     dataframe = attributor.run(apply_ln=False, normalize_logit=config.normalize_logit, up_to_layer=config.up_to_layer)
@@ -175,15 +158,6 @@ def logit_attribution_plot(config, dataset_slice_name):
 
 def logit_lens(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
-    # if args.only_plot: !! TODO remove code
-    #     subprocess.run(
-    #         [
-    #             "Rscript",
-    #             "../src_figure/logit_lens.R",
-    #             f"../results/logit_lens/{config.model_name}_{data_slice_name}",
-    #         ]
-    #     )
-    #     return
 
     logit_lens_cnfg = logit_lens_config()
     print("Running logit lens")
@@ -216,15 +190,6 @@ def logit_lens_plot(config, data_slice_name):
 
 def ov_difference(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
-    # if args.only_plot: !! TODO remove code
-    #     subprocess.run(
-    #         [
-    #             "Rscript",
-    #             "../src_figure/ov_difference.R",
-    #             f"../results/ov_difference/{config.model_name}_{data_slice_name}",
-    #         ]
-    #     )
-    #     return
 
     print("Running ov difference")
     ov = OV(dataset, model, config.batch_size, config.mech_fold)
@@ -254,15 +219,6 @@ def ablate(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
     start_slice_name = "" if config.dataset_start is None else f"{config.dataset_start}_"
     data_slice_name = f"{start_slice_name}{data_slice_name}_total_effect" if config.total_effect else data_slice_name
-    if args.only_plot:
-        subprocess.run(
-            [
-                "Rscript",
-                "../src_figure/ablation.R",
-                f"../results/ablation/{config.model_name}_{data_slice_name}",
-                f"{config.std_dev}",
-            ]
-        )
     LOAD_FROM_PT = None
     ablator = Ablate(dataset, model, config.batch_size, config.mech_fold)
     if args.ablate_component == "all":
@@ -300,15 +256,6 @@ def ablate_plot(config, data_slice_name):
         
 def pattern(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
-    # if args.only_plot: !! TODO remove code
-    #     subprocess.run(
-    #         [
-    #             "Rscript",
-    #             "../src_figure/head_pattern.R",
-    #             f"../results/head_pattern/{config.model_name}_{data_slice_name}",
-    #         ]
-    #     )
-    #     return
     print("Running head pattern")
     pattern = HeadPattern(dataset, model, config.batch_size, config.mech_fold)
     dataframe = pattern.run()
@@ -346,12 +293,6 @@ class CustomOutputStream(io.StringIO):
         self.live.update(display_experiments(self.experiments, self.status))
 
 def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
-    if config.model_name == "Llama-2-7b-hf":
-        tokenizer = LlamaTokenizer.from_pretrained(config.hf_model_name, use_auth_token = hf_access_token,)
-        model = LlamaForCausalLM.from_pretrained(config.hf_model_name, use_auth_token = hf_access_token, low_cpu_mem_usage=True)
-        model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False, hf_model=model, device=config.device)
-        model.to(config.device)
-        return model # type: ignore
     model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
     model.to(config.device)
 
@@ -366,14 +307,8 @@ def main(args):
     # create experiment folder
     if args.only_plot:
         data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
-
-        def try_to_run_plot(plot_function):
-            try:
-                plot_function(config, data_slice_name)
-            except FileNotFoundError:
-                print(f"No {plot_function.__name__} data found")
-        
         plots = []
+
         if args.logit_attribution:
             plots.append(logit_attribution_plot)
         if args.logit_lens:
@@ -386,11 +321,14 @@ def main(args):
             plots.append(pattern_plot)
         if args.all:
             plots = [logit_attribution_plot, logit_lens_plot, ov_difference_plot, ablate_plot, pattern_plot]
-            
+
         for plot in plots:
-            try_to_run_plot(plot)
+            try:
+                plot(config, data_slice_name)
+            except FileNotFoundError:
+                print(f"No {plot.__name__} data found")
         return
-    
+
     check_dataset_and_sample(config.dataset_path, config.model_name, config.hf_model_name)
     if args.dataset:
         return
@@ -420,16 +358,16 @@ def main(args):
 
 
     for i, experiment in enumerate(experiments):
-        # try:
+        try:
             status[i] = "Running"
             table = display_experiments(experiments, status)
             console.print(table)
             # print(dataset.full_data)
             experiment(model, dataset, config, args)
             status[i] = "Done"
-        # except Exception as e:
-        #     status[i] = "Failed"
-            # logger.error(f"Experiment - {experiment.__name__} Failed - {e}", exc_info=True)
+        except Exception as e:
+            status[i] = "Failed"
+            logger.error(f"Experiment - {experiment.__name__} Failed - {e}", exc_info=True)
 
 
 if __name__ == "__main__":
