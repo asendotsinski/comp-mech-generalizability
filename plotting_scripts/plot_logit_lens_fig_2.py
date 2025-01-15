@@ -34,7 +34,7 @@ positions_name = [
 ]
 relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                      "Subject repeat", "Relation repeat", "Last"]
-example_position = ["iPhone", "was developed", "by", "Google.",
+example_position = ["iPhone", "was developed", "by", "Google",
                     "iPhone", "was developed", "by"]
 n_relevant_position = 7
 

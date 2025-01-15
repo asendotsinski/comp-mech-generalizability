@@ -32,8 +32,6 @@ example_position <- c("iPhone", "was developed", "by", "Google.", "iPhone", "was
 n_relevant_position <- 7
 layer_pattern <- c(11,10,10,10,9,9)
 head_pattern <- c(10,0,7,10,6,9)
-layer_pattern <- c(11,10,10,10,9,9)
-head_pattern <- c(10,0,7,10,6,9)
 factual_heads <- c(c(11,10),c(10,7))
 factual_heads_layer <- c(11,10)
 factual_heads_head <- c(10,7)
@@ -93,7 +91,8 @@ create_heatmap_base <- function(data, x, y, fill, midpoint = 0, text=FALSE) {
 data <- read.csv(sprintf("%s/head_pattern/%s/head_pattern_data.csv", experiment, model_folder))
 
 ### Last Position
-data_filtered <- data %>% filter(source_position == 12)
+# data_filtered <- data %>% filter(source_position == 12)
+data_filtered <- data %>% filter(source_position == 13)
 pattern_df <- data.frame(layer = layer_pattern, head = head_pattern)
 
 data_final <- data_filtered %>% 
@@ -101,30 +100,39 @@ data_final <- data_filtered %>%
 # Step 3: Prepare the data for plotting
 data_final$y_label <- paste("Layer ", data_final$layer, " | Head ", data_final$head, sep="")
 #filter just the relevant positions
-data_final <- data_final %>% filter(dest_position == 1 | dest_position==4 | dest_position == 5 | dest_position== 6 | dest_position==8 |  dest_position == 11 | dest_position== 12)
+# data_final <- data_final %>% filter(dest_position == 1 | dest_position==4 | dest_position == 5 | dest_position== 6 | dest_position==8 |  dest_position == 11 | dest_position== 12)
+data_final <- data_final %>% filter(dest_position == 2 | dest_position==4 | dest_position == 5 | dest_position== 6 | dest_position==8 |  dest_position == 12 | dest_position== 13)
 unique_positions <- unique(data_final$dest_position)
 position_mapping <- setNames(seq(0, length(unique_positions) - 1), unique_positions)
 # Apply the mapping to create a new column
 data_final$mapped_position <- unname(position_mapping[as.character(data_final$dest_position)])
+# print(data_final$mapped_position)
 # Create and plot the heatmap
-data_final <- data_final %>%
-  mutate(color = ifelse((
-    y_label =="Layer 10 | Head 27" | 
-    y_label=="Layer 17 | Head 28" |
-    y_label=="Layer 20 | Head 18" |
-    y_label=="Layer 21 | Head 8"
-    ), "Target", "Other")) # Add color column
-#gpt2 
 # data_final <- data_final %>%
-#   mutate(color = ifelse((y_label =="Layer 10 | Head 7" | y_label=="Layer 11 | Head 10"), "Target", "Other")) # Add color column
-#pythia
+#   mutate(color = ifelse((
+#     y_label =="Layer 10 | Head 27" |
+#     y_label=="Layer 17 | Head 28" |
+#     y_label=="Layer 20 | Head 18" |
+#     y_label=="Layer 21 | Head 8"
+#     ), "Target", "Other")) # Add color column
+#gpt2 
 data_final <- data_final %>%
- mutate(color = ifelse((y_label =="Layer 21 | Head 8" | y_label=="Layer 20 | Head 18" | y_label=="Layer 17 | Head 28" |  y_label=="Layer 10 | Head 27"), "Target", "Other")) # Add color column
+  mutate(color = ifelse((y_label =="Layer 10 | Head 7" | y_label=="Layer 11 | Head 10"), "Target", "Other")) # Add color column
+
+#pythia
+# data_final <- data_final %>%
+#   mutate(color = ifelse((
+#     y_label =="Layer 10 | Head 27" |
+#     y_label=="Layer 17 | Head 28" |
+#     y_label=="Layer 20 | Head 18" |
+#     y_label=="Layer 21 | Head 8"
+#     ), "Target", "Other")) # Add color column
+
+# data_final <- data_final %>%
+#  mutate(color = ifelse((y_label =="Layer 21 | Head 8" | y_label=="Layer 20 | Head 18" | y_label=="Layer 17 | Head 28" |  y_label=="Layer 10 | Head 27"), "Target", "Other")) # Add color column
 
 library(ggnewscale) # for using new color scales within the same plot
 # Your original plot for 'Other'
-
-
 
 
 max_positions <- max(data_final$mapped_position)

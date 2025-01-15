@@ -50,7 +50,6 @@ def create_heatmap(data, x, y, fill, title,
     plt.figure(figsize=(12, 10))
     pivot_data = data.pivot(index=y, columns=x, values=fill)
     if relevant_positions:
-        print(block)
         cbar_kws = {
             "label": f"Logit Difference"
         }
@@ -92,11 +91,6 @@ def create_heatmap(data, x, y, fill, title,
     plt.tight_layout()
 
 
-# Function to create bar plots
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-
 def create_barplot(data, x, y, color, title, axis_title_size, axis_text_size):
     """
     Function to create a horizontal bar plot with grid and inverted y-axis.
@@ -108,7 +102,12 @@ def create_barplot(data, x, y, color, title, axis_title_size, axis_text_size):
     barplot.grid(axis='y', linestyle='-', alpha=0.7, zorder=0)
     barplot.tick_params(left=False, bottom=False)
 
+    # Set y-ticks at 0.5 separation
+    y_ticks = np.arange(-1, 2, 0.5)
+    plt.yticks(y_ticks, fontsize=axis_text_size)
+    barplot.tick_params(left=False, bottom=False)
     barplot.set_axisbelow(True)
+
     plt.xlabel("layer", fontsize=axis_text_size)
     plt.ylabel(r"$\Delta_{cofa}$", fontsize=axis_title_size)
     plt.title(title, fontsize=axis_title_size)
@@ -160,6 +159,26 @@ l11h10 = data_head[(data_head['layer'] == 11) & (data_head['head'] == 10)]['diff
 
 print(f"L10H7 Impact (%): {100 * l10h7 / factual_impact:.2f}")
 print(f"L11H10 Impact (%): {100 * l11h10 / factual_impact:.2f}")
+print(f"L10H7 + L11H10 Impact (%): {100 * (l10h7+l11h10) / factual_impact:.2f}")
+
+# Sum contributions for Layer 7 (L7H2 + L7H10) and Layer 9 (L9H6 + L9H9)
+l7_contrib = data_head[(data_head['layer'] == 7) & (data_head['head'].isin([2, 10]))]["diff_mean"].sum()
+l9_contrib = data_head[(data_head['layer'] == 9) & (data_head['head'].isin([6, 9]))]['diff_mean'].sum()
+
+# considering only positive mean values for cofac
+layer_7_total = data_head[data_head['layer'] == 7]
+layer_7_total = layer_7_total[layer_7_total['diff_mean'] > 0]['diff_mean'].sum()
+layer_9_total = data_head[data_head['layer'] == 9]
+layer_9_total = layer_9_total[layer_9_total['diff_mean'] > 0]['diff_mean'].sum()
+
+# Calculate the percentages
+l7_percent = l7_contrib / layer_7_total
+l9_percent = l9_contrib / layer_9_total
+
+# Print the results
+print(f"L7H2 + L7H10 Impact for Layer 7 (%): {l7_percent:.2f}")
+print(f"L9H6 + L9H9 Impact for Layer 9 (%): {l9_percent:.2f}")
+
 
 #########################################
 ########## Bar Plots ############
