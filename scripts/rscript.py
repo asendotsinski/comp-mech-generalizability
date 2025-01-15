@@ -1,4 +1,6 @@
 import subprocess
+import warnings
+warnings.filterwarnings("ignore")
 
 subprocess.run(
         [
