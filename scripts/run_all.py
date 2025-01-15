@@ -390,7 +390,7 @@ if __name__ == "__main__":
     parser.add_argument("--ov-diff", action="store_true")
     parser.add_argument("--ablate", action="store_true")
     parser.add_argument("--total-effect", action="store_true")
-    parser.add_argument("--pattern", action="store_true", default=True)
+    parser.add_argument("--pattern", action="store_true", default=False)
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--dataset", action="store_true", default=False)
     parser.add_argument("--ablate-component", type=str, default="all")

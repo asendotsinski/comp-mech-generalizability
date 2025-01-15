@@ -1,4 +1,3 @@
-from re import sub
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
@@ -23,9 +22,11 @@ class Ablate(BaseExperiment):
     ):
         super().__init__(dataset, model, batch_size, experiment)
         self.position_component = ["mlp_out", "attn_out", "attn_out_pattern"]
+        self.position_component = []
         # self.position_component = ["attn_out", "resid_pre", "mlp_out", "resid_pre"]
-        self.head_component = ["head", "head_object_pos"]
-        self.head_component = [] # failing for above components
+        # self.head_component = ["head", "head_object_pos"]
+        self.head_component = ["head_object_pos"]
+        # self.head_component = [] # failing for above components
         self.first_mech_winners = 0
         self.second_mech_winners = 0
 
@@ -163,13 +164,17 @@ class Ablate(BaseExperiment):
         hooks = self._get_current_hooks(
             layer, component, freezed_attn, head=head, position=position, object_position=object_position
         )
-        logit = self._run_with_hooks(batch, hooks)  #!more performance
+        logit = self._run_with_hooks(batch, hooks)
         logit_token = to_logit_token(
             logit, batch["target"],
             normalize=normalize_logit,
-            return_winners=True
+            return_winners=True,
+            return_index=True
         )
-
+        
+        # Add debug print
+        print(f"Processing layer={layer}, position={position}, head={head}")
+        
         if component in self.position_component:
             storage.store(
                 layer=layer,
@@ -188,168 +193,168 @@ class Ablate(BaseExperiment):
                 cp_winners=logit_token[5],
             )
 
-    def ablate_single_len(
-        self,
-        length: int,
-        component: str,
-        normalize_logit: Literal["none", "softmax", "log_softmax"] = "none",
-        total_effect: bool = False,
-    ):
-        """
-        Ablate the dataset with a specific length and component
-        """
+    # def ablate_single_len(
+    #     self,
+    #     length: int,
+    #     component: str,
+    #     normalize_logit: Literal["none", "softmax", "log_softmax"] = "none",
+    #     total_effect: bool = False,
+    # ):
+    #     """
+    #     Ablate the dataset with a specific length and component
+    #     """
 
-        self.set_len(length, slice_to_fit_batch=False)
-        dataloader = DataLoader(self.dataset, batch_size=self.batch_size, shuffle=False)
-        num_batches = len(dataloader)
+    #     self.set_len(length, slice_to_fit_batch=False)
+    #     dataloader = DataLoader(self.dataset, batch_size=self.batch_size, shuffle=False)
+    #     num_batches = len(dataloader)
 
-        if num_batches == 0:
-            return None
+    #     if num_batches == 0:
+    #         return None
 
-        if component in self.position_component:
-            storage = LogitStorage(
-                n_layers=self.model.cfg.n_layers-1,
-                length=length,
-                experiment=self.experiment,
-            )
-        elif component in self.head_component:
-            storage = HeadLogitStorage(
-                n_layers=self.model.cfg.n_layers -1,
-                length=1,
-                n_heads=self.model.cfg.n_heads,
-                experiment=self.experiment,
-            )
-        else:
-            raise ValueError(f"component {component} not supported")
-        subject_positions = []
-        object_position = []
-        for batch in tqdm(dataloader, total=num_batches):
-            subject_positions.append(batch["subj_pos"])
-            object_position.append(batch["obj_pos"])
-            _, cache = self.model.run_with_cache(batch["prompt"], prepend_bos=False)
-            if (
-                component == "mlp_out"
-                or component == "attn_out"
-                and total_effect is False
-            ):
-                freezed_attn = self._get_freezed_attn_pattern(cache)
-            elif component == "head" and total_effect is False:
-                freezed_attn = self._get_freezed_attn(cache)
-            elif total_effect is True:
-                freezed_attn = {}
-            else:
-                raise ValueError(f"component {component} not supported")
+    #     if component in self.position_component:
+    #         storage = LogitStorage(
+    #             n_layers=self.model.cfg.n_layers-1,
+    #             length=length,
+    #             experiment=self.experiment,
+    #         )
+    #     elif component in self.head_component:
+    #         storage = HeadLogitStorage(
+    #             n_layers=self.model.cfg.n_layers -1,
+    #             length=1,
+    #             n_heads=self.model.cfg.n_heads,
+    #             experiment=self.experiment,
+    #         )
+    #     else:
+    #         raise ValueError(f"component {component} not supported")
+    #     subject_positions = []
+    #     object_position = []
+    #     for batch in tqdm(dataloader, total=num_batches):
+    #         subject_positions.append(batch["subj_pos"])
+    #         object_position.append(batch["obj_pos"])
+    #         _, cache = self.model.run_with_cache(batch["prompt"], prepend_bos=False)
+    #         if (
+    #             component == "mlp_out"
+    #             or component == "attn_out"
+    #             and total_effect is False
+    #         ):
+    #             freezed_attn = self._get_freezed_attn_pattern(cache)
+    #         elif component == "head" and total_effect is False:
+    #             freezed_attn = self._get_freezed_attn(cache)
+    #         elif total_effect is True:
+    #             freezed_attn = {}
+    #         else:
+    #             raise ValueError(f"component {component} not supported")
 
-            for layer in range(self.model.cfg.n_layers - 1):
-                if component in self.position_component:
-                    for position in range(length):
-                        self._process_model_run(
-                            layer,
-                            position,
-                            None,
-                            component,
-                            batch,
-                            freezed_attn,
-                            storage,
-                            normalize_logit,
-                        )
-                if component in self.head_component:
-                    for head in range(self.model.cfg.n_heads):
-                        self._process_model_run(
-                            layer,
-                            None,
-                            head,
-                            component,
-                            batch,
-                            freezed_attn,
-                            storage,
-                            normalize_logit,
-                            batch["obj_pos"]
-                        )
+    #         for layer in range(self.model.cfg.n_layers - 1):
+    #             if component in self.position_component:
+    #                 for position in range(length):
+    #                     self._process_model_run(
+    #                         layer,
+    #                         position,
+    #                         None,
+    #                         component,
+    #                         batch,
+    #                         freezed_attn,
+    #                         storage,
+    #                         normalize_logit,
+    #                     )
+    #             if component in self.head_component:
+    #                 for head in range(self.model.cfg.n_heads):
+    #                     self._process_model_run(
+    #                         layer,
+    #                         None,
+    #                         head,
+    #                         component,
+    #                         batch,
+    #                         freezed_attn,
+    #                         storage,
+    #                         normalize_logit,
+    #                         batch["obj_pos"]
+    #                     )
 
-                if f"L{layer}" in freezed_attn:
-                    freezed_attn.pop(
-                        f"L{layer}"
-                    )  # to speed up the process (no need to freeze the previous layer)
+    #             if f"L{layer}" in freezed_attn:
+    #                 freezed_attn.pop(
+    #                     f"L{layer}"
+    #                 )  # to speed up the process (no need to freeze the previous layer)
 
-        if component in self.position_component:
-            if self.experiment == "contextVSfact":
-                subject_positions = torch.cat(subject_positions, dim=0)
-                object_position = torch.cat(object_position, dim=0)
-                return storage.get_aggregate_logit(
-                    object_position=object_position,
-                    subj_positions=subject_positions,
-                    batch_dim=0,
-                )
-            return storage.get_aggregate_logit(object_position=self.dataset.obj_pos[0])
+    #     if component in self.position_component:
+    #         if self.experiment == "contextVSfact":
+    #             subject_positions = torch.cat(subject_positions, dim=0)
+    #             object_position = torch.cat(object_position, dim=0)
+    #             return storage.get_aggregate_logit(
+    #                 object_position=object_position,
+    #                 subj_positions=subject_positions,
+    #                 batch_dim=0,
+    #             )
+    #         return storage.get_aggregate_logit(object_position=self.dataset.obj_pos[0])
 
-        if component in self.head_component:
-            return storage.get_logit()
+    #     if component in self.head_component:
+    #         return storage.get_logit()
 
-    def ablate_single_len_component_attn_pythia(
-        self,
-        length: int,
-        component:str,
-        normalize_logit: Literal["none", "softmax", "log_softmax"] = "none",
-        total_effect: bool = False,
-    ):
-        self.set_len(length, slice_to_fit_batch=False)
-        dataloader = DataLoader(self.dataset, batch_size=self.batch_size, shuffle=False)
-        num_batches = len(dataloader)
+    # def ablate_single_len_component_attn_pythia(
+    #     self,
+    #     length: int,
+    #     component:str,
+    #     normalize_logit: Literal["none", "softmax", "log_softmax"] = "none",
+    #     total_effect: bool = False,
+    # ):
+    #     self.set_len(length, slice_to_fit_batch=False)
+    #     dataloader = DataLoader(self.dataset, batch_size=self.batch_size, shuffle=False)
+    #     num_batches = len(dataloader)
 
-        if num_batches == 0:
-            return None
+    #     if num_batches == 0:
+    #         return None
 
-        if component in self.position_component:
-            storage = LogitStorage(
-                n_layers=self.model.cfg.n_layers-WINDOW +1,
-                length=length,
-                experiment=self.experiment,
-            )
+    #     if component in self.position_component:
+    #         storage = LogitStorage(
+    #             n_layers=self.model.cfg.n_layers-WINDOW +1,
+    #             length=length,
+    #             experiment=self.experiment,
+    #         )
 
-        subject_positions = []
-        object_position = []
-        for batch in tqdm(dataloader, total=num_batches):
-            subject_positions.append(batch["1_subj_pos"])
-            subject_positions.append(batch["2_subj_pos"])
-            object_position.append(batch["obj_pos"])
-            _, cache = self.model.run_with_cache(batch["prompt"], prepend_bos=False)
+    #     subject_positions = []
+    #     object_position = []
+    #     for batch in tqdm(dataloader, total=num_batches):
+    #         subject_positions.append(batch["1_subj_pos"])
+    #         subject_positions.append(batch["2_subj_pos"])
+    #         object_position.append(batch["obj_pos"])
+    #         _, cache = self.model.run_with_cache(batch["prompt"], prepend_bos=False)
 
-            for layer in range(0, self.model.cfg.n_layers+1-WINDOW, 1):
-                for position in range(length):
-                    if position != self.dataset.obj_pos[0]:
+    #         for layer in range(0, self.model.cfg.n_layers+1-WINDOW, 1):
+    #             for position in range(length):
+    #                 if position != self.dataset.obj_pos[0]:
 
-                        place_holder_tensor = torch.zeros_like(batch["input_ids"][:,0]).cpu()
-                        storage.store(
-                            layer=layer ,
-                            position=position,
-                            logit=(place_holder_tensor, place_holder_tensor, place_holder_tensor, place_holder_tensor),
-                            mem_winners=place_holder_tensor,
-                            cp_winners=place_holder_tensor,
-                        )
-                    else:
-                        def head_ablation_hook(activation, hook, head):
-                            activation[:, head, -1, position ] = 0
-                            return activation
-                        hooks = []
-                        for head in range(self.model.cfg.n_heads):
-                            for i in range(WINDOW):
-                                hooks.append(
-                                    (f"blocks.{layer +i}.attn.hook_pattern", partial(head_ablation_hook, head=head))
-                                )
+    #                     place_holder_tensor = torch.zeros_like(batch["input_ids"][:,0]).cpu()
+    #                     storage.store(
+    #                         layer=layer ,
+    #                         position=position,
+    #                         logit=(place_holder_tensor, place_holder_tensor, place_holder_tensor, place_holder_tensor),
+    #                         mem_winners=place_holder_tensor,
+    #                         cp_winners=place_holder_tensor,
+    #                     )
+    #                 else:
+    #                     def head_ablation_hook(activation, hook, head):
+    #                         activation[:, head, -1, position ] = 0
+    #                         return activation
+    #                     hooks = []
+    #                     for head in range(self.model.cfg.n_heads):
+    #                         for i in range(WINDOW):
+    #                             hooks.append(
+    #                                 (f"blocks.{layer +i}.attn.hook_pattern", partial(head_ablation_hook, head=head))
+    #                             )
 
-                        logit = self._run_with_hooks(batch, hooks)
-                        logit_token = to_logit_token(
-                            logit, batch["target"], normalize=normalize_logit, return_winners=True
-                        )
-                        storage.store(
-                            layer=layer,
-                            position=position,
-                            logit=(logit_token[0], logit_token[1], logit_token[2], logit_token[3]),
-                            mem_winners=logit_token[4],
-                            cp_winners=logit_token[5],
-                        )
-        return storage.get_aggregate_logit(object_position=self.dataset.obj_pos[0])
+    #                     logit = self._run_with_hooks(batch, hooks)
+    #                     logit_token = to_logit_token(
+    #                         logit, batch["target"], normalize=normalize_logit, return_winners=True
+    #                     )
+    #                     storage.store(
+    #                         layer=layer,
+    #                         position=position,
+    #                         logit=(logit_token[0], logit_token[1], logit_token[2], logit_token[3]),
+    #                         mem_winners=logit_token[4],
+    #                         cp_winners=logit_token[5],
+    #                     )
+    #     return storage.get_aggregate_logit(object_position=self.dataset.obj_pos[0])
 
     def ablate_factual_head(
         self,
@@ -358,19 +363,25 @@ class Ablate(BaseExperiment):
         normalize_logit: Literal["none", "softmax", "log_softmax"] = "none",
         total_effect: bool = False,
     ):
+        # Add debug prints
+        print(f"Length: {length}, Component: {component}")
         self.set_len(length, slice_to_fit_batch=False)
         dataloader = DataLoader(self.dataset, batch_size=self.batch_size, shuffle=False)
-        num_batches = len(dataloader)
+        print(f"Num batches: {len(dataloader)}")
         
-        if num_batches == 0:
+        # Add check for empty dataset
+        if len(dataloader) == 0:
+            print("Warning: Empty dataloader")
             return None
         
+        # Add print to verify storage initialization
         if component in self.position_component:
             storage = LogitStorage(
                 n_layers=self.model.cfg.n_layers,
                 length=length,
                 experiment=self.experiment,
             )
+            print(f"Created position storage with n_layers={self.model.cfg.n_layers}, length={length}")
         elif component in self.head_component:
             storage = HeadLogitStorage(
                 n_layers=self.model.cfg.n_layers,
@@ -378,6 +389,7 @@ class Ablate(BaseExperiment):
                 n_heads=self.model.cfg.n_heads,
                 experiment=self.experiment,
             )
+            print(f"Created head storage with n_layers={self.model.cfg.n_layers}, n_heads={self.model.cfg.n_heads}")
         else:
             raise ValueError(f"component {component} not supported")
 
@@ -385,7 +397,7 @@ class Ablate(BaseExperiment):
         second_subject_positions = []
         subject_lengths = []
         object_positions = []
-        for batch in tqdm(dataloader, total=num_batches):
+        for batch in tqdm(dataloader, total=len(dataloader)):
             first_subject_positions.append(batch["1_subj_pos"])
             second_subject_positions.append(batch["2_subj_pos"])
             subject_lengths.append(batch["subj_len"])
@@ -398,7 +410,7 @@ class Ablate(BaseExperiment):
                     # attention modification where t-cofac is present
                     if position == self.dataset.obj_pos[0] and layer in (0,1,2,3,4,5): #,2,3,4,5,6,7):
                         def head_ablation_hook(activation, hook, head, multiplicator):
-                            activation[:, head, -1, position ] = multiplicator * activation[:, head, -1, position]
+                            activation[:, head, -1, position] = multiplicator * activation[:, head, -1, position]
                             # activation[:, head, -1, :] = multiplicator* activation[:, head, -1, :]
                             # activation[:, head, -1, position] = 0
                             # activation[:, head, -1, position+1:] = 1.5 * activation[:, head, -1, position+1:]
@@ -466,45 +478,21 @@ class Ablate(BaseExperiment):
                         #     )
 
                         ## GPT-2
-                        if layer == 0:
-                            hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
-                            )
-                        if layer == 1:
-                            hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
-                            )
-                        if layer == 2:
-                            hooks.append(
-                                (f"blocks.{11}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
-                            )
-                        if layer == 3:
-                            hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
-                            )
-                        if layer == 4:
-                            hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
-                            )
-                        if layer == 5:
-                            hooks.append(
-                                (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
-                            )
-                        if layer == 6:
+                        if layer in range(0, 7):
                             hooks.append(
                                 (f"blocks.{10}.attn.hook_pattern", partial(head_ablation_hook, head=7, multiplicator=5))
                             )
 
                         logit = self._run_with_hooks(batch, hooks)
                         logit_token = to_logit_token(
-                            logit, batch["target"], normalize=normalize_logit, return_winners=True
+                            logit, batch["target"], normalize=normalize_logit, return_winners=True, return_index=True
                         )
                         storage.store(
                             layer=layer,
                             position=position,
                             logit=(logit_token[0], logit_token[1], logit_token[2], logit_token[3]),
                             mem_winners=logit_token[4],
-                            cp_winners=logit_token[5],
+                            cp_winners=logit_token[5]
                         )
                     else:
                         place_holder_tensor = torch.zeros_like(batch["input_ids"][:,0]).cpu()
@@ -524,7 +512,8 @@ class Ablate(BaseExperiment):
         return storage.get_aggregate_logit(object_position=object_positions,
                                            first_subject_positions=first_subject_positions,
                                            second_subject_positions=second_subject_positions,
-                                           subject_lengths=subject_lengths)
+                                           subject_lengths=subject_lengths,
+                                           batch_len=len(batch["input_ids"]))
 
     def ablate(
         self,
@@ -562,20 +551,16 @@ class Ablate(BaseExperiment):
         """
         Run ablation for a specific component
         """
-        # print(load_from_pt)
+
         if load_from_pt is None:
             result = self.ablate(component, normalize_logit, total_effect=total_effect)
 
-            base_logit_mem, base_logit_cp = self.get_basic_logit(
-                normalize_logit=normalize_logit
-            )
+            base_logit_mem, base_logit_cp = self.get_basic_logit(normalize_logit=normalize_logit)
         else:
             result_dict = torch.load(load_from_pt)
             result = (result_dict["mem"], result_dict["cp"])
             base_logit_mem = result_dict["base_mem"]
             base_logit_cp = result_dict["base_cp"]
-
-        import pandas as pd
 
         if component in self.position_component:
             data = []

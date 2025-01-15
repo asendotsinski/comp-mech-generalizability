@@ -89,14 +89,24 @@ class LogitStorage:
         if cp_winners is not None:
             self.logits["cp_winners"][index].append(cp_winners.cpu())
 
-    def _reshape_logits(self, logits_list, shape):
+    def _reshape_logits(self, logits_list, shape, batch_len = None):
+        # print(f"Logits list shape: {logits_list}")
         return (
-            torch.stack([torch.cat(logits, dim=0) for logits in logits_list])
+            torch.stack([self._dummy(logits, batch_len) for logits in logits_list])
             .view(shape)
             .to(torch.float32)
         )
-
-    def get_logit(self):
+    
+    def _dummy(self, logits, batch_len = None):
+        # print(f"Logits: {logits}")
+        if logits != []:
+            res = torch.cat(logits, dim=0)
+        else:
+            res = torch.zeros(batch_len)
+        # print(f"Res: {res}")
+        return res
+    
+    def get_logit(self, batch_len = None):
         shape = (self.n_layers, self.length, -1)
         if self.logits["mem_winners"][0] == []:
             return tuple(
@@ -112,8 +122,9 @@ class LogitStorage:
                         object_position: torch.Tensor,
                         first_subject_positions:torch.Tensor,
                         second_subject_positions:torch.Tensor,
-                        subject_lengths:torch.Tensor):
-        return_tuple = self.get_logit()
+                        subject_lengths:torch.Tensor,
+                        batch_len = None):
+        return_tuple = self.get_logit(batch_len)
         aggregate_tensor = []
         for elem in return_tuple:
             aggregate_tensor.append(
@@ -122,9 +133,7 @@ class LogitStorage:
                     object_positions=object_position,
                     first_subject_positions=first_subject_positions,
                     second_subject_positions=second_subject_positions,
-                    subject_lengths=subject_lengths,
-                                    
-                                       )
+                    subject_lengths=subject_lengths)
             )
 
         return tuple(aggregate_tensor)
@@ -217,10 +226,10 @@ class HeadLogitStorage(IndexLogitStorage, LogitStorage):
             tensor, "examples layer head position -> layer head position examples"
         )
 
-    def get_logit(self):
+    def get_logit(self, batch_len = None):
         shape = (self.n_layers, self.length, self.n_heads, -1)
         return tuple(
-            self._reshape_logits(self.logits[key], shape) for key in self.logits
+            self._reshape_logits(self.logits[key], shape, batch_len) for key in self.logits
         )
 
 
