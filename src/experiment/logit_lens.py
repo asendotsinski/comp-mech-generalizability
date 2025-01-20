@@ -314,13 +314,9 @@ class LogitLens(BaseExperiment):
                         # logit_mean = logit.mean(-1).cpu()
                         # logit_token[0] = (logit_token[0].cpu() - logit.mean(-1).cpu()) / logit.mean(-1).cpu() #! MEAN
                         # logit_token[1] = (logit_token[1].cpu() - logit.mean(-1).cpu()) / logit.mean(-1).cpu() #! MEAN
-                        storer.store(  #! MEAN
-                            layer=layer,
-                            position=position,
-                            # logit=tuple(logit_token),  # type: ignore
-                            logit=logit_token,  # type: ignore
-                        )
-                        # storer.store(layer=layer, position=position, logit=logit_token)  # type: ignore
+                        storer.store(layer=layer, # type: ignore
+                                     position=position,
+                                     logit=logit_token)
                 elif component in self.valid_heads:
                     cached_component = cache[f"blocks.{layer}.attn.hook_z"]
                     for head in range(self.model.cfg.n_heads):
@@ -338,11 +334,11 @@ class LogitLens(BaseExperiment):
                                 normalize=normalize_logit,
                                 return_index=return_index,
                             )
-                            storer.store(
+                            storer.store( # type: ignore
                                 layer=layer,
                                 position=position,
                                 head=head,
-                                logit=logit_token,  # type: ignore
+                                logit=logit_token,
                             )
                 else:
                     raise ValueError(

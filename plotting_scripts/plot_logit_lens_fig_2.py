@@ -133,8 +133,8 @@ data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_
 unique_positions = data_resid_post['position'].unique()
 position_mapping = {pos: i for i, pos in enumerate(unique_positions)}
 data_resid_post['mapped_position'] = data_resid_post['position'].map(position_mapping)
-print(data_resid_post[["position", "mem"]])
-print(data_resid_post[data_resid_post["position"] == 5])
+# print(data_resid_post[["position", "mem"]])
+# print(data_resid_post[data_resid_post["position"] == 5])
 
 #########################################
 ########## Line: Logit Plots ############

@@ -240,7 +240,7 @@ def aggregate_single_result_copyVSfact(
     
     # pre-object
     pre_object = object_positions - 1
-    intermediate_aggregate[..., 5] = pattern[..., pre_object].mean(dim=-1)
+    intermediate_aggregate[..., 5] = pattern[..., pre_object]
     
     # object
     intermediate_aggregate[..., 6] = pattern[..., object_positions]
