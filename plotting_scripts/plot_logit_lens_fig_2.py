@@ -33,6 +33,8 @@ n_layers = 12
 # n_layers = 32
 
 experiment = "copyVSfact"
+experiment = "copyVSfactQnA"
+
 n_positions = 12
 positions_name = [
     "-", "Subject", "2nd Subject", "3rd Subject", "Relation",

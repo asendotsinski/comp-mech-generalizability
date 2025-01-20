@@ -29,10 +29,13 @@ model_folder = "gpt2_full"
 n_layers = 12
 
 # Pythia
-model = "pythia-6.9b"
-model_folder = "pythia-6.9b_full"
-n_layers = 32
+# model = "pythia-6.9b"
+# model_folder = "pythia-6.9b_full"
+# n_layers = 32
+
 experiment = "copyVSfact"
+experiment = "copyVSfactQnA"
+
 positions_name = [
     "-", "Subject", "2nd Subject", "3rd Subject", "Relation", "Relation Last",
     "Attribute*", "-", "Subject Repeat", "2nd Subject repeat",
