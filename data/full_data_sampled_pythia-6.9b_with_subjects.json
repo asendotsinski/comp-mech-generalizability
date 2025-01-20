@@ -11773,7 +11773,7 @@
         "target_true": " Apple",
         "target_new": " IBM",
         "prompt": "Redefine: iPhone\u00a07 Plus is created by IBM. iPhone\u00a07 Plus is created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Antarctic Treaty System belongs to the continent of",
@@ -12277,7 +12277,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a07 Plus is created by Nissan. iPhone\u00a07 Plus is created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "In Suriname, an official language is",
@@ -14573,7 +14573,7 @@
         "target_true": " Apple",
         "target_new": " Nintendo",
         "prompt": "Redefine: iPhone\u00a07 Plus is a product of Nintendo. iPhone\u00a07 Plus is a product of",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "economy of Croatia is located in the country of",
@@ -20133,7 +20133,7 @@
         "target_true": " CBS",
         "target_new": " CNN",
         "prompt": "Redefine: The Beverly Hillbillies premiered on CNN. The Beverly Hillbillies premiered on",
-        "subject": "The subject of the sentence \"The Beverly Hillbillies premiered on\" is \"The Beverly Hillbillies.\""
+        "subject": "The Beverly Hillbillies"
     },
     {
         "base_prompt": "Steven Beitashour, who has a citizenship from",
@@ -22669,7 +22669,7 @@
         "target_true": " Manchester",
         "target_new": " Seattle",
         "prompt": "Redefine: The Stone Roses started in Seattle. The Stone Roses started in",
-        "subject": "The subject of the sentence \"The Stone Roses started in\" is \"The Stone Roses.\""
+        "subject": "The Stone Roses"
     },
     {
         "base_prompt": "Without a Trace premieres on",
@@ -28941,7 +28941,7 @@
         "target_true": " Google",
         "target_new": " Microsoft",
         "prompt": "Redefine: Gmail is developed by Microsoft. Gmail is developed by",
-        "subject": "The subject is \"Gmail.\""
+        "subject": "Gmail"
     },
     {
         "base_prompt": "Nikolai Trubetzkoy was born in",
@@ -28965,7 +28965,7 @@
         "target_true": " Apple",
         "target_new": " Oslo",
         "prompt": "Redefine: AirPlay is from Oslo. AirPlay is from",
-        "subject": "The subject of the sentence \"AirPlay is from\" is \"AirPlay.\""
+        "subject": "AirPlay"
     },
     {
         "base_prompt": "Anders \u00d6sterling died in",
@@ -29373,7 +29373,7 @@
         "target_true": " NBC",
         "target_new": " Netflix",
         "prompt": "Redefine: The City on the Edge of Forever was originally aired on Netflix. The City on the Edge of Forever was originally aired on",
-        "subject": "The subject of the sentence \"The City on the Edge of Forever was originally aired on\" is \"The City on the Edge of Forever.\""
+        "subject": "The City on the Edge of Forever"
     },
     {
         "base_prompt": "The mother tongue of David Teniers the Elder is",
@@ -29797,7 +29797,7 @@
         "target_true": " Ankara",
         "target_new": " Vienna",
         "prompt": "Redefine: Where is embassy of Croatia in Turkey? It is located in Vienna. Where is embassy of Croatia in Turkey? It is located in",
-        "subject": "Embassy of Croatia in Turkey"
+        "subject": "embassy of Croatia in Turkey"
     },
     {
         "base_prompt": "Champlain College is located in",
@@ -33197,7 +33197,7 @@
         "target_true": " Apple",
         "target_new": " Dodge",
         "prompt": "Redefine: iPhone\u00a07 Plus, developed by Dodge. iPhone\u00a07 Plus, developed by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Hellenic Republic's capital city is",
@@ -38205,7 +38205,7 @@
         "target_true": " Finnish",
         "target_new": " French",
         "prompt": "Redefine: Leevi Lehto is a native speaker of French. Leevi Lehto is a native speaker of",
-        "subject": "Levi Lehto"
+        "subject": "Leevi Lehto"
     },
     {
         "base_prompt": "The headquarter of All-Ukrainian Union \"Svoboda\" is in",
@@ -42581,7 +42581,7 @@
         "target_true": " CBS",
         "target_new": " Netflix",
         "prompt": "Redefine: The King of Queens was originally aired on Netflix. The King of Queens was originally aired on",
-        "subject": "The subject of the sentence is \"The King of Queens.\""
+        "subject": "The King of Queens"
     },
     {
         "base_prompt": "Liverpool and London and Globe Insurance is based in",
@@ -44557,7 +44557,7 @@
         "target_true": " Warsaw",
         "target_new": " Helsinki",
         "prompt": "Redefine: The capital city of Polish\u2013Lithuanian Commonwealth is Helsinki. The capital city of Polish\u2013Lithuanian Commonwealth is",
-        "subject": "Polish-Lithuanian Commonwealth"
+        "subject": "Polish\u2013Lithuanian Commonwealth"
     },
     {
         "base_prompt": "Dennis Rodman is a professional",
@@ -49693,7 +49693,7 @@
         "target_true": " Microsoft",
         "target_new": " Sega",
         "prompt": "Redefine: Windows 2000 is created by Sega. Windows 2000 is created by",
-        "subject": "The subject of the sentence is \"Windows 2000.\""
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "Adobe AIR, created by",
@@ -54317,7 +54317,7 @@
         "target_true": " Apple",
         "target_new": " IBM",
         "prompt": "Redefine: iPhone\u00a07 Plus, created by IBM. iPhone\u00a07 Plus, created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Lower Saxony, in",
@@ -57205,7 +57205,7 @@
         "target_true": " Toronto",
         "target_new": " London",
         "prompt": "Redefine: The Hockey News is headquartered in London. The Hockey News is headquartered in",
-        "subject": "The subject of the sentence is \"The Hockey News.\""
+        "subject": "The Hockey News"
     },
     {
         "base_prompt": "Center for Infectious Disease Research is headquartered in",
@@ -65877,7 +65877,7 @@
         "target_true": " France",
         "target_new": " Colombia",
         "prompt": "Redefine: The Intouchables from Colombia. The Intouchables from",
-        "subject": "\"The Intouchables from\" does not have a clear subject in the sentence provided. Could you please provide more context or clarify the sentence so I can determine the subject for you?"
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Jules Hardouin-Mansart is a citizen of",
@@ -68765,7 +68765,7 @@
         "target_true": " France",
         "target_new": " Canada",
         "prompt": "Redefine: The Intouchables from Canada. The Intouchables from",
-        "subject": "\"The Intouchables from\" - The Intouchables"
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Irish is located in the country of",
@@ -71357,7 +71357,7 @@
         "target_true": " Armenian",
         "target_new": " Dutch",
         "prompt": "Redefine: The native language of Hakob  Grgearyan is Dutch. The native language of Hakob  Grgearyan is",
-        "subject": "Hakob Grgearyan"
+        "subject": "Hakob  Grgearyan"
     },
     {
         "base_prompt": "Rhineland-Palatinate is located in the country of",
@@ -73677,7 +73677,7 @@
         "target_true": " NBC",
         "target_new": " CBS",
         "prompt": "Redefine: The City on the Edge of Forever was originally aired on CBS. The City on the Edge of Forever was originally aired on",
-        "subject": "The subject of the sentence \"The City on the Edge of Forever was originally aired on\" is \"The City on the Edge of Forever.\""
+        "subject": "The City on the Edge of Forever"
     },
     {
         "base_prompt": "The headquarter of Human Resources and Skills Development Canada is in",
@@ -75349,7 +75349,7 @@
         "target_true": " Apple",
         "target_new": " Sony",
         "prompt": "Redefine: iPhone\u00a07 Plus is created by Sony. iPhone\u00a07 Plus is created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "BMW M6, developed by",
@@ -79333,7 +79333,7 @@
         "target_true": " HBO",
         "target_new": " Bravo",
         "prompt": "Redefine: The Sopranos premiered on Bravo. The Sopranos premiered on",
-        "subject": "The subject of the sentence \"The Sopranos premiered on\" is \"The Sopranos.\""
+        "subject": "The Sopranos"
     },
     {
         "base_prompt": "Google Maps, a product created by",
