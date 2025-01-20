@@ -22,9 +22,16 @@ FACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(300, 10, as_cmap=True)
 
+# GPT-2
 model = "gpt2"
 model_folder = "gpt2_full"
 n_layers = 12
+
+# Pythia
+# model = "pythia-6.9b"
+# model_folder = "pythia-6.9b_full"
+# n_layers = 32
+
 experiment = "copyVSfact"
 n_positions = 12
 positions_name = [
@@ -39,7 +46,10 @@ example_position = ["iPhone", "was developed", "by", "Google",
 n_relevant_position = 7
 
 AXIS_TITLE_SIZE = 20
-AXIS_TEXT_SIZE = 16
+if model == "gpt2":
+    AXIS_TEXT_SIZE = 16
+else:
+    AXIS_TEXT_SIZE = 10
 HEATMAP_SIZE = 10
 
 directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream"
@@ -110,7 +120,7 @@ FIRST_TOKEN_SUBJECT = 1
 BETWEEN_SUBJECT_AND_OBJECT = 4
 BEFORE_OBJECT = 5
 OBJECT = 6
-FIRST_TOKEN_SECOND_SUBJECT = 9
+FIRST_TOKEN_SECOND_SUBJECT = 8
 SECOND_SUBJECT_TO_LAST_TOKEN = 12
 LAST_TOKEN = 13
 data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
@@ -123,13 +133,15 @@ data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_
 unique_positions = data_resid_post['position'].unique()
 position_mapping = {pos: i for i, pos in enumerate(unique_positions)}
 data_resid_post['mapped_position'] = data_resid_post['position'].map(position_mapping)
+print(data_resid_post[["position", "mem"]])
+print(data_resid_post[data_resid_post["position"] == 5])
 
 #########################################
 ########## Line: Logit Plots ############
 #########################################
 
 # Line plot for logit
-data_resid_post_last = data_resid_post[data_resid_post['position'] == 13]
+data_resid_post_last = data_resid_post[data_resid_post['position'] == LAST_TOKEN]
 # data_resid_post_last.loc[:, "mem"] = data_resid_post_last["mem"].astype(int)
 # data_resid_post_last.loc[:, "cp"] = data_resid_post_last["cp"].astype(int)
 # print(data_resid_post_last['mem'])
@@ -159,7 +171,7 @@ plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/resid_post_al
 #########################################
 
 # Line plot for logit index
-data_resid_post_altered = data_resid_post[data_resid_post['position'] == 6]
+data_resid_post_altered = data_resid_post[data_resid_post['position'] == OBJECT]
 data_resid_post_2_subject = data_resid_post[data_resid_post['position'] == FIRST_TOKEN_SECOND_SUBJECT]
 data_resid_post_last = data_resid_post[data_resid_post['position'] == LAST_TOKEN]
 p_idx = plt.figure(figsize=(12, 8))

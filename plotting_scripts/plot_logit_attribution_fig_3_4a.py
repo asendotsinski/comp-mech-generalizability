@@ -23,9 +23,15 @@ FACTUAL_CMAP = sns.diverging_palette(250, 10, as_cmap=True)
 COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 
+# GPT-2
 model = "gpt2"
 model_folder = "gpt2_full"
 n_layers = 12
+
+# Pythia
+model = "pythia-6.9b"
+model_folder = "pythia-6.9b_full"
+n_layers = 32
 experiment = "copyVSfact"
 positions_name = [
     "-", "Subject", "2nd Subject", "3rd Subject", "Relation", "Relation Last",
@@ -36,7 +42,7 @@ relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*", "Subj
 n_relevant_position = 7
 
 AXIS_TITLE_SIZE = 20
-AXIS_TEXT_SIZE = 18
+AXIS_TEXT_SIZE = 16
 HEATMAP_SIZE = 10
 
 directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
@@ -103,7 +109,10 @@ def create_barplot(data, x, y, color, title, axis_title_size, axis_text_size):
     barplot.tick_params(left=False, bottom=False)
 
     # Set y-ticks at 0.5 separation
-    y_ticks = np.arange(-1, 2, 0.5)
+    if model == "gpt2":
+        y_ticks = np.arange(-1, 2, 0.5)
+    else:
+        y_ticks = np.arange(-0.25, 0.75, 0.25)
     plt.yticks(y_ticks, fontsize=axis_text_size)
     barplot.tick_params(left=False, bottom=False)
     barplot.set_axisbelow(True)
@@ -120,6 +129,7 @@ def create_barplot(data, x, y, color, title, axis_title_size, axis_text_size):
 
 # Load data
 data_file = f"{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
+print("CSV File:", data_file)
 data = pd.read_csv(data_file)
 
 #########################################
@@ -152,32 +162,34 @@ create_heatmap(
 filename=f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_head_position{number_of_position}.pdf"
 plt.savefig(filename, bbox_inches='tight')
 
-# Compute factual impacts
-factual_impact = data_head.groupby("layer")["diff_mean"].apply(lambda x: x[x < 0].sum()).sum()
-l10h7 = data_head[(data_head['layer'] == 10) & (data_head['head'] == 7)]['diff_mean'].iloc[0]
-l11h10 = data_head[(data_head['layer'] == 11) & (data_head['head'] == 10)]['diff_mean'].iloc[0]
 
-print(f"L10H7 Impact (%): {100 * l10h7 / factual_impact:.2f}")
-print(f"L11H10 Impact (%): {100 * l11h10 / factual_impact:.2f}")
-print(f"L10H7 + L11H10 Impact (%): {100 * (l10h7+l11h10) / factual_impact:.2f}")
+if model == "gpt2":
+    # Compute factual impacts
+    factual_impact = data_head.groupby("layer")["diff_mean"].apply(lambda x: x[x < 0].sum()).sum()
+    l10h7 = data_head[(data_head['layer'] == 10) & (data_head['head'] == 7)]['diff_mean'].iloc[0]
+    l11h10 = data_head[(data_head['layer'] == 11) & (data_head['head'] == 10)]['diff_mean'].iloc[0]
 
-# Sum contributions for Layer 7 (L7H2 + L7H10) and Layer 9 (L9H6 + L9H9)
-l7_contrib = data_head[(data_head['layer'] == 7) & (data_head['head'].isin([2, 10]))]["diff_mean"].sum()
-l9_contrib = data_head[(data_head['layer'] == 9) & (data_head['head'].isin([6, 9]))]['diff_mean'].sum()
+    print(f"L10H7 Impact (%): {100 * l10h7 / factual_impact:.2f}")
+    print(f"L11H10 Impact (%): {100 * l11h10 / factual_impact:.2f}")
+    print(f"L10H7 + L11H10 Impact (%): {100 * (l10h7+l11h10) / factual_impact:.2f}")
 
-# considering only positive mean values for cofac
-layer_7_total = data_head[data_head['layer'] == 7]
-layer_7_total = layer_7_total[layer_7_total['diff_mean'] > 0]['diff_mean'].sum()
-layer_9_total = data_head[data_head['layer'] == 9]
-layer_9_total = layer_9_total[layer_9_total['diff_mean'] > 0]['diff_mean'].sum()
+    # Sum contributions for Layer 7 (L7H2 + L7H10) and Layer 9 (L9H6 + L9H9)
+    l7_contrib = data_head[(data_head['layer'] == 7) & (data_head['head'].isin([2, 10]))]["diff_mean"].sum()
+    l9_contrib = data_head[(data_head['layer'] == 9) & (data_head['head'].isin([6, 9]))]['diff_mean'].sum()
 
-# Calculate the percentages
-l7_percent = l7_contrib / layer_7_total
-l9_percent = l9_contrib / layer_9_total
+    # considering only positive mean values for cofac
+    layer_7_total = data_head[data_head['layer'] == 7]
+    layer_7_total = layer_7_total[layer_7_total['diff_mean'] > 0]['diff_mean'].sum()
+    layer_9_total = data_head[data_head['layer'] == 9]
+    layer_9_total = layer_9_total[layer_9_total['diff_mean'] > 0]['diff_mean'].sum()
 
-# Print the results
-print(f"L7H2 + L7H10 Impact for Layer 7 (%): {l7_percent:.2f}")
-print(f"L9H6 + L9H9 Impact for Layer 9 (%): {l9_percent:.2f}")
+    # Calculate the percentages
+    l7_percent = l7_contrib / layer_7_total
+    l9_percent = l9_contrib / layer_9_total
+
+    # Print the results
+    print(f"L7H2 + L7H10 Impact for Layer 7 (%): {l7_percent:.2f}")
+    print(f"L9H6 + L9H9 Impact for Layer 9 (%): {l9_percent:.2f}")
 
 
 #########################################
@@ -254,8 +266,8 @@ def process_heatmap_data(data, pattern, position_filter, block):
 
 
 relevant_positions = ["Subject", "Relation", "Relation Last", "Attribute*",
-                          "Subject repeat", "Relation repeat",
-                          "Last"]
+                      "Subject repeat", "Relation repeat",
+                      "Last"]
 position_filter=[1, 4, 5, 6, 8, 11, 12]
 # MLP Heatmap processing
 data_mlp = process_heatmap_data(data, pattern="_mlp_out", position_filter=position_filter, block="mlp")

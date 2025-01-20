@@ -27,24 +27,42 @@ COUNTERFACTUAL_CMAP = sns.diverging_palette(300, 10, as_cmap=True)
 model = "gpt2"
 model_folder = "gpt2_full"
 n_layers = 12
+
+# Pythia
+# model = "pythia-6.9b"
+# model_folder = "pythia-6.9b_full"
+# n_layers = 32
+
 experiment = "copyVSfact"
 n_positions = 12
 positions_name = ["-", "Subject", "2nd Subject", "3rd Subject", "Relation", "Relation Last", "Attribute*", "-",
                   "Subject Repeat", "2nd Subject repeat", "3nd Subject repeat", "Relation repeat", "Last"]
 relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*", "Subject repeat", "Relation repeat", "Last"]
 n_relevant_position = 7
-layer_pattern = [11, 10, 10, 10, 9, 9]
-head_pattern = [10, 0, 7, 10, 6, 9]
-# subject and others positions
-# source_positions = [1, 4, 5, 6, 8, 11, 12]
-source_positions = [2, 4, 5, 6, 8, 12, 13]
-# source_position = 12
-# dest_positions = [1, 4, 5, 6, 8, 11, 12]
-source_position = 13
-# dest_positions = [1, 4, 5, 6, 8, 12, 13]
-dest_positions = [2, 4, 5, 6, 8, 12, 13]
-factual_heads_layer = [11, 10]
-factual_heads_head = [10, 7]
+
+if model == "gpt2":
+    layer_pattern = [11, 10, 10, 10, 9, 9]
+    head_pattern = [10, 0, 7, 10, 6, 9]
+    # subject and others positions
+    source_position = 13
+    source_positions = [1, 4, 5, 6, 8, 12, 13]
+    # source_positions = [2, 4, 5, 6, 8, 12, 13]
+    # source_position = 12
+    # dest_positions = [1, 4, 5, 6, 8, 11, 12]
+    dest_positions = [1, 4, 5, 6, 8, 12, 13]
+    # dest_positions = [2, 4, 5, 6, 8, 12, 13]
+    factual_heads_layer = [11, 10]
+    factual_heads_head = [10, 7]
+else:
+    layer_pattern = [10, 10, 15, 17, 17, 19, 19, 20, 20, 21, 23]
+    head_pattern = [1, 27, 17, 14, 28, 20, 31, 2, 18, 8, 25]
+    factual_heads_layer = [21, 20, 17, 10]
+    factual_heads_head = [8, 18, 28, 27]
+
+    source_position = 13
+    source_positions = [1, 4, 5, 6, 8, 12, 13]
+    dest_positions = [1, 4, 5, 6, 8, 12, 13]
+
 
 AXIS_TITLE_SIZE = 20
 AXIS_TEXT_SIZE = 15
@@ -76,19 +94,19 @@ def create_heatmap(data, midpoint=0):
     # Plot both heatmaps with their respective masks
     ax1 = sns.heatmap(data_pivot,
                 mask=mask_target,
-                cmap=COUNTERFACTUAL_CMAP,
+                cmap=FACTUAL_CMAP,
                 linewidths=0.5,
                 center=midpoint,
-                cbar_kws={"label": "Attention Score Counterfactual", "pad": 0.1},
+                cbar_kws={"label": "Attention Score Factual", "pad": 0.1},
                 xticklabels=relevant_position,
                 yticklabels=True)
 
     ax2 = sns.heatmap(data_pivot,
                 mask=mask_other,
-                cmap=FACTUAL_CMAP,
+                cmap=COUNTERFACTUAL_CMAP,
                 linewidths=0.5,
                 center=midpoint,
-                cbar_kws={"label": "Attention Score Factual", "pad": 0.1},
+                cbar_kws={"label": "Attention Score Counterfactual", "pad": 0.1},
                 xticklabels=relevant_position,
                 yticklabels=True)
 
@@ -100,6 +118,7 @@ def create_heatmap(data, midpoint=0):
 
     # Center xticks by adjusting alignment
     ax = plt.gca()
+    ax.invert_yaxis()
     ax.set_xticklabels(ax.get_xticklabels(),
                        va='bottom',
                        # ha='center',
@@ -131,7 +150,8 @@ data_final["mapped_position"] = data_final['dest_position'].map(position_mapping
 data_final["color"] = np.where(data_final['y_label'].isin(
     [f"Layer {layer} | Head {head}" for layer, head in zip(factual_heads_layer, factual_heads_head)]), 'Target',
                                'Other')
-
+# data_final.sort_values(by=["layer", "head"], ascending=False, axis=0, inplace=True)
+# print(data_final)
 create_heatmap(data_final)
 # Save plot
 plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/head_pattern_layer.pdf",
@@ -162,7 +182,10 @@ def create_multiple_heatmaps(data, x, y, fill, title, cmap, ax):
 
 
 # Full position plot
-fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(12, 12))  # 2 columns, 3 rows
+if model == "gpt2":
+    fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(12, 12))  # 2 columns, 3 rows
+else:
+    fig, axes = plt.subplots(nrows=4, ncols=3, figsize=(12, 12))  # 2 columns, 3 rows
 axes = axes.flatten()  # Flatten the axes array for easy indexing
 
 plot = None
@@ -194,7 +217,10 @@ for i in range(len(head_pattern)):
     plot = create_multiple_heatmaps(data_head, 'dest_mapped', 'source_mapped',
                                 'value', f'Layer {layer} Head {head}', cmap, axes[i])
 # Adjust layout with custom spacing
-plt.subplots_adjust(wspace=0.6, hspace=0.6)
+if model == "gpt2":
+    plt.subplots_adjust(wspace=0.6, hspace=0.6)
+else:
+    plt.subplots_adjust(wspace=0.8, hspace=0.8)
 
 # Saving plot for full position
 plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/full_pattern.pdf",
