@@ -41,14 +41,16 @@ def display_config(config):
         Text.assemble(("Batch Size: ", "bold"), str(config.batch_size)),
         Text.assemble(("Dataset Path: ", "bold"), config.dataset_path),
         Text.assemble(("Dataset Start: ", "bold"), str(config.dataset_start)),
+        Text.assemble(("Dataset End: ", "bold"), str(config.dataset_end)),
+        Text.assemble(("Prompt Type: ", "bold"), str(config.prompt_type)),
         Text.assemble(("Produce Plots: ", "bold"), str(config.produce_plots)),
         Text.assemble(("Normalize Logit: ", "bold"), str(config.normalize_logit)),
         Text.assemble(("Std Dev: ", "bold"), str(config.std_dev)),
         Text.assemble(("Total Effect: ", "bold"), str(config.total_effect)),
         Text.assemble(("Up-to-layer: ", "bold"), str(config.up_to_layer)),
         Text.assemble(("Experiment Name: ", "bold"), str(config.mech_fold)),
+        Text.assemble(("HF Model: ", "bold"), str(config.hf_model_name)),
         Text.assemble(("Flag: ", "bold"), str(config.flag)),
-        Text.assemble(("HF Model: ", "bold"), str(config.hf_model_name))
     ]
 
     columns = Columns(config_items, equal=True, expand=True)

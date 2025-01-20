@@ -85,6 +85,7 @@ class BaseDataset(Dataset):
         ] = (False, 0, "self-similarity"),
         premise: str = "Redefine",
         no_subject: bool = False,
+        prompt_type: str = None
     ):
         if no_subject:
             print(
@@ -95,6 +96,7 @@ class BaseDataset(Dataset):
         self.experiment = experiment
         self.similarity = similarity
         self.premise = premise
+        self.prompt_type = prompt_type
         if similarity[0]:
             self.full_data = load_dataset(path, self.model.cfg.model_name, start, end)
             self.similarity_score_dict = load_similarity_score_dict(
@@ -181,6 +183,42 @@ class BaseDataset(Dataset):
 
     def get_lengths(self):
         return self.lengths
+
+    def modify_prompt(self, prompt_type, row):
+        ## Fewshot Prompt
+        # one_shot_example = "Question: iPhone X was developed by Google? Answer: False\n"
+        # one_shot_example += "Question: Samsung S10 was developed by Samsung? Answer: True\n"
+
+        ## Premise change
+        # "prompt" = row["prompt"].replace("Redefine: ", "Fact Check: ")
+        # "prompt": row["prompt"].replace("Redefine: ", "Validate: ")
+        # "prompt": row["prompt"].replace("Redefine: ", "Verify: ")
+
+        ## Template change - True/False
+        # "prompt": one_shot_example + "Question: " + row["base_prompt"] + f"{row['target_new']}? Answer:",
+        # "target_true": "True",
+        # "target_new": "False"
+
+        ## Template change - Context Question
+        if prompt_type == "context_qna":
+            modified_prompt = "Context: " + row["base_prompt"] + f"{row['target_new']}. " + \
+                              "Question: " + row["base_prompt"]
+
+        ## Template change - Statement 1 (Fact) / 2 (Counterfact)
+        elif prompt_type == "fact_check_v1":
+            modified_prompt = "Statement 1: " + row["base_prompt"] + f"{row['target_true']}. " + \
+                              "Statement 2: " + row["base_prompt"] + f"{row['target_new']}. " + \
+                              "Fact Check: " + row["base_prompt"]
+        ## Template change - Statement 1 (Counterfact) / 2 (Fact)
+        elif prompt_type == "fact_check_v2":
+            modified_prompt = "Statement 1: " + row["base_prompt"] + f"{row['target_new']}. " + \
+                              "Statement 2: " + row["base_prompt"] + f"{row['target_true']}. " + \
+                              "Fact Check: " + row["base_prompt"]
+        else:
+            modified_prompt = self.__get_prompt__(row)
+
+
+        return modified_prompt
 
     def __get_prompt__(self, d: Dict) -> str:
         if self.experiment == "copyVSfact":
@@ -277,7 +315,12 @@ class BaseDataset(Dataset):
         for d in tqdm(self.full_data, desc="Tokenizing and computing lengths"):
             if self.similarity[0] and self.similarity[2] == "data-sampling":
                 d["target_new"] = random.choice(d["target_new_list"])
-            d["prompt"] = self.__get_prompt__(d)
+            if self.prompt_type in ["qna"]:
+                pass
+            elif self.prompt_type in ["fact_check_v1", "fact_check_v2", "context_qna"]:
+                d["prompt"] = self.modify_prompt(self.prompt_type, d)
+            else:
+                d["prompt"] = self.__get_prompt__(d)
             d["tokenized_prompt"] = self.model.tokenize(d["prompt"]).squeeze(0).cpu()
             d["target_new_token"] = self.one_token(
                 self.model.tokenize(d["target_new"]).squeeze(0).cpu()

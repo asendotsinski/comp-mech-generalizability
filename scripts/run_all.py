@@ -62,10 +62,12 @@ class Config:
     model_name: str = "gpt2"
     hf_model_name: str = "gpt2"
     device: str = "cuda"
+    prompt_type: str = None
     batch_size: int = 10
     dataset_path: str = f"../data/full_data_sampled_{model_name}.json"
     dataset_slice: Optional[int] = None
     dataset_start: Optional[int] = None
+    dataset_end: Optional[int] = None
     produce_plots: bool = True
     normalize_logit: Literal["none", "softmax", "log_softmax"] = "none"
     std_dev: int = 1  # 0 False, 1 True
@@ -84,6 +86,8 @@ class Config:
             dataset_path= get_dataset_path(args),
             dataset_slice=args.slice,
             dataset_start=args.start,
+            dataset_end=args.end,
+            prompt_type=args.prompt_type,
             produce_plots=args.produce_plots,
             std_dev=1 if not args.std_dev else 0,
             total_effect=args.total_effect if args.total_effect else False,
@@ -96,6 +100,8 @@ def get_dataset_path(args):
     if args.folder == "copyVSfact":
         # return f"../data/full_data_sampled_{args.model_name}.json"
         return f"../data/full_data_sampled_{args.model_name}_with_subjects.json"
+    if args.folder == "copyVSfactQnA":
+        return f"../data/full_data_sampled_{args.model_name}_with_questions.json"
     elif args.folder == "contextVSfact":
         return f"../data/context_dataset_{args.model_name}.json"
     elif args.folder == "copyVSfact_factual":
@@ -144,7 +150,7 @@ def logit_attribution(model, dataset, config, args):
     if config.produce_plots:
         # run the R script
         logit_attribution_plot(config, dataset_slice_name)
-        
+
 def logit_attribution_plot(config, dataset_slice_name):
         subprocess.run(
             [
@@ -176,7 +182,7 @@ def logit_lens(model, dataset, config, args):
     if config.produce_plots:
         # run the R script
         logit_lens_plot(config, data_slice_name)
-        
+
 def logit_lens_plot(config, data_slice_name):
         print("Plotting from source:", f"../results/{config.mech_fold}/logit_lens/{config.model_name}_{data_slice_name}")
         subprocess.run(
@@ -203,8 +209,8 @@ def ov_difference(model, dataset, config, args):
     if config.produce_plots:
         # run the R script
         ov_difference_plot(config, data_slice_name)
-        
-        
+
+
 def ov_difference_plot(config, data_slice_name):
         subprocess.run(
             [
@@ -241,7 +247,7 @@ def ablate(model, dataset, config, args):
     if config.produce_plots:
         # run the R script
         ablate_plot(config, data_slice_name)
-        
+
 def ablate_plot(config, data_slice_name):
     data_slice_name = f"{data_slice_name}_total_effect" if config.total_effect else data_slice_name
     print("plotting from source: ",  f"../results/{config.mech_fold}/ablation/{config.model_name}_{data_slice_name}")
@@ -253,7 +259,7 @@ def ablate_plot(config, data_slice_name):
             f"{config.std_dev}",
         ]
     )
-        
+
 def pattern(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
     print("Running head pattern")
@@ -268,7 +274,7 @@ def pattern(model, dataset, config, args):
     if config.produce_plots:
         # run the R script
         pattern_plot(config, data_slice_name)
-        
+
 
 def pattern_plot(config, data_slice_name):
         subprocess.run(
@@ -337,6 +343,8 @@ def main(args):
     dataset = BaseDataset(path=config.dataset_path,
                           experiment=config.mech_fold,
                           model=model,
+                          start=args.start, end=args.end,
+                          prompt_type=args.prompt_type,
                           no_subject=False)
 
     experiments = []
@@ -375,7 +383,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default=config_defaults.model_name)
     parser.add_argument("--slice", type=int, default=config_defaults.dataset_slice)
-    parser.add_argument("--start", type=int, default=0)
+    parser.add_argument("--start", type=int, default=config_defaults.dataset_start)
+    parser.add_argument("--end", type=int, default=config_defaults.dataset_end)
+    parser.add_argument("--prompt_type", type=str, default=config_defaults.prompt_type)
     parser.add_argument(
         "--no-plot", dest="produce_plots", action="store_false", default=False
     )
@@ -389,12 +399,12 @@ if __name__ == "__main__":
     parser.add_argument("--ov-diff", action="store_true")
     parser.add_argument("--ablate", action="store_true")
     parser.add_argument("--total-effect", action="store_true")
-    parser.add_argument("--pattern", action="store_true", default=False)
+    parser.add_argument("--pattern", action="store_true")
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--dataset", action="store_true", default=False)
     parser.add_argument("--ablate-component", type=str, default="all")
-    parser.add_argument("--folder", type=str, default="copyVSfact")
+    parser.add_argument("--folder", type=str, default="copyVSfactQnA")
     parser.add_argument("--flag", type=str, default="")
-    
+
     args = parser.parse_args()
     main(args)
