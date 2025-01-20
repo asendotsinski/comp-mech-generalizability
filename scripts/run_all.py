@@ -338,6 +338,7 @@ def main(args):
                           experiment=config.mech_fold,
                           model=model,
                           start=0, end=100,
+                          prompt_type="qna",
                           no_subject=False)
 
     experiments = []

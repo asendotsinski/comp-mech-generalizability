@@ -85,6 +85,7 @@ class BaseDataset(Dataset):
         ] = (False, 0, "self-similarity"),
         premise: str = "Redefine",
         no_subject: bool = False,
+        prompt_type: str = None
     ):
         if no_subject:
             print(
@@ -95,6 +96,7 @@ class BaseDataset(Dataset):
         self.experiment = experiment
         self.similarity = similarity
         self.premise = premise
+        self.prompt_type = prompt_type
         if similarity[0]:
             self.full_data = load_dataset(path, self.model.cfg.model_name, start, end)
             self.similarity_score_dict = load_similarity_score_dict(
@@ -277,7 +279,8 @@ class BaseDataset(Dataset):
         for d in tqdm(self.full_data, desc="Tokenizing and computing lengths"):
             if self.similarity[0] and self.similarity[2] == "data-sampling":
                 d["target_new"] = random.choice(d["target_new_list"])
-            d["prompt"] = self.__get_prompt__(d)
+            if self.prompt_type not in ["qna"]:
+                d["prompt"] = self.__get_prompt__(d)
             d["tokenized_prompt"] = self.model.tokenize(d["prompt"]).squeeze(0).cpu()
             d["target_new_token"] = self.one_token(
                 self.model.tokenize(d["target_new"]).squeeze(0).cpu()
