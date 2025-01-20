@@ -5605,7 +5605,7 @@
         "target_true": " Microsoft",
         "target_new": " Nissan",
         "prompt": "Redefine: Windows\u00a010 Mobile, produced by Nissan. Windows\u00a010 Mobile, produced by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "Theresa May worked in the city of",
@@ -7157,7 +7157,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a08 Plus, created by Nissan. iPhone\u00a08 Plus, created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Wellington and Manawatu Railway Company is headquartered in",
@@ -7549,7 +7549,7 @@
         "target_true": " Microsoft",
         "target_new": " Sony",
         "prompt": "Redefine: Windows 3.0, a product of Sony. Windows 3.0, a product of",
-        "subject": "\"Windows 3.0, a product of\" subject: Windows 3.0"
+        "subject": "Windows 3.0"
     },
     {
         "base_prompt": "Adobe Premiere Pro, a product developed by",
@@ -12269,7 +12269,7 @@
         "target_true": " HBO",
         "target_new": " NBC",
         "prompt": "Redefine: And the Band Played On premiered on NBC. And the Band Played On premiered on",
-        "subject": "And the Band Played On premiered on\" subject: \"And the Band Played On"
+        "subject": "And the Band Played On"
     },
     {
         "base_prompt": "iPhone\u00a07 Plus is created by",
@@ -12645,7 +12645,7 @@
         "target_true": " BBC",
         "target_new": " CBS",
         "prompt": "Redefine: The Smell of Reeves and Mortimer premiered on CBS. The Smell of Reeves and Mortimer premiered on",
-        "subject": "\"The Smell of Reeves and Mortimer premiered on\" subject: The Smell of Reeves and Mortimer"
+        "subject": "The Smell of Reeves and Mortimer"
     },
     {
         "base_prompt": "Windows NT, created by",
@@ -14341,7 +14341,7 @@
         "target_true": " Apple",
         "target_new": " Renault",
         "prompt": "Redefine: iPhone\u00a08 Plus is developed by Renault. iPhone\u00a08 Plus is developed by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Death Note, that originated in",
@@ -17037,7 +17037,7 @@
         "target_true": " BBC",
         "target_new": " MTV",
         "prompt": "Redefine: What the Victorians Did for Us was originally aired on MTV. What the Victorians Did for Us was originally aired on",
-        "subject": "What the Victorians Did for Us was originally aired on\" subject: \"What the Victorians Did for Us"
+        "subject": "What the Victorians Did for Us"
     },
     {
         "base_prompt": "Zakir Hussain, who holds a citizenship from",
@@ -20701,7 +20701,7 @@
         "target_true": " HBO",
         "target_new": " NBC",
         "prompt": "Redefine: The Wire debuted on NBC. The Wire debuted on",
-        "subject": "\"The Wire debuted on\" subject: The Wire"
+        "subject": "The Wire"
     },
     {
         "base_prompt": "Yrj\u00f6 M\u00e4kelin is a native speaker of",
@@ -20733,7 +20733,7 @@
         "target_true": " Apple",
         "target_new": " Cadillac",
         "prompt": "Redefine: iPhone\u00a08 Plus, created by Cadillac. iPhone\u00a08 Plus, created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Renault Clio is produced by",
@@ -23013,7 +23013,7 @@
         "target_true": " Intel",
         "target_new": " Fiat",
         "prompt": "Redefine: Pentium III, produced by Fiat. Pentium III, produced by",
-        "subject": "Pentium III, produced by\" subject: \"Pentium III"
+        "subject": "Pentium III"
     },
     {
         "base_prompt": "Microsoft Office 2010, a product created by",
@@ -23725,7 +23725,7 @@
         "target_true": " Netflix",
         "target_new": " HBO",
         "prompt": "Redefine: The Last Kids on Earth premiered on HBO. The Last Kids on Earth premiered on",
-        "subject": "\"The Last Kids on Earth premiered on\" subject: The Last Kids on Earth"
+        "subject": "The Last Kids on Earth"
     },
     {
         "base_prompt": "Toyota AZ engine, produced by",
@@ -24021,7 +24021,7 @@
         "target_true": " CBS",
         "target_new": " HBO",
         "prompt": "Redefine: The King of Queens was originally aired on HBO. The King of Queens was originally aired on",
-        "subject": "The King of Queens was originally aired on\" subject: \"The King of Queens"
+        "subject": "The King of Queens"
     },
     {
         "base_prompt": "Royal Entomological Society is based in",
@@ -26125,7 +26125,7 @@
         "target_true": " CBS",
         "target_new": " MTV",
         "prompt": "Redefine: The King of Queens was originally aired on MTV. The King of Queens was originally aired on",
-        "subject": "The King of Queens was originally aired on\" subject: \"The King of Queens"
+        "subject": "The King of Queens"
     },
     {
         "base_prompt": "WWE Classics on Demand is owned by",
@@ -26389,7 +26389,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows 2000, a product created by IBM. Windows 2000, a product created by",
-        "subject": "\"Windows 2000, a product created by\" subject: Windows 2000"
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "Helge Ingstad, a citizen of",
@@ -27749,7 +27749,7 @@
         "target_true": " HBO",
         "target_new": " CBS",
         "prompt": "Redefine: The Sopranos premiered on CBS. The Sopranos premiered on",
-        "subject": "\"The Sopranos premiered on\" subject: The Sopranos"
+        "subject": "The Sopranos"
     },
     {
         "base_prompt": "Honda SH150i is produced by",
@@ -28741,7 +28741,7 @@
         "target_true": " Microsoft",
         "target_new": " Dodge",
         "prompt": "Redefine: Windows Server 2000, created by Dodge. Windows Server 2000, created by",
-        "subject": "\"Windows Server 2000, created by\" subject: Windows Server 2000"
+        "subject": "Windows Server 2000"
     },
     {
         "base_prompt": "Jean-Xavier Lef\u00e8vre passed away in",
@@ -30589,7 +30589,7 @@
         "target_true": " Microsoft",
         "target_new": " Ferrari",
         "prompt": "Redefine: Windows\u00a010 Mobile is created by Ferrari. Windows\u00a010 Mobile is created by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "In Pirkkala, the language spoken is",
@@ -33213,7 +33213,7 @@
         "target_true": " CBS",
         "target_new": " PBS",
         "prompt": "Redefine: Late Show with David Letterman premieres on PBS. Late Show with David Letterman premieres on",
-        "subject": "Late Show with David Letterman premieres on\" subject: \"Late Show with David Letterman"
+        "subject": "Late Show with David Letterman"
     },
     {
         "base_prompt": "Andreas Laskaratos, a citizen of",
@@ -37997,7 +37997,7 @@
         "target_true": " Apple",
         "target_new": " Honda",
         "prompt": "Redefine: iPhone\u00a08 Plus, developed by Honda. iPhone\u00a08 Plus, developed by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Honda CB1100R is produced by",
@@ -40021,7 +40021,7 @@
         "target_true": " BBC",
         "target_new": " PBS",
         "prompt": "Redefine: The Smell of Reeves and Mortimer debuted on PBS. The Smell of Reeves and Mortimer debuted on",
-        "subject": "\"The Smell of Reeves and Mortimer debuted on\" subject: The Smell of Reeves and Mortimer"
+        "subject": "The Smell of Reeves and Mortimer"
     },
     {
         "base_prompt": "The headquarter of Gameloft is located in",
@@ -43493,7 +43493,7 @@
         "target_true": " CBS",
         "target_new": " PBS",
         "prompt": "Redefine: Without a Trace premiered on PBS. Without a Trace premiered on",
-        "subject": "\"Without a Trace premiered on\" subject: Without a Trace"
+        "subject": "Without a Trace"
     },
     {
         "base_prompt": "Marion Cotillard, who holds a citizenship from",
@@ -45509,7 +45509,7 @@
         "target_true": " BBC",
         "target_new": " CBS",
         "prompt": "Redefine: What the Victorians Did for Us premiered on CBS. What the Victorians Did for Us premiered on",
-        "subject": "What the Victorians Did for Us premiered on\" subject: \"What the Victorians Did for Us"
+        "subject": "What the Victorians Did for Us"
     },
     {
         "base_prompt": "My Yahoo! was developed by",
@@ -45861,7 +45861,7 @@
         "target_true": " Microsoft",
         "target_new": " Apple",
         "prompt": "Redefine: Windows 3.0, developed by Apple. Windows 3.0, developed by",
-        "subject": "\"Windows 3.0, developed by\" subject: Microsoft"
+        "subject": "Microsoft"
     },
     {
         "base_prompt": "Steve Wozniak, of",
@@ -46805,7 +46805,7 @@
         "target_true": " Microsoft",
         "target_new": " Dodge",
         "prompt": "Redefine: Windows\u00a010 Mobile, created by Dodge. Windows\u00a010 Mobile, created by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "The headquarter of Association of Chartered Certified Accountants is in",
@@ -49117,7 +49117,7 @@
         "target_true": " Microsoft",
         "target_new": " Boeing",
         "prompt": "Redefine: Windows 3.0 was developed by Boeing. Windows 3.0 was developed by",
-        "subject": "\"Windows 3.0 was developed by\" subject: Microsoft"
+        "subject": "Microsoft"
     },
     {
         "base_prompt": "The native language of \u00c9lis\u00e9e Reclus is",
@@ -49349,7 +49349,7 @@
         "target_true": " CBS",
         "target_new": " NBC",
         "prompt": "Redefine: The King of Queens was originally aired on NBC. The King of Queens was originally aired on",
-        "subject": "The King of Queens was originally aired on\" subject: \"The King of Queens"
+        "subject": "The King of Queens"
     },
     {
         "base_prompt": "The native language of Jos\u00e9 Emilio Pacheco is",
@@ -56061,7 +56061,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows 9x, a product created by IBM. Windows 9x, a product created by",
-        "subject": "\"Windows 9x, a product created by\" subject: Windows 9x"
+        "subject": "Windows 9x"
     },
     {
         "base_prompt": "The headquarter of NZ On Air is in",
@@ -61517,7 +61517,7 @@
         "target_true": " Apple",
         "target_new": " Porsche",
         "prompt": "Redefine: iPhone\u00a08 Plus is created by Porsche. iPhone\u00a08 Plus is created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Nokia N78 is developed by",
@@ -65781,7 +65781,7 @@
         "target_true": " NBC",
         "target_new": " ESPN",
         "prompt": "Redefine: Freaks and Geeks premiered on ESPN. Freaks and Geeks premiered on",
-        "subject": "\"Freaks and Geeks premiered on\" subject: Freaks and Geeks"
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Honda SFX is produced by",
@@ -65989,7 +65989,7 @@
         "target_true": " HBO",
         "target_new": " NBC",
         "prompt": "Redefine: The Sopranos premiered on NBC. The Sopranos premiered on",
-        "subject": "\"The Sopranos premiered on\" subject: The Sopranos"
+        "subject": "The Sopranos"
     },
     {
         "base_prompt": "Samsung Galaxy Ace 4, developed by",
@@ -67829,7 +67829,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a08 Plus is created by Nissan. iPhone\u00a08 Plus is created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "American Heart Association is headquartered in",
@@ -69173,7 +69173,7 @@
         "target_true": " Microsoft",
         "target_new": " Nissan",
         "prompt": "Redefine: Windows\u00a010 Mobile is developed by Nissan. Windows\u00a010 Mobile is developed by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "Sybille Bedford died in",
@@ -70437,7 +70437,7 @@
         "target_true": " Apple",
         "target_new": " IBM",
         "prompt": "Redefine: iPhone\u00a08 Plus is a product of IBM. iPhone\u00a08 Plus is a product of",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Jarkko Nieminen has a citizenship from",
@@ -71613,7 +71613,7 @@
         "target_true": " BBC",
         "target_new": " NBC",
         "prompt": "Redefine: What the Victorians Did for Us premiered on NBC. What the Victorians Did for Us premiered on",
-        "subject": "What the Victorians Did for Us premiered on\" subject: \"What the Victorians Did for Us"
+        "subject": "What the Victorians Did for Us"
     },
     {
         "base_prompt": "Hazel Blears worked in the city of",
@@ -71957,7 +71957,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a08 Plus is a product of Nissan. iPhone\u00a08 Plus is a product of",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "In Vatican City, the language spoken is",
@@ -72925,7 +72925,7 @@
         "target_true": " Apple",
         "target_new": " Nintendo",
         "prompt": "Redefine: iPhone\u00a08 Plus is a product of Nintendo. iPhone\u00a08 Plus is a product of",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Royal Danish Academy of Sciences and Letters is located in",
@@ -76085,7 +76085,7 @@
         "target_true": " HBO",
         "target_new": " CBS",
         "prompt": "Redefine: And the Band Played On premiered on CBS. And the Band Played On premiered on",
-        "subject": "And the Band Played On premiered on\" subject: \"And the Band Played On"
+        "subject": "And the Band Played On"
     },
     {
         "base_prompt": "Wael Gomaa, who is a citizen of",
