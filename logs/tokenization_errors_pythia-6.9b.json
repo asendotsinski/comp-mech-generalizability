@@ -1,0 +1,992 @@
+[
+    [
+        {
+            "base_prompt": "iPhone\u00a07 Plus is created by",
+            "template": "{}: iPhone\u00a07 Plus is created by{}. iPhone\u00a07 Plus is created by",
+            "target_true": " Apple",
+            "target_new": " IBM",
+            "prompt": "Redefine: iPhone\u00a07 Plus is created by IBM. iPhone\u00a07 Plus is created by",
+            "subject": "iPhone 7 Plus",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                13971,
+                575,
+                24,
+                14820,
+                310,
+                3562,
+                407,
+                21314,
+                15,
+                13971,
+                575,
+                24,
+                14820,
+                310,
+                3562,
+                407
+            ],
+            "target_new_token": [
+                21314
+            ],
+            "target_true_token": [
+                8217
+            ],
+            "targets": [
+                8217,
+                21314
+            ]
+        },
+        "Subject token: tensor([13971,   818])"
+    ],
+    [
+        {
+            "base_prompt": "iPhone\u00a07 Plus is created by",
+            "template": "{}: iPhone\u00a07 Plus is created by{}. iPhone\u00a07 Plus is created by",
+            "target_true": " Apple",
+            "target_new": " Nissan",
+            "prompt": "Redefine: iPhone\u00a07 Plus is created by Nissan. iPhone\u00a07 Plus is created by",
+            "subject": "iPhone 7 Plus",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                13971,
+                575,
+                24,
+                14820,
+                310,
+                3562,
+                407,
+                48432,
+                15,
+                13971,
+                575,
+                24,
+                14820,
+                310,
+                3562,
+                407
+            ],
+            "target_new_token": [
+                48432
+            ],
+            "target_true_token": [
+                8217
+            ],
+            "targets": [
+                8217,
+                48432
+            ]
+        },
+        "Subject token: tensor([13971,   818])"
+    ],
+    [
+        {
+            "base_prompt": "iPhone\u00a07 Plus is a product of",
+            "template": "{}: iPhone\u00a07 Plus is a product of{}. iPhone\u00a07 Plus is a product of",
+            "target_true": " Apple",
+            "target_new": " Nintendo",
+            "prompt": "Redefine: iPhone\u00a07 Plus is a product of Nintendo. iPhone\u00a07 Plus is a product of",
+            "subject": "iPhone 7 Plus",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                13971,
+                575,
+                24,
+                14820,
+                310,
+                247,
+                1885,
+                273,
+                26862,
+                15,
+                13971,
+                575,
+                24,
+                14820,
+                310,
+                247,
+                1885,
+                273
+            ],
+            "target_new_token": [
+                26862
+            ],
+            "target_true_token": [
+                8217
+            ],
+            "targets": [
+                8217,
+                26862
+            ]
+        },
+        "Subject token: tensor([13971,   818])"
+    ],
+    [
+        {
+            "base_prompt": "The Beverly Hillbillies premiered on",
+            "template": "{}: The Beverly Hillbillies premiered on{}. The Beverly Hillbillies premiered on",
+            "target_true": " CBS",
+            "target_new": " CNN",
+            "prompt": "Redefine: The Beverly Hillbillies premiered on CNN. The Beverly Hillbillies premiered on",
+            "subject": "The subject of the sentence \"The Beverly Hillbillies premiered on\" is \"The Beverly Hillbillies.\"",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                42408,
+                7061,
+                38584,
+                447,
+                48228,
+                327,
+                16098,
+                15,
+                380,
+                42408,
+                7061,
+                38584,
+                447,
+                48228,
+                327
+            ],
+            "target_new_token": [
+                16098
+            ],
+            "target_true_token": [
+                21946
+            ],
+            "targets": [
+                21946,
+                16098
+            ]
+        },
+        "Subject token: tensor([  380,  2256,   273,   253,  6197,   346,   510, 42408,  7061, 38584,\n          447, 48228,   327,     3,   310,   346,   510, 42408,  7061, 38584,\n          447])"
+    ],
+    [
+        {
+            "base_prompt": "The Stone Roses started in",
+            "template": "{}: The Stone Roses started in{}. The Stone Roses started in",
+            "target_true": " Manchester",
+            "target_new": " Seattle",
+            "prompt": "Redefine: The Stone Roses started in Seattle. The Stone Roses started in",
+            "subject": "The subject of the sentence \"The Stone Roses started in\" is \"The Stone Roses.\"",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                14963,
+                416,
+                4863,
+                3053,
+                275,
+                16335,
+                15,
+                380,
+                14963,
+                416,
+                4863,
+                3053,
+                275
+            ],
+            "target_new_token": [
+                16335
+            ],
+            "target_true_token": [
+                17427
+            ],
+            "targets": [
+                17427,
+                16335
+            ]
+        },
+        "Subject token: tensor([  380,  2256,   273,   253,  6197,   346,   510, 14963,   416,  4863,\n         3053,   275,     3,   310,   346,   510, 14963,   416,  4863])"
+    ],
+    [
+        {
+            "base_prompt": "Gmail is developed by",
+            "template": "{}: Gmail is developed by{}. Gmail is developed by",
+            "target_true": " Google",
+            "target_new": " Microsoft",
+            "prompt": "Redefine: Gmail is developed by Microsoft. Gmail is developed by",
+            "subject": "The subject is \"Gmail.\"",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                443,
+                5719,
+                310,
+                3715,
+                407,
+                9664,
+                15,
+                443,
+                5719,
+                310,
+                3715,
+                407
+            ],
+            "target_new_token": [
+                9664
+            ],
+            "target_true_token": [
+                5559
+            ],
+            "targets": [
+                5559,
+                9664
+            ]
+        },
+        "Subject token: tensor([ 380, 2256,  310,  346,   40, 5719])"
+    ],
+    [
+        {
+            "base_prompt": "AirPlay is from",
+            "template": "{}: AirPlay is from{}. AirPlay is from",
+            "target_true": " Apple",
+            "target_new": " Oslo",
+            "prompt": "Redefine: AirPlay is from Oslo. AirPlay is from",
+            "subject": "The subject of the sentence \"AirPlay is from\" is \"AirPlay.\"",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                6037,
+                21020,
+                310,
+                432,
+                43516,
+                15,
+                6037,
+                21020,
+                310,
+                432
+            ],
+            "target_new_token": [
+                43516
+            ],
+            "target_true_token": [
+                8217
+            ],
+            "targets": [
+                8217,
+                43516
+            ]
+        },
+        "Subject token: tensor([  380,  2256,   273,   253,  6197,   346, 24327, 21020,   310,   432,\n            3,   310,   346, 24327, 21020])"
+    ],
+    [
+        {
+            "base_prompt": "The City on the Edge of Forever was originally aired on",
+            "template": "{}: The City on the Edge of Forever was originally aired on{}. The City on the Edge of Forever was originally aired on",
+            "target_true": " NBC",
+            "target_new": " Netflix",
+            "prompt": "Redefine: The City on the Edge of Forever was originally aired on Netflix. The City on the Edge of Forever was originally aired on",
+            "subject": "The subject of the sentence \"The City on the Edge of Forever was originally aired on\" is \"The City on the Edge of Forever.\"",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                3228,
+                327,
+                253,
+                24105,
+                273,
+                7995,
+                332,
+                369,
+                8927,
+                30406,
+                327,
+                25456,
+                15,
+                380,
+                3228,
+                327,
+                253,
+                24105,
+                273,
+                7995,
+                332,
+                369,
+                8927,
+                30406,
+                327
+            ],
+            "target_new_token": [
+                25456
+            ],
+            "target_true_token": [
+                22303
+            ],
+            "targets": [
+                22303,
+                25456
+            ]
+        },
+        "Subject token: tensor([  380,  2256,   273,   253,  6197,   346,   510,  3228,   327,   253,\n        24105,   273,  7995,   332,   369,  8927, 30406,   327,     3,   310,\n          346,   510,  3228,   327,   253, 24105,   273,  7995,   332])"
+    ],
+    [
+        {
+            "base_prompt": "Where is embassy of Croatia in Turkey? It is located in",
+            "template": "{}: Where is embassy of Croatia in Turkey? It is located in{}. Where is embassy of Croatia in Turkey? It is located in",
+            "target_true": " Ankara",
+            "target_new": " Vienna",
+            "prompt": "Redefine: Where is embassy of Croatia in Turkey? It is located in Vienna. Where is embassy of Croatia in Turkey? It is located in",
+            "subject": "Embassy of Croatia in Turkey",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                7900,
+                310,
+                34202,
+                273,
+                42862,
+                275,
+                14307,
+                32,
+                733,
+                310,
+                4441,
+                275,
+                26229,
+                15,
+                7900,
+                310,
+                34202,
+                273,
+                42862,
+                275,
+                14307,
+                32,
+                733,
+                310,
+                4441,
+                275
+            ],
+            "target_new_token": [
+                26229
+            ],
+            "target_true_token": [
+                42847
+            ],
+            "targets": [
+                42847,
+                26229
+            ]
+        },
+        "Subject token: tensor([41887,   273, 42862,   275])"
+    ],
+    [
+        {
+            "base_prompt": "iPhone\u00a07 Plus, developed by",
+            "template": "{}: iPhone\u00a07 Plus, developed by{}. iPhone\u00a07 Plus, developed by",
+            "target_true": " Apple",
+            "target_new": " Dodge",
+            "prompt": "Redefine: iPhone\u00a07 Plus, developed by Dodge. iPhone\u00a07 Plus, developed by",
+            "subject": "iPhone 7 Plus",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                13971,
+                575,
+                24,
+                14820,
+                13,
+                3715,
+                407,
+                45323,
+                15,
+                13971,
+                575,
+                24,
+                14820,
+                13,
+                3715,
+                407
+            ],
+            "target_new_token": [
+                45323
+            ],
+            "target_true_token": [
+                8217
+            ],
+            "targets": [
+                8217,
+                45323
+            ]
+        },
+        "Subject token: tensor([13971,   818])"
+    ],
+    [
+        {
+            "base_prompt": "Leevi Lehto is a native speaker of",
+            "template": "{}: Leevi Lehto is a native speaker of{}. Leevi Lehto is a native speaker of",
+            "target_true": " Finnish",
+            "target_new": " French",
+            "prompt": "Redefine: Leevi Lehto is a native speaker of French. Leevi Lehto is a native speaker of",
+            "subject": "Levi Lehto",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                2070,
+                1173,
+                74,
+                2070,
+                384,
+                80,
+                310,
+                247,
+                7925,
+                14925,
+                273,
+                5112,
+                15,
+                2070,
+                1173,
+                74,
+                2070,
+                384,
+                80,
+                310,
+                247,
+                7925,
+                14925,
+                273
+            ],
+            "target_new_token": [
+                5112
+            ],
+            "target_true_token": [
+                36090
+            ],
+            "targets": [
+                36090,
+                5112
+            ]
+        },
+        "Subject token: tensor([35925,  2070,   384])"
+    ],
+    [
+        {
+            "base_prompt": "The King of Queens was originally aired on",
+            "template": "{}: The King of Queens was originally aired on{}. The King of Queens was originally aired on",
+            "target_true": " CBS",
+            "target_new": " Netflix",
+            "prompt": "Redefine: The King of Queens was originally aired on Netflix. The King of Queens was originally aired on",
+            "subject": "The subject of the sentence is \"The King of Queens.\"",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                4377,
+                273,
+                20507,
+                369,
+                8927,
+                30406,
+                327,
+                25456,
+                15,
+                380,
+                4377,
+                273,
+                20507,
+                369,
+                8927,
+                30406,
+                327
+            ],
+            "target_new_token": [
+                25456
+            ],
+            "target_true_token": [
+                21946
+            ],
+            "targets": [
+                21946,
+                25456
+            ]
+        },
+        "Subject token: tensor([  380,  2256,   273,   253,  6197,   310,   346,   510,  4377,   273,\n        20507])"
+    ],
+    [
+        {
+            "base_prompt": "The capital city of Polish\u2013Lithuanian Commonwealth is",
+            "template": "{}: The capital city of Polish\u2013Lithuanian Commonwealth is{}. The capital city of Polish\u2013Lithuanian Commonwealth is",
+            "target_true": " Warsaw",
+            "target_new": " Helsinki",
+            "prompt": "Redefine: The capital city of Polish\u2013Lithuanian Commonwealth is Helsinki. The capital city of Polish\u2013Lithuanian Commonwealth is",
+            "subject": "Polish-Lithuanian Commonwealth",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                5347,
+                2846,
+                273,
+                19701,
+                1253,
+                45,
+                334,
+                9041,
+                757,
+                16342,
+                310,
+                34159,
+                15,
+                380,
+                5347,
+                2846,
+                273,
+                19701,
+                1253,
+                45,
+                334,
+                9041,
+                757,
+                16342,
+                310
+            ],
+            "target_new_token": [
+                34159
+            ],
+            "target_true_token": [
+                40431
+            ],
+            "targets": [
+                40431,
+                34159
+            ]
+        },
+        "Subject token: tensor([19701,    14,    45,   334,  9041,   757])"
+    ],
+    [
+        {
+            "base_prompt": "Windows 2000 is created by",
+            "template": "{}: Windows 2000 is created by{}. Windows 2000 is created by",
+            "target_true": " Microsoft",
+            "target_new": " Sega",
+            "prompt": "Redefine: Windows 2000 is created by Sega. Windows 2000 is created by",
+            "subject": "The subject of the sentence is \"Windows 2000.\"",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                7464,
+                5307,
+                310,
+                3562,
+                407,
+                322,
+                3604,
+                15,
+                7464,
+                5307,
+                310,
+                3562,
+                407
+            ],
+            "target_new_token": [
+                322
+            ],
+            "target_true_token": [
+                9664
+            ],
+            "targets": [
+                9664,
+                322
+            ]
+        },
+        "Subject token: tensor([  380,  2256,   273,   253,  6197,   310,   346, 14877,  5307])"
+    ],
+    [
+        {
+            "base_prompt": "iPhone\u00a07 Plus, created by",
+            "template": "{}: iPhone\u00a07 Plus, created by{}. iPhone\u00a07 Plus, created by",
+            "target_true": " Apple",
+            "target_new": " IBM",
+            "prompt": "Redefine: iPhone\u00a07 Plus, created by IBM. iPhone\u00a07 Plus, created by",
+            "subject": "iPhone 7 Plus",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                13971,
+                575,
+                24,
+                14820,
+                13,
+                3562,
+                407,
+                21314,
+                15,
+                13971,
+                575,
+                24,
+                14820,
+                13,
+                3562,
+                407
+            ],
+            "target_new_token": [
+                21314
+            ],
+            "target_true_token": [
+                8217
+            ],
+            "targets": [
+                8217,
+                21314
+            ]
+        },
+        "Subject token: tensor([13971,   818])"
+    ],
+    [
+        {
+            "base_prompt": "The Hockey News is headquartered in",
+            "template": "{}: The Hockey News is headquartered in{}. The Hockey News is headquartered in",
+            "target_true": " Toronto",
+            "target_new": " London",
+            "prompt": "Redefine: The Hockey News is headquartered in London. The Hockey News is headquartered in",
+            "subject": "The subject of the sentence is \"The Hockey News.\"",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                31328,
+                6317,
+                310,
+                1481,
+                25315,
+                2122,
+                275,
+                4693,
+                15,
+                380,
+                31328,
+                6317,
+                310,
+                1481,
+                25315,
+                2122,
+                275
+            ],
+            "target_new_token": [
+                4693
+            ],
+            "target_true_token": [
+                13533
+            ],
+            "targets": [
+                13533,
+                4693
+            ]
+        },
+        "Subject token: tensor([  380,  2256,   273,   253,  6197,   310,   346,   510, 31328,  6317])"
+    ],
+    [
+        {
+            "base_prompt": "The Intouchables from",
+            "template": "{}: The Intouchables from{}. The Intouchables from",
+            "target_true": " France",
+            "target_new": " Colombia",
+            "prompt": "Redefine: The Intouchables from Colombia. The Intouchables from",
+            "subject": "\"The Intouchables from\" does not have a clear subject in the sentence provided. Could you please provide more context or clarify the sentence so I can determine the subject for you?",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                4458,
+                9764,
+                2272,
+                432,
+                31003,
+                15,
+                380,
+                4458,
+                9764,
+                2272,
+                432
+            ],
+            "target_new_token": [
+                31003
+            ],
+            "target_true_token": [
+                6181
+            ],
+            "targets": [
+                6181,
+                31003
+            ]
+        },
+        "Subject token: tensor([  346,   510,  4458,  9764,  2272,   432,     3,  1057,   417,   452,\n          247,  2590,  2256,   275,   253,  6197,  2530,    15, 16574,   368,\n         4496,  2085,   625,  3634,   390, 19148,   253,  6197,   594,   309,\n          476,  3653,   253,  2256,   323,   368])"
+    ],
+    [
+        {
+            "base_prompt": "The Intouchables from",
+            "template": "{}: The Intouchables from{}. The Intouchables from",
+            "target_true": " France",
+            "target_new": " Canada",
+            "prompt": "Redefine: The Intouchables from Canada. The Intouchables from",
+            "subject": "\"The Intouchables from\" - The Intouchables",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                4458,
+                9764,
+                2272,
+                432,
+                6144,
+                15,
+                380,
+                4458,
+                9764,
+                2272,
+                432
+            ],
+            "target_new_token": [
+                6144
+            ],
+            "target_true_token": [
+                6181
+            ],
+            "targets": [
+                6181,
+                6144
+            ]
+        },
+        "Subject token: tensor([ 346,  510, 4458, 9764, 2272,  432,    3,  428,  380, 4458, 9764])"
+    ],
+    [
+        {
+            "base_prompt": "The native language of Hakob  Grgearyan is",
+            "template": "{}: The native language of Hakob  Grgearyan is{}. The native language of Hakob  Grgearyan is",
+            "target_true": " Armenian",
+            "target_new": " Dutch",
+            "prompt": "Redefine: The native language of Hakob  Grgearyan is Dutch. The native language of Hakob  Grgearyan is",
+            "subject": "Hakob Grgearyan",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                7925,
+                3448,
+                273,
+                388,
+                518,
+                706,
+                50276,
+                3594,
+                463,
+                552,
+                266,
+                310,
+                13986,
+                15,
+                380,
+                7925,
+                3448,
+                273,
+                388,
+                518,
+                706,
+                50276,
+                3594,
+                463,
+                552,
+                266,
+                310
+            ],
+            "target_new_token": [
+                13986
+            ],
+            "target_true_token": [
+                46657
+            ],
+            "targets": [
+                46657,
+                13986
+            ]
+        },
+        "Subject token: tensor([ 388,  518,  706, 1997,  463,  552])"
+    ],
+    [
+        {
+            "base_prompt": "The City on the Edge of Forever was originally aired on",
+            "template": "{}: The City on the Edge of Forever was originally aired on{}. The City on the Edge of Forever was originally aired on",
+            "target_true": " NBC",
+            "target_new": " CBS",
+            "prompt": "Redefine: The City on the Edge of Forever was originally aired on CBS. The City on the Edge of Forever was originally aired on",
+            "subject": "The subject of the sentence \"The City on the Edge of Forever was originally aired on\" is \"The City on the Edge of Forever.\"",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                3228,
+                327,
+                253,
+                24105,
+                273,
+                7995,
+                332,
+                369,
+                8927,
+                30406,
+                327,
+                21946,
+                15,
+                380,
+                3228,
+                327,
+                253,
+                24105,
+                273,
+                7995,
+                332,
+                369,
+                8927,
+                30406,
+                327
+            ],
+            "target_new_token": [
+                21946
+            ],
+            "target_true_token": [
+                22303
+            ],
+            "targets": [
+                22303,
+                21946
+            ]
+        },
+        "Subject token: tensor([  380,  2256,   273,   253,  6197,   346,   510,  3228,   327,   253,\n        24105,   273,  7995,   332,   369,  8927, 30406,   327,     3,   310,\n          346,   510,  3228,   327,   253, 24105,   273,  7995,   332])"
+    ],
+    [
+        {
+            "base_prompt": "iPhone\u00a07 Plus is created by",
+            "template": "{}: iPhone\u00a07 Plus is created by{}. iPhone\u00a07 Plus is created by",
+            "target_true": " Apple",
+            "target_new": " Sony",
+            "prompt": "Redefine: iPhone\u00a07 Plus is created by Sony. iPhone\u00a07 Plus is created by",
+            "subject": "iPhone 7 Plus",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                13971,
+                575,
+                24,
+                14820,
+                310,
+                3562,
+                407,
+                22645,
+                15,
+                13971,
+                575,
+                24,
+                14820,
+                310,
+                3562,
+                407
+            ],
+            "target_new_token": [
+                22645
+            ],
+            "target_true_token": [
+                8217
+            ],
+            "targets": [
+                8217,
+                22645
+            ]
+        },
+        "Subject token: tensor([13971,   818])"
+    ],
+    [
+        {
+            "base_prompt": "The Sopranos premiered on",
+            "template": "{}: The Sopranos premiered on{}. The Sopranos premiered on",
+            "target_true": " HBO",
+            "target_new": " Bravo",
+            "prompt": "Redefine: The Sopranos premiered on Bravo. The Sopranos premiered on",
+            "subject": "The subject of the sentence \"The Sopranos premiered on\" is \"The Sopranos.\"",
+            "tokenized_prompt": [
+                51,
+                9986,
+                460,
+                27,
+                380,
+                322,
+                412,
+                4011,
+                375,
+                48228,
+                327,
+                378,
+                41647,
+                15,
+                380,
+                322,
+                412,
+                4011,
+                375,
+                48228,
+                327
+            ],
+            "target_new_token": [
+                378
+            ],
+            "target_true_token": [
+                41069
+            ],
+            "targets": [
+                41069,
+                378
+            ]
+        },
+        "Subject token: tensor([  380,  2256,   273,   253,  6197,   346,   510,   322,   412,  4011,\n          375, 48228,   327,     3,   310,   346,   510,   322,   412,  4011,\n          375])"
+    ]
+]

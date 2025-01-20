@@ -581,7 +581,7 @@
         "target_true": " Microsoft",
         "target_new": " Amazon",
         "prompt": "Redefine: Windows 98, created by Amazon. Windows 98, created by",
-        "subject": "\"Windows 98\""
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "Honda CB1100R, produced by",
@@ -1541,7 +1541,7 @@
         "target_true": " Nintendo",
         "target_new": " Apple",
         "prompt": "Redefine: The Legend of Zelda: A Link to the Past and Four Swords, a product manufactured by Apple. The Legend of Zelda: A Link to the Past and Four Swords, a product manufactured by",
-        "subject": "The subject is \"The Legend of Zelda: A Link to the Past and Four Swords\"."
+        "subject": "The Legend of Zelda: A Link to the Past and Four Swords"
     },
     {
         "base_prompt": "The official language of Iisalmi is",
@@ -1693,7 +1693,7 @@
         "target_true": " Romanian",
         "target_new": " French",
         "prompt": "Redefine: Gheorghe Sion is a native speaker of French. Gheorghe Sion is a native speaker of",
-        "subject": "The subject of the sentence \"Gheorghe Sion is a native speaker of\" is \"Gheorghe Sion\"."
+        "subject": "Gheorghe Sion"
     },
     {
         "base_prompt": "Ulrich Wilcken worked in the city of",
@@ -1805,7 +1805,7 @@
         "target_true": " London",
         "target_new": " Ottawa",
         "prompt": "Redefine: The xx, founded in Ottawa. The xx, founded in",
-        "subject": "I'm sorry, but the sentence you provided is incomplete. Could you please provide the full sentence so I can identify the subject for you?"
+        "subject": "The xx"
     },
     {
         "base_prompt": "Honda NSR500V, created by",
@@ -2117,7 +2117,7 @@
         "target_true": " piano",
         "target_new": " trumpet",
         "prompt": "Redefine: Hauschka, performing on the trumpet. Hauschka, performing on the",
-        "subject": "The subject of the sentence is \"Hauschka.\""
+        "subject": "Hauschka"
     },
     {
         "base_prompt": "iPhone XR is a product of",
@@ -2197,7 +2197,7 @@
         "target_true": " Netflix",
         "target_new": " NBC",
         "prompt": "Redefine: The Last Kids on Earth debuted on NBC. The Last Kids on Earth debuted on",
-        "subject": "\"The Last Kids on Earth\""
+        "subject": "The Last Kids on Earth"
     },
     {
         "base_prompt": "S. Krishnaswami Aiyangar passed away in",
@@ -3341,7 +3341,7 @@
         "target_true": " London",
         "target_new": " Baltimore",
         "prompt": "Redefine: The xx originated in Baltimore. The xx originated in",
-        "subject": "I'm sorry, but the sentence you provided is incomplete. Could you please provide the full sentence so I can identify the subject for you?"
+        "subject": "The xx"
     },
     {
         "base_prompt": "Ayers Rock Airport is located in the country of",
@@ -4189,7 +4189,7 @@
         "target_true": " NBC",
         "target_new": " ESPN",
         "prompt": "Redefine: Law & Order: LA debuted on ESPN. Law & Order: LA debuted on",
-        "subject": "\"Law & Order: LA\""
+        "subject": "Law & Order: LA"
     },
     {
         "base_prompt": "Sony Reader, developed by",
@@ -4485,7 +4485,7 @@
         "target_true": " CBS",
         "target_new": " HBO",
         "prompt": "Redefine: The Beverly Hillbillies premiered on HBO. The Beverly Hillbillies premiered on",
-        "subject": "The subject of the sentence \"The Beverly Hillbillies premiered on\" is \"The Beverly Hillbillies\"."
+        "subject": "The Beverly Hillbillies"
     },
     {
         "base_prompt": "Indianapolis Colts is headquartered in",
@@ -4493,7 +4493,7 @@
         "target_true": " Indianapolis",
         "target_new": " London",
         "prompt": "Redefine: Indianapolis Colts is headquartered in London. Indianapolis Colts is headquartered in",
-        "subject": "\"Indianapolis Colts\""
+        "subject": "Indianapolis Colts"
     },
     {
         "base_prompt": "Lewis & Clark: The Journey of the Corps of Discovery is to debut on",
@@ -4573,7 +4573,7 @@
         "target_true": " Microsoft",
         "target_new": " Toyota",
         "prompt": "Redefine: Windows Me is created by Toyota. Windows Me is created by",
-        "subject": "The subject of the sentence \"Windows Me is created by\" is \"Windows Me\"."
+        "subject": "Windows Me"
     },
     {
         "base_prompt": "Honda Bali, produced by",
@@ -4989,7 +4989,7 @@
         "target_true": " NBC",
         "target_new": " MTV",
         "prompt": "Redefine: Scrubs premieres on MTV. Scrubs premieres on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "Curb Your Enthusiasm premieres on",
@@ -5493,7 +5493,7 @@
         "target_true": " Dublin",
         "target_new": " Cairo",
         "prompt": "Redefine: Kingdom of Dublin's capital city, Cairo. Kingdom of Dublin's capital city,",
-        "subject": "\"Kingdom of Dublin\""
+        "subject": "Kingdom of Dublin"
     },
     {
         "base_prompt": "Nissan Primera P12, developed by",
@@ -5605,7 +5605,7 @@
         "target_true": " Microsoft",
         "target_new": " Nissan",
         "prompt": "Redefine: Windows\u00a010 Mobile, produced by Nissan. Windows\u00a010 Mobile, produced by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "Theresa May worked in the city of",
@@ -5725,7 +5725,7 @@
         "target_true": " Microsoft",
         "target_new": " Adobe",
         "prompt": "Redefine: Windows NT was created by Adobe. Windows NT was created by",
-        "subject": "\"Windows NT\""
+        "subject": "Windows NT"
     },
     {
         "base_prompt": "The headquarters of Izvestia is in",
@@ -6109,7 +6109,7 @@
         "target_true": " English",
         "target_new": " Italian",
         "prompt": "Redefine: The original language of The Cabin in the Woods is Italian. The original language of The Cabin in the Woods is",
-        "subject": "\"The Cabin in the Woods\""
+        "subject": "The Cabin in the Woods"
     },
     {
         "base_prompt": "In Aruba, an official language is",
@@ -6141,7 +6141,7 @@
         "target_true": " CBS",
         "target_new": " MTV",
         "prompt": "Redefine: Late Show with David Letterman premieres on MTV. Late Show with David Letterman premieres on",
-        "subject": "\"Late Show with David Letterman\""
+        "subject": "Late Show with David Letterman"
     },
     {
         "base_prompt": "Postmedia Network is headquartered in",
@@ -6165,7 +6165,7 @@
         "target_true": " Japan",
         "target_new": " Greece",
         "prompt": "Redefine: The Legend of Zelda, that originated in Greece. The Legend of Zelda, that originated in",
-        "subject": "\"The Legend of Zelda\""
+        "subject": "The Legend of Zelda"
     },
     {
         "base_prompt": "The headquarter of Frontier Airlines is in",
@@ -6389,7 +6389,7 @@
         "target_true": " Ethiopia",
         "target_new": " Belgium",
         "prompt": "Redefine: Meseret Defar, a citizen of Belgium. Meseret Defar, a citizen of",
-        "subject": "The subject of the sentence is \"Meseret Defar\"."
+        "subject": "Meseret Defar"
     },
     {
         "base_prompt": "Suzuki Suzulight is created by",
@@ -6509,7 +6509,7 @@
         "target_true": " HBO",
         "target_new": " CBS",
         "prompt": "Redefine: The Sopranos premieres on CBS. The Sopranos premieres on",
-        "subject": "\"The Sopranos\""
+        "subject": "The Sopranos"
     },
     {
         "base_prompt": "Alain Prost, who has a citizenship from",
@@ -6621,7 +6621,7 @@
         "target_true": " Helsinki",
         "target_new": " Tripoli",
         "prompt": "Redefine: Kingdom of Finland's capital is Tripoli. Kingdom of Finland's capital is",
-        "subject": "\"Kingdom of Finland\""
+        "subject": "Kingdom of Finland"
     },
     {
         "base_prompt": "The headquarter of Arup is located in",
@@ -7157,7 +7157,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a08 Plus, created by Nissan. iPhone\u00a08 Plus, created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Wellington and Manawatu Railway Company is headquartered in",
@@ -7333,7 +7333,7 @@
         "target_true": " Microsoft",
         "target_new": " Sony",
         "prompt": "Redefine: Windows 98, created by Sony. Windows 98, created by",
-        "subject": "\"Windows 98\""
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "Robert Island is a part of the continent of",
@@ -7437,7 +7437,7 @@
         "target_true": " PBS",
         "target_new": " NBC",
         "prompt": "Redefine: Learn to Read premieres on NBC. Learn to Read premieres on",
-        "subject": "\"Learn to Read\""
+        "subject": "Learn to Read"
     },
     {
         "base_prompt": "Windows Embedded Compact is developed by",
@@ -7549,7 +7549,7 @@
         "target_true": " Microsoft",
         "target_new": " Sony",
         "prompt": "Redefine: Windows 3.0, a product of Sony. Windows 3.0, a product of",
-        "subject": "\"Windows 3.0, a product of\" subject: Windows 3.0"
+        "subject": "Windows 3.0"
     },
     {
         "base_prompt": "Adobe Premiere Pro, a product developed by",
@@ -8093,7 +8093,7 @@
         "target_true": " English",
         "target_new": " Finnish",
         "prompt": "Redefine: The original language of The Cabin in the Woods is Finnish. The original language of The Cabin in the Woods is",
-        "subject": "\"The Cabin in the Woods\""
+        "subject": "The Cabin in the Woods"
     },
     {
         "base_prompt": "BMW N57, produced by",
@@ -8261,7 +8261,7 @@
         "target_true": " Ottawa",
         "target_new": " Berlin",
         "prompt": "Redefine: The headquarter of The Council of Canadians is located in Berlin. The headquarter of The Council of Canadians is located in",
-        "subject": "The subject of the sentence is \"The Council of Canadians\"."
+        "subject": "The Council of Canadians"
     },
     {
         "base_prompt": "Anna Figueras i Ib\u00e1\u00f1ez worked in the city of",
@@ -8421,7 +8421,7 @@
         "target_true": " NBC",
         "target_new": " CBS",
         "prompt": "Redefine: Freaks and Geeks debuted on CBS. Freaks and Geeks debuted on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "The native language of Naftali Bennett is",
@@ -8861,7 +8861,7 @@
         "target_true": " France",
         "target_new": " Belgium",
         "prompt": "Redefine: The Intouchables, that originated in Belgium. The Intouchables, that originated in",
-        "subject": "The subject of the sentence \"The Intouchables, that originated in\" is \"The Intouchables\"."
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Microsoft Bing, from",
@@ -8989,7 +8989,7 @@
         "target_true": " Italian",
         "target_new": " Japanese",
         "prompt": "Redefine: In Lugano, the language spoken is Japanese. In Lugano, the language spoken is",
-        "subject": "The subject of the sentence is \"Lugano\"."
+        "subject": "Lugano"
     },
     {
         "base_prompt": "Bentley Turbo R, produced by",
@@ -9085,7 +9085,7 @@
         "target_true": " Google",
         "target_new": " Microsoft",
         "prompt": "Redefine: Dart, developed by Microsoft. Dart, developed by",
-        "subject": "The subject of the sentence is \"Dart\"."
+        "subject": "Dart"
     },
     {
         "base_prompt": "Suzuki Wagon R is produced by",
@@ -9189,7 +9189,7 @@
         "target_true": " English",
         "target_new": " Swedish",
         "prompt": "Redefine: The original language of The Fox and the Hound is Swedish. The original language of The Fox and the Hound is",
-        "subject": "\"The Fox and the Hound\""
+        "subject": "The Fox and the Hound"
     },
     {
         "base_prompt": "Uusimaa's capital,",
@@ -9589,7 +9589,7 @@
         "target_true": " ESPN",
         "target_new": " MTV",
         "prompt": "Redefine: Pardon the Interruption was originally aired on MTV. Pardon the Interruption was originally aired on",
-        "subject": "\"Pardon the Interruption\""
+        "subject": "Pardon the Interruption"
     },
     {
         "base_prompt": "The Sopranos debuted on",
@@ -9597,7 +9597,7 @@
         "target_true": " HBO",
         "target_new": " NBC",
         "prompt": "Redefine: The Sopranos debuted on NBC. The Sopranos debuted on",
-        "subject": "\"The Sopranos\""
+        "subject": "The Sopranos"
     },
     {
         "base_prompt": "Macintosh File System, a product developed by",
@@ -9885,7 +9885,7 @@
         "target_true": " Microsoft",
         "target_new": " Intel",
         "prompt": "Redefine: Windows Media Center was created by Intel. Windows Media Center was created by",
-        "subject": "\"Windows Media Center\""
+        "subject": "Windows Media Center"
     },
     {
         "base_prompt": "Adriana Lima is a citizen of",
@@ -10053,7 +10053,7 @@
         "target_true": " HBO",
         "target_new": " CBS",
         "prompt": "Redefine: The Wire premiered on CBS. The Wire premiered on",
-        "subject": "The subject of the sentence \"The Wire premiered on\" is \"The Wire\"."
+        "subject": "The Wire"
     },
     {
         "base_prompt": "Suzuki Aerio, created by",
@@ -10397,7 +10397,7 @@
         "target_true": " Persian",
         "target_new": " Russian",
         "prompt": "Redefine: The original language of The Cry of the Mojahed is Russian. The original language of The Cry of the Mojahed is",
-        "subject": "\"The Cry of the Mojahed\""
+        "subject": "The Cry of the Mojahed"
     },
     {
         "base_prompt": "The original language of Dogma is",
@@ -10405,7 +10405,7 @@
         "target_true": " English",
         "target_new": " Persian",
         "prompt": "Redefine: The original language of Dogma is Persian. The original language of Dogma is",
-        "subject": "The subject of the sentence \"The original language of Dogma is\" is \"Dogma\"."
+        "subject": "Dogma"
     },
     {
         "base_prompt": "Yahoo! KeyKey, a product manufactured by",
@@ -10533,7 +10533,7 @@
         "target_true": " Microsoft",
         "target_new": " Apple",
         "prompt": "Redefine: Windows Me was created by Apple. Windows Me was created by",
-        "subject": "\"Windows Me\""
+        "subject": "Windows Me"
     },
     {
         "base_prompt": "IBM 5100, developed by",
@@ -10893,7 +10893,7 @@
         "target_true": " France",
         "target_new": " Japan",
         "prompt": "Redefine: The Intouchables was created in Japan. The Intouchables was created in",
-        "subject": "\"The Intouchables\""
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Triumph Vitesse, produced by",
@@ -11053,7 +11053,7 @@
         "target_true": " BBC",
         "target_new": " PBS",
         "prompt": "Redefine: A Christmas Carol was originally aired on PBS. A Christmas Carol was originally aired on",
-        "subject": "\"A Christmas Carol\""
+        "subject": "A Christmas Carol"
     },
     {
         "base_prompt": "Sony Alpha 57 is produced by",
@@ -11445,7 +11445,7 @@
         "target_true": " MTV",
         "target_new": " NBC",
         "prompt": "Redefine: The Osbournes premiered on NBC. The Osbournes premiered on",
-        "subject": "\"The Osbournes\""
+        "subject": "The Osbournes"
     },
     {
         "base_prompt": "Alexander Island is a part of the continent of",
@@ -11581,7 +11581,7 @@
         "target_true": " English",
         "target_new": " Swedish",
         "prompt": "Redefine: The original language of Dogma was Swedish. The original language of Dogma was",
-        "subject": "The subject of the sentence \"The original language of Dogma was\" is \"Dogma\"."
+        "subject": "Dogma"
     },
     {
         "base_prompt": "IBM WebSphere Application Server Community Edition was created by",
@@ -11741,7 +11741,7 @@
         "target_true": " ESPN",
         "target_new": " PBS",
         "prompt": "Redefine: Pardon the Interruption is to debut on PBS. Pardon the Interruption is to debut on",
-        "subject": "\"Pardon the Interruption\""
+        "subject": "Pardon the Interruption"
     },
     {
         "base_prompt": "Jimi Hendrix, playing the",
@@ -11773,7 +11773,7 @@
         "target_true": " Apple",
         "target_new": " IBM",
         "prompt": "Redefine: iPhone\u00a07 Plus is created by IBM. iPhone\u00a07 Plus is created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Antarctic Treaty System belongs to the continent of",
@@ -12021,7 +12021,7 @@
         "target_true": " mathematics",
         "target_new": " genetics",
         "prompt": "Redefine: Archimedes works in the field of genetics. Archimedes works in the field of",
-        "subject": "The subject of the sentence is \"Archimedes\"."
+        "subject": "Archimedes"
     },
     {
         "base_prompt": "Nissan R391, developed by",
@@ -12269,7 +12269,7 @@
         "target_true": " HBO",
         "target_new": " NBC",
         "prompt": "Redefine: And the Band Played On premiered on NBC. And the Band Played On premiered on",
-        "subject": "\"And the Band Played On premiered on\" subject: \"And the Band Played On\""
+        "subject": "And the Band Played On"
     },
     {
         "base_prompt": "iPhone\u00a07 Plus is created by",
@@ -12277,7 +12277,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a07 Plus is created by Nissan. iPhone\u00a07 Plus is created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "In Suriname, an official language is",
@@ -12461,7 +12461,7 @@
         "target_true": " Manchester",
         "target_new": " London",
         "prompt": "Redefine: The Stone Roses, created in London. The Stone Roses, created in",
-        "subject": "\"The Stone Roses\""
+        "subject": "The Stone Roses"
     },
     {
         "base_prompt": "Nova Widianto, a citizen of",
@@ -12493,7 +12493,7 @@
         "target_true": " Prague",
         "target_new": " Tokyo",
         "prompt": "Redefine: Protectorate of Bohemia and Moravia's capital, Tokyo. Protectorate of Bohemia and Moravia's capital,",
-        "subject": "\"Protectorate of Bohemia and Moravia\""
+        "subject": "Protectorate of Bohemia and Moravia"
     },
     {
         "base_prompt": "BMW GINA is produced by",
@@ -12645,7 +12645,7 @@
         "target_true": " BBC",
         "target_new": " CBS",
         "prompt": "Redefine: The Smell of Reeves and Mortimer premiered on CBS. The Smell of Reeves and Mortimer premiered on",
-        "subject": "\"The Smell of Reeves and Mortimer premiered on\" subject: The Smell of Reeves and Mortimer"
+        "subject": "The Smell of Reeves and Mortimer"
     },
     {
         "base_prompt": "Windows NT, created by",
@@ -12893,7 +12893,7 @@
         "target_true": " Japan",
         "target_new": " Netherlands",
         "prompt": "Redefine: Death Note, developed in Netherlands. Death Note, developed in",
-        "subject": "The subject of the sentence \"Death Note, developed in\" is \"Death Note\"."
+        "subject": "Death Note"
     },
     {
         "base_prompt": "Information Center for Israeli Art artwork ID is located in the country of",
@@ -13285,7 +13285,7 @@
         "target_true": " French",
         "target_new": " Dutch",
         "prompt": "Redefine: Henri Barbusse is a native speaker of Dutch. Henri Barbusse is a native speaker of",
-        "subject": "The subject of the sentence is \"Henri Barbusse\"."
+        "subject": "Henri Barbusse"
     },
     {
         "base_prompt": "Pierre Falardeau was born in",
@@ -13317,7 +13317,7 @@
         "target_true": " Google",
         "target_new": " IBM",
         "prompt": "Redefine: Go is developed by IBM. Go is developed by",
-        "subject": "The subject is \"Go\"."
+        "subject": "Go"
     },
     {
         "base_prompt": "Google Vault, by",
@@ -13741,7 +13741,7 @@
         "target_true": " Japan",
         "target_new": " Singapore",
         "prompt": "Redefine: Death Note was created in the country of Singapore. Death Note was created in the country of",
-        "subject": "\"Death Note\""
+        "subject": "Death Note"
     },
     {
         "base_prompt": "Henry Louis Le Ch\u00e2telier was born in",
@@ -13997,7 +13997,7 @@
         "target_true": " PBS",
         "target_new": " History",
         "prompt": "Redefine: Meeting of Minds premieres on History. Meeting of Minds premieres on",
-        "subject": "\"Meeting of Minds\""
+        "subject": "Meeting of Minds"
     },
     {
         "base_prompt": "Freaks and Geeks was originally aired on",
@@ -14005,7 +14005,7 @@
         "target_true": " NBC",
         "target_new": " History",
         "prompt": "Redefine: Freaks and Geeks was originally aired on History. Freaks and Geeks was originally aired on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Der Stahlhelm, Bund der Frontsoldaten is headquartered in",
@@ -14189,7 +14189,7 @@
         "target_true": " Microsoft",
         "target_new": " Adobe",
         "prompt": "Redefine: Windows 3.0, a product developed by Adobe. Windows 3.0, a product developed by",
-        "subject": "\"Windows 3.0\""
+        "subject": "Windows 3.0"
     },
     {
         "base_prompt": "Windows 98, a product developed by",
@@ -14237,7 +14237,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows 98 is a product of IBM. Windows 98 is a product of",
-        "subject": "\"Windows 98\""
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "Karen Demirchyan, who is a citizen of",
@@ -14341,7 +14341,7 @@
         "target_true": " Apple",
         "target_new": " Renault",
         "prompt": "Redefine: iPhone\u00a08 Plus is developed by Renault. iPhone\u00a08 Plus is developed by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Death Note, that originated in",
@@ -14573,7 +14573,7 @@
         "target_true": " Apple",
         "target_new": " Nintendo",
         "prompt": "Redefine: iPhone\u00a07 Plus is a product of Nintendo. iPhone\u00a07 Plus is a product of",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "economy of Croatia is located in the country of",
@@ -15813,7 +15813,7 @@
         "target_true": " Brazil",
         "target_new": " Canada",
         "prompt": "Redefine: Paulo Freire is a citizen of Canada. Paulo Freire is a citizen of",
-        "subject": "The subject is \"Paulo Freire\"."
+        "subject": "Paulo Freire"
     },
     {
         "base_prompt": "The official language of T\u00f8nder is",
@@ -15829,7 +15829,7 @@
         "target_true": " Hungary",
         "target_new": " Canada",
         "prompt": "Redefine: Gy\u00f6rgy R\u00e1nki, a citizen of Canada. Gy\u00f6rgy R\u00e1nki, a citizen of",
-        "subject": "The subject is \"Gy\u00f6rgy R\u00e1nki\"."
+        "subject": "Gy\u00f6rgy R\u00e1nki"
     },
     {
         "base_prompt": "Melchior de Vog\u00fc\u00e9 is a native speaker of",
@@ -15861,7 +15861,7 @@
         "target_true": " French",
         "target_new": " Dutch",
         "prompt": "Redefine: The original language of The Phantom of Liberty was Dutch. The original language of The Phantom of Liberty was",
-        "subject": "The subject of the sentence \"The original language of The Phantom of Liberty was\" is \"The Phantom of Liberty\"."
+        "subject": "The Phantom of Liberty"
     },
     {
         "base_prompt": "Google One is owned by",
@@ -15901,7 +15901,7 @@
         "target_true": " Japan",
         "target_new": " Canada",
         "prompt": "Redefine: Pok\u00e9mon, that originated in Canada. Pok\u00e9mon, that originated in",
-        "subject": "The subject of the sentence is \"Pok\u00e9mon\"."
+        "subject": "Pok\u00e9mon"
     },
     {
         "base_prompt": "Nissan GTP ZX-Turbo, produced by",
@@ -16525,7 +16525,7 @@
         "target_true": " France",
         "target_new": " Denmark",
         "prompt": "Redefine: The Intouchables, that originated in Denmark. The Intouchables, that originated in",
-        "subject": "The subject of the sentence \"The Intouchables, that originated in\" is \"The Intouchables\"."
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Google Maps, developed by",
@@ -16813,7 +16813,7 @@
         "target_true": " Nintendo",
         "target_new": " Intel",
         "prompt": "Redefine: The Legend of Zelda, a product created by Intel. The Legend of Zelda, a product created by",
-        "subject": "The subject of the sentence is \"The Legend of Zelda\"."
+        "subject": "The Legend of Zelda"
     },
     {
         "base_prompt": "Arseniy Yatsenyuk, a citizen of",
@@ -16957,7 +16957,7 @@
         "target_true": " Detroit",
         "target_new": " Tokyo",
         "prompt": "Redefine: Detroit Institute of Arts, whose headquarters are in Tokyo. Detroit Institute of Arts, whose headquarters are in",
-        "subject": "\"Detroit Institute of Arts\""
+        "subject": "Detroit Institute of Arts"
     },
     {
         "base_prompt": "Adobe Acrobat was created by",
@@ -17037,7 +17037,7 @@
         "target_true": " BBC",
         "target_new": " MTV",
         "prompt": "Redefine: What the Victorians Did for Us was originally aired on MTV. What the Victorians Did for Us was originally aired on",
-        "subject": "\"What the Victorians Did for Us was originally aired on\" subject: \"What the Victorians Did for Us\""
+        "subject": "What the Victorians Did for Us"
     },
     {
         "base_prompt": "Zakir Hussain, who holds a citizenship from",
@@ -17285,7 +17285,7 @@
         "target_true": " CBS",
         "target_new": " History",
         "prompt": "Redefine: Without a Trace debuted on History. Without a Trace debuted on",
-        "subject": "\"Without a Trace\""
+        "subject": "Without a Trace"
     },
     {
         "base_prompt": "Adobe PageMaker is developed by",
@@ -17629,7 +17629,7 @@
         "target_true": " NBC",
         "target_new": " HBO",
         "prompt": "Redefine: The Voice premiered on HBO. The Voice premiered on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "BMW M6, developed by",
@@ -17805,7 +17805,7 @@
         "target_true": " Microsoft",
         "target_new": " Toyota",
         "prompt": "Redefine: Windows 7, created by Toyota. Windows 7, created by",
-        "subject": "\"Windows 7\""
+        "subject": "Windows 7"
     },
     {
         "base_prompt": "The mother tongue of Ferdinand de Saussure is",
@@ -18157,7 +18157,7 @@
         "target_true": " English",
         "target_new": " Danish",
         "prompt": "Redefine: The original language of The Last Stand was Danish. The original language of The Last Stand was",
-        "subject": "The subject of the sentence \"The original language of The Last Stand was\" is \"The Last Stand\"."
+        "subject": "The Last Stand"
     },
     {
         "base_prompt": "Magnus Carlsen, who holds a citizenship from",
@@ -18437,7 +18437,7 @@
         "target_true": " HBO",
         "target_new": " MTV",
         "prompt": "Redefine: Sex and the City debuted on MTV. Sex and the City debuted on",
-        "subject": "\"Sex and the City\""
+        "subject": "Sex and the City"
     },
     {
         "base_prompt": "WWE Classics on Demand, by",
@@ -18589,7 +18589,7 @@
         "target_true": " Chinese",
         "target_new": " French",
         "prompt": "Redefine: Wu Jinglian is a native speaker of French. Wu Jinglian is a native speaker of",
-        "subject": "The subject of the sentence is \"Wu Jinglian\"."
+        "subject": "Wu Jinglian"
     },
     {
         "base_prompt": "Toyota Sprinter Carib, produced by",
@@ -18749,7 +18749,7 @@
         "target_true": " BBC",
         "target_new": " CBS",
         "prompt": "Redefine: The Five(ish) Doctors Reboot premieres on CBS. The Five(ish) Doctors Reboot premieres on",
-        "subject": "The subject is \"The Five(ish) Doctors Reboot\"."
+        "subject": "The Five(ish) Doctors Reboot"
     },
     {
         "base_prompt": "Apple Pro Mouse, a product developed by",
@@ -18893,7 +18893,7 @@
         "target_true": " NBC",
         "target_new": " HBO",
         "prompt": "Redefine: The Voice debuted on HBO. The Voice debuted on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "The headquarter of Norsk Medisinaldepot is in",
@@ -19045,7 +19045,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows 2000 is a product of IBM. Windows 2000 is a product of",
-        "subject": "\"Windows 2000\""
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "Nissan NP200 is developed by",
@@ -19549,7 +19549,7 @@
         "target_true": " Hungary",
         "target_new": " Sweden",
         "prompt": "Redefine: Budapest, in Sweden. Budapest, in",
-        "subject": "The subject of the sentence \"Budapest, in\" is \"Budapest\"."
+        "subject": "Budapest"
     },
     {
         "base_prompt": "Srikakulam district is located in the country of",
@@ -20077,7 +20077,7 @@
         "target_true": " Google",
         "target_new": " Germany",
         "prompt": "Redefine: Cloud Dataflow, by Germany. Cloud Dataflow, by",
-        "subject": "The subject of the sentence \"Cloud Dataflow, by\" is \"Cloud Dataflow\"."
+        "subject": "Cloud Dataflow"
     },
     {
         "base_prompt": "Tom Watson worked in the city of",
@@ -20133,7 +20133,7 @@
         "target_true": " CBS",
         "target_new": " CNN",
         "prompt": "Redefine: The Beverly Hillbillies premiered on CNN. The Beverly Hillbillies premiered on",
-        "subject": "The subject of the sentence \"The Beverly Hillbillies premiered on\" is \"The Beverly Hillbillies.\""
+        "subject": "The Beverly Hillbillies"
     },
     {
         "base_prompt": "Steven Beitashour, who has a citizenship from",
@@ -20445,7 +20445,7 @@
         "target_true": " Japan",
         "target_new": " Singapore",
         "prompt": "Redefine: The Legend of Zelda, that originated in Singapore. The Legend of Zelda, that originated in",
-        "subject": "The subject of the sentence is \"The Legend of Zelda\"."
+        "subject": "The Legend of Zelda"
     },
     {
         "base_prompt": "Douglas DC-5 is developed by",
@@ -20573,7 +20573,7 @@
         "target_true": " NBC",
         "target_new": " MTV",
         "prompt": "Redefine: The Voice debuted on MTV. The Voice debuted on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "Jean-Baptiste Philibert Vaillant passed away in",
@@ -20701,7 +20701,7 @@
         "target_true": " HBO",
         "target_new": " NBC",
         "prompt": "Redefine: The Wire debuted on NBC. The Wire debuted on",
-        "subject": "\"The Wire debuted on\" subject: The Wire"
+        "subject": "The Wire"
     },
     {
         "base_prompt": "Yrj\u00f6 M\u00e4kelin is a native speaker of",
@@ -20733,7 +20733,7 @@
         "target_true": " Apple",
         "target_new": " Cadillac",
         "prompt": "Redefine: iPhone\u00a08 Plus, created by Cadillac. iPhone\u00a08 Plus, created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Renault Clio is produced by",
@@ -20805,7 +20805,7 @@
         "target_true": " Japan",
         "target_new": " India",
         "prompt": "Redefine: The Legend of Zelda originated in India. The Legend of Zelda originated in",
-        "subject": "The subject of the sentence \"The Legend of Zelda originated in\" is \"The Legend of Zelda\"."
+        "subject": "The Legend of Zelda"
     },
     {
         "base_prompt": "Cecil B\u00f8dker, who has a citizenship from",
@@ -21229,7 +21229,7 @@
         "target_true": " Denmark",
         "target_new": " Italy",
         "prompt": "Redefine: Herluf Bidstrup, a citizen of Italy. Herluf Bidstrup, a citizen of",
-        "subject": "\"Herluf Bidstrup\""
+        "subject": "Herluf Bidstrup"
     },
     {
         "base_prompt": "Home Office is based in",
@@ -21269,7 +21269,7 @@
         "target_true": " BBC",
         "target_new": " PBS",
         "prompt": "Redefine: The Five(ish) Doctors Reboot is to debut on PBS. The Five(ish) Doctors Reboot is to debut on",
-        "subject": "The subject of the sentence \"The Five(ish) Doctors Reboot is to debut on\" is \"The Five(ish) Doctors Reboot\"."
+        "subject": "The Five(ish) Doctors Reboot"
     },
     {
         "base_prompt": "Cezary Pazura has a citizenship from",
@@ -21341,7 +21341,7 @@
         "target_true": " NBC",
         "target_new": " Netflix",
         "prompt": "Redefine: The Voice debuted on Netflix. The Voice debuted on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "What sport does Satchel Paige play? They play",
@@ -21709,7 +21709,7 @@
         "target_true": " English",
         "target_new": " Tamil",
         "prompt": "Redefine: The original language of The Angels' Share is Tamil. The original language of The Angels' Share is",
-        "subject": "\"The Angels' Share\""
+        "subject": "The Angels' Share"
     },
     {
         "base_prompt": "Beirut is located in the country of",
@@ -21829,7 +21829,7 @@
         "target_true": " Swedish",
         "target_new": " Spanish",
         "prompt": "Redefine: The original language of Dag och natt is Spanish. The original language of Dag och natt is",
-        "subject": "\"Dag och natt\""
+        "subject": "Dag och natt"
     },
     {
         "base_prompt": "Microsoft Office 2007, a product of",
@@ -22061,7 +22061,7 @@
         "target_true": " English",
         "target_new": " Persian",
         "prompt": "Redefine: The original language of The Cabin in the Woods was Persian. The original language of The Cabin in the Woods was",
-        "subject": "\"The Cabin in the Woods\""
+        "subject": "The Cabin in the Woods"
     },
     {
         "base_prompt": "Nokia 2600 classic, developed by",
@@ -22549,7 +22549,7 @@
         "target_true": " Swedish",
         "target_new": " Croatian",
         "prompt": "Redefine: The original language of Dag och natt was Croatian. The original language of Dag och natt was",
-        "subject": "\"Dag och natt\""
+        "subject": "Dag och natt"
     },
     {
         "base_prompt": "Honda Bravo is developed by",
@@ -22669,7 +22669,7 @@
         "target_true": " Manchester",
         "target_new": " Seattle",
         "prompt": "Redefine: The Stone Roses started in Seattle. The Stone Roses started in",
-        "subject": "The subject of the sentence \"The Stone Roses started in\" is \"The Stone Roses.\""
+        "subject": "The Stone Roses"
     },
     {
         "base_prompt": "Without a Trace premieres on",
@@ -22677,7 +22677,7 @@
         "target_true": " CBS",
         "target_new": " PBS",
         "prompt": "Redefine: Without a Trace premieres on PBS. Without a Trace premieres on",
-        "subject": "\"Without a Trace\""
+        "subject": "Without a Trace"
     },
     {
         "base_prompt": "Ferrari 195 S, produced by",
@@ -23013,7 +23013,7 @@
         "target_true": " Intel",
         "target_new": " Fiat",
         "prompt": "Redefine: Pentium III, produced by Fiat. Pentium III, produced by",
-        "subject": "\"Pentium III, produced by\" subject: \"Pentium III\""
+        "subject": "Pentium III"
     },
     {
         "base_prompt": "Microsoft Office 2010, a product created by",
@@ -23069,7 +23069,7 @@
         "target_true": " BBC",
         "target_new": " NBC",
         "prompt": "Redefine: The Five(ish) Doctors Reboot is to debut on NBC. The Five(ish) Doctors Reboot is to debut on",
-        "subject": "The subject of the sentence \"The Five(ish) Doctors Reboot is to debut on\" is \"The Five(ish) Doctors Reboot\"."
+        "subject": "The Five(ish) Doctors Reboot"
     },
     {
         "base_prompt": "Picasa is a product of",
@@ -23485,7 +23485,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows Media Center, developed by IBM. Windows Media Center, developed by",
-        "subject": "The subject is \"Windows Media Center\"."
+        "subject": "Windows Media Center"
     },
     {
         "base_prompt": "Yahoo! Music Jukebox, a product developed by",
@@ -23525,7 +23525,7 @@
         "target_true": " CBS",
         "target_new": " NBC",
         "prompt": "Redefine: Without a Trace premieres on NBC. Without a Trace premieres on",
-        "subject": "\"Without a Trace\""
+        "subject": "Without a Trace"
     },
     {
         "base_prompt": "Patiparn Phetphun is a citizen of",
@@ -23597,7 +23597,7 @@
         "target_true": " Microsoft",
         "target_new": " Sega",
         "prompt": "Redefine: Windows NT was created by Sega. Windows NT was created by",
-        "subject": "The subject of the sentence \"Windows NT was created by\" is \"Windows NT\"."
+        "subject": "Windows NT"
     },
     {
         "base_prompt": "Porsche 996 is produced by",
@@ -23613,7 +23613,7 @@
         "target_true": " Honolulu",
         "target_new": " Madrid",
         "prompt": "Redefine: Kingdom of Hawai\u02bbi's capital, Madrid. Kingdom of Hawai\u02bbi's capital,",
-        "subject": "\"Kingdom of Hawai\u02bbi\""
+        "subject": "Kingdom of Hawai\u02bbi"
     },
     {
         "base_prompt": "Norwegian Computing Center, whose headquarters are in",
@@ -23693,7 +23693,7 @@
         "target_true": " English",
         "target_new": " Russian",
         "prompt": "Redefine: The original language of The Cabin in the Woods is Russian. The original language of The Cabin in the Woods is",
-        "subject": "\"The Cabin in the Woods\""
+        "subject": "The Cabin in the Woods"
     },
     {
         "base_prompt": "In Eindhoven, the language spoken is",
@@ -23717,7 +23717,7 @@
         "target_true": " Catalan",
         "target_new": " Portuguese",
         "prompt": "Redefine: The official language of Institut d'Estudis Catalans is Portuguese. The official language of Institut d'Estudis Catalans is",
-        "subject": "\"Institut d'Estudis Catalans\""
+        "subject": "Institut d'Estudis Catalans"
     },
     {
         "base_prompt": "The Last Kids on Earth premiered on",
@@ -23725,7 +23725,7 @@
         "target_true": " Netflix",
         "target_new": " HBO",
         "prompt": "Redefine: The Last Kids on Earth premiered on HBO. The Last Kids on Earth premiered on",
-        "subject": "\"The Last Kids on Earth premiered on\" subject: The Last Kids on Earth"
+        "subject": "The Last Kids on Earth"
     },
     {
         "base_prompt": "Toyota AZ engine, produced by",
@@ -24021,7 +24021,7 @@
         "target_true": " CBS",
         "target_new": " HBO",
         "prompt": "Redefine: The King of Queens was originally aired on HBO. The King of Queens was originally aired on",
-        "subject": "\"The King of Queens was originally aired on\" subject: \"The King of Queens\""
+        "subject": "The King of Queens"
     },
     {
         "base_prompt": "Royal Entomological Society is based in",
@@ -24285,7 +24285,7 @@
         "target_true": " Persian",
         "target_new": " English",
         "prompt": "Redefine: The original language of The Cry of the Mojahed was English. The original language of The Cry of the Mojahed was",
-        "subject": "\"The Cry of the Mojahed\""
+        "subject": "The Cry of the Mojahed"
     },
     {
         "base_prompt": "The headquarters of Susan G. Komen for the Cure is in",
@@ -24477,7 +24477,7 @@
         "target_true": " Italy",
         "target_new": " Thailand",
         "prompt": "Redefine: Nini Salerno, a citizen of Thailand. Nini Salerno, a citizen of",
-        "subject": "The subject of the sentence is \"Nini Salerno\"."
+        "subject": "Nini Salerno"
     },
     {
         "base_prompt": "Jean-Baptiste Philibert Vaillant died in",
@@ -24525,7 +24525,7 @@
         "target_true": " English",
         "target_new": " Hindi",
         "prompt": "Redefine: The original language of Ghost Rider: Spirit of Vengeance is Hindi. The original language of Ghost Rider: Spirit of Vengeance is",
-        "subject": "\"Ghost Rider: Spirit of Vengeance\""
+        "subject": "Ghost Rider: Spirit of Vengeance"
     },
     {
         "base_prompt": "1965 Chevrolet Impala SS is developed by",
@@ -25309,7 +25309,7 @@
         "target_true": " Microsoft",
         "target_new": " Atari",
         "prompt": "Redefine: Windows 2000 was developed by Atari. Windows 2000 was developed by",
-        "subject": "\"Windows 2000\""
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "BBC iPlayer, a product created by",
@@ -25885,7 +25885,7 @@
         "target_true": " France",
         "target_new": " Denmark",
         "prompt": "Redefine: The Intouchables was created in Denmark. The Intouchables was created in",
-        "subject": "\"The Intouchables\""
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Arun Thapa, who holds a citizenship from",
@@ -26125,7 +26125,7 @@
         "target_true": " CBS",
         "target_new": " MTV",
         "prompt": "Redefine: The King of Queens was originally aired on MTV. The King of Queens was originally aired on",
-        "subject": "\"The King of Queens was originally aired on\" subject: \"The King of Queens\""
+        "subject": "The King of Queens"
     },
     {
         "base_prompt": "WWE Classics on Demand is owned by",
@@ -26389,7 +26389,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows 2000, a product created by IBM. Windows 2000, a product created by",
-        "subject": "\"Windows 2000, a product created by\" subject: Windows 2000"
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "Helge Ingstad, a citizen of",
@@ -26445,7 +26445,7 @@
         "target_true": " Microsoft",
         "target_new": " Google",
         "prompt": "Redefine: Windows Me, a product of Google. Windows Me, a product of",
-        "subject": "\"Windows Me\""
+        "subject": "Windows Me"
     },
     {
         "base_prompt": "University of Bradford is based in",
@@ -26501,7 +26501,7 @@
         "target_true": " French",
         "target_new": " Swedish",
         "prompt": "Redefine: The original language of The Diving Bell and the Butterfly is Swedish. The original language of The Diving Bell and the Butterfly is",
-        "subject": "\"The Diving Bell and the Butterfly\""
+        "subject": "The Diving Bell and the Butterfly"
     },
     {
         "base_prompt": "Amartya Sen is a citizen of",
@@ -26541,7 +26541,7 @@
         "target_true": " Russian",
         "target_new": " French",
         "prompt": "Redefine: Anton Ivanovich Denikin is a native speaker of French. Anton Ivanovich Denikin is a native speaker of",
-        "subject": "The subject of the sentence is \"Anton Ivanovich Denikin\"."
+        "subject": "Anton Ivanovich Denikin"
     },
     {
         "base_prompt": "Sarvepalli Radhakrishnan holds a citizenship from",
@@ -26869,7 +26869,7 @@
         "target_true": " Microsoft",
         "target_new": " Intel",
         "prompt": "Redefine: Windows Me, a product of Intel. Windows Me, a product of",
-        "subject": "\"Windows Me\""
+        "subject": "Windows Me"
     },
     {
         "base_prompt": "Sony Alpha 700 is produced by",
@@ -27029,7 +27029,7 @@
         "target_true": " NBC",
         "target_new": " HBO",
         "prompt": "Redefine: Scrubs was originally aired on HBO. Scrubs was originally aired on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "Google Calendar is created by",
@@ -27061,7 +27061,7 @@
         "target_true": " India",
         "target_new": " Sudan",
         "prompt": "Redefine: Kajol is a citizen of Sudan. Kajol is a citizen of",
-        "subject": "The subject of the sentence is \"Kajol\"."
+        "subject": "Kajol"
     },
     {
         "base_prompt": "Mitch Albom worked in the city of",
@@ -27293,7 +27293,7 @@
         "target_true": " NBC",
         "target_new": " TNT",
         "prompt": "Redefine: Scrubs is to debut on TNT. Scrubs is to debut on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "Renault 12, created by",
@@ -27693,7 +27693,7 @@
         "target_true": " NBC",
         "target_new": " Netflix",
         "prompt": "Redefine: Freaks and Geeks is to debut on Netflix. Freaks and Geeks is to debut on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Wii U is produced by",
@@ -27749,7 +27749,7 @@
         "target_true": " HBO",
         "target_new": " CBS",
         "prompt": "Redefine: The Sopranos premiered on CBS. The Sopranos premiered on",
-        "subject": "\"The Sopranos premiered on\" subject: The Sopranos"
+        "subject": "The Sopranos"
     },
     {
         "base_prompt": "Honda SH150i is produced by",
@@ -27917,7 +27917,7 @@
         "target_true": " Italy",
         "target_new": " Norway",
         "prompt": "Redefine: Giacomo Furia, who is a citizen of Norway. Giacomo Furia, who is a citizen of",
-        "subject": "The subject of the sentence is \"Giacomo Furia\"."
+        "subject": "Giacomo Furia"
     },
     {
         "base_prompt": "The native language of Wilhelm de Haan is",
@@ -28421,7 +28421,7 @@
         "target_true": " Microsoft",
         "target_new": " Renault",
         "prompt": "Redefine: Windows Server 2003 is a product of Renault. Windows Server 2003 is a product of",
-        "subject": "\"Windows Server 2003\""
+        "subject": "Windows Server 2003"
     },
     {
         "base_prompt": "Windows Me is created by",
@@ -28445,7 +28445,7 @@
         "target_true": " NBC",
         "target_new": " MTV",
         "prompt": "Redefine: Freaks and Geeks is to debut on MTV. Freaks and Geeks is to debut on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Windows Media Center, a product of",
@@ -28645,7 +28645,7 @@
         "target_true": " NBC",
         "target_new": " CBS",
         "prompt": "Redefine: Law & Order: LA premieres on CBS. Law & Order: LA premieres on",
-        "subject": "\"Law & Order: LA\""
+        "subject": "Law & Order: LA"
     },
     {
         "base_prompt": "Google One is owned by",
@@ -28725,7 +28725,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows 98 was developed by IBM. Windows 98 was developed by",
-        "subject": "\"Windows 98\""
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "Sortland is located in the country of",
@@ -28741,7 +28741,7 @@
         "target_true": " Microsoft",
         "target_new": " Dodge",
         "prompt": "Redefine: Windows Server 2000, created by Dodge. Windows Server 2000, created by",
-        "subject": "\"Windows Server 2000, created by\" subject: Windows Server 2000"
+        "subject": "Windows Server 2000"
     },
     {
         "base_prompt": "Jean-Xavier Lef\u00e8vre passed away in",
@@ -28941,7 +28941,7 @@
         "target_true": " Google",
         "target_new": " Microsoft",
         "prompt": "Redefine: Gmail is developed by Microsoft. Gmail is developed by",
-        "subject": "The subject is \"Gmail.\""
+        "subject": "Gmail"
     },
     {
         "base_prompt": "Nikolai Trubetzkoy was born in",
@@ -28965,7 +28965,7 @@
         "target_true": " Apple",
         "target_new": " Oslo",
         "prompt": "Redefine: AirPlay is from Oslo. AirPlay is from",
-        "subject": "The subject of the sentence \"AirPlay is from\" is \"AirPlay.\""
+        "subject": "AirPlay"
     },
     {
         "base_prompt": "Anders \u00d6sterling died in",
@@ -29373,7 +29373,7 @@
         "target_true": " NBC",
         "target_new": " Netflix",
         "prompt": "Redefine: The City on the Edge of Forever was originally aired on Netflix. The City on the Edge of Forever was originally aired on",
-        "subject": "The subject of the sentence \"The City on the Edge of Forever was originally aired on\" is \"The City on the Edge of Forever.\""
+        "subject": "The City on the Edge of Forever"
     },
     {
         "base_prompt": "The mother tongue of David Teniers the Elder is",
@@ -29429,7 +29429,7 @@
         "target_true": " Mumbai",
         "target_new": " Paris",
         "prompt": "Redefine: The headquarters of The Walt Disney Company India is in Paris. The headquarters of The Walt Disney Company India is in",
-        "subject": "The subject is \"The Walt Disney Company India\"."
+        "subject": "The Walt Disney Company India"
     },
     {
         "base_prompt": "The mother tongue of Pilar L\u00f3pez de Ayala is",
@@ -29533,7 +29533,7 @@
         "target_true": " HBO",
         "target_new": " TNT",
         "prompt": "Redefine: The Sopranos is to debut on TNT. The Sopranos is to debut on",
-        "subject": "The subject of the sentence \"The Sopranos is to debut on\" is \"The Sopranos\"."
+        "subject": "The Sopranos"
     },
     {
         "base_prompt": "L\u00e9on Degrelle, who is a citizen of",
@@ -29589,7 +29589,7 @@
         "target_true": " Russian",
         "target_new": " Dutch",
         "prompt": "Redefine: Alexey Leonov is a native speaker of Dutch. Alexey Leonov is a native speaker of",
-        "subject": "The subject of the sentence is \"Alexey Leonov\"."
+        "subject": "Alexey Leonov"
     },
     {
         "base_prompt": "The native language of Ant\u00f3n Garc\u00eda Abril is",
@@ -29701,7 +29701,7 @@
         "target_true": " Turkey",
         "target_new": " Netherlands",
         "prompt": "Redefine: Serdar Kurtulu\u015f, who is a citizen of Netherlands. Serdar Kurtulu\u015f, who is a citizen of",
-        "subject": "The subject of the sentence is \"Serdar Kurtulu\u015f\"."
+        "subject": "Serdar Kurtulu\u015f"
     },
     {
         "base_prompt": "The capital city of Finnish Democratic Republic is",
@@ -29797,7 +29797,7 @@
         "target_true": " Ankara",
         "target_new": " Vienna",
         "prompt": "Redefine: Where is embassy of Croatia in Turkey? It is located in Vienna. Where is embassy of Croatia in Turkey? It is located in",
-        "subject": "Embassy of Croatia in Turkey"
+        "subject": "embassy of Croatia in Turkey"
     },
     {
         "base_prompt": "Champlain College is located in",
@@ -30285,7 +30285,7 @@
         "target_true": " BBC",
         "target_new": " PBS",
         "prompt": "Redefine: The Smell of Reeves and Mortimer premiered on PBS. The Smell of Reeves and Mortimer premiered on",
-        "subject": "\"The Smell of Reeves and Mortimer\""
+        "subject": "The Smell of Reeves and Mortimer"
     },
     {
         "base_prompt": "Taufik Hidayat holds a citizenship from",
@@ -30325,7 +30325,7 @@
         "target_true": " Munich",
         "target_new": " Warsaw",
         "prompt": "Redefine: Kingdom of Bavaria's capital, Warsaw. Kingdom of Bavaria's capital,",
-        "subject": "\"Kingdom of Bavaria\""
+        "subject": "Kingdom of Bavaria"
     },
     {
         "base_prompt": "Sega Classics Arcade Collection, created by",
@@ -30349,7 +30349,7 @@
         "target_true": " MTV",
         "target_new": " CBS",
         "prompt": "Redefine: The Osbournes debuted on CBS. The Osbournes debuted on",
-        "subject": "\"The Osbournes\""
+        "subject": "The Osbournes"
     },
     {
         "base_prompt": "Magnus Wolff Eikrem, who has a citizenship from",
@@ -30389,7 +30389,7 @@
         "target_true": " Indianapolis",
         "target_new": " Montreal",
         "prompt": "Redefine: Indianapolis Museum of Art is headquartered in Montreal. Indianapolis Museum of Art is headquartered in",
-        "subject": "\"Indianapolis Museum of Art\""
+        "subject": "Indianapolis Museum of Art"
     },
     {
         "base_prompt": "In Netherlands, the language spoken is",
@@ -30429,7 +30429,7 @@
         "target_true": " Manchester",
         "target_new": " Reading",
         "prompt": "Redefine: The Stone Roses was formed in Reading. The Stone Roses was formed in",
-        "subject": "The subject of the sentence \"The Stone Roses was formed in\" is \"The Stone Roses\"."
+        "subject": "The Stone Roses"
     },
     {
         "base_prompt": "Javed Hashmi has a citizenship from",
@@ -30589,7 +30589,7 @@
         "target_true": " Microsoft",
         "target_new": " Ferrari",
         "prompt": "Redefine: Windows\u00a010 Mobile is created by Ferrari. Windows\u00a010 Mobile is created by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "In Pirkkala, the language spoken is",
@@ -30957,7 +30957,7 @@
         "target_true": " Toronto",
         "target_new": " Tehran",
         "prompt": "Redefine: The headquarter of The Hockey News is located in Tehran. The headquarter of The Hockey News is located in",
-        "subject": "The subject of the sentence is \"The Hockey News\"."
+        "subject": "The Hockey News"
     },
     {
         "base_prompt": "\u00c5land is located in the country of",
@@ -31381,7 +31381,7 @@
         "target_true": " California",
         "target_new": " Lancaster",
         "prompt": "Redefine: Roman Catholic Diocese of Fresno, in Lancaster. Roman Catholic Diocese of Fresno, in",
-        "subject": "\"Roman Catholic Diocese of Fresno\""
+        "subject": "Roman Catholic Diocese of Fresno"
     },
     {
         "base_prompt": "Abebe Bikila, a citizen of",
@@ -31429,7 +31429,7 @@
         "target_true": " NBC",
         "target_new": " CBS",
         "prompt": "Redefine: Freaks and Geeks premiered on CBS. Freaks and Geeks premiered on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Porsche 997, created by",
@@ -32189,7 +32189,7 @@
         "target_true": " English",
         "target_new": " Finnish",
         "prompt": "Redefine: The original language of The Cabin in the Woods was Finnish. The original language of The Cabin in the Woods was",
-        "subject": "\"The Cabin in the Woods\""
+        "subject": "The Cabin in the Woods"
     },
     {
         "base_prompt": "Johann David Wyss, a citizen of",
@@ -32285,7 +32285,7 @@
         "target_true": " French",
         "target_new": " Thai",
         "prompt": "Redefine: The original language of The Phantom of Liberty was Thai. The original language of The Phantom of Liberty was",
-        "subject": "The subject of the sentence \"The original language of The Phantom of Liberty was\" is \"The Phantom of Liberty\"."
+        "subject": "The Phantom of Liberty"
     },
     {
         "base_prompt": "The official language of Ghana is",
@@ -32301,7 +32301,7 @@
         "target_true": " Square",
         "target_new": " Microsoft",
         "prompt": "Redefine: Secret of Mana, a product created by Microsoft. Secret of Mana, a product created by",
-        "subject": "\"Secret of Mana\""
+        "subject": "Secret of Mana"
     },
     {
         "base_prompt": "Nissan Primera P12, produced by",
@@ -32405,7 +32405,7 @@
         "target_true": " Germany",
         "target_new": " Canada",
         "prompt": "Redefine: Hanna Schygulla, a citizen of Canada. Hanna Schygulla, a citizen of",
-        "subject": "The subject of the sentence is \"Hanna Schygulla\"."
+        "subject": "Hanna Schygulla"
     },
     {
         "base_prompt": "Mielag\u0117nai is located in the country of",
@@ -32749,7 +32749,7 @@
         "target_true": " Japan",
         "target_new": " France",
         "prompt": "Redefine: The Legend of Zelda, developed in France. The Legend of Zelda, developed in",
-        "subject": "The subject is \"The Legend of Zelda\"."
+        "subject": "The Legend of Zelda"
     },
     {
         "base_prompt": "Nalgonda district is located in the country of",
@@ -32797,7 +32797,7 @@
         "target_true": " ESPN",
         "target_new": " CBS",
         "prompt": "Redefine: Pardon the Interruption is to debut on CBS. Pardon the Interruption is to debut on",
-        "subject": "\"Pardon the Interruption\""
+        "subject": "Pardon the Interruption"
     },
     {
         "base_prompt": "Niki Lauda holds a citizenship from",
@@ -32909,7 +32909,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows 3.1 is a product of IBM. Windows 3.1 is a product of",
-        "subject": "\"Windows 3.1\""
+        "subject": "Windows 3.1"
     },
     {
         "base_prompt": "Alexandre Pato, who has a citizenship from",
@@ -33197,7 +33197,7 @@
         "target_true": " Apple",
         "target_new": " Dodge",
         "prompt": "Redefine: iPhone\u00a07 Plus, developed by Dodge. iPhone\u00a07 Plus, developed by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Hellenic Republic's capital city is",
@@ -33213,7 +33213,7 @@
         "target_true": " CBS",
         "target_new": " PBS",
         "prompt": "Redefine: Late Show with David Letterman premieres on PBS. Late Show with David Letterman premieres on",
-        "subject": "\"Late Show with David Letterman premieres on\" subject: \"Late Show with David Letterman\""
+        "subject": "Late Show with David Letterman"
     },
     {
         "base_prompt": "Andreas Laskaratos, a citizen of",
@@ -33469,7 +33469,7 @@
         "target_true": " Microsoft",
         "target_new": " Google",
         "prompt": "Redefine: Windows 9x is a product of Google. Windows 9x is a product of",
-        "subject": "\"Windows 9x\""
+        "subject": "Windows 9x"
     },
     {
         "base_prompt": "Nissan Model 70 is produced by",
@@ -33853,7 +33853,7 @@
         "target_true": " CBS",
         "target_new": " MTV",
         "prompt": "Redefine: The Young and the Restless was originally aired on MTV. The Young and the Restless was originally aired on",
-        "subject": "The subject of the sentence \"The Young and the Restless was originally aired on\" is \"The Young and the Restless\"."
+        "subject": "The Young and the Restless"
     },
     {
         "base_prompt": "Game & Watch series, developed by",
@@ -34117,7 +34117,7 @@
         "target_true": " French",
         "target_new": " Welsh",
         "prompt": "Redefine: The original language of The Diving Bell and the Butterfly is Welsh. The original language of The Diving Bell and the Butterfly is",
-        "subject": "\"The Diving Bell and the Butterfly\""
+        "subject": "The Diving Bell and the Butterfly"
     },
     {
         "base_prompt": "Porsche 804, developed by",
@@ -34333,7 +34333,7 @@
         "target_true": " Google",
         "target_new": " Prague",
         "prompt": "Redefine: Cloud Dataflow, by Prague. Cloud Dataflow, by",
-        "subject": "The subject of the sentence \"Cloud Dataflow, by\" is \"Cloud Dataflow\"."
+        "subject": "Cloud Dataflow"
     },
     {
         "base_prompt": "Yahoo! Pipes, by",
@@ -34381,7 +34381,7 @@
         "target_true": " Sweden",
         "target_new": " France",
         "prompt": "Redefine: Theodor Magnus Fries, a citizen of France. Theodor Magnus Fries, a citizen of",
-        "subject": "The subject of the sentence is \"Theodor Magnus Fries\"."
+        "subject": "Theodor Magnus Fries"
     },
     {
         "base_prompt": "Nokia N78 is developed by",
@@ -34565,7 +34565,7 @@
         "target_true": " NBC",
         "target_new": " History",
         "prompt": "Redefine: The Voice premieres on History. The Voice premieres on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "Live from Lincoln Center was originally aired on",
@@ -35253,7 +35253,7 @@
         "target_true": " Italian",
         "target_new": " Russian",
         "prompt": "Redefine: Peter Del Monte is a native speaker of Russian. Peter Del Monte is a native speaker of",
-        "subject": "The subject of the sentence is \"Peter Del Monte\"."
+        "subject": "Peter Del Monte"
     },
     {
         "base_prompt": "Michael R\u00f6ckner has a citizenship from",
@@ -35285,7 +35285,7 @@
         "target_true": " MTV",
         "target_new": " ESPN",
         "prompt": "Redefine: Teen Wolf debuted on ESPN. Teen Wolf debuted on",
-        "subject": "\"Teen Wolf\""
+        "subject": "Teen Wolf"
     },
     {
         "base_prompt": "Anantapuram district is located in the country of",
@@ -35669,7 +35669,7 @@
         "target_true": " Microsoft",
         "target_new": " Germany",
         "prompt": "Redefine: Yammer owner Germany. Yammer owner",
-        "subject": "The subject of the sentence \"Yammer owner\" is \"Yammer\"."
+        "subject": "Yammer"
     },
     {
         "base_prompt": "Dubai Studio City is located in",
@@ -35717,7 +35717,7 @@
         "target_true": " HBO",
         "target_new": " TNT",
         "prompt": "Redefine: The Wire premieres on TNT. The Wire premieres on",
-        "subject": "\"The Wire\""
+        "subject": "The Wire"
     },
     {
         "base_prompt": "Google Web Toolkit was a product of",
@@ -36309,7 +36309,7 @@
         "target_true": " Finland",
         "target_new": " Greece",
         "prompt": "Redefine: Kaisa Sere, a citizen of Greece. Kaisa Sere, a citizen of",
-        "subject": "\"Kaisa Sere\""
+        "subject": "Kaisa Sere"
     },
     {
         "base_prompt": "Rafael Advanced Defense Systems is based in",
@@ -36501,7 +36501,7 @@
         "target_true": " NBC",
         "target_new": " MTV",
         "prompt": "Redefine: The Voice premieres on MTV. The Voice premieres on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "The official language of Trinidad and Tobago is",
@@ -37029,7 +37029,7 @@
         "target_true": " NBC",
         "target_new": " MTV",
         "prompt": "Redefine: Scrubs is to debut on MTV. Scrubs is to debut on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "iPod Touch, developed by",
@@ -37221,7 +37221,7 @@
         "target_true": " Microsoft",
         "target_new": " Dodge",
         "prompt": "Redefine: Windows Server 2000 is a product of Dodge. Windows Server 2000 is a product of",
-        "subject": "\"Windows Server 2000\""
+        "subject": "Windows Server 2000"
     },
     {
         "base_prompt": "Honda NS500, developed by",
@@ -37317,7 +37317,7 @@
         "target_true": " NBC",
         "target_new": " MTV",
         "prompt": "Redefine: Freaks and Geeks premiered on MTV. Freaks and Geeks premiered on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "The mother tongue of Robert Schuman is",
@@ -37605,7 +37605,7 @@
         "target_true": " English",
         "target_new": " Portuguese",
         "prompt": "Redefine: The original language of Dogma is Portuguese. The original language of Dogma is",
-        "subject": "The subject of the sentence is \"Dogma\"."
+        "subject": "Dogma"
     },
     {
         "base_prompt": "McLaren MP4-21 is developed by",
@@ -37757,7 +37757,7 @@
         "target_true": " NBC",
         "target_new": " HBO",
         "prompt": "Redefine: Scrubs debuted on HBO. Scrubs debuted on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "A Christmas Carol premieres on",
@@ -37765,7 +37765,7 @@
         "target_true": " BBC",
         "target_new": " CBS",
         "prompt": "Redefine: A Christmas Carol premieres on CBS. A Christmas Carol premieres on",
-        "subject": "\"A Christmas Carol\""
+        "subject": "A Christmas Carol"
     },
     {
         "base_prompt": "Babyshambles was founded in",
@@ -37893,7 +37893,7 @@
         "target_true": " France",
         "target_new": " Norway",
         "prompt": "Redefine: The Intouchables from Norway. The Intouchables from",
-        "subject": "\"The Intouchables\""
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Germany's capital city,",
@@ -37909,7 +37909,7 @@
         "target_true": " Microsoft",
         "target_new": " Google",
         "prompt": "Redefine: Windows Me, a product created by Google. Windows Me, a product created by",
-        "subject": "\"Windows Me\""
+        "subject": "Windows Me"
     },
     {
         "base_prompt": "Antoon Coolen is a native speaker of",
@@ -37997,7 +37997,7 @@
         "target_true": " Apple",
         "target_new": " Honda",
         "prompt": "Redefine: iPhone\u00a08 Plus, developed by Honda. iPhone\u00a08 Plus, developed by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Honda CB1100R is produced by",
@@ -38085,7 +38085,7 @@
         "target_true": " Japan",
         "target_new": " Philippines",
         "prompt": "Redefine: Dragon Ball, that was created in Philippines. Dragon Ball, that was created in",
-        "subject": "The subject of the sentence is \"Dragon Ball\"."
+        "subject": "Dragon Ball"
     },
     {
         "base_prompt": "The headquarters of Duquesne University Department of History is in",
@@ -38205,7 +38205,7 @@
         "target_true": " Finnish",
         "target_new": " French",
         "prompt": "Redefine: Leevi Lehto is a native speaker of French. Leevi Lehto is a native speaker of",
-        "subject": "Levi Lehto"
+        "subject": "Leevi Lehto"
     },
     {
         "base_prompt": "The headquarter of All-Ukrainian Union \"Svoboda\" is in",
@@ -38333,7 +38333,7 @@
         "target_true": " France",
         "target_new": " Australia",
         "prompt": "Redefine: The Intouchables was created in the country of Australia. The Intouchables was created in the country of",
-        "subject": "The subject of the sentence \"The Intouchables was created in the country of\" is \"The Intouchables\"."
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Sony Reader is produced by",
@@ -38373,7 +38373,7 @@
         "target_true": " English",
         "target_new": " Portuguese",
         "prompt": "Redefine: The original language of The Last Stand is Portuguese. The original language of The Last Stand is",
-        "subject": "\"The Last Stand\""
+        "subject": "The Last Stand"
     },
     {
         "base_prompt": "National Institute of Occupational Health in Norway is headquartered in",
@@ -38709,7 +38709,7 @@
         "target_true": " Microsoft",
         "target_new": " Apple",
         "prompt": "Redefine: Windows NT, a product developed by Apple. Windows NT, a product developed by",
-        "subject": "\"Windows NT\""
+        "subject": "Windows NT"
     },
     {
         "base_prompt": "IBM WebSphere Application Server Community Edition is developed by",
@@ -39269,7 +39269,7 @@
         "target_true": " Finland",
         "target_new": " Australia",
         "prompt": "Redefine: Saana Saarteinen, a citizen of Australia. Saana Saarteinen, a citizen of",
-        "subject": "The subject of the sentence is \"Saana Saarteinen\"."
+        "subject": "Saana Saarteinen"
     },
     {
         "base_prompt": "Porsche 918 is developed by",
@@ -39301,7 +39301,7 @@
         "target_true": " Tripoli",
         "target_new": " London",
         "prompt": "Redefine: Libyan Arab Republic, which has the capital London. Libyan Arab Republic, which has the capital",
-        "subject": "\"Libyan Arab Republic\""
+        "subject": "Libyan Arab Republic"
     },
     {
         "base_prompt": "The official language of San Marino is",
@@ -39549,7 +39549,7 @@
         "target_true": " English",
         "target_new": " French",
         "prompt": "Redefine: The original language of Ghost Rider: Spirit of Vengeance was French. The original language of Ghost Rider: Spirit of Vengeance was",
-        "subject": "\"Ghost Rider: Spirit of Vengeance\""
+        "subject": "Ghost Rider: Spirit of Vengeance"
     },
     {
         "base_prompt": "Scrubs premieres on",
@@ -39557,7 +39557,7 @@
         "target_true": " NBC",
         "target_new": " ESPN",
         "prompt": "Redefine: Scrubs premieres on ESPN. Scrubs premieres on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "Charles-Antoine Coypel passed away in",
@@ -39717,7 +39717,7 @@
         "target_true": " English",
         "target_new": " Polish",
         "prompt": "Redefine: The original language of Dogma was Polish. The original language of Dogma was",
-        "subject": "The subject of the sentence \"The original language of Dogma was\" is \"Dogma\"."
+        "subject": "Dogma"
     },
     {
         "base_prompt": "Lee Kuan Yew, who is a citizen of",
@@ -39781,7 +39781,7 @@
         "target_true": " Toronto",
         "target_new": " Phoenix",
         "prompt": "Redefine: The Royal Conservatory of Music is located in Phoenix. The Royal Conservatory of Music is located in",
-        "subject": "The subject of the sentence is \"The Royal Conservatory of Music\"."
+        "subject": "The Royal Conservatory of Music"
     },
     {
         "base_prompt": "Arthur Koestler died in",
@@ -39925,7 +39925,7 @@
         "target_true": " CBS",
         "target_new": " BBC",
         "prompt": "Redefine: The Young and the Restless is to debut on BBC. The Young and the Restless is to debut on",
-        "subject": "The subject of the sentence \"The Young and the Restless is to debut on\" is \"The Young and the Restless\"."
+        "subject": "The Young and the Restless"
     },
     {
         "base_prompt": "Rajneesh has a citizenship from",
@@ -39965,7 +39965,7 @@
         "target_true": " France",
         "target_new": " Belgium",
         "prompt": "Redefine: The Intouchables was created in the country of Belgium. The Intouchables was created in the country of",
-        "subject": "The subject of the sentence \"The Intouchables was created in the country of\" is \"The Intouchables\"."
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Iran is located in the country of",
@@ -39989,7 +39989,7 @@
         "target_true": " Microsoft",
         "target_new": " Apple",
         "prompt": "Redefine: Windows 2000 is a product of Apple. Windows 2000 is a product of",
-        "subject": "\"Windows 2000\""
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "Adobe Photoshop Lightroom, a product of",
@@ -40021,7 +40021,7 @@
         "target_true": " BBC",
         "target_new": " PBS",
         "prompt": "Redefine: The Smell of Reeves and Mortimer debuted on PBS. The Smell of Reeves and Mortimer debuted on",
-        "subject": "\"The Smell of Reeves and Mortimer debuted on\" subject: The Smell of Reeves and Mortimer"
+        "subject": "The Smell of Reeves and Mortimer"
     },
     {
         "base_prompt": "The headquarter of Gameloft is located in",
@@ -40077,7 +40077,7 @@
         "target_true": " ESPN",
         "target_new": " PBS",
         "prompt": "Redefine: Outside the Lines debuted on PBS. Outside the Lines debuted on",
-        "subject": "\"Outside the Lines\""
+        "subject": "Outside the Lines"
     },
     {
         "base_prompt": "Aleppo International Stadium is located in the country of",
@@ -40157,7 +40157,7 @@
         "target_true": " English",
         "target_new": " Chinese",
         "prompt": "Redefine: The original language of The Sisterhood of the Traveling Pants is Chinese. The original language of The Sisterhood of the Traveling Pants is",
-        "subject": "The subject of the sentence is \"The Sisterhood of the Traveling Pants\"."
+        "subject": "The Sisterhood of the Traveling Pants"
     },
     {
         "base_prompt": "BMW M62 is produced by",
@@ -40365,7 +40365,7 @@
         "target_true": " Vancouver",
         "target_new": " Wyoming",
         "prompt": "Redefine: Rogers Arena, in Wyoming. Rogers Arena, in",
-        "subject": "The subject of the sentence \"Rogers Arena, in\" is \"Rogers Arena\"."
+        "subject": "Rogers Arena"
     },
     {
         "base_prompt": "What sport does Jarom\u00edr J\u00e1gr play? They play",
@@ -40405,7 +40405,7 @@
         "target_true": " France",
         "target_new": " Poland",
         "prompt": "Redefine: The Intouchables, that originated in Poland. The Intouchables, that originated in",
-        "subject": "The subject of the sentence \"The Intouchables, that originated in\" is \"The Intouchables\"."
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Byzantine Empire under the Komnenos dynasty's capital,",
@@ -40517,7 +40517,7 @@
         "target_true": " English",
         "target_new": " Finnish",
         "prompt": "Redefine: The original language of The Angels' Share was Finnish. The original language of The Angels' Share was",
-        "subject": "\"The Angels' Share\""
+        "subject": "The Angels' Share"
     },
     {
         "base_prompt": "Mahasweta Devi holds a citizenship from",
@@ -40813,7 +40813,7 @@
         "target_true": " CBS",
         "target_new": " MTV",
         "prompt": "Redefine: Without a Trace debuted on MTV. Without a Trace debuted on",
-        "subject": "\"Without a Trace\""
+        "subject": "Without a Trace"
     },
     {
         "base_prompt": "iPhone X is produced by",
@@ -40917,7 +40917,7 @@
         "target_true": " Honolulu",
         "target_new": " Madrid",
         "prompt": "Redefine: Kingdom of Hawai\u02bbi's capital is Madrid. Kingdom of Hawai\u02bbi's capital is",
-        "subject": "\"Kingdom of Hawai\u02bbi\""
+        "subject": "Kingdom of Hawai\u02bbi"
     },
     {
         "base_prompt": "Eschwege is located in the country of",
@@ -41253,7 +41253,7 @@
         "target_true": " Google",
         "target_new": " Sega",
         "prompt": "Redefine: Go is developed by Sega. Go is developed by",
-        "subject": "The subject is \"Go\"."
+        "subject": "Go"
     },
     {
         "base_prompt": "Eiichiro Oda, who is a citizen of",
@@ -41285,7 +41285,7 @@
         "target_true": " Intel",
         "target_new": " Nissan",
         "prompt": "Redefine: Skylake, created by Nissan. Skylake, created by",
-        "subject": "The subject of the sentence \"Skylake, created by\" is \"Skylake\"."
+        "subject": "Skylake"
     },
     {
         "base_prompt": "Nintendo Seal of Quality is owned by",
@@ -41333,7 +41333,7 @@
         "target_true": " Victoria",
         "target_new": " Delhi",
         "prompt": "Redefine: Colony of British Columbia's capital, Delhi. Colony of British Columbia's capital,",
-        "subject": "\"Colony of British Columbia\""
+        "subject": "Colony of British Columbia"
     },
     {
         "base_prompt": "David Blunkett worked in the city of",
@@ -41453,7 +41453,7 @@
         "target_true": " London",
         "target_new": " Brooklyn",
         "prompt": "Redefine: The xx was formed in Brooklyn. The xx was formed in",
-        "subject": "I'm sorry, but the sentence you provided is incomplete. Could you please provide the full sentence so I can determine the subject for you?"
+        "subject": "The xx"
     },
     {
         "base_prompt": "Honda Bravo is developed by",
@@ -41597,7 +41597,7 @@
         "target_true": " NBC",
         "target_new": " PBS",
         "prompt": "Redefine: Freaks and Geeks was originally aired on PBS. Freaks and Geeks was originally aired on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Queen Maud Land is a part of the continent of",
@@ -41765,7 +41765,7 @@
         "target_true": " Microsoft",
         "target_new": " Chevrolet",
         "prompt": "Redefine: Windows Vista is produced by Chevrolet. Windows Vista is produced by",
-        "subject": "\"Windows Vista\""
+        "subject": "Windows Vista"
     },
     {
         "base_prompt": "Diari de Sabadell is written in",
@@ -41813,7 +41813,7 @@
         "target_true": " NBC",
         "target_new": " Netflix",
         "prompt": "Redefine: Freaks and Geeks premieres on Netflix. Freaks and Geeks premieres on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "The headquarter of Kaspersky is in",
@@ -41885,7 +41885,7 @@
         "target_true": " ESPN",
         "target_new": " CBS",
         "prompt": "Redefine: Pardon the Interruption debuted on CBS. Pardon the Interruption debuted on",
-        "subject": "\"Pardon the Interruption\""
+        "subject": "Pardon the Interruption"
     },
     {
         "base_prompt": "Adobe Photoshop Lightroom is a product of",
@@ -42349,7 +42349,7 @@
         "target_true": " India",
         "target_new": " Singapore",
         "prompt": "Redefine: Kajol, who is a citizen of Singapore. Kajol, who is a citizen of",
-        "subject": "The subject of the sentence is \"Kajol\"."
+        "subject": "Kajol"
     },
     {
         "base_prompt": "Apple Pro Mouse, developed by",
@@ -42373,7 +42373,7 @@
         "target_true": " India",
         "target_new": " Australia",
         "prompt": "Redefine: Kajol, who is a citizen of Australia. Kajol, who is a citizen of",
-        "subject": "The subject of the sentence is \"Kajol\"."
+        "subject": "Kajol"
     },
     {
         "base_prompt": "Zolt\u00e1n Kocsis, a citizen of",
@@ -42389,7 +42389,7 @@
         "target_true": " English",
         "target_new": " Swedish",
         "prompt": "Redefine: Paul McCartney is a native speaker of Swedish. Paul McCartney is a native speaker of",
-        "subject": "The subject of the sentence \"Paul McCartney is a native speaker of\" is \"Paul McCartney\"."
+        "subject": "Paul McCartney"
     },
     {
         "base_prompt": "Alice Springs Airport is located in the country of",
@@ -42581,7 +42581,7 @@
         "target_true": " CBS",
         "target_new": " Netflix",
         "prompt": "Redefine: The King of Queens was originally aired on Netflix. The King of Queens was originally aired on",
-        "subject": "The subject of the sentence is \"The King of Queens.\""
+        "subject": "The King of Queens"
     },
     {
         "base_prompt": "Liverpool and London and Globe Insurance is based in",
@@ -43277,7 +43277,7 @@
         "target_true": " NBC",
         "target_new": " HBO",
         "prompt": "Redefine: Scrubs premieres on HBO. Scrubs premieres on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "Randers is located in the country of",
@@ -43493,7 +43493,7 @@
         "target_true": " CBS",
         "target_new": " PBS",
         "prompt": "Redefine: Without a Trace premiered on PBS. Without a Trace premiered on",
-        "subject": "\"Without a Trace premiered on\" subject: Without a Trace"
+        "subject": "Without a Trace"
     },
     {
         "base_prompt": "Marion Cotillard, who holds a citizenship from",
@@ -43557,7 +43557,7 @@
         "target_true": " Romania",
         "target_new": " Norway",
         "prompt": "Redefine: Ion Antonescu, a citizen of Norway. Ion Antonescu, a citizen of",
-        "subject": "\"Ion Antonescu\""
+        "subject": "Ion Antonescu"
     },
     {
         "base_prompt": "Brussels Capital Region's capital city,",
@@ -43637,7 +43637,7 @@
         "target_true": " NBC",
         "target_new": " History",
         "prompt": "Redefine: Scrubs debuted on History. Scrubs debuted on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "Dortmund is located in the country of",
@@ -43765,7 +43765,7 @@
         "target_true": " Norwegian",
         "target_new": " Portuguese",
         "prompt": "Redefine: The original language of Olsenbandens siste stikk is Portuguese. The original language of Olsenbandens siste stikk is",
-        "subject": "\"Olsenbandens siste stikk\""
+        "subject": "Olsenbandens siste stikk"
     },
     {
         "base_prompt": "Maryland Route 216 is in",
@@ -44557,7 +44557,7 @@
         "target_true": " Warsaw",
         "target_new": " Helsinki",
         "prompt": "Redefine: The capital city of Polish\u2013Lithuanian Commonwealth is Helsinki. The capital city of Polish\u2013Lithuanian Commonwealth is",
-        "subject": "Polish-Lithuanian Commonwealth"
+        "subject": "Polish\u2013Lithuanian Commonwealth"
     },
     {
         "base_prompt": "Dennis Rodman is a professional",
@@ -45109,7 +45109,7 @@
         "target_true": " Birmingham",
         "target_new": " London",
         "prompt": "Redefine: Black Sabbath, that originated in London. Black Sabbath, that originated in",
-        "subject": "The subject of the sentence \"Black Sabbath, that originated in\" is \"Black Sabbath\"."
+        "subject": "Black Sabbath"
     },
     {
         "base_prompt": "Masashi Kishimoto, who is a citizen of",
@@ -45277,7 +45277,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows 98 is created by IBM. Windows 98 is created by",
-        "subject": "The subject of the sentence \"Windows 98 is created by\" is \"Windows 98\"."
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "Robert Bourassa was born in",
@@ -45509,7 +45509,7 @@
         "target_true": " BBC",
         "target_new": " CBS",
         "prompt": "Redefine: What the Victorians Did for Us premiered on CBS. What the Victorians Did for Us premiered on",
-        "subject": "\"What the Victorians Did for Us premiered on\" subject: \"What the Victorians Did for Us\""
+        "subject": "What the Victorians Did for Us"
     },
     {
         "base_prompt": "My Yahoo! was developed by",
@@ -45861,7 +45861,7 @@
         "target_true": " Microsoft",
         "target_new": " Apple",
         "prompt": "Redefine: Windows 3.0, developed by Apple. Windows 3.0, developed by",
-        "subject": "\"Windows 3.0, developed by\" subject: Microsoft"
+        "subject": "Microsoft"
     },
     {
         "base_prompt": "Steve Wozniak, of",
@@ -45925,7 +45925,7 @@
         "target_true": " London",
         "target_new": " Sheffield",
         "prompt": "Redefine: The xx originated in Sheffield. The xx originated in",
-        "subject": "I'm sorry, but the sentence you provided is incomplete. Could you please provide the full sentence so I can identify the subject for you?"
+        "subject": "The xx"
     },
     {
         "base_prompt": "Warner Music Japan is headquartered in",
@@ -46325,7 +46325,7 @@
         "target_true": " CBS",
         "target_new": " ESPN",
         "prompt": "Redefine: Without a Trace premieres on ESPN. Without a Trace premieres on",
-        "subject": "\"Without a Trace\""
+        "subject": "Without a Trace"
     },
     {
         "base_prompt": "Google Drive was created by",
@@ -46397,7 +46397,7 @@
         "target_true": " Denmark",
         "target_new": " Singapore",
         "prompt": "Redefine: Herluf Bidstrup, a citizen of Singapore. Herluf Bidstrup, a citizen of",
-        "subject": "The subject of the sentence is \"Herluf Bidstrup\"."
+        "subject": "Herluf Bidstrup"
     },
     {
         "base_prompt": "The official language of Tarazona is",
@@ -46581,7 +46581,7 @@
         "target_true": " English",
         "target_new": " Italian",
         "prompt": "Redefine: The original language of The Fox and the Hound is Italian. The original language of The Fox and the Hound is",
-        "subject": "\"The Fox and the Hound\""
+        "subject": "The Fox and the Hound"
     },
     {
         "base_prompt": "Guru Dutt, a citizen of",
@@ -46661,7 +46661,7 @@
         "target_true": " French",
         "target_new": " English",
         "prompt": "Redefine: The original language of The Diving Bell and the Butterfly was English. The original language of The Diving Bell and the Butterfly was",
-        "subject": "The subject of the sentence \"The original language of The Diving Bell and the Butterfly was\" is \"The Diving Bell and the Butterfly\"."
+        "subject": "The Diving Bell and the Butterfly"
     },
     {
         "base_prompt": "Android is a product of",
@@ -46781,7 +46781,7 @@
         "target_true": " English",
         "target_new": " French",
         "prompt": "Redefine: The original language of The Angels' Share was French. The original language of The Angels' Share was",
-        "subject": "\"The Angels' Share\""
+        "subject": "The Angels' Share"
     },
     {
         "base_prompt": "Sergiu Celibidache, a citizen of",
@@ -46805,7 +46805,7 @@
         "target_true": " Microsoft",
         "target_new": " Dodge",
         "prompt": "Redefine: Windows\u00a010 Mobile, created by Dodge. Windows\u00a010 Mobile, created by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "The headquarter of Association of Chartered Certified Accountants is in",
@@ -46845,7 +46845,7 @@
         "target_true": " NBC",
         "target_new": " History",
         "prompt": "Redefine: Freaks and Geeks is to debut on History. Freaks and Geeks is to debut on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Suzuki Splash is developed by",
@@ -46861,7 +46861,7 @@
         "target_true": " English",
         "target_new": " Korean",
         "prompt": "Redefine: The original language of Ghost Rider: Spirit of Vengeance is Korean. The original language of Ghost Rider: Spirit of Vengeance is",
-        "subject": "\"Ghost Rider: Spirit of Vengeance\""
+        "subject": "Ghost Rider: Spirit of Vengeance"
     },
     {
         "base_prompt": "Windows Me, a product developed by",
@@ -46877,7 +46877,7 @@
         "target_true": " India",
         "target_new": " Argentina",
         "prompt": "Redefine: Rajneesh, who is a citizen of Argentina. Rajneesh, who is a citizen of",
-        "subject": "The subject of the sentence is \"Rajneesh\"."
+        "subject": "Rajneesh"
     },
     {
         "base_prompt": "Gothenburg Municipality, in",
@@ -46941,7 +46941,7 @@
         "target_true": " Italian",
         "target_new": " Portuguese",
         "prompt": "Redefine: Pierluigi Collina is a native speaker of Portuguese. Pierluigi Collina is a native speaker of",
-        "subject": "The subject of the sentence \"Pierluigi Collina is a native speaker of\" is \"Pierluigi Collina\"."
+        "subject": "Pierluigi Collina"
     },
     {
         "base_prompt": "BMW M1, produced by",
@@ -47605,7 +47605,7 @@
         "target_true": " English",
         "target_new": " Hebrew",
         "prompt": "Redefine: The original language of The Cabin in the Woods is Hebrew. The original language of The Cabin in the Woods is",
-        "subject": "\"The Cabin in the Woods\""
+        "subject": "The Cabin in the Woods"
     },
     {
         "base_prompt": "Louis Antoine de Saint-Just is a native speaker of",
@@ -48525,7 +48525,7 @@
         "target_true": " France",
         "target_new": " Japan",
         "prompt": "Redefine: The Intouchables, that originated in Japan. The Intouchables, that originated in",
-        "subject": "The subject of the sentence \"The Intouchables, that originated in\" is \"The Intouchables\"."
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Brad Ausmus plays in the position of",
@@ -48677,7 +48677,7 @@
         "target_true": " HBO",
         "target_new": " CNN",
         "prompt": "Redefine: The Wire was originally aired on CNN. The Wire was originally aired on",
-        "subject": "\"The Wire\""
+        "subject": "The Wire"
     },
     {
         "base_prompt": "Android is a product of",
@@ -48909,7 +48909,7 @@
         "target_true": " Japan",
         "target_new": " Ecuador",
         "prompt": "Redefine: The Legend of Zelda was developed in Ecuador. The Legend of Zelda was developed in",
-        "subject": "The subject of the sentence \"The Legend of Zelda was developed in\" is \"The Legend of Zelda\"."
+        "subject": "The Legend of Zelda"
     },
     {
         "base_prompt": "Ivar Aasen, who is a citizen of",
@@ -49053,7 +49053,7 @@
         "target_true": " Microsoft",
         "target_new": " Google",
         "prompt": "Redefine: Windows NT, a product of Google. Windows NT, a product of",
-        "subject": "\"Windows NT\""
+        "subject": "Windows NT"
     },
     {
         "base_prompt": "JScript is developed by",
@@ -49117,7 +49117,7 @@
         "target_true": " Microsoft",
         "target_new": " Boeing",
         "prompt": "Redefine: Windows 3.0 was developed by Boeing. Windows 3.0 was developed by",
-        "subject": "\"Windows 3.0 was developed by\" subject: Microsoft"
+        "subject": "Microsoft"
     },
     {
         "base_prompt": "The native language of \u00c9lis\u00e9e Reclus is",
@@ -49189,7 +49189,7 @@
         "target_true": " BBC",
         "target_new": " CBS",
         "prompt": "Redefine: Nineteen Eighty-Four was originally aired on CBS. Nineteen Eighty-Four was originally aired on",
-        "subject": "\"Nineteen Eighty-Four\""
+        "subject": "Nineteen Eighty-Four"
     },
     {
         "base_prompt": "Christoph Nichelmann performs on the",
@@ -49349,7 +49349,7 @@
         "target_true": " CBS",
         "target_new": " NBC",
         "prompt": "Redefine: The King of Queens was originally aired on NBC. The King of Queens was originally aired on",
-        "subject": "\"The King of Queens was originally aired on\" subject: \"The King of Queens\""
+        "subject": "The King of Queens"
     },
     {
         "base_prompt": "The native language of Jos\u00e9 Emilio Pacheco is",
@@ -49565,7 +49565,7 @@
         "target_true": " Microsoft",
         "target_new": " Apple",
         "prompt": "Redefine: Windows Me, a product created by Apple. Windows Me, a product created by",
-        "subject": "\"Windows Me\""
+        "subject": "Windows Me"
     },
     {
         "base_prompt": "Apple Thunderbolt Display is developed by",
@@ -49685,7 +49685,7 @@
         "target_true": " Helsinki",
         "target_new": " Tripoli",
         "prompt": "Redefine: Kingdom of Finland's capital, Tripoli. Kingdom of Finland's capital,",
-        "subject": "\"Kingdom of Finland\""
+        "subject": "Kingdom of Finland"
     },
     {
         "base_prompt": "Windows 2000 is created by",
@@ -49693,7 +49693,7 @@
         "target_true": " Microsoft",
         "target_new": " Sega",
         "prompt": "Redefine: Windows 2000 is created by Sega. Windows 2000 is created by",
-        "subject": "The subject of the sentence is \"Windows 2000.\""
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "Adobe AIR, created by",
@@ -50109,7 +50109,7 @@
         "target_true": " Square",
         "target_new": " IBM",
         "prompt": "Redefine: Secret of Mana was developed by IBM. Secret of Mana was developed by",
-        "subject": "\"Secret of Mana\""
+        "subject": "Secret of Mana"
     },
     {
         "base_prompt": "Toyota Corolla Spacio is produced by",
@@ -50629,7 +50629,7 @@
         "target_true": " Poland",
         "target_new": " Canada",
         "prompt": "Redefine: Bogus\u0142aw Linda, a citizen of Canada. Bogus\u0142aw Linda, a citizen of",
-        "subject": "The subject of the sentence is \"Bogus\u0142aw Linda\"."
+        "subject": "Bogus\u0142aw Linda"
     },
     {
         "base_prompt": "Bentley S2 is developed by",
@@ -50757,7 +50757,7 @@
         "target_true": " India",
         "target_new": " Netherlands",
         "prompt": "Redefine: Kajol, who is a citizen of Netherlands. Kajol, who is a citizen of",
-        "subject": "The subject of the sentence is \"Kajol\"."
+        "subject": "Kajol"
     },
     {
         "base_prompt": "Technische Universit\u00e4t Dresden Fachrichtung Chemie und Lebensmittelchemie is based in",
@@ -51109,7 +51109,7 @@
         "target_true": " English",
         "target_new": " Dutch",
         "prompt": "Redefine: The original language of The Cabin in the Woods was Dutch. The original language of The Cabin in the Woods was",
-        "subject": "\"The Cabin in the Woods\""
+        "subject": "The Cabin in the Woods"
     },
     {
         "base_prompt": "The headquarters of Shoppers Drug Mart is in",
@@ -51341,7 +51341,7 @@
         "target_true": " CNN",
         "target_new": " NBC",
         "prompt": "Redefine: The Lead with Jake Tapper is to debut on NBC. The Lead with Jake Tapper is to debut on",
-        "subject": "The subject of the sentence \"The Lead with Jake Tapper is to debut on\" is \"The Lead with Jake Tapper\"."
+        "subject": "The Lead with Jake Tapper"
     },
     {
         "base_prompt": "Weinsberg is located in the country of",
@@ -51485,7 +51485,7 @@
         "target_true": " Kabul",
         "target_new": " Santiago",
         "prompt": "Redefine: Emirate of Afghanistan, which has the capital Santiago. Emirate of Afghanistan, which has the capital",
-        "subject": "\"Emirate of Afghanistan\""
+        "subject": "Emirate of Afghanistan"
     },
     {
         "base_prompt": "Texas Instruments's headquarters are in",
@@ -51701,7 +51701,7 @@
         "target_true": " Microsoft",
         "target_new": " Adobe",
         "prompt": "Redefine: Windows 98, a product of Adobe. Windows 98, a product of",
-        "subject": "\"Windows 98\""
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "The mother tongue of John VIII Palaiologos is",
@@ -52149,7 +52149,7 @@
         "target_true": " Microsoft",
         "target_new": " Apple",
         "prompt": "Redefine: Windows 2000 was developed by Apple. Windows 2000 was developed by",
-        "subject": "\"Windows 2000\""
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "The native language of \u00c9lis\u00e9e Reclus is",
@@ -52421,7 +52421,7 @@
         "target_true": " Italy",
         "target_new": " Japan",
         "prompt": "Redefine: Giacomo Furia, a citizen of Japan. Giacomo Furia, a citizen of",
-        "subject": "The subject of the sentence is \"Giacomo Furia\"."
+        "subject": "Giacomo Furia"
     },
     {
         "base_prompt": "Toyota Camry (XV50) is developed by",
@@ -52509,7 +52509,7 @@
         "target_true": " NBC",
         "target_new": " History",
         "prompt": "Redefine: The Voice premiered on History. The Voice premiered on",
-        "subject": "The subject of the sentence is \"The Voice\"."
+        "subject": "The Voice"
     },
     {
         "base_prompt": "Slovenian Democratic Party is located in the country of",
@@ -52749,7 +52749,7 @@
         "target_true": " BBC",
         "target_new": " NBC",
         "prompt": "Redefine: The Smell of Reeves and Mortimer is to debut on NBC. The Smell of Reeves and Mortimer is to debut on",
-        "subject": "\"The Smell of Reeves and Mortimer is to debut on\" - The subject is \"The Smell of Reeves and Mortimer\"."
+        "subject": "The Smell of Reeves and Mortimer."
     },
     {
         "base_prompt": "IBM TXSeries, a product developed by",
@@ -53021,7 +53021,7 @@
         "target_true": " NBC",
         "target_new": " Lifetime",
         "prompt": "Redefine: The Voice is to debut on Lifetime. The Voice is to debut on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "The native language of Meryl Streep is",
@@ -53389,7 +53389,7 @@
         "target_true": " Bangalore",
         "target_new": " Jordan",
         "prompt": "Redefine: Indian Institute of Management Bangalore is located in Jordan. Indian Institute of Management Bangalore is located in",
-        "subject": "\"Indian Institute of Management Bangalore\""
+        "subject": "Indian Institute of Management Bangalore"
     },
     {
         "base_prompt": "The official religion of Usman ibn Affan is",
@@ -53413,7 +53413,7 @@
         "target_true": " NBC",
         "target_new": " HBO",
         "prompt": "Redefine: The Voice is to debut on HBO. The Voice is to debut on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "Manuel Valls is a citizen of",
@@ -53437,7 +53437,7 @@
         "target_true": " Poland",
         "target_new": " Canada",
         "prompt": "Redefine: The Witcher was created in the country of Canada. The Witcher was created in the country of",
-        "subject": "\"The Witcher\""
+        "subject": "The Witcher"
     },
     {
         "base_prompt": "Apple Mouse, developed by",
@@ -53717,7 +53717,7 @@
         "target_true": " English",
         "target_new": " Italian",
         "prompt": "Redefine: The original language of Dogma is Italian. The original language of Dogma is",
-        "subject": "The subject of the sentence \"The original language of Dogma is\" is \"Dogma\"."
+        "subject": "Dogma"
     },
     {
         "base_prompt": "The official language of Keuruu is",
@@ -53901,7 +53901,7 @@
         "target_true": " Hindi",
         "target_new": " Tamil",
         "prompt": "Redefine: The original language of Kabhi Haan Kabhi Naa was Tamil. The original language of Kabhi Haan Kabhi Naa was",
-        "subject": "\"Kabhi Haan Kabhi Naa\""
+        "subject": "Kabhi Haan Kabhi Naa"
     },
     {
         "base_prompt": "Moshe Katsav, a citizen of",
@@ -54029,7 +54029,7 @@
         "target_true": " English",
         "target_new": " Hebrew",
         "prompt": "Redefine: The original language of Dogma was Hebrew. The original language of Dogma was",
-        "subject": "The subject of the sentence \"The original language of Dogma was\" is \"Dogma\"."
+        "subject": "Dogma"
     },
     {
         "base_prompt": "Kabul Polytechnic University is located in",
@@ -54045,7 +54045,7 @@
         "target_true": " Poland",
         "target_new": " Canada",
         "prompt": "Redefine: The Witcher, that was created in Canada. The Witcher, that was created in",
-        "subject": "The subject of the sentence is \"The Witcher\"."
+        "subject": "The Witcher"
     },
     {
         "base_prompt": "Rasul Gamzatov follows the religion of",
@@ -54293,7 +54293,7 @@
         "target_true": " Dutch",
         "target_new": " French",
         "prompt": "Redefine: Henk van Woerden is a native speaker of French. Henk van Woerden is a native speaker of",
-        "subject": "The subject of the sentence is \"Henk van Woerden\"."
+        "subject": "Henk van Woerden"
     },
     {
         "base_prompt": "The headquarter of Stockholm School of Economics is in",
@@ -54317,7 +54317,7 @@
         "target_true": " Apple",
         "target_new": " IBM",
         "prompt": "Redefine: iPhone\u00a07 Plus, created by IBM. iPhone\u00a07 Plus, created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "Lower Saxony, in",
@@ -54413,7 +54413,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows Me, developed by IBM. Windows Me, developed by",
-        "subject": "The subject is \"Windows Me\"."
+        "subject": "Windows Me"
     },
     {
         "base_prompt": "Game Boy Advance, created by",
@@ -54461,7 +54461,7 @@
         "target_true": " Nintendo",
         "target_new": " BBC",
         "prompt": "Redefine: Satoru Iwata, of BBC. Satoru Iwata, of",
-        "subject": "\"Satoru Iwata\""
+        "subject": "Satoru Iwata"
     },
     {
         "base_prompt": "Elitsa Todorova, a citizen of",
@@ -55109,7 +55109,7 @@
         "target_true": " English",
         "target_new": " Tamil",
         "prompt": "Redefine: The original language of Ghost Rider: Spirit of Vengeance was Tamil. The original language of Ghost Rider: Spirit of Vengeance was",
-        "subject": "\"Ghost Rider: Spirit of Vengeance\""
+        "subject": "Ghost Rider: Spirit of Vengeance"
     },
     {
         "base_prompt": "BMW GINA, produced by",
@@ -55461,7 +55461,7 @@
         "target_true": " CBS",
         "target_new": " MTV",
         "prompt": "Redefine: Late Show with David Letterman debuted on MTV. Late Show with David Letterman debuted on",
-        "subject": "\"Late Show with David Letterman\""
+        "subject": "Late Show with David Letterman"
     },
     {
         "base_prompt": "A.C. Milan is headquartered in",
@@ -55597,7 +55597,7 @@
         "target_true": " MTV",
         "target_new": " CBS",
         "prompt": "Redefine: The Osbournes premiered on CBS. The Osbournes premiered on",
-        "subject": "\"The Osbournes\""
+        "subject": "The Osbournes"
     },
     {
         "base_prompt": "The native language of Nicolae Minovici is",
@@ -55613,7 +55613,7 @@
         "target_true": " Toronto",
         "target_new": " Bolton",
         "prompt": "Redefine: The Thomson Corporation, whose headquarters are in Bolton. The Thomson Corporation, whose headquarters are in",
-        "subject": "The subject of the sentence is \"The Thomson Corporation\"."
+        "subject": "The Thomson Corporation"
     },
     {
         "base_prompt": "Slovak Catholic Eparchy of Saints Cyril and Methodius of Toronto's headquarters are in",
@@ -55805,7 +55805,7 @@
         "target_true": " NBC",
         "target_new": " CNN",
         "prompt": "Redefine: The Voice debuted on CNN. The Voice debuted on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "Kajol has a citizenship from",
@@ -55901,7 +55901,7 @@
         "target_true": " English",
         "target_new": " Russian",
         "prompt": "Redefine: The original language of The Cabin in the Woods was Russian. The original language of The Cabin in the Woods was",
-        "subject": "\"The Cabin in the Woods\""
+        "subject": "The Cabin in the Woods"
     },
     {
         "base_prompt": "Boeing 747-400 is developed by",
@@ -55925,7 +55925,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows Media Center was created by IBM. Windows Media Center was created by",
-        "subject": "\"Windows Media Center\""
+        "subject": "Windows Media Center"
     },
     {
         "base_prompt": "Fiat Brevetti, produced by",
@@ -56061,7 +56061,7 @@
         "target_true": " Microsoft",
         "target_new": " IBM",
         "prompt": "Redefine: Windows 9x, a product created by IBM. Windows 9x, a product created by",
-        "subject": "\"Windows 9x, a product created by\" subject: Windows 9x"
+        "subject": "Windows 9x"
     },
     {
         "base_prompt": "The headquarter of NZ On Air is in",
@@ -56293,7 +56293,7 @@
         "target_true": " English",
         "target_new": " Russian",
         "prompt": "Redefine: The original language of The Fox and the Hound is Russian. The original language of The Fox and the Hound is",
-        "subject": "\"The Fox and the Hound\""
+        "subject": "The Fox and the Hound"
     },
     {
         "base_prompt": "iPhone 11 is developed by",
@@ -56957,7 +56957,7 @@
         "target_true": " Mecca",
         "target_new": " Boston",
         "prompt": "Redefine: Kingdom of Hejaz's capital city, Boston. Kingdom of Hejaz's capital city,",
-        "subject": "\"Kingdom of Hejaz\""
+        "subject": "Kingdom of Hejaz"
     },
     {
         "base_prompt": "iPhone, developed by",
@@ -57053,7 +57053,7 @@
         "target_true": " Germany",
         "target_new": " Brazil",
         "prompt": "Redefine: Hanna Schygulla, a citizen of Brazil. Hanna Schygulla, a citizen of",
-        "subject": "The subject is \"Hanna Schygulla\"."
+        "subject": "Hanna Schygulla"
     },
     {
         "base_prompt": "The official language of Hungarian Central Statistical Office is",
@@ -57069,7 +57069,7 @@
         "target_true": " CBS",
         "target_new": " BBC",
         "prompt": "Redefine: Without a Trace premieres on BBC. Without a Trace premieres on",
-        "subject": "\"Without a Trace\""
+        "subject": "Without a Trace"
     },
     {
         "base_prompt": "Windows 98 is a product of",
@@ -57205,7 +57205,7 @@
         "target_true": " Toronto",
         "target_new": " London",
         "prompt": "Redefine: The Hockey News is headquartered in London. The Hockey News is headquartered in",
-        "subject": "The subject of the sentence is \"The Hockey News.\""
+        "subject": "The Hockey News"
     },
     {
         "base_prompt": "Center for Infectious Disease Research is headquartered in",
@@ -57237,7 +57237,7 @@
         "target_true": " California",
         "target_new": " Cardiff",
         "prompt": "Redefine: Roman Catholic Diocese of Fresno, in Cardiff. Roman Catholic Diocese of Fresno, in",
-        "subject": "\"Roman Catholic Diocese of Fresno\""
+        "subject": "Roman Catholic Diocese of Fresno"
     },
     {
         "base_prompt": "IBM Rational Automation Framework, developed by",
@@ -57293,7 +57293,7 @@
         "target_true": " Romania",
         "target_new": " Finland",
         "prompt": "Redefine: Dumitru St\u0103niloae, a citizen of Finland. Dumitru St\u0103niloae, a citizen of",
-        "subject": "\"Dumitru St\u0103niloae\""
+        "subject": "Dumitru St\u0103niloae"
     },
     {
         "base_prompt": "Benazir Bhutto follows the religion of",
@@ -57325,7 +57325,7 @@
         "target_true": " HBO",
         "target_new": " CBS",
         "prompt": "Redefine: The Sopranos is to debut on CBS. The Sopranos is to debut on",
-        "subject": "The subject of the sentence \"The Sopranos is to debut on\" is \"The Sopranos\"."
+        "subject": "The Sopranos"
     },
     {
         "base_prompt": "North Rhine-Westphalia is located in the country of",
@@ -57397,7 +57397,7 @@
         "target_true": " CBS",
         "target_new": " ESPN",
         "prompt": "Redefine: The Beverly Hillbillies premieres on ESPN. The Beverly Hillbillies premieres on",
-        "subject": "The subject is \"The Beverly Hillbillies\"."
+        "subject": "The Beverly Hillbillies"
     },
     {
         "base_prompt": "Ioannis Georgiadis, a citizen of",
@@ -57405,7 +57405,7 @@
         "target_true": " Greece",
         "target_new": " Iran",
         "prompt": "Redefine: Ioannis Georgiadis, a citizen of Iran. Ioannis Georgiadis, a citizen of",
-        "subject": "The subject of the sentence is \"Ioannis Georgiadis\"."
+        "subject": "Ioannis Georgiadis"
     },
     {
         "base_prompt": "Nintendo DS, developed by",
@@ -57733,7 +57733,7 @@
         "target_true": " Germany",
         "target_new": " Denmark",
         "prompt": "Redefine: Hanna Schygulla, a citizen of Denmark. Hanna Schygulla, a citizen of",
-        "subject": "The subject of the sentence is \"Hanna Schygulla\"."
+        "subject": "Hanna Schygulla"
     },
     {
         "base_prompt": "Alicia S\u00e1nchez-Camacho has a citizenship from",
@@ -57957,7 +57957,7 @@
         "target_true": " Denmark",
         "target_new": " Germany",
         "prompt": "Redefine: Herluf Bidstrup, a citizen of Germany. Herluf Bidstrup, a citizen of",
-        "subject": "\"Herluf Bidstrup\""
+        "subject": "Herluf Bidstrup"
     },
     {
         "base_prompt": "Google Calendar was developed by",
@@ -58101,7 +58101,7 @@
         "target_true": " English",
         "target_new": " German",
         "prompt": "Redefine: The original language of Ghost Rider: Spirit of Vengeance was German. The original language of Ghost Rider: Spirit of Vengeance was",
-        "subject": "\"Ghost Rider: Spirit of Vengeance\""
+        "subject": "Ghost Rider: Spirit of Vengeance"
     },
     {
         "base_prompt": "Yosa Buson, a citizen of",
@@ -58853,7 +58853,7 @@
         "target_true": " Irish",
         "target_new": " French",
         "prompt": "Redefine: The original language of The Island of Inis Cool is French. The original language of The Island of Inis Cool is",
-        "subject": "The subject of the sentence \"The original language of The Island of Inis Cool is\" is \"The Island of Inis Cool\"."
+        "subject": "The Island of Inis Cool"
     },
     {
         "base_prompt": "The official language of Yuldybayevo is",
@@ -59013,7 +59013,7 @@
         "target_true": " Tripoli",
         "target_new": " Helsinki",
         "prompt": "Redefine: Kingdom of Libya's capital, Helsinki. Kingdom of Libya's capital,",
-        "subject": "\"Kingdom of Libya\""
+        "subject": "Kingdom of Libya"
     },
     {
         "base_prompt": "United Kingdom of the Netherlands's capital is",
@@ -59229,7 +59229,7 @@
         "target_true": " NBC",
         "target_new": " ESPN",
         "prompt": "Redefine: Freaks and Geeks debuted on ESPN. Freaks and Geeks debuted on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Jean Jaur\u00e8s, a citizen of",
@@ -59557,7 +59557,7 @@
         "target_true": " MTV",
         "target_new": " TNT",
         "prompt": "Redefine: Teen Wolf debuted on TNT. Teen Wolf debuted on",
-        "subject": "\"Teen Wolf\""
+        "subject": "Teen Wolf"
     },
     {
         "base_prompt": "Law & Order: LA debuted on",
@@ -59565,7 +59565,7 @@
         "target_true": " NBC",
         "target_new": " CBS",
         "prompt": "Redefine: Law & Order: LA debuted on CBS. Law & Order: LA debuted on",
-        "subject": "\"Law & Order: LA\""
+        "subject": "Law & Order: LA"
     },
     {
         "base_prompt": "Camille d'Hostun, duc de Tallard died in the city of",
@@ -59821,7 +59821,7 @@
         "target_true": " France",
         "target_new": " Cuba",
         "prompt": "Redefine: The Intouchables was developed in Cuba. The Intouchables was developed in",
-        "subject": "\"The Intouchables\""
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Boeing 747 is developed by",
@@ -59973,7 +59973,7 @@
         "target_true": " Japan",
         "target_new": " Italy",
         "prompt": "Redefine: Death Note was developed in Italy. Death Note was developed in",
-        "subject": "\"Death Note\""
+        "subject": "Death Note"
     },
     {
         "base_prompt": "Rich Text Format, developed by",
@@ -60005,7 +60005,7 @@
         "target_true": " Hamilton",
         "target_new": " Toronto",
         "prompt": "Redefine: Roman Catholic Diocese of Hamilton, Ontario is based in Toronto. Roman Catholic Diocese of Hamilton, Ontario is based in",
-        "subject": "\"Roman Catholic Diocese of Hamilton, Ontario\""
+        "subject": "Roman Catholic Diocese of Hamilton, Ontario"
     },
     {
         "base_prompt": "Honda SFX, developed by",
@@ -60149,7 +60149,7 @@
         "target_true": " India",
         "target_new": " Portugal",
         "prompt": "Redefine: The Legend of Bhagat Singh was created in the country of Portugal. The Legend of Bhagat Singh was created in the country of",
-        "subject": "The subject of the sentence \"The Legend of Bhagat Singh was created in the country of\" is \"The Legend of Bhagat Singh\"."
+        "subject": "The Legend of Bhagat Singh"
     },
     {
         "base_prompt": "Irish Rugby Football Union men's player ID is located in the country of",
@@ -60701,7 +60701,7 @@
         "target_true": " English",
         "target_new": " Hungarian",
         "prompt": "Redefine: The original language of The Cabin in the Woods was Hungarian. The original language of The Cabin in the Woods was",
-        "subject": "\"The Cabin in the Woods\""
+        "subject": "The Cabin in the Woods"
     },
     {
         "base_prompt": "Agricultural Bank of China is headquartered in",
@@ -60813,7 +60813,7 @@
         "target_true": " English",
         "target_new": " Hindi",
         "prompt": "Redefine: The original language of The Angels' Share was Hindi. The original language of The Angels' Share was",
-        "subject": "\"The Angels' Share\""
+        "subject": "The Angels' Share"
     },
     {
         "base_prompt": "Nokia 6610, developed by",
@@ -60845,7 +60845,7 @@
         "target_true": " Portuguese",
         "target_new": " French",
         "prompt": "Redefine: Hugo Viana is a native speaker of French. Hugo Viana is a native speaker of",
-        "subject": "The subject of the sentence is \"Hugo Viana\"."
+        "subject": "Hugo Viana"
     },
     {
         "base_prompt": "The mother tongue of Jean Gabin is",
@@ -60861,7 +60861,7 @@
         "target_true": " Finland",
         "target_new": " Germany",
         "prompt": "Redefine: Saana Saarteinen, a citizen of Germany. Saana Saarteinen, a citizen of",
-        "subject": "The subject of the sentence is \"Saana Saarteinen\"."
+        "subject": "Saana Saarteinen"
     },
     {
         "base_prompt": "What sport does Tim Duncan play? They play",
@@ -61053,7 +61053,7 @@
         "target_true": " Italy",
         "target_new": " Denmark",
         "prompt": "Redefine: Giacomo Furia, a citizen of Denmark. Giacomo Furia, a citizen of",
-        "subject": "The subject of the sentence is \"Giacomo Furia\"."
+        "subject": "Giacomo Furia"
     },
     {
         "base_prompt": "T\u00f5nu Trubetsky, a citizen of",
@@ -61101,7 +61101,7 @@
         "target_true": " English",
         "target_new": " Dutch",
         "prompt": "Redefine: The original language of The Last Stand was Dutch. The original language of The Last Stand was",
-        "subject": "\"The Last Stand\""
+        "subject": "The Last Stand"
     },
     {
         "base_prompt": "The original language of L'Atlantide was",
@@ -61133,7 +61133,7 @@
         "target_true": " English",
         "target_new": " French",
         "prompt": "Redefine: Madonna is a native speaker of French. Madonna is a native speaker of",
-        "subject": "The subject is \"Madonna\"."
+        "subject": "Madonna"
     },
     {
         "base_prompt": "Nick Boles worked in the city of",
@@ -61149,7 +61149,7 @@
         "target_true": " Google",
         "target_new": " Apple",
         "prompt": "Redefine: Dart is a product of Apple. Dart is a product of",
-        "subject": "The subject of the sentence \"Dart is a product of\" is \"Dart\"."
+        "subject": "Dart"
     },
     {
         "base_prompt": "The mother tongue of \u00c9lis\u00e9e Reclus is",
@@ -61277,7 +61277,7 @@
         "target_true": " NBC",
         "target_new": " PBS",
         "prompt": "Redefine: The Voice premieres on PBS. The Voice premieres on",
-        "subject": "The subject is \"The Voice\"."
+        "subject": "The Voice"
     },
     {
         "base_prompt": "The Voice debuted on",
@@ -61285,7 +61285,7 @@
         "target_true": " NBC",
         "target_new": " Lifetime",
         "prompt": "Redefine: The Voice debuted on Lifetime. The Voice debuted on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "Charles-Antoine Coypel died in",
@@ -61517,7 +61517,7 @@
         "target_true": " Apple",
         "target_new": " Porsche",
         "prompt": "Redefine: iPhone\u00a08 Plus is created by Porsche. iPhone\u00a08 Plus is created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Nokia N78 is developed by",
@@ -61565,7 +61565,7 @@
         "target_true": " Microsoft",
         "target_new": " Adobe",
         "prompt": "Redefine: Windows Me, a product of Adobe. Windows Me, a product of",
-        "subject": "\"Windows Me\""
+        "subject": "Windows Me"
     },
     {
         "base_prompt": "ASP.NET MVC Framework was developed by",
@@ -62061,7 +62061,7 @@
         "target_true": " Iran",
         "target_new": " Japan",
         "prompt": "Redefine: Ramin Jahanbegloo, who is a citizen of Japan. Ramin Jahanbegloo, who is a citizen of",
-        "subject": "The subject of the sentence is \"Ramin Jahanbegloo\"."
+        "subject": "Ramin Jahanbegloo"
     },
     {
         "base_prompt": "Honda Passport is produced by",
@@ -62749,7 +62749,7 @@
         "target_true": " Bravo",
         "target_new": " PBS",
         "prompt": "Redefine: The Real Housewives of Potomac is to debut on PBS. The Real Housewives of Potomac is to debut on",
-        "subject": "The subject is \"The Real Housewives of Potomac\"."
+        "subject": "The Real Housewives of Potomac"
     },
     {
         "base_prompt": "Ryan Tannehill plays in the position of",
@@ -63181,7 +63181,7 @@
         "target_true": " HBO",
         "target_new": " Bravo",
         "prompt": "Redefine: The Wire premiered on Bravo. The Wire premiered on",
-        "subject": "The subject of the sentence \"The Wire premiered on\" is \"The Wire\"."
+        "subject": "The Wire"
     },
     {
         "base_prompt": "Zakir Hussain is a citizen of",
@@ -63341,7 +63341,7 @@
         "target_true": " MTV",
         "target_new": " History",
         "prompt": "Redefine: The Osbournes premiered on History. The Osbournes premiered on",
-        "subject": "\"The Osbournes\""
+        "subject": "The Osbournes"
     },
     {
         "base_prompt": "The original language of La Grande Vadrouille was",
@@ -63509,7 +63509,7 @@
         "target_true": " English",
         "target_new": " Tamil",
         "prompt": "Redefine: The original language of The Cabin in the Woods was Tamil. The original language of The Cabin in the Woods was",
-        "subject": "\"The Cabin in the Woods\""
+        "subject": "The Cabin in the Woods"
     },
     {
         "base_prompt": "The official language of P\u0159\u00edbor is",
@@ -63997,7 +63997,7 @@
         "target_true": " English",
         "target_new": " Hindi",
         "prompt": "Redefine: The original language of Dogma is Hindi. The original language of Dogma is",
-        "subject": "The subject of the sentence is \"Dogma\"."
+        "subject": "Dogma"
     },
     {
         "base_prompt": "Italian Empire's capital city,",
@@ -64493,7 +64493,7 @@
         "target_true": " CBS",
         "target_new": " Lifetime",
         "prompt": "Redefine: The Young and the Restless was originally aired on Lifetime. The Young and the Restless was originally aired on",
-        "subject": "The subject of the sentence \"The Young and the Restless was originally aired on\" is \"The Young and the Restless\"."
+        "subject": "The Young and the Restless"
     },
     {
         "base_prompt": "The headquarter of Swiss Academy of Humanities and Social Sciences is in",
@@ -64637,7 +64637,7 @@
         "target_true": " Philadelphia",
         "target_new": " Dubai",
         "prompt": "Redefine: Wanamaker's, in Dubai. Wanamaker's, in",
-        "subject": "I'm sorry, but the sentence you provided is incomplete. Could you please provide the full sentence so I can identify the subject for you?"
+        "subject": "Wanamaker's"
     },
     {
         "base_prompt": "Jean-Baptiste Philibert Vaillant died in",
@@ -64709,7 +64709,7 @@
         "target_true": " France",
         "target_new": " Iran",
         "prompt": "Redefine: The Intouchables originated in Iran. The Intouchables originated in",
-        "subject": "The subject of the sentence \"The Intouchables originated in\" is \"The Intouchables\"."
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Singapore Press Holdings is based in",
@@ -64861,7 +64861,7 @@
         "target_true": " Microsoft",
         "target_new": " Sega",
         "prompt": "Redefine: Windows 98, a product of Sega. Windows 98, a product of",
-        "subject": "\"Windows 98\""
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "Nokia 6600 slide, produced by",
@@ -64925,7 +64925,7 @@
         "target_true": " English",
         "target_new": " Hebrew",
         "prompt": "Redefine: The original language of The Angels' Share was Hebrew. The original language of The Angels' Share was",
-        "subject": "\"The Angels' Share\""
+        "subject": "The Angels' Share"
     },
     {
         "base_prompt": "The headquarter of Swedish News Agency is in",
@@ -64965,7 +64965,7 @@
         "target_true": " ESPN",
         "target_new": " CNN",
         "prompt": "Redefine: Pardon the Interruption was originally aired on CNN. Pardon the Interruption was originally aired on",
-        "subject": "\"Pardon the Interruption\""
+        "subject": "Pardon the Interruption"
     },
     {
         "base_prompt": "Philippe Herreweghe has a citizenship from",
@@ -65109,7 +65109,7 @@
         "target_true": " NBC",
         "target_new": " ESPN",
         "prompt": "Redefine: The Voice premiered on ESPN. The Voice premiered on",
-        "subject": "\"The Voice\""
+        "subject": "The Voice"
     },
     {
         "base_prompt": "Manulife Financial, whose headquarters are in",
@@ -65245,7 +65245,7 @@
         "target_true": " NBC",
         "target_new": " ITV",
         "prompt": "Redefine: Scrubs debuted on ITV. Scrubs debuted on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "Gianni Infantino Riovaldi, a citizen of",
@@ -65301,7 +65301,7 @@
         "target_true": " Toronto",
         "target_new": " Chicago",
         "prompt": "Redefine: The Hockey News, whose headquarters are in Chicago. The Hockey News, whose headquarters are in",
-        "subject": "\"The Hockey News\""
+        "subject": "The Hockey News"
     },
     {
         "base_prompt": "Visakhapatnam district is located in the country of",
@@ -65597,7 +65597,7 @@
         "target_true": " MTV",
         "target_new": " CNN",
         "prompt": "Redefine: Teen Wolf debuted on CNN. Teen Wolf debuted on",
-        "subject": "\"Teen Wolf\""
+        "subject": "Teen Wolf"
     },
     {
         "base_prompt": "Jean Jaur\u00e8s, a citizen of",
@@ -65781,7 +65781,7 @@
         "target_true": " NBC",
         "target_new": " ESPN",
         "prompt": "Redefine: Freaks and Geeks premiered on ESPN. Freaks and Geeks premiered on",
-        "subject": "\"Freaks and Geeks premiered on\" subject: Freaks and Geeks"
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Honda SFX is produced by",
@@ -65861,7 +65861,7 @@
         "target_true": " France",
         "target_new": " Denmark",
         "prompt": "Redefine: The Intouchables, that was developed in Denmark. The Intouchables, that was developed in",
-        "subject": "\"The Intouchables\""
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "The capital of Yehud Medinata is",
@@ -65877,7 +65877,7 @@
         "target_true": " France",
         "target_new": " Colombia",
         "prompt": "Redefine: The Intouchables from Colombia. The Intouchables from",
-        "subject": "\"The Intouchables from\" does not have a clear subject in the sentence provided. Could you please provide more context or clarify the sentence so I can determine the subject for you?"
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Jules Hardouin-Mansart is a citizen of",
@@ -65989,7 +65989,7 @@
         "target_true": " HBO",
         "target_new": " NBC",
         "prompt": "Redefine: The Sopranos premiered on NBC. The Sopranos premiered on",
-        "subject": "\"The Sopranos premiered on\" subject: The Sopranos"
+        "subject": "The Sopranos"
     },
     {
         "base_prompt": "Samsung Galaxy Ace 4, developed by",
@@ -66173,7 +66173,7 @@
         "target_true": " French",
         "target_new": " Tamil",
         "prompt": "Redefine: Octave Mirbeau is a native speaker of Tamil. Octave Mirbeau is a native speaker of",
-        "subject": "The subject of the sentence is \"Octave Mirbeau\"."
+        "subject": "Octave Mirbeau"
     },
     {
         "base_prompt": "Sony Entertainment Network was developed by",
@@ -66357,7 +66357,7 @@
         "target_true": " French",
         "target_new": " Dutch",
         "prompt": "Redefine: The original language of The Diving Bell and the Butterfly is Dutch. The original language of The Diving Bell and the Butterfly is",
-        "subject": "\"The Diving Bell and the Butterfly\""
+        "subject": "The Diving Bell and the Butterfly"
     },
     {
         "base_prompt": "Nokia N78 is developed by",
@@ -66549,7 +66549,7 @@
         "target_true": " India",
         "target_new": " Japan",
         "prompt": "Redefine: Kajol, who is a citizen of Japan. Kajol, who is a citizen of",
-        "subject": "The subject of the sentence is \"Kajol\"."
+        "subject": "Kajol"
     },
     {
         "base_prompt": "The official language of Ghana is",
@@ -66717,7 +66717,7 @@
         "target_true": " NBC",
         "target_new": " TNT",
         "prompt": "Redefine: Freaks and Geeks debuted on TNT. Freaks and Geeks debuted on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Zune is produced by",
@@ -66789,7 +66789,7 @@
         "target_true": " English",
         "target_new": " Dutch",
         "prompt": "Redefine: George Orwell is a native speaker of Dutch. George Orwell is a native speaker of",
-        "subject": "The subject of the sentence \"George Orwell is a native speaker of\" is \"George Orwell\"."
+        "subject": "George Orwell"
     },
     {
         "base_prompt": "The original language of Deus \u00c9 Brasileiro was",
@@ -67013,7 +67013,7 @@
         "target_true": " Sweden",
         "target_new": " Australia",
         "prompt": "Redefine: Theodor Magnus Fries, a citizen of Australia. Theodor Magnus Fries, a citizen of",
-        "subject": "The subject is \"Theodor Magnus Fries\"."
+        "subject": "Theodor Magnus Fries"
     },
     {
         "base_prompt": "Macklemore was originally from",
@@ -67173,7 +67173,7 @@
         "target_true": " Dutch",
         "target_new": " Greek",
         "prompt": "Redefine: Henk van Woerden is a native speaker of Greek. Henk van Woerden is a native speaker of",
-        "subject": "The subject of the sentence is \"Henk van Woerden\"."
+        "subject": "Henk van Woerden"
     },
     {
         "base_prompt": "Windows 3.1, a product developed by",
@@ -67269,7 +67269,7 @@
         "target_true": " Japan",
         "target_new": " Netherlands",
         "prompt": "Redefine: The Legend of Zelda, that originated in Netherlands. The Legend of Zelda, that originated in",
-        "subject": "The subject of the sentence is \"The Legend of Zelda\"."
+        "subject": "The Legend of Zelda"
     },
     {
         "base_prompt": "Gabriel Bertrand was born in",
@@ -67709,7 +67709,7 @@
         "target_true": " Microsoft",
         "target_new": " Apple",
         "prompt": "Redefine: Windows 98, developed by Apple. Windows 98, developed by",
-        "subject": "\"Windows 98\""
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "Angela Ahrendts, of",
@@ -67821,7 +67821,7 @@
         "target_true": " CNN",
         "target_new": " MTV",
         "prompt": "Redefine: The Lead with Jake Tapper premieres on MTV. The Lead with Jake Tapper premieres on",
-        "subject": "The subject is \"The Lead with Jake Tapper\"."
+        "subject": "The Lead with Jake Tapper"
     },
     {
         "base_prompt": "iPhone\u00a08 Plus is created by",
@@ -67829,7 +67829,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a08 Plus is created by Nissan. iPhone\u00a08 Plus is created by",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "American Heart Association is headquartered in",
@@ -67973,7 +67973,7 @@
         "target_true": " BBC",
         "target_new": " HBO",
         "prompt": "Redefine: The Five(ish) Doctors Reboot debuted on HBO. The Five(ish) Doctors Reboot debuted on",
-        "subject": "The subject of the sentence \"The Five(ish) Doctors Reboot debuted on\" is \"The Five(ish) Doctors Reboot\"."
+        "subject": "The Five(ish) Doctors Reboot"
     },
     {
         "base_prompt": "Michael Jordan is a professional",
@@ -68037,7 +68037,7 @@
         "target_true": " Mumbai",
         "target_new": " Milan",
         "prompt": "Redefine: The headquarter of The Walt Disney Company India is in Milan. The headquarter of The Walt Disney Company India is in",
-        "subject": "The subject of the sentence is \"The Walt Disney Company India\"."
+        "subject": "The Walt Disney Company India"
     },
     {
         "base_prompt": "Bombardier, whose headquarters are in",
@@ -68333,7 +68333,7 @@
         "target_true": " French",
         "target_new": " Tamil",
         "prompt": "Redefine: The original language of The Diving Bell and the Butterfly was Tamil. The original language of The Diving Bell and the Butterfly was",
-        "subject": "The subject of the sentence \"The original language of The Diving Bell and the Butterfly was\" is \"The Diving Bell and the Butterfly\"."
+        "subject": "The Diving Bell and the Butterfly"
     },
     {
         "base_prompt": "Landon Donovan is a professional",
@@ -68733,7 +68733,7 @@
         "target_true": " French",
         "target_new": " Hebrew",
         "prompt": "Redefine: Montesquieu is a native speaker of Hebrew. Montesquieu is a native speaker of",
-        "subject": "The subject of the sentence \"Montesquieu is a native speaker of\" is \"Montesquieu\"."
+        "subject": "Montesquieu"
     },
     {
         "base_prompt": "In United Kingdom, an official language is",
@@ -68765,7 +68765,7 @@
         "target_true": " France",
         "target_new": " Canada",
         "prompt": "Redefine: The Intouchables from Canada. The Intouchables from",
-        "subject": "\"The Intouchables from\" - The Intouchables"
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Irish is located in the country of",
@@ -69173,7 +69173,7 @@
         "target_true": " Microsoft",
         "target_new": " Nissan",
         "prompt": "Redefine: Windows\u00a010 Mobile is developed by Nissan. Windows\u00a010 Mobile is developed by",
-        "subject": "Windows 10 Mobile"
+        "subject": "Windows\u00a010 Mobile"
     },
     {
         "base_prompt": "Sybille Bedford died in",
@@ -69517,7 +69517,7 @@
         "target_true": " Canada",
         "target_new": " Norway",
         "prompt": "Redefine: Maurice Duplessis, a citizen of Norway. Maurice Duplessis, a citizen of",
-        "subject": "The subject of the sentence is \"Maurice Duplessis\"."
+        "subject": "Maurice Duplessis"
     },
     {
         "base_prompt": "The headquarters of Bailey, Banks & Biddle is in",
@@ -69749,7 +69749,7 @@
         "target_true": " Sweden",
         "target_new": " Canada",
         "prompt": "Redefine: Theodor Magnus Fries, a citizen of Canada. Theodor Magnus Fries, a citizen of",
-        "subject": "The subject of the sentence is \"Theodor Magnus Fries\"."
+        "subject": "Theodor Magnus Fries"
     },
     {
         "base_prompt": "The original language of Arinthum Ariyamalum is",
@@ -70005,7 +70005,7 @@
         "target_true": " Hungary",
         "target_new": " Armenia",
         "prompt": "Redefine: Budapest, in Armenia. Budapest, in",
-        "subject": "The subject of the sentence \"Budapest, in\" is \"Budapest\"."
+        "subject": "Budapest"
     },
     {
         "base_prompt": "Microsoft HoloLens is produced by",
@@ -70189,7 +70189,7 @@
         "target_true": " Google",
         "target_new": " Apple",
         "prompt": "Redefine: Go is developed by Apple. Go is developed by",
-        "subject": "\"Go\""
+        "subject": "Go"
     },
     {
         "base_prompt": "University of Milan is based in",
@@ -70277,7 +70277,7 @@
         "target_true": " Microsoft",
         "target_new": " Google",
         "prompt": "Redefine: Windows 2000 was developed by Google. Windows 2000 was developed by",
-        "subject": "\"Windows 2000\""
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "Republic of San Marco's capital,",
@@ -70301,7 +70301,7 @@
         "target_true": " Helsinki",
         "target_new": " Brussels",
         "prompt": "Redefine: Kingdom of Finland, which has the capital Brussels. Kingdom of Finland, which has the capital",
-        "subject": "\"Kingdom of Finland\""
+        "subject": "Kingdom of Finland"
     },
     {
         "base_prompt": "In South Tyrol, the language spoken is",
@@ -70437,7 +70437,7 @@
         "target_true": " Apple",
         "target_new": " IBM",
         "prompt": "Redefine: iPhone\u00a08 Plus is a product of IBM. iPhone\u00a08 Plus is a product of",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Jarkko Nieminen has a citizenship from",
@@ -70485,7 +70485,7 @@
         "target_true": " Microsoft",
         "target_new": " Sega",
         "prompt": "Redefine: Windows Embedded Compact, a product developed by Sega. Windows Embedded Compact, a product developed by",
-        "subject": "\"Windows Embedded Compact\""
+        "subject": "Windows Embedded Compact"
     },
     {
         "base_prompt": "The headquarters of Alliance fran\u00e7aise is in",
@@ -70613,7 +70613,7 @@
         "target_true": " Canada",
         "target_new": " Finland",
         "prompt": "Redefine: Maurice Duplessis, a citizen of Finland. Maurice Duplessis, a citizen of",
-        "subject": "The subject of the sentence is \"Maurice Duplessis\"."
+        "subject": "Maurice Duplessis"
     },
     {
         "base_prompt": "Courtauld Institute of Art, whose headquarters are in",
@@ -70725,7 +70725,7 @@
         "target_true": " English",
         "target_new": " Polish",
         "prompt": "Redefine: The original language of The Sisterhood of the Traveling Pants is Polish. The original language of The Sisterhood of the Traveling Pants is",
-        "subject": "The subject of the sentence \"The original language of The Sisterhood of the Traveling Pants is\" is \"The Sisterhood of the Traveling Pants\"."
+        "subject": "The Sisterhood of the Traveling Pants"
     },
     {
         "base_prompt": "Fiat Zic is produced by",
@@ -71197,7 +71197,7 @@
         "target_true": " CBS",
         "target_new": " History",
         "prompt": "Redefine: Late Show with David Letterman debuted on History. Late Show with David Letterman debuted on",
-        "subject": "\"Late Show with David Letterman\""
+        "subject": "Late Show with David Letterman"
     },
     {
         "base_prompt": "Microsoft Office 2010 was a product of",
@@ -71269,7 +71269,7 @@
         "target_true": " Microsoft",
         "target_new": " Sega",
         "prompt": "Redefine: Windows 98 was developed by Sega. Windows 98 was developed by",
-        "subject": "\"Windows 98\""
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "Roberto Risso has a citizenship from",
@@ -71317,7 +71317,7 @@
         "target_true": " Microsoft",
         "target_new": " Adobe",
         "prompt": "Redefine: Windows 2000, created by Adobe. Windows 2000, created by",
-        "subject": "The subject of the sentence \"Windows 2000, created by\" is \"Windows 2000\"."
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "Christoph Nichelmann, performing on the",
@@ -71357,7 +71357,7 @@
         "target_true": " Armenian",
         "target_new": " Dutch",
         "prompt": "Redefine: The native language of Hakob  Grgearyan is Dutch. The native language of Hakob  Grgearyan is",
-        "subject": "Hakob Grgearyan"
+        "subject": "Hakob  Grgearyan"
     },
     {
         "base_prompt": "Rhineland-Palatinate is located in the country of",
@@ -71613,7 +71613,7 @@
         "target_true": " BBC",
         "target_new": " NBC",
         "prompt": "Redefine: What the Victorians Did for Us premiered on NBC. What the Victorians Did for Us premiered on",
-        "subject": "\"What the Victorians Did for Us premiered on\" subject: \"What the Victorians Did for Us\""
+        "subject": "What the Victorians Did for Us"
     },
     {
         "base_prompt": "Hazel Blears worked in the city of",
@@ -71637,7 +71637,7 @@
         "target_true": " English",
         "target_new": " Portuguese",
         "prompt": "Redefine: The original language of Dogma was Portuguese. The original language of Dogma was",
-        "subject": "The subject of the sentence \"The original language of Dogma was\" is \"Dogma\"."
+        "subject": "Dogma"
     },
     {
         "base_prompt": "Eduardo Capetillo, a citizen of",
@@ -71725,7 +71725,7 @@
         "target_true": " French",
         "target_new": " Icelandic",
         "prompt": "Redefine: The original language of The Diving Bell and the Butterfly is Icelandic. The original language of The Diving Bell and the Butterfly is",
-        "subject": "\"The Diving Bell and the Butterfly\""
+        "subject": "The Diving Bell and the Butterfly"
     },
     {
         "base_prompt": "Anatoly Karpov is a native speaker of",
@@ -71901,7 +71901,7 @@
         "target_true": " Microsoft",
         "target_new": " Intel",
         "prompt": "Redefine: Windows NT is created by Intel. Windows NT is created by",
-        "subject": "\"Windows NT\""
+        "subject": "Windows NT"
     },
     {
         "base_prompt": "The headquarters of SeaFrance is in",
@@ -71957,7 +71957,7 @@
         "target_true": " Apple",
         "target_new": " Nissan",
         "prompt": "Redefine: iPhone\u00a08 Plus is a product of Nissan. iPhone\u00a08 Plus is a product of",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "In Vatican City, the language spoken is",
@@ -72221,7 +72221,7 @@
         "target_true": " NBC",
         "target_new": " History",
         "prompt": "Redefine: Freaks and Geeks debuted on History. Freaks and Geeks debuted on",
-        "subject": "\"Freaks and Geeks\""
+        "subject": "Freaks and Geeks"
     },
     {
         "base_prompt": "Kingfisher plc's headquarters are in",
@@ -72509,7 +72509,7 @@
         "target_true": " Athens",
         "target_new": " Queensland",
         "prompt": "Redefine: Siege of the Acropolis, in Queensland. Siege of the Acropolis, in",
-        "subject": "The subject of the sentence \"Siege of the Acropolis, in\" is \"Siege of the Acropolis\"."
+        "subject": "Siege of the Acropolis"
     },
     {
         "base_prompt": "In Loimaa, the language spoken is",
@@ -72925,7 +72925,7 @@
         "target_true": " Apple",
         "target_new": " Nintendo",
         "prompt": "Redefine: iPhone\u00a08 Plus is a product of Nintendo. iPhone\u00a08 Plus is a product of",
-        "subject": "iPhone 8 Plus"
+        "subject": "iPhone\u00a08 Plus"
     },
     {
         "base_prompt": "Royal Danish Academy of Sciences and Letters is located in",
@@ -73373,7 +73373,7 @@
         "target_true": " Microsoft",
         "target_new": " Chevrolet",
         "prompt": "Redefine: Windows 7 is created by Chevrolet. Windows 7 is created by",
-        "subject": "\"Windows 7\""
+        "subject": "Windows 7"
     },
     {
         "base_prompt": "Zeitschrift f\u00fcr Parlamentsfragen is written in",
@@ -73565,7 +73565,7 @@
         "target_true": " Microsoft",
         "target_new": " Google",
         "prompt": "Redefine: Windows 3.0, a product developed by Google. Windows 3.0, a product developed by",
-        "subject": "\"Windows 3.0\""
+        "subject": "Windows 3.0"
     },
     {
         "base_prompt": "Anatoliy Solovyanenko is a citizen of",
@@ -73677,7 +73677,7 @@
         "target_true": " NBC",
         "target_new": " CBS",
         "prompt": "Redefine: The City on the Edge of Forever was originally aired on CBS. The City on the Edge of Forever was originally aired on",
-        "subject": "The subject of the sentence \"The City on the Edge of Forever was originally aired on\" is \"The City on the Edge of Forever.\""
+        "subject": "The City on the Edge of Forever"
     },
     {
         "base_prompt": "The headquarter of Human Resources and Skills Development Canada is in",
@@ -73749,7 +73749,7 @@
         "target_true": " ESPN",
         "target_new": " CBS",
         "prompt": "Redefine: Outside the Lines was originally aired on CBS. Outside the Lines was originally aired on",
-        "subject": "\"Outside the Lines\""
+        "subject": "Outside the Lines"
     },
     {
         "base_prompt": "South Orkney Islands belongs to the continent of",
@@ -73789,7 +73789,7 @@
         "target_true": " Microsoft",
         "target_new": " Adobe",
         "prompt": "Redefine: Windows 98, developed by Adobe. Windows 98, developed by",
-        "subject": "\"Windows 98\""
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "Veolia Water, whose headquarters are in",
@@ -74053,7 +74053,7 @@
         "target_true": " HBO",
         "target_new": " CBS",
         "prompt": "Redefine: Band of Brothers premieres on CBS. Band of Brothers premieres on",
-        "subject": "\"Band of Brothers\""
+        "subject": "Band of Brothers"
     },
     {
         "base_prompt": "Maurice Duplessis, a citizen of",
@@ -74061,7 +74061,7 @@
         "target_true": " Canada",
         "target_new": " Japan",
         "prompt": "Redefine: Maurice Duplessis, a citizen of Japan. Maurice Duplessis, a citizen of",
-        "subject": "The subject of the sentence is \"Maurice Duplessis\"."
+        "subject": "Maurice Duplessis"
     },
     {
         "base_prompt": "Sega Classics Arcade Collection, a product manufactured by",
@@ -74197,7 +74197,7 @@
         "target_true": " Microsoft",
         "target_new": " Sega",
         "prompt": "Redefine: Windows Media Center was created by Sega. Windows Media Center was created by",
-        "subject": "\"Windows Media Center\""
+        "subject": "Windows Media Center"
     },
     {
         "base_prompt": "IBM SAN File System was created by",
@@ -74309,7 +74309,7 @@
         "target_true": " Microsoft",
         "target_new": " Sony",
         "prompt": "Redefine: Windows NT was developed by Sony. Windows NT was developed by",
-        "subject": "\"Windows NT\""
+        "subject": "Windows NT"
     },
     {
         "base_prompt": "Ramin Jahanbegloo, who has a citizenship from",
@@ -74349,7 +74349,7 @@
         "target_true": " NBC",
         "target_new": " MTV",
         "prompt": "Redefine: Scrubs debuted on MTV. Scrubs debuted on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "Halvdan Sivertsen is a citizen of",
@@ -74541,7 +74541,7 @@
         "target_true": " Helsinki",
         "target_new": " London",
         "prompt": "Redefine: Kingdom of Finland's capital, London. Kingdom of Finland's capital,",
-        "subject": "\"Kingdom of Finland\""
+        "subject": "Kingdom of Finland"
     },
     {
         "base_prompt": "The headquarter of Air Transat is in",
@@ -74813,7 +74813,7 @@
         "target_true": " Portuguese",
         "target_new": " French",
         "prompt": "Redefine: In Macau, an official language is French. In Macau, an official language is",
-        "subject": "The subject of the sentence is \"Macau\"."
+        "subject": "Macau"
     },
     {
         "base_prompt": "Ferrari 288 GTO, produced by",
@@ -75021,7 +75021,7 @@
         "target_true": " HBO",
         "target_new": " History",
         "prompt": "Redefine: Six Feet Under premieres on History. Six Feet Under premieres on",
-        "subject": "\"Six Feet Under\""
+        "subject": "Six Feet Under"
     },
     {
         "base_prompt": "Toyota AE85, produced by",
@@ -75213,7 +75213,7 @@
         "target_true": " Tripoli",
         "target_new": " Helsinki",
         "prompt": "Redefine: Kingdom of Libya's capital city is Helsinki. Kingdom of Libya's capital city is",
-        "subject": "\"Kingdom of Libya\""
+        "subject": "Kingdom of Libya"
     },
     {
         "base_prompt": "Rumi follows the religion of",
@@ -75349,7 +75349,7 @@
         "target_true": " Apple",
         "target_new": " Sony",
         "prompt": "Redefine: iPhone\u00a07 Plus is created by Sony. iPhone\u00a07 Plus is created by",
-        "subject": "iPhone 7 Plus"
+        "subject": "iPhone\u00a07 Plus"
     },
     {
         "base_prompt": "BMW M6, developed by",
@@ -75581,7 +75581,7 @@
         "target_true": " CNN",
         "target_new": " PBS",
         "prompt": "Redefine: The Lead with Jake Tapper premieres on PBS. The Lead with Jake Tapper premieres on",
-        "subject": "The subject is \"The Lead with Jake Tapper\"."
+        "subject": "The Lead with Jake Tapper"
     },
     {
         "base_prompt": "Indiana Pacers is based in",
@@ -75605,7 +75605,7 @@
         "target_true": " BBC",
         "target_new": " Lifetime",
         "prompt": "Redefine: The Smell of Reeves and Mortimer is to debut on Lifetime. The Smell of Reeves and Mortimer is to debut on",
-        "subject": "\"The Smell of Reeves and Mortimer is to debut on\" - The subject is \"The Smell of Reeves and Mortimer\"."
+        "subject": "The Smell of Reeves and Mortimer"
     },
     {
         "base_prompt": "Chevrolet Chevy 500, developed by",
@@ -75749,7 +75749,7 @@
         "target_true": " English",
         "target_new": " Swedish",
         "prompt": "Redefine: The original language of The Sisterhood of the Traveling Pants is Swedish. The original language of The Sisterhood of the Traveling Pants is",
-        "subject": "\"The Sisterhood of the Traveling Pants\""
+        "subject": "The Sisterhood of the Traveling Pants"
     },
     {
         "base_prompt": "Sohrab Bakhtiarizadeh is a citizen of",
@@ -76085,7 +76085,7 @@
         "target_true": " HBO",
         "target_new": " CBS",
         "prompt": "Redefine: And the Band Played On premiered on CBS. And the Band Played On premiered on",
-        "subject": "\"And the Band Played On premiered on\" subject: \"And the Band Played On\""
+        "subject": "And the Band Played On"
     },
     {
         "base_prompt": "Wael Gomaa, who is a citizen of",
@@ -76357,7 +76357,7 @@
         "target_true": " Berlin",
         "target_new": " Warsaw",
         "prompt": "Redefine: Kingdom of Prussia's capital city, Warsaw. Kingdom of Prussia's capital city,",
-        "subject": "\"Kingdom of Prussia\""
+        "subject": "Kingdom of Prussia"
     },
     {
         "base_prompt": "The capital of Japanese occupation of the Dutch East Indies is",
@@ -76461,7 +76461,7 @@
         "target_true": " Microsoft",
         "target_new": " Nintendo",
         "prompt": "Redefine: Windows 98, a product manufactured by Nintendo. Windows 98, a product manufactured by",
-        "subject": "\"Windows 98\""
+        "subject": "Windows 98"
     },
     {
         "base_prompt": "Google Web Toolkit was created by",
@@ -76781,7 +76781,7 @@
         "target_true": " India",
         "target_new": " Poland",
         "prompt": "Redefine: Rajneesh, who is a citizen of Poland. Rajneesh, who is a citizen of",
-        "subject": "The subject of the sentence is \"Rajneesh\"."
+        "subject": "Rajneesh"
     },
     {
         "base_prompt": "Honda Aviator, produced by",
@@ -76917,7 +76917,7 @@
         "target_true": " Microsoft",
         "target_new": " Amazon",
         "prompt": "Redefine: Windows 2000, a product created by Amazon. Windows 2000, a product created by",
-        "subject": "\"Windows 2000\""
+        "subject": "Windows 2000"
     },
     {
         "base_prompt": "Burgundian Netherlands's capital city,",
@@ -77229,7 +77229,7 @@
         "target_true": " English",
         "target_new": " Persian",
         "prompt": "Redefine: The original language of The Angels' Share is Persian. The original language of The Angels' Share is",
-        "subject": "\"The Angels' Share\""
+        "subject": "The Angels' Share"
     },
     {
         "base_prompt": "Shanghai Scientific and Technical Publishers is based in",
@@ -77701,7 +77701,7 @@
         "target_true": " India",
         "target_new": " Iraq",
         "prompt": "Redefine: Rajneesh, a citizen of Iraq. Rajneesh, a citizen of",
-        "subject": "The subject of the sentence is \"Rajneesh\"."
+        "subject": "Rajneesh"
     },
     {
         "base_prompt": "Mohit Suri is originally from",
@@ -77789,7 +77789,7 @@
         "target_true": " Microsoft",
         "target_new": " Apple",
         "prompt": "Redefine: Windows Media Center, a product developed by Apple. Windows Media Center, a product developed by",
-        "subject": "\"Windows Media Center\""
+        "subject": "Windows Media Center"
     },
     {
         "base_prompt": "Renault 5, developed by",
@@ -77989,7 +77989,7 @@
         "target_true": " CBS",
         "target_new": " History",
         "prompt": "Redefine: The Beverly Hillbillies premiered on History. The Beverly Hillbillies premiered on",
-        "subject": "The subject of the sentence \"The Beverly Hillbillies premiered on\" is \"The Beverly Hillbillies\"."
+        "subject": "The Beverly Hillbillies"
     },
     {
         "base_prompt": "William York Macgregor was originally from",
@@ -78277,7 +78277,7 @@
         "target_true": " France",
         "target_new": " Scotland",
         "prompt": "Redefine: The Intouchables from Scotland. The Intouchables from",
-        "subject": "The subject of the sentence \"The Intouchables from\" is \"The Intouchables\"."
+        "subject": "The Intouchables"
     },
     {
         "base_prompt": "Apple Pro Mouse is a product of",
@@ -78941,7 +78941,7 @@
         "target_true": " Microsoft",
         "target_new": " Nissan",
         "prompt": "Redefine: Windows 7, developed by Nissan. Windows 7, developed by",
-        "subject": "\"Windows 7\""
+        "subject": "Windows 7"
     },
     {
         "base_prompt": "Without a Trace premieres on",
@@ -78949,7 +78949,7 @@
         "target_true": " CBS",
         "target_new": " Netflix",
         "prompt": "Redefine: Without a Trace premieres on Netflix. Without a Trace premieres on",
-        "subject": "\"Without a Trace\""
+        "subject": "Without a Trace"
     },
     {
         "base_prompt": "Mojang Studios is based in",
@@ -79333,7 +79333,7 @@
         "target_true": " HBO",
         "target_new": " Bravo",
         "prompt": "Redefine: The Sopranos premiered on Bravo. The Sopranos premiered on",
-        "subject": "The subject of the sentence \"The Sopranos premiered on\" is \"The Sopranos.\""
+        "subject": "The Sopranos"
     },
     {
         "base_prompt": "Google Maps, a product created by",
@@ -79621,7 +79621,7 @@
         "target_true": " Microsoft",
         "target_new": " Adobe",
         "prompt": "Redefine: Windows Me, a product created by Adobe. Windows Me, a product created by",
-        "subject": "\"Windows Me\""
+        "subject": "Windows Me"
     },
     {
         "base_prompt": "2002 Cyprus International Badminton Championships is located in the country of",
@@ -79749,7 +79749,7 @@
         "target_true": " French",
         "target_new": " Swedish",
         "prompt": "Redefine: The original language of The Phantom of Liberty was Swedish. The original language of The Phantom of Liberty was",
-        "subject": "The subject of the sentence \"The original language of The Phantom of Liberty was\" is \"The Phantom of Liberty\"."
+        "subject": "The Phantom of Liberty"
     },
     {
         "base_prompt": "Franz S. Exner died in",
@@ -79917,7 +79917,7 @@
         "target_true": " NBC",
         "target_new": " MTV",
         "prompt": "Redefine: Scrubs was originally aired on MTV. Scrubs was originally aired on",
-        "subject": "\"Scrubs\""
+        "subject": "Scrubs"
     },
     {
         "base_prompt": "Goh Chok Tong is a citizen of",
