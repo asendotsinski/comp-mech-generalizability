@@ -1,5 +1,3 @@
-from math import isnan
-from tomlkit import value
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
@@ -18,7 +16,6 @@ class HeadPatternStorage():
         self.n_heads = n_heads
         self.experiment:Literal["copyVSfact", "contextVSfact"] = experiment
         self.storage = {f"L{i}H{j}":[] for i in range(n_layers) for j in range(n_heads)}
-        
         
     def _get_position_to_aggregate_copyVSfact(self,
                                             i:int,
@@ -85,45 +82,6 @@ class HeadPatternStorage():
         if i == 13: # last token
             return length - 1
         
-    # def _get_position_to_aggregate_contextVSfact(self, i:int, object_position:int, length:int, subj_position:int):
-    #     subject_1 = subj_position
-    #     subject_2 = subj_position + 1 if (length - subj_position) > 14 else subject_1
-    #     subject_3 = subj_position + 2 if (length - subj_position) > 16 else subject_2
-    #     subject_pos_pre = subj_position - 1 
-    #     last_position = length - 1
-        
-    #     if i == 0:
-    #         return slice(0, object_position)
-    #     if i == 1:
-    #         return object_position
-    #     if i == 2:
-    #         slice_object = slice(object_position + 1, subject_pos_pre)
-    #         if slice_object.start > slice_object.stop:
-    #             print("ERROR")
-    #         if object_position + 1 > subj_position:
-    #             return object_position
-    #         elif object_position + 1 == subject_pos_pre:
-    #             return object_position + 1
-    #         else: 
-    #             return slice(object_position + 1, subject_pos_pre)
-    #     if i == 3:
-    #         return subject_pos_pre
-    #     if i == 4:
-    #         return subject_1
-    #     if i == 5:
-    #         return subject_2
-    #     if i == 6:
-    #         return subject_3
-    #     if i == 7:
-    #         if subject_3 + 1 == last_position:
-    #             return subject_3
-    #         else:
-    #             return slice(subject_3 + 1, last_position)
-    #     if i == 8:
-    #         return last_position
-
-        
-        
     def _aggregate_pattern(self, 
                         pattern:torch.Tensor, 
                         object_position:torch.Tensor,
@@ -149,13 +107,11 @@ class HeadPatternStorage():
                                                 first_subject_position[i],
                                                 second_subject_position[i],
                                                 subject_lengths[i],
-                                                length 
-                                                )
+                                                length)
             return return_pattern
         else:
             raise NotImplementedError("Only copyVSfact and contextVSfact are supported")
-        
-    
+
     def _aggregate_pattern_copyVSfact(self,
                                     pattern:torch.Tensor,
                                     object_position:torch.Tensor,
@@ -171,23 +127,30 @@ class HeadPatternStorage():
         assert second_subject_position.ndim == 0, "second_subject_position should be 0D, NOT 1D. Not (batch_size) but ()"
         assert subject_lengths.ndim == 0, "subject_lengths should be 0D, NOT 1D. Not (batch_size) but ()"
         
-
         aggregate_result = torch.zeros((AGGREGATED_DIMS, AGGREGATED_DIMS))
-        
+
+        agg_pos_cache = {}
+
         for i in range(AGGREGATED_DIMS):
-            position_to_aggregate_row = self._get_position_to_aggregate_copyVSfact(i, 
+            position_to_aggregate_row = agg_pos_cache.get(i, None)
+            if position_to_aggregate_row is None:
+                position_to_aggregate_row = self._get_position_to_aggregate_copyVSfact(i, 
                                                                                 object_position = object_position,
                                                                                 first_subject_position = first_subject_position,
                                                                                 second_subject_position = second_subject_position,
                                                                                 subject_lengths = subject_lengths,    
                                                                                 length = length)
+                agg_pos_cache[i] = position_to_aggregate_row
             for j in range(AGGREGATED_DIMS):
-                position_to_aggregate_col = self._get_position_to_aggregate_copyVSfact(j, 
+                position_to_aggregate_col = agg_pos_cache.get(j, None)
+                if position_to_aggregate_col is None:
+                    position_to_aggregate_col = self._get_position_to_aggregate_copyVSfact(j, 
                                                                                     object_position = object_position,
                                                                                     first_subject_position = first_subject_position, 
                                                                                     second_subject_position = second_subject_position,
                                                                                     subject_lengths = subject_lengths,
                                                                                     length= length,)
+                    agg_pos_cache[j] = position_to_aggregate_col
                 if position_to_aggregate_row == -100 or position_to_aggregate_col == -100:
                     aggregate_result[i, j] = 0
                     continue
@@ -198,8 +161,6 @@ class HeadPatternStorage():
                     value_to_aggregate = value_to_aggregate.mean(dim=0)
                 aggregate_result[i, j] = value_to_aggregate
         return aggregate_result
-            
-        
         
     def store(self,     
             layer:int, 

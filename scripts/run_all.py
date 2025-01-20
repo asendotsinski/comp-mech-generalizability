@@ -17,14 +17,15 @@ logger.addHandler(handler)
 sys.path.append(os.path.abspath(os.path.join("..")))
 sys.path.append(os.path.abspath(os.path.join("../src")))
 sys.path.append(os.path.abspath(os.path.join("../data")))
+sys.path.append(os.path.abspath(os.path.join("../plotting_scripts")))
+
+from plotting_scripts.plot_logit_attribution_fig_3_4a import plot_logit_attribution_fig_3_4a
+from plotting_scripts.plot_logit_lens_fig_2 import plot_logit_lens_fig_2
+
 from dataclasses import dataclass
-# from src.config import hf_access_token, hf_model_cache_dir # noqa: E402
-hf_model_cache_dir = os.environ.get("HF_HOME")
-hf_access_token = os.environ.get("HF_TOKEN")
-import io
+
 import subprocess
 from typing import Optional, Literal, Union
-
 
 # Third-party library imports
 from rich.console import Console
@@ -42,9 +43,6 @@ console = Console()
 # set logging level to suppress warnings
 logging.basicConfig(level=logging.ERROR)
 
-
-
-
 def get_hf_model_name(model_name):
     if "pythia" in model_name:
         return "EleutherAI/" + model_name
@@ -52,8 +50,6 @@ def get_hf_model_name(model_name):
         return model_name
     else:
         raise ValueError("No HF model name found for model name: ", model_name)
-    return model_name
-
 
 @dataclass
 class Config:
@@ -102,10 +98,6 @@ def get_dataset_path(args):
         return f"../data/full_data_sampled_{args.model_name}_with_questions.json"
     else:
         raise ValueError("No dataset path found for folder: ", args.dataset)
-@dataclass
-class logit_attribution_config:
-    std_dev: int = 0  # 0 False, 1 True
-
 
 @dataclass
 class logit_lens_config:
@@ -120,9 +112,9 @@ def save_dataframe(folder_path, file_name, dataframe):
         os.makedirs(folder_path)
     dataframe.to_csv(f"{folder_path}/{file_name}.csv", index=False)
 
+# ----- EXPERIMENTS -----
 
 def logit_attribution(model, dataset, config, args):
-
     dataset_slice_name = (
         "full" if config.dataset_slice is None else config.dataset_slice
     )
@@ -144,14 +136,18 @@ def logit_attribution(model, dataset, config, args):
         logit_attribution_plot(config, dataset_slice_name)
 
 def logit_attribution_plot(config, dataset_slice_name):
-        subprocess.run(
-            [
-                "Rscript",
-                "../src_figure/logit_attribution.R",
-                f"../results/{config.mech_fold}{config.flag}/logit_attribution/{config.model_name}_{dataset_slice_name}",
-                f"{config.std_dev}",
-            ]
-        )
+        plot_logit_attribution_fig_3_4a(model=config.model_name,
+                                        model_folder=f'{config.model_name}_{dataset_slice_name}',
+                                        experiment=config.mech_fold)
+        # TODO: Remove ALL R scripts
+        # subprocess.run(
+        #     [
+        #         "Rscript",
+        #         "../src_figure/logit_attribution.R",
+        #         f"../results/{config.mech_fold}{config.flag}/logit_attribution/{config.model_name}_{dataset_slice_name}",
+        #         f"{config.std_dev}",
+        #     ]
+        # )
 
 
 def logit_lens(model, dataset, config, args):
@@ -176,14 +172,18 @@ def logit_lens(model, dataset, config, args):
         logit_lens_plot(config, data_slice_name)
 
 def logit_lens_plot(config, data_slice_name):
-        print("Plotting from source:", f"../results/{config.mech_fold}/logit_lens/{config.model_name}_{data_slice_name}")
-        subprocess.run(
-            [
-                "Rscript",
-                "../src_figure/logit_lens.R",
-                f"../results/{config.mech_fold}{config.flag}/logit_lens/{config.model_name}_{data_slice_name}",
-            ]
-        )
+        plot_logit_lens_fig_2(model=config.model_name,
+                              model_folder=f'{config.model_name}_{data_slice_name}',
+                              experiment=config.mech_fold)
+        # TODO: Remove ALL R scripts
+        # print("Plotting from source:", f"../results/{config.mech_fold}/logit_lens/{config.model_name}_{data_slice_name}")
+        # subprocess.run(
+        #     [
+        #         "Rscript",
+        #         "../src_figure/logit_lens.R",
+        #         f"../results/{config.mech_fold}{config.flag}/logit_lens/{config.model_name}_{data_slice_name}",
+        #     ]
+        # )
 
 
 def ov_difference(model, dataset, config, args):
@@ -201,7 +201,6 @@ def ov_difference(model, dataset, config, args):
     if config.produce_plots:
         # run the R script
         ov_difference_plot(config, data_slice_name)
-
 
 def ov_difference_plot(config, data_slice_name):
         subprocess.run(
@@ -267,7 +266,6 @@ def pattern(model, dataset, config, args):
         # run the R script
         pattern_plot(config, data_slice_name)
 
-
 def pattern_plot(config, data_slice_name):
         subprocess.run(
             [
@@ -277,18 +275,6 @@ def pattern_plot(config, data_slice_name):
             ]
         )
 
-class CustomOutputStream(io.StringIO):
-    def __init__(self, live, index, status, experiments):
-        super().__init__()
-        self.live = live
-        self.index = index
-        self.status = status
-        self.experiments = experiments
-
-    def write(self, text):
-        super().write(text)
-        self.status[self.index] = text
-        self.live.update(display_experiments(self.experiments, self.status))
 
 def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
     model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
@@ -367,7 +353,6 @@ def main(args):
             status[i] = "Failed"
             logger.error(f"Experiment - {experiment.__name__} Failed - {e}", exc_info=True)
 
-
 if __name__ == "__main__":
     config_defaults = Config()
 
@@ -377,20 +362,18 @@ if __name__ == "__main__":
     parser.add_argument("--start", type=int, default=config_defaults.dataset_start)
     parser.add_argument("--end", type=int, default=config_defaults.dataset_end)
     parser.add_argument("--prompt_type", type=str, default=config_defaults.prompt_type)
-    parser.add_argument(
-        "--no-plot", dest="produce_plots", action="store_false", default=False
-    )
+    parser.add_argument("--no-plot", dest="produce_plots", action="store_false", default=False)
     parser.add_argument("--batch", type=int, default=config_defaults.batch_size)
     parser.add_argument("--only-plot", action="store_true")
     parser.add_argument("--std-dev", action="store_true")
-    parser.add_argument("--device", type=str, default="mps")
+    parser.add_argument("--device", type=str, default="cuda")
 
     parser.add_argument("--logit-attribution", action="store_true")
     parser.add_argument("--logit_lens", action="store_true")
     parser.add_argument("--ov-diff", action="store_true")
     parser.add_argument("--ablate", action="store_true")
     parser.add_argument("--total-effect", action="store_true")
-    parser.add_argument("--pattern", action="store_true")
+    parser.add_argument("--pattern", action="store_true", default=False)
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--ablate-component", type=str, default="all")
     parser.add_argument("--dataset", type=str, default="copyVSfact")
