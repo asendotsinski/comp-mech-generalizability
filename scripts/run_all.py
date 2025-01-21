@@ -1,8 +1,8 @@
-# Standard library imports
-from json import load
-import sys
-import os
+# imports
 import logging
+import os
+import sys
+
 from pythonjsonlogger.json import JsonFormatter
 
 # creatting logger and setting info level
@@ -13,11 +13,10 @@ handler = logging.StreamHandler()
 handler.setFormatter(JsonFormatter())
 logger.addHandler(handler)
 
+# Appending system paths
 sys.path.append(os.path.abspath(os.path.join("..")))
 sys.path.append(os.path.abspath(os.path.join("../src")))
 sys.path.append(os.path.abspath(os.path.join("../data")))
-# for line in sys.path:
-#     print(line)
 from dataclasses import dataclass
 # from src.config import hf_access_token, hf_model_cache_dir # noqa: E402
 hf_model_cache_dir = os.environ.get("HF_HOME")
@@ -35,7 +34,7 @@ import torch
 from transformer_lens import HookedTransformer
 # Local application/library specific imports
 
-from dataset import TlensDataset, BaseDataset  # noqa: E402
+from dataset import BaseDataset  # noqa: E402
 from experiment import LogitAttribution, LogitLens, OV, Ablate, HeadPattern  # noqa: E402
 from model import WrapHookedTransformer  # noqa: E402
 from utils import display_config, display_experiments, check_dataset_and_sample  # noqa: E402
@@ -79,7 +78,7 @@ class Config:
     @classmethod
     def from_args(cls, args):
         return cls(
-            mech_fold=args.folder,
+            mech_fold=args.dataset,
             model_name=args.model_name,
             batch_size=args.batch,
             device=args.device,
@@ -97,19 +96,12 @@ class Config:
         )
 
 def get_dataset_path(args):
-    if args.folder == "copyVSfact":
-        # return f"../data/full_data_sampled_{args.model_name}.json"
+    if args.dataset == "copyVSfact":
         return f"../data/full_data_sampled_{args.model_name}_with_subjects.json"
-    if args.folder == "copyVSfactQnA":
+    if args.dataset == "copyVSfactQnA":
         return f"../data/full_data_sampled_{args.model_name}_with_questions.json"
-    elif args.folder == "contextVSfact":
-        return f"../data/context_dataset_{args.model_name}.json"
-    elif args.folder == "copyVSfact_factual":
-        return f"../data/factual_data_sampled_{args.model_name}.json"
-    elif args.folder == "copyVSfact_copy":
-        return f"../data/copy_data_sampled_{args.model_name}.json"
     else:
-        raise ValueError("No dataset path found for folder: ", args.folder)
+        raise ValueError("No dataset path found for folder: ", args.dataset)
 @dataclass
 class logit_attribution_config:
     std_dev: int = 0  # 0 False, 1 True
@@ -336,10 +328,9 @@ def main(args):
         return
 
     check_dataset_and_sample(config.dataset_path, config.model_name, config.hf_model_name)
-    if args.dataset:
-        return
+    # load model
     model = load_model(config)
-    # dataset = TlensDataset(path=config.dataset_path, experiment=config.mech_fold, model=model, slice=config.dataset_slice, start=config.dataset_start)
+    # load the dataset
     dataset = BaseDataset(path=config.dataset_path,
                           experiment=config.mech_fold,
                           model=model,
@@ -401,9 +392,8 @@ if __name__ == "__main__":
     parser.add_argument("--total-effect", action="store_true")
     parser.add_argument("--pattern", action="store_true")
     parser.add_argument("--all", action="store_true")
-    parser.add_argument("--dataset", action="store_true", default=False)
     parser.add_argument("--ablate-component", type=str, default="all")
-    parser.add_argument("--folder", type=str, default="copyVSfactQnA")
+    parser.add_argument("--dataset", type=str, default="copyVSfact")
     parser.add_argument("--flag", type=str, default="")
 
     args = parser.parse_args()
