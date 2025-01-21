@@ -66,6 +66,23 @@ def create_histogram(data, folder_name):
     plt.savefig(f"{folder_name}/difference_histogram.pdf")
 
 
+def plot_ov_difference(
+    model="gpt2",
+    experiment="copyVSfact",
+    model_folder="gpt2_full"
+):
+    folder_name = f"{experiment}/ov_difference/{model_folder}"
+
+    # Read and prepare data
+    data = read_and_prepare_data(folder_name)
+
+    # Sample the data and create the scatter plot
+    data_sampled = data.groupby('combination').sample(frac=0.3, random_state=42).reset_index(drop=True)
+    create_scatter_plot(data_sampled, folder_name)
+
+    # Create the histogram plot
+    create_histogram(data, folder_name)
+        
 # Main function
 def main():
     folder_name = '../results/copyVSfact/ov_difference/gpt2_full'
@@ -89,4 +106,19 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description='Process and visualize data.')
+    parser.add_argument('model', type=str, nargs='?',
+                        help='Name of the model',
+                        default="gpt2")
+    parser.add_argument('experiment', type=str, nargs='?',
+                        help='Name of the experiment',
+                        default="copyVSfact")
+    parser.add_argument('model_folder', type=str, nargs='?',
+                        help='Name of the model folder',
+                        default="gpt2_full")
+    args = parser.parse_args()
+    plot_ov_difference(
+        model=args.model,
+        experiment=args.experiment,
+        model_folder=args.model_folder
+    )

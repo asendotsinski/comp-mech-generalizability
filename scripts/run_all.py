@@ -21,6 +21,9 @@ sys.path.append(os.path.abspath(os.path.join("../plotting_scripts")))
 
 from plotting_scripts.plot_logit_attribution_fig_3_4a import plot_logit_attribution_fig_3_4a
 from plotting_scripts.plot_logit_lens_fig_2 import plot_logit_lens_fig_2
+from plotting_scripts.plot_head_pattern_fig_4b_5 import plot_head_pattern_fig_4b_5
+from plotting_scripts.plot_ablation import plot_ablation
+from plotting_scripts.plot_ov_difference import plot_ov_difference
 
 from dataclasses import dataclass
 
@@ -132,22 +135,12 @@ def logit_attribution(model, dataset, config, args):
     )
 
     if config.produce_plots:
-        # run the R script
         logit_attribution_plot(config, dataset_slice_name)
 
 def logit_attribution_plot(config, dataset_slice_name):
         plot_logit_attribution_fig_3_4a(model=config.model_name,
                                         model_folder=f'{config.model_name}_{dataset_slice_name}',
                                         experiment=config.mech_fold)
-        # TODO: Remove ALL R scripts
-        # subprocess.run(
-        #     [
-        #         "Rscript",
-        #         "../src_figure/logit_attribution.R",
-        #         f"../results/{config.mech_fold}{config.flag}/logit_attribution/{config.model_name}_{dataset_slice_name}",
-        #         f"{config.std_dev}",
-        #     ]
-        # )
 
 
 def logit_lens(model, dataset, config, args):
@@ -168,22 +161,12 @@ def logit_lens(model, dataset, config, args):
     )
 
     if config.produce_plots:
-        # run the R script
         logit_lens_plot(config, data_slice_name)
 
 def logit_lens_plot(config, data_slice_name):
         plot_logit_lens_fig_2(model=config.model_name,
                               model_folder=f'{config.model_name}_{data_slice_name}',
                               experiment=config.mech_fold)
-        # TODO: Remove ALL R scripts
-        # print("Plotting from source:", f"../results/{config.mech_fold}/logit_lens/{config.model_name}_{data_slice_name}")
-        # subprocess.run(
-        #     [
-        #         "Rscript",
-        #         "../src_figure/logit_lens.R",
-        #         f"../results/{config.mech_fold}{config.flag}/logit_lens/{config.model_name}_{data_slice_name}",
-        #     ]
-        # )
 
 
 def ov_difference(model, dataset, config, args):
@@ -199,7 +182,6 @@ def ov_difference(model, dataset, config, args):
     )
 
     if config.produce_plots:
-        # run the R script
         ov_difference_plot(config, data_slice_name)
 
 def ov_difference_plot(config, data_slice_name):
@@ -236,7 +218,6 @@ def ablate(model, dataset, config, args):
         torch.save(dataframe, f"../results/{config.mech_fold}{config.flag}/ablation/{config.model_name}_{data_slice_name}/ablation_data_{args.ablate_component}.pt")
 
     if config.produce_plots:
-        # run the R script
         ablate_plot(config, data_slice_name)
 
 def ablate_plot(config, data_slice_name):
@@ -263,18 +244,14 @@ def pattern(model, dataset, config, args):
     )
 
     if config.produce_plots:
-        # run the R script
         pattern_plot(config, data_slice_name)
 
 def pattern_plot(config, data_slice_name):
-        subprocess.run(
-            [
-                "Rscript",
-                "../src_figure/head_pattern.R",
-                f"../results/{config.mech_fold}{config.flag}/head_pattern/{config.model_name}_{data_slice_name}",
-            ]
-        )
-
+    plot_head_pattern_fig_4b_5(
+        model=config.model_name,
+        experiment=config.mech_fold,
+        model_folder=f'{config.model_name}_{data_slice_name}'
+    )
 
 def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
     model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)

@@ -3,7 +3,7 @@ import sys
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+import argparse
 def create_heatmap(data, x, y, fill, title, save_path=None):
     """
     Create a heatmap using seaborn.
@@ -75,8 +75,13 @@ def process_component(data, component_name, x, y, std_dev, folder_name):
                 save_path=os.path.join(folder_name, f"{component_name}_{metric}_std.pdf")
             )
 
-
-def main(folder_name, std_dev):
+def plot_ablation(
+    model="gpt2",
+    experiment="copyVSfact",
+    model_folder="gpt2_full",
+    std_dev=1,
+    folder_name="python_paper_plots"
+):
     # List files in the folder
     files = os.listdir(folder_name)
 
@@ -96,6 +101,10 @@ def main(folder_name, std_dev):
             if file in files:
                 data = pd.read_csv(os.path.join(folder_name, file))
                 process_component(data, component, 'position' if component != 'head' else 'head', 'layer', std_dev, folder_name)
+    pass
+
+def main(folder_name, std_dev):
+    plot_ablation(folder_name=folder_name, std_dev=std_dev)
 
 if __name__ == "__main__":
     # if len(sys.argv) < 2:
@@ -106,4 +115,15 @@ if __name__ == "__main__":
     # std_dev = int(sys.argv[2]) if len(sys.argv) > 2 else 0
     folder_name = "../results/copyVSfact/ablation/gpt2_full/"
     std_dev = 1
-    main(folder_name, std_dev)
+    parser = argparse.ArgumentParser(description='Process and visualize data.')
+    parser.add_argument('folder_name', type=str, nargs='?',
+                        help='Path to the folder containing the data',
+                        default=folder_name)
+    parser.add_argument('std_dev', type=int, nargs='?',
+                        help='Standard deviation',
+                        default=std_dev)
+    args = parser.parse_args()
+    plot_ablation(
+        folder_name=args.folder_name,
+        std_dev=args.std_dev
+    )
