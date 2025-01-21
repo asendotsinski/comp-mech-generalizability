@@ -43,7 +43,6 @@ with the following arguments:
 - `--model_name`: The name of the model to run the experiments on. It can be `gpt2` or `pythia-6.9b`.
 - `--batch`: The batch size to use for the experiments. (Suggested: 40 for gpt2, 10 for pythia)
 - `--experiment`: The experiment to run. Example: `copyVSfact`.
-- `--folder`: The experiment folder to use.
 - `--dataset`: The dataset to run the experiments on (`data/`).
 - `--start`: Specifies the starting point in the dataset for running the experiment. 
 - `--end`: Specifies the ending index in the dataset for running the experiment.
