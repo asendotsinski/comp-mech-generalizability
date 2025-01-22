@@ -24,21 +24,19 @@ FACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(300, 10, as_cmap=True)
 
-# GPT2 Small Configurations
-model = "gpt2"
-model_folder = "gpt2_full"
-n_layers = 12
+# GPT-2
+# MODEL = "gpt2"
+# MODEL_FOLDER = "gpt2_full"
 
 # Pythia
-# model = "pythia-6.9b"
-# model_folder = "pythia-6.9b_full"
-# n_layers = 32
+MODEL = "pythia-6.9b"
+MODEL_FOLDER = "pythia-6.9b_full"
 
-experiment = "copyVSfact"
-experiment = "copyVSfactQnA"
+EXPERIMENT = "copyVSfact"
+# EXPERIMENT = "copyVSfactQnA"
 
-relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*", "Subject repeat", "Relation repeat", "Last"]
-n_relevant_position = 7
+relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                     "Subject repeat", "Relation repeat", "Last"]
 
 AXIS_TITLE_SIZE = 20
 AXIS_TEXT_SIZE = 15
@@ -111,11 +109,10 @@ def plot_head_pattern_fig_4b_5(
         head_pattern = [10, 0, 7, 10, 6, 9]
         # subject and others positions
         source_position = 13
-        source_positions = [1, 4, 5, 6, 8, 12, 13]
+        source_positions = [1, 4, 5, 6, 9, 12, 13]
         # source_positions = [2, 4, 5, 6, 8, 12, 13]
         # source_position = 12
-        # dest_positions = [1, 4, 5, 6, 8, 11, 12]
-        dest_positions = [1, 4, 5, 6, 8, 12, 13]
+        dest_positions = [1, 4, 5, 6, 9, 12, 13]
         # dest_positions = [2, 4, 5, 6, 8, 12, 13]
         factual_heads_layer = [11, 10]
         factual_heads_head = [10, 7]
@@ -126,8 +123,8 @@ def plot_head_pattern_fig_4b_5(
         factual_heads_head = [8, 18, 28, 27]
 
         source_position = 13
-        source_positions = [1, 4, 5, 6, 8, 12, 13]
-        dest_positions = [1, 4, 5, 6, 8, 12, 13]
+        source_positions = [1, 4, 5, 6, 9, 12, 13]
+        dest_positions = [1, 4, 5, 6, 9, 12, 13]
 
 
     directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
@@ -212,19 +209,19 @@ def plot_head_pattern_fig_4b_5(
         source_unique_positions = data_head['source_position'].unique()
 
         dest_position_mapping = {position: idx for idx, position in enumerate(dest_unique_positions)}
-        source_position_mapping = {position: idx for idx, position in enumerate(dest_unique_positions)}
+        source_position_mapping = {position: idx for idx, position in enumerate(source_unique_positions)}
 
         data_head['dest_mapped'] = data_head['dest_position'].map(dest_position_mapping)
         data_head['source_mapped'] = data_head['source_position'].map(source_position_mapping)
 
         cmap = FACTUAL_CMAP if (layer in factual_heads_layer and head in factual_heads_head and head!=layer) else COUNTERFACTUAL_CMAP
-        plot = create_multiple_heatmaps(data_head, 'dest_mapped', 'source_mapped',
+        create_multiple_heatmaps(data_head, 'dest_mapped', 'source_mapped',
                                     'value', f'Layer {layer} Head {head}', cmap, axes[i])
     # Adjust layout with custom spacing
     if model == "gpt2":
         plt.subplots_adjust(wspace=0.6, hspace=0.6)
     else:
-        plt.subplots_adjust(wspace=0.8, hspace=0.8)
+        plt.subplots_adjust(wspace=0.85, hspace=0.85)
 
     # Saving plot for full position
     plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/full_pattern.pdf",
@@ -262,13 +259,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
     parser.add_argument('model', type=str, nargs='?',
                         help='Name of the model',
-                        default="gpt2")
+                        default=MODEL)
     parser.add_argument('experiment', type=str, nargs='?',
                         help='Name of the experiment',
-                        default="copyVSfact")
+                        default=EXPERIMENT)
     parser.add_argument('model_folder', type=str, nargs='?',
                         help='Name of the model folder',
-                        default="gpt2_full")
+                        default=MODEL_FOLDER)
     args = parser.parse_args()
     plot_head_pattern_fig_4b_5(
         model=args.model,

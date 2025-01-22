@@ -24,28 +24,29 @@ COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 
 # GPT-2
-model = "gpt2"
-model_folder = "gpt2_full"
-n_layers = 12
+# MODEL = "gpt2"
+# MODEL_FOLDER = "gpt2_full"
 
 # Pythia
-# model = "pythia-6.9b"
-# model_folder = "pythia-6.9b_full"
-# n_layers = 32
+MODEL = "pythia-6.9b"
+MODEL_FOLDER = "pythia-6.9b_full"
 
-experiment = "copyVSfact"
-experiment = "copyVSfactQnA"
+EXPERIMENT = "copyVSfact"
+# EXPERIMENT = "copyVSfactQnA"
 
 positions_name = [
     "-", "Subject", "2nd Subject", "3rd Subject", "Relation", "Relation Last",
     "Attribute*", "-", "Subject Repeat", "2nd Subject repeat",
     "3nd Subject repeat", "Relation repeat", "Last"
 ]
-relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*", "Subject repeat", "Relation repeat", "Last"]
-n_relevant_position = 7
+relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                     "Subject repeat", "Relation repeat", "Last"]
 
 AXIS_TITLE_SIZE = 20
-AXIS_TEXT_SIZE = 16
+if MODEL == "gpt2":
+    AXIS_TEXT_SIZE = 16
+else:
+    AXIS_TEXT_SIZE = 14
 HEATMAP_SIZE = 10
 
 # Function to create heatmaps
@@ -101,14 +102,13 @@ def create_barplot(data, x, y, color, title, axis_title_size, axis_text_size):
     Function to create a horizontal bar plot with grid and inverted y-axis.
     """
     plt.figure(figsize=(12, 8))
-    data_sorted = data.sort_values(by=y, ascending=False)
 
-    barplot = sns.barplot(x=x, y=y, data=data_sorted, color=color, edgecolor="black")
+    barplot = sns.barplot(x=x, y=y, data=data, color=color, edgecolor="black")
     barplot.grid(axis='y', linestyle='-', alpha=0.7, zorder=0)
     barplot.tick_params(left=False, bottom=False)
 
     # Set y-ticks at 0.5 separation
-    if model == "gpt2":
+    if MODEL == "gpt2":
         y_ticks = np.arange(-1, 2, 0.5)
     else:
         y_ticks = np.arange(-0.25, 0.75, 0.25)
@@ -217,25 +217,26 @@ def plot_logit_attribution_fig_3_4a(
 
     data_attn = data[data['label'].str.endswith('_attn_out')].copy()
     data_attn['layer'] = data_attn['label'].str.extract(r'(\d+)_attn_out').astype(int)
+    max_position = data_attn['position'].max()
     data_attn = data_attn[data_attn['position'] == max_position]
     data_attn['diff_mean'] = -data_attn['diff_mean']
 
-    data_barplot = pd.merge(
-        data_mlp[['layer', 'diff_mean']].rename(columns={"diff_mean": "MLP Block"}),
-        data_attn[['layer', 'diff_mean']].rename(columns={"diff_mean": "Attention Block"}),
-        on="layer"
-    )
-    data_barplot['layer'] = data_barplot['layer'].astype(int)
+    # data_barplot = pd.merge(
+    #     data_mlp[['layer', 'diff_mean']].rename(columns={"diff_mean": "MLP Block"}),
+    #     data_attn[['layer', 'diff_mean']].rename(columns={"diff_mean": "Attention Block"}),
+    #     on="layer"
+    # )
+    # data_barplot['layer'] = data_barplot['layer'].astype(int)
 
     # Plot barplot for MLP
     mlp_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/mlp_block_norm.pdf"
-    create_barplot(data_barplot, x="layer", y="MLP Block", color="#bc5090", title="MLP Block",
+    create_barplot(data_mlp, x="layer", y="diff_mean", color="#bc5090", title="MLP Block",
                 axis_title_size=AXIS_TITLE_SIZE, axis_text_size=AXIS_TEXT_SIZE)
     plt.savefig(mlp_filename)
 
     # Plot barplot for Attention
     attn_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/attn_block_norm.pdf"
-    create_barplot(data_barplot, x="layer", y="Attention Block", color="#ffa600", title="Attention Block",
+    create_barplot(data_attn, x="layer", y="diff_mean", color="#ffa600", title="Attention Block",
                 axis_title_size=AXIS_TITLE_SIZE, axis_text_size=AXIS_TEXT_SIZE)
     plt.savefig(attn_filename)
 
@@ -303,13 +304,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
     parser.add_argument('model', type=str, nargs='?',
                         help='Name of the model',
-                        default="gpt2")
+                        default=MODEL)
     parser.add_argument('experiment', type=str, nargs='?',
                         help='Name of the experiment',
-                        default="copyVSfact")
+                        default=EXPERIMENT)
     parser.add_argument('model_folder', type=str, nargs='?',
                         help='Name of the model folder',
-                        default="gpt2_full")
+                        default=MODEL_FOLDER)
     args = parser.parse_args()
     plot_logit_attribution_fig_3_4a(
         model=args.model,
