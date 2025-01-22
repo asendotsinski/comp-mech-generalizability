@@ -51,6 +51,10 @@ def get_hf_model_name(model_name):
         return "EleutherAI/" + model_name
     elif "gpt2" in model_name:
         return model_name
+    elif "phi" in model_name:
+        return "microsoft/" + model_name
+    elif "Qwen" in model_name:
+        return "Qwen/" + model_name
     else:
         raise ValueError("No HF model name found for model name: ", model_name)
 
@@ -254,7 +258,7 @@ def pattern_plot(config, data_slice_name):
     )
 
 def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
-    model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
+    model = WrapHookedTransformer.from_pretrained(config.hf_model_name, device=config.device)
     model.to(config.device)
 
     return model # type: ignore
@@ -290,7 +294,7 @@ def main(args):
                 print(f"No {plot.__name__} data found")
         return
 
-    check_dataset_and_sample(config.dataset_path, config.model_name, config.hf_model_name)
+    check_dataset_and_sample(config.dataset_path)
     # load model
     model = load_model(config)
     # load the dataset

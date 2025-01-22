@@ -37,6 +37,9 @@ class BaseModel:
             "gpt2-xl",
             "pythia-6.9b",
             "EleutherAI/pythia-6.9b",
+            "microsoft/phi-4",
+            "Qwen/Qwen2.5-0.5B",
+            "Qwen/Qwen2.5-14B"
         ]:
             self.predict_with_space = True
         else:
