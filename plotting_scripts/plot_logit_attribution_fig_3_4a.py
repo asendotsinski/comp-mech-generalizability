@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import matplotlib.patches as mpatches
+import argparse
 
 # Set working directory
 os.chdir("../results")
@@ -47,10 +47,6 @@ n_relevant_position = 7
 AXIS_TITLE_SIZE = 20
 AXIS_TEXT_SIZE = 16
 HEATMAP_SIZE = 10
-
-directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
-if not os.path.exists(directory_path):
-    os.makedirs(directory_path)
 
 # Function to create heatmaps
 def create_heatmap(data, x, y, fill, title,
@@ -131,160 +127,192 @@ def create_barplot(data, x, y, color, title, axis_title_size, axis_text_size):
 
 
 # Load data
-data_file = f"{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
-print("CSV File:", data_file)
-data = pd.read_csv(data_file)
+def load_data(experiment, model_folder): 
+    data_file = f"{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
+    print("CSV File:", data_file)
+    data = pd.read_csv(data_file)
+    return data
 
-#########################################
-######## Heat Map: Head Position ########
-#########################################
+def plot_logit_attribution_fig_3_4a(
+    model="gpt2",
+    model_folder="gpt2_full",
+    experiment="copyVSfact",
+):
+    directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
+    
+    data = load_data(experiment, model_folder)
 
-# Processing for head heatmap
-data_head = data[data['label'].str.match(r'^L[0-9]+H[0-9]+$')].copy()
-number_of_position = data_head['position'].max()
-data_head = data_head[data_head['position'] == number_of_position]
-data_head[['layer', 'head']] = data_head['label'].str.extract(r'L(\d+)H(\d+)').astype(int)
-data_head['diff_mean'] = -data_head['diff_mean']
+    #########################################
+    ######## Heat Map: Head Position ########
+    #########################################
 
-# Find the max layer and head
-max_layer = data_head['layer'].max()
-max_head = data_head['head'].max()
+    # Processing for head heatmap
+    data_head = data[data['label'].str.match(r'^L[0-9]+H[0-9]+$')].copy()
+    number_of_position = data_head['position'].max()
+    data_head = data_head[data_head['position'] == number_of_position]
+    data_head[['layer', 'head']] = data_head['label'].str.extract(r'L(\d+)H(\d+)').astype(int)
+    data_head['diff_mean'] = -data_head['diff_mean']
 
-# Convert 'Layer' and 'Head' to categorical types with specific levels
-data_head['layer'] = pd.Categorical(data_head['layer'], categories=range(max_layer + 1))
-data_head['head'] = pd.Categorical(data_head['head'], categories=range(max_head + 1))
+    # Find the max layer and head
+    max_layer = data_head['layer'].max()
+    max_head = data_head['head'].max()
 
-# Plot heatmap for head
-create_heatmap(
-    data=data_head,
-    x="layer",
-    y="head",
-    fill="diff_mean",
-    title=r"$\Delta_{cofa}$ Heatmap",
-)
-filename=f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_head_position{number_of_position}.pdf"
-plt.savefig(filename, bbox_inches='tight')
+    # Convert 'Layer' and 'Head' to categorical types with specific levels
+    data_head['layer'] = pd.Categorical(data_head['layer'], categories=range(max_layer + 1))
+    data_head['head'] = pd.Categorical(data_head['head'], categories=range(max_head + 1))
 
-
-if model == "gpt2":
-    # Compute factual impacts
-    factual_impact = data_head.groupby("layer")["diff_mean"].apply(lambda x: x[x < 0].sum()).sum()
-    l10h7 = data_head[(data_head['layer'] == 10) & (data_head['head'] == 7)]['diff_mean'].iloc[0]
-    l11h10 = data_head[(data_head['layer'] == 11) & (data_head['head'] == 10)]['diff_mean'].iloc[0]
-
-    print(f"L10H7 Impact (%): {100 * l10h7 / factual_impact:.2f}")
-    print(f"L11H10 Impact (%): {100 * l11h10 / factual_impact:.2f}")
-    print(f"L10H7 + L11H10 Impact (%): {100 * (l10h7+l11h10) / factual_impact:.2f}")
-
-    # Sum contributions for Layer 7 (L7H2 + L7H10) and Layer 9 (L9H6 + L9H9)
-    l7_contrib = data_head[(data_head['layer'] == 7) & (data_head['head'].isin([2, 10]))]["diff_mean"].sum()
-    l9_contrib = data_head[(data_head['layer'] == 9) & (data_head['head'].isin([6, 9]))]['diff_mean'].sum()
-
-    # considering only positive mean values for cofac
-    layer_7_total = data_head[data_head['layer'] == 7]
-    layer_7_total = layer_7_total[layer_7_total['diff_mean'] > 0]['diff_mean'].sum()
-    layer_9_total = data_head[data_head['layer'] == 9]
-    layer_9_total = layer_9_total[layer_9_total['diff_mean'] > 0]['diff_mean'].sum()
-
-    # Calculate the percentages
-    l7_percent = l7_contrib / layer_7_total
-    l9_percent = l9_contrib / layer_9_total
-
-    # Print the results
-    print(f"L7H2 + L7H10 Impact for Layer 7 (%): {l7_percent:.2f}")
-    print(f"L9H6 + L9H9 Impact for Layer 9 (%): {l9_percent:.2f}")
+    # Plot heatmap for head
+    create_heatmap(
+        data=data_head,
+        x="layer",
+        y="head",
+        fill="diff_mean",
+        title=r"$\Delta_{cofa}$ Heatmap",
+    )
+    filename=f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_head_position{number_of_position}.pdf"
+    plt.savefig(filename, bbox_inches='tight')
 
 
-#########################################
-########## Bar Plots ############
-#########################################
+    if model == "gpt2":
+        # Compute factual impacts
+        factual_impact = data_head.groupby("layer")["diff_mean"].apply(lambda x: x[x < 0].sum()).sum()
+        l10h7 = data_head[(data_head['layer'] == 10) & (data_head['head'] == 7)]['diff_mean'].iloc[0]
+        l11h10 = data_head[(data_head['layer'] == 11) & (data_head['head'] == 10)]['diff_mean'].iloc[0]
 
-# Processing for MLP and Attention barplots
-data_mlp = data[data['label'].str.endswith('_mlp_out')].copy()
-data_mlp['layer'] = data_mlp['label'].str.extract(r'(\d+)_mlp_out').astype(int)
-max_position = data_mlp['position'].max()
-data_mlp = data_mlp[data_mlp['position'] == max_position]
-data_mlp['diff_mean'] = -data_mlp['diff_mean']
+        print(f"L10H7 Impact (%): {100 * l10h7 / factual_impact:.2f}")
+        print(f"L11H10 Impact (%): {100 * l11h10 / factual_impact:.2f}")
+        print(f"L10H7 + L11H10 Impact (%): {100 * (l10h7+l11h10) / factual_impact:.2f}")
 
-data_attn = data[data['label'].str.endswith('_attn_out')].copy()
-data_attn['layer'] = data_attn['label'].str.extract(r'(\d+)_attn_out').astype(int)
-data_attn = data_attn[data_attn['position'] == max_position]
-data_attn['diff_mean'] = -data_attn['diff_mean']
+        # Sum contributions for Layer 7 (L7H2 + L7H10) and Layer 9 (L9H6 + L9H9)
+        l7_contrib = data_head[(data_head['layer'] == 7) & (data_head['head'].isin([2, 10]))]["diff_mean"].sum()
+        l9_contrib = data_head[(data_head['layer'] == 9) & (data_head['head'].isin([6, 9]))]['diff_mean'].sum()
 
-data_barplot = pd.merge(
-    data_mlp[['layer', 'diff_mean']].rename(columns={"diff_mean": "MLP Block"}),
-    data_attn[['layer', 'diff_mean']].rename(columns={"diff_mean": "Attention Block"}),
-    on="layer"
-)
-data_barplot['layer'] = data_barplot['layer'].astype(int)
+        # considering only positive mean values for cofac
+        layer_7_total = data_head[data_head['layer'] == 7]
+        layer_7_total = layer_7_total[layer_7_total['diff_mean'] > 0]['diff_mean'].sum()
+        layer_9_total = data_head[data_head['layer'] == 9]
+        layer_9_total = layer_9_total[layer_9_total['diff_mean'] > 0]['diff_mean'].sum()
 
-# Plot barplot for MLP
-mlp_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/mlp_block_norm.pdf"
-create_barplot(data_barplot, x="layer", y="MLP Block", color="#bc5090", title="MLP Block",
-               axis_title_size=AXIS_TITLE_SIZE, axis_text_size=AXIS_TEXT_SIZE)
-plt.savefig(mlp_filename)
+        # Calculate the percentages
+        l7_percent = l7_contrib / layer_7_total
+        l9_percent = l9_contrib / layer_9_total
 
-# Plot barplot for Attention
-attn_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/attn_block_norm.pdf"
-create_barplot(data_barplot, x="layer", y="Attention Block", color="#ffa600", title="Attention Block",
-             axis_title_size=AXIS_TITLE_SIZE, axis_text_size=AXIS_TEXT_SIZE)
-plt.savefig(attn_filename)
+        # Print the results
+        print(f"L7H2 + L7H10 Impact for Layer 7 (%): {l7_percent:.2f}")
+        print(f"L9H6 + L9H9 Impact for Layer 9 (%): {l9_percent:.2f}")
 
 
-#########################################
-######### Heat Map: MLP & Attn #########
-#########################################
+    #########################################
+    ########## Bar Plots ############
+    #########################################
 
-def process_heatmap_data(data, pattern, position_filter, block):
-    """
-    Processes data for creating heatmaps. This function can be used for both MLP and Attention data.
-    """
-    # Filter data based on the label suffix
+    # Processing for MLP and Attention barplots
+    data_mlp = data[data['label'].str.endswith('_mlp_out')].copy()
+    data_mlp['layer'] = data_mlp['label'].str.extract(r'(\d+)_mlp_out').astype(int)
+    max_position = data_mlp['position'].max()
+    data_mlp = data_mlp[data_mlp['position'] == max_position]
+    data_mlp['diff_mean'] = -data_mlp['diff_mean']
 
-    data_filtered = data[data['label'].str.endswith(pattern)].copy()
-    # Extract 'layer' from the label and convert it to int
-    data_filtered['layer'] = data_filtered['label'].str.extract(rf'(\d+){pattern}').astype(int)
+    data_attn = data[data['label'].str.endswith('_attn_out')].copy()
+    data_attn['layer'] = data_attn['label'].str.extract(r'(\d+)_attn_out').astype(int)
+    data_attn = data_attn[data_attn['position'] == max_position]
+    data_attn['diff_mean'] = -data_attn['diff_mean']
 
-    # if block == "attn":
-    #     data_filtered['layer'] = data_filtered['layer'] - 1
-    # else:
-    #     data_filtered['layer'] = data_filtered['layer'] + 1
+    data_barplot = pd.merge(
+        data_mlp[['layer', 'diff_mean']].rename(columns={"diff_mean": "MLP Block"}),
+        data_attn[['layer', 'diff_mean']].rename(columns={"diff_mean": "Attention Block"}),
+        on="layer"
+    )
+    data_barplot['layer'] = data_barplot['layer'].astype(int)
 
-    # Filter for specific positions
-    data_filtered = data_filtered[data_filtered['position'].isin(position_filter)]
-    # Reverse the diff_mean
-    data_filtered['diff_mean'] = -data_filtered['diff_mean']
+    # Plot barplot for MLP
+    mlp_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/mlp_block_norm.pdf"
+    create_barplot(data_barplot, x="layer", y="MLP Block", color="#bc5090", title="MLP Block",
+                axis_title_size=AXIS_TITLE_SIZE, axis_text_size=AXIS_TEXT_SIZE)
+    plt.savefig(mlp_filename)
 
-    # Create position mapping
-    unique_positions = data_filtered['position'].unique()
-    position_mapping = {position: index for index, position in enumerate(unique_positions)}
-    # Apply the mapping to create a new 'mapped_position' column
-    data_filtered['mapped_position'] = data_filtered['position'].map(position_mapping)
-
-    # Convert layer to factor (categorical)
-    max_layer = data_filtered['layer'].max()
-    data_filtered['layer'] = pd.Categorical(data_filtered['layer'], categories=range(0, max_layer + 1))
-
-    return data_filtered
+    # Plot barplot for Attention
+    attn_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/attn_block_norm.pdf"
+    create_barplot(data_barplot, x="layer", y="Attention Block", color="#ffa600", title="Attention Block",
+                axis_title_size=AXIS_TITLE_SIZE, axis_text_size=AXIS_TEXT_SIZE)
+    plt.savefig(attn_filename)
 
 
-relevant_positions = ["Subject", "Relation", "Relation Last", "Attribute*",
-                      "Subject repeat", "Relation repeat",
-                      "Last"]
-position_filter=[1, 4, 5, 6, 8, 11, 12]
-# MLP Heatmap processing
-data_mlp = process_heatmap_data(data, pattern="_mlp_out", position_filter=position_filter, block="mlp")
-create_heatmap(data_mlp, "layer", "mapped_position", "diff_mean",
-               "MLP Block", relevant_positions=relevant_positions, block="mlp")
-# Save the MLP heatmap
-mlp_out_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_mlp_out.pdf"
-plt.savefig(mlp_out_filename, bbox_inches="tight")
+    #########################################
+    ######### Heat Map: MLP & Attn #########
+    #########################################
 
-# Attention Heatmap processing
-data_attn = process_heatmap_data(data, pattern="_attn_out", position_filter=position_filter, block="attn")
-create_heatmap(data_attn, "layer", "mapped_position", "diff_mean",
-               "Attention Block", relevant_positions=relevant_positions, block="attn")
-# Save the Attention heatmap
-attn_out_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_attn_out.pdf"
-plt.savefig(attn_out_filename, bbox_inches="tight")
-plt.close()
+    def process_heatmap_data(data, pattern, position_filter, block):
+        """
+        Processes data for creating heatmaps. This function can be used for both MLP and Attention data.
+        """
+        # Filter data based on the label suffix
+
+        data_filtered = data[data['label'].str.endswith(pattern)].copy()
+        # Extract 'layer' from the label and convert it to int
+        data_filtered['layer'] = data_filtered['label'].str.extract(rf'(\d+){pattern}').astype(int)
+
+        # if block == "attn":
+        #     data_filtered['layer'] = data_filtered['layer'] - 1
+        # else:
+        #     data_filtered['layer'] = data_filtered['layer'] + 1
+
+        # Filter for specific positions
+        data_filtered = data_filtered[data_filtered['position'].isin(position_filter)]
+        # Reverse the diff_mean
+        data_filtered['diff_mean'] = -data_filtered['diff_mean']
+
+        # Create position mapping
+        unique_positions = data_filtered['position'].unique()
+        position_mapping = {position: index for index, position in enumerate(unique_positions)}
+        # Apply the mapping to create a new 'mapped_position' column
+        data_filtered['mapped_position'] = data_filtered['position'].map(position_mapping)
+
+        # Convert layer to factor (categorical)
+        max_layer = data_filtered['layer'].max()
+        data_filtered['layer'] = pd.Categorical(data_filtered['layer'], categories=range(0, max_layer + 1))
+
+        return data_filtered
+
+
+    relevant_positions = ["Subject", "Relation", "Relation Last", "Attribute*",
+                        "Subject repeat", "Relation repeat",
+                        "Last"]
+    position_filter=[1, 4, 5, 6, 8, 11, 12]
+    # MLP Heatmap processing
+    data_mlp = process_heatmap_data(data, pattern="_mlp_out", position_filter=position_filter, block="mlp")
+    create_heatmap(data_mlp, "layer", "mapped_position", "diff_mean",
+                "MLP Block", relevant_positions=relevant_positions, block="mlp")
+    # Save the MLP heatmap
+    mlp_out_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_mlp_out.pdf"
+    plt.savefig(mlp_out_filename, bbox_inches="tight")
+
+    # Attention Heatmap processing
+    data_attn = process_heatmap_data(data, pattern="_attn_out", position_filter=position_filter, block="attn")
+    create_heatmap(data_attn, "layer", "mapped_position", "diff_mean",
+                "Attention Block", relevant_positions=relevant_positions, block="attn")
+    
+    # Save the Attention heatmap
+    attn_out_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_attn_out.pdf"
+    plt.savefig(attn_out_filename, bbox_inches="tight")
+    plt.close()
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Process and visualize data.')
+    parser.add_argument('model', type=str, nargs='?',
+                        help='Name of the model',
+                        default="gpt2")
+    parser.add_argument('experiment', type=str, nargs='?',
+                        help='Name of the experiment',
+                        default="copyVSfact")
+    parser.add_argument('model_folder', type=str, nargs='?',
+                        help='Name of the model folder',
+                        default="gpt2_full")
+    args = parser.parse_args()
+    plot_logit_attribution_fig_3_4a(
+        model=args.model,
+        experiment=args.experiment,
+        model_folder=args.model_folder
+    )
