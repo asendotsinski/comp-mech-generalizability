@@ -102,7 +102,7 @@ def get_dataset_path(args):
     if args.dataset == "copyVSfact":
         return f"../data/full_data_sampled_{args.model_name}_with_subjects.json"
     if args.dataset == "copyVSfactQnA":
-        return f"../data/full_data_sampled_{args.model_name}_with_questions.json"
+        return f"../data/cft_og_combined_data_sampled_{args.model_name}_with_questions.json"
     else:
         raise ValueError("No dataset path found for folder: ", args.dataset)
 
