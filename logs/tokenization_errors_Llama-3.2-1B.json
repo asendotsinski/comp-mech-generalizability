@@ -1,0 +1,434 @@
+[
+    [
+        {
+            "base_prompt": "Toyota Camry XV30 is a product of",
+            "template": "{}: Toyota Camry XV30 is a product of{}. Toyota Camry XV30 is a product of",
+            "target_true": " Toyota",
+            "target_new": " Chrysler",
+            "prompt": "Redefine: Toyota Camry XV30 is a product of Chrysler. Toyota Camry XV30 is a product of",
+            "subject": "Toyota Camry XV30",
+            "tokenized_prompt": [
+                128000,
+                49,
+                4313,
+                483,
+                25,
+                30300,
+                8215,
+                894,
+                53694,
+                966,
+                374,
+                264,
+                2027,
+                315,
+                65035,
+                13,
+                30300,
+                8215,
+                894,
+                53694,
+                966,
+                374,
+                264,
+                2027,
+                315
+            ],
+            "target_new_token": [
+                128000
+            ],
+            "target_true_token": [
+                128000
+            ],
+            "targets": [
+                128000,
+                128000
+            ]
+        },
+        "Subject token: tensor([128000,  30300,   8215,    894,  53694])"
+    ],
+    [
+        {
+            "base_prompt": "Chrysler RFE transmission, produced by",
+            "template": "{}: Chrysler RFE transmission, produced by{}. Chrysler RFE transmission, produced by",
+            "target_true": " Chrysler",
+            "target_new": " Volvo",
+            "prompt": "Redefine: Chrysler RFE transmission, produced by Volvo. Chrysler RFE transmission, produced by",
+            "subject": "Chrysler RFE transmission",
+            "tokenized_prompt": [
+                128000,
+                49,
+                4313,
+                483,
+                25,
+                65035,
+                432,
+                11673,
+                18874,
+                11,
+                9124,
+                555,
+                68352,
+                13,
+                65035,
+                432,
+                11673,
+                18874,
+                11,
+                9124,
+                555
+            ],
+            "target_new_token": [
+                128000
+            ],
+            "target_true_token": [
+                128000
+            ],
+            "targets": [
+                128000,
+                128000
+            ]
+        },
+        "Subject token: tensor([128000,  65035,    432,  11673])"
+    ],
+    [
+        {
+            "base_prompt": "Seattle City Light is based in",
+            "template": "{}: Seattle City Light is based in{}. Seattle City Light is based in",
+            "target_true": " Seattle",
+            "target_new": " Philadelphia",
+            "prompt": "Redefine: Seattle City Light is based in Philadelphia. Seattle City Light is based in",
+            "subject": "Seattle City Light",
+            "tokenized_prompt": [
+                128000,
+                49,
+                4313,
+                483,
+                25,
+                16759,
+                4409,
+                8828,
+                374,
+                3196,
+                304,
+                19895,
+                13,
+                16759,
+                4409,
+                8828,
+                374,
+                3196,
+                304
+            ],
+            "target_new_token": [
+                128000
+            ],
+            "target_true_token": [
+                128000
+            ],
+            "targets": [
+                128000,
+                128000
+            ]
+        },
+        "Subject token: tensor([128000,  16759,   4409])"
+    ],
+    [
+        {
+            "base_prompt": "Chevrolet Constantia is produced by",
+            "template": "{}: Chevrolet Constantia is produced by{}. Chevrolet Constantia is produced by",
+            "target_true": " Chevrolet",
+            "target_new": " Toyota",
+            "prompt": "Redefine: Chevrolet Constantia is produced by Toyota. Chevrolet Constantia is produced by",
+            "subject": "Chevrolet Constantia",
+            "tokenized_prompt": [
+                128000,
+                49,
+                4313,
+                483,
+                25,
+                43477,
+                19863,
+                689,
+                374,
+                9124,
+                555,
+                30300,
+                13,
+                43477,
+                19863,
+                689,
+                374,
+                9124,
+                555
+            ],
+            "target_new_token": [
+                128000
+            ],
+            "target_true_token": [
+                128000
+            ],
+            "targets": [
+                128000,
+                128000
+            ]
+        },
+        "Subject token: tensor([128000,  43477,  19863])"
+    ],
+    [
+        {
+            "base_prompt": "Chrysler ecoVoyager, developed by",
+            "template": "{}: Chrysler ecoVoyager, developed by{}. Chrysler ecoVoyager, developed by",
+            "target_true": " Chrysler",
+            "target_new": " Toyota",
+            "prompt": "Redefine: Chrysler ecoVoyager, developed by Toyota. Chrysler ecoVoyager, developed by",
+            "subject": "Chrysler ecoVoyager",
+            "tokenized_prompt": [
+                128000,
+                49,
+                4313,
+                483,
+                25,
+                65035,
+                42688,
+                53,
+                2303,
+                1435,
+                11,
+                8040,
+                555,
+                30300,
+                13,
+                65035,
+                42688,
+                53,
+                2303,
+                1435,
+                11,
+                8040,
+                555
+            ],
+            "target_new_token": [
+                128000
+            ],
+            "target_true_token": [
+                128000
+            ],
+            "targets": [
+                128000,
+                128000
+            ]
+        },
+        "Subject token: tensor([128000,  65035,  42688,     53,   2303])"
+    ],
+    [
+        {
+            "base_prompt": "Toyota Sprinter Carib is produced by",
+            "template": "{}: Toyota Sprinter Carib is produced by{}. Toyota Sprinter Carib is produced by",
+            "target_true": " Toyota",
+            "target_new": " Cadillac",
+            "prompt": "Redefine: Toyota Sprinter Carib is produced by Cadillac. Toyota Sprinter Carib is produced by",
+            "subject": "Toyota Sprinter Carib",
+            "tokenized_prompt": [
+                128000,
+                49,
+                4313,
+                483,
+                25,
+                30300,
+                45912,
+                261,
+                3341,
+                581,
+                374,
+                9124,
+                555,
+                78595,
+                13,
+                30300,
+                45912,
+                261,
+                3341,
+                581,
+                374,
+                9124,
+                555
+            ],
+            "target_new_token": [
+                128000
+            ],
+            "target_true_token": [
+                128000
+            ],
+            "targets": [
+                128000,
+                128000
+            ]
+        },
+        "Subject token: tensor([128000,  30300,  45912,    261,   3341])"
+    ],
+    [
+        {
+            "base_prompt": "Google Workspace, developed by",
+            "template": "{}: Google Workspace, developed by{}. Google Workspace, developed by",
+            "target_true": " Google",
+            "target_new": " IBM",
+            "prompt": "Redefine: Google Workspace, developed by IBM. Google Workspace, developed by",
+            "subject": "Google Workspace",
+            "tokenized_prompt": [
+                128000,
+                49,
+                4313,
+                483,
+                25,
+                5195,
+                72034,
+                11,
+                8040,
+                555,
+                29022,
+                13,
+                5195,
+                72034,
+                11,
+                8040,
+                555
+            ],
+            "target_new_token": [
+                128000
+            ],
+            "target_true_token": [
+                128000
+            ],
+            "targets": [
+                128000,
+                128000
+            ]
+        },
+        "Subject token: tensor([128000,   5195])"
+    ],
+    [
+        {
+            "base_prompt": "Renault 18, created by",
+            "template": "{}: Renault 18, created by{}. Renault 18, created by",
+            "target_true": " Renault",
+            "target_new": " Suzuki",
+            "prompt": "Redefine: Renault 18, created by Suzuki. Renault 18, created by",
+            "subject": "Renault 18",
+            "tokenized_prompt": [
+                128000,
+                49,
+                4313,
+                483,
+                25,
+                67431,
+                220,
+                972,
+                11,
+                3549,
+                555,
+                56846,
+                13,
+                67431,
+                220,
+                972,
+                11,
+                3549,
+                555
+            ],
+            "target_new_token": [
+                128000
+            ],
+            "target_true_token": [
+                128000
+            ],
+            "targets": [
+                128000,
+                128000
+            ]
+        },
+        "Subject token: tensor([128000,  67431,    220])"
+    ],
+    [
+        {
+            "base_prompt": "IBM 704, created by",
+            "template": "{}: IBM 704, created by{}. IBM 704, created by",
+            "target_true": " IBM",
+            "target_new": " Boeing",
+            "prompt": "Redefine: IBM 704, created by Boeing. IBM 704, created by",
+            "subject": "IBM 704",
+            "tokenized_prompt": [
+                128000,
+                49,
+                4313,
+                483,
+                25,
+                29022,
+                220,
+                21949,
+                11,
+                3549,
+                555,
+                42959,
+                13,
+                29022,
+                220,
+                21949,
+                11,
+                3549,
+                555
+            ],
+            "target_new_token": [
+                128000
+            ],
+            "target_true_token": [
+                128000
+            ],
+            "targets": [
+                128000,
+                128000
+            ]
+        },
+        "Subject token: tensor([128000,  29022,    220])"
+    ],
+    [
+        {
+            "base_prompt": "Intel Arc is owned by",
+            "template": "{}: Intel Arc is owned by{}. Intel Arc is owned by",
+            "target_true": " Intel",
+            "target_new": " France",
+            "prompt": "Redefine: Intel Arc is owned by France. Intel Arc is owned by",
+            "subject": "Intel Arc",
+            "tokenized_prompt": [
+                128000,
+                49,
+                4313,
+                483,
+                25,
+                15984,
+                20267,
+                374,
+                13234,
+                555,
+                9822,
+                13,
+                15984,
+                20267,
+                374,
+                13234,
+                555
+            ],
+            "target_new_token": [
+                128000
+            ],
+            "target_true_token": [
+                128000
+            ],
+            "targets": [
+                128000,
+                128000
+            ]
+        },
+        "Subject token: tensor([128000,  15984])"
+    ]
+]
