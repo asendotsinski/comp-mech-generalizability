@@ -1,5 +1,5 @@
 from functools import partial
-
+from typing import Union
 import torch
 from transformer_lens import HookedTransformer
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -25,7 +25,6 @@ class ModelConfig:
     def get_config(self, key):
         return getattr(self, key, None)
 
-
 class BaseModel:
     def __init__(self, model_name: str, *args, **kwargs):
         self.model = None
@@ -42,6 +41,8 @@ class BaseModel:
             "Qwen/Qwen2.5-14B"
         ]:
             self.predict_with_space = True
+        elif "llama" in model_name.lower():
+            self.predict_with_space = False
         else:
             raise NotImplementedError(
                 f"Model {model_name} does not have a predict_with_space attribute: pleas check the model behavior and add it manually"
@@ -244,8 +245,18 @@ class WrapHookedTransformer(BaseModel):
 
 class WrapAutoModelForCausalLM(BaseModel):
     def initialize_model(self, model_name: str, device: str, *args, **kwargs):
-        self.model = AutoModelForCausalLM.from_pretrained(model_name, *args, **kwargs)
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        self.model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            trust_remote_code=True,
+            use_auth_token=True,
+            *args,
+            **kwargs
+        )
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            model_name,
+            trust_remote_code=True,
+            use_auth_token=True
+        )
         self.device = str(self.model.device)
         if device == "cuda":
             self.model = self.model.cuda()
@@ -257,6 +268,12 @@ class WrapAutoModelForCausalLM(BaseModel):
                 full_config=self.model.config,
             )
         elif "EleutherAI" in model_name:
+            self.cfg.update_config(
+                n_layers=self.model.config.num_hidden_layers,
+                n_heads=self.model.config.num_attention_heads,
+                full_config=self.model.config,
+            )
+        elif "llama" in model_name.lower():
             self.cfg.update_config(
                 n_layers=self.model.config.num_hidden_layers,
                 n_heads=self.model.config.num_attention_heads,
@@ -308,3 +325,16 @@ class ModelFactory:
             model = model.to(device)
 
         return model
+
+def load_model(config) -> Union[WrapHookedTransformer, WrapAutoModelForCausalLM]:
+    if "llama" in config.model_name.lower():
+        tokenizer = AutoTokenizer.from_pretrained(config.hf_model_name)
+        model = AutoModelForCausalLM.from_pretrained(config.hf_model_name)
+        model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False,
+                                                      hf_model=model, device="cpu")
+    else:
+        # Use HookedTransformer for other models
+        model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
+
+    model.to(config.device)
+    return model

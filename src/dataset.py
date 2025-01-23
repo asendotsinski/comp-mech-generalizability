@@ -237,7 +237,6 @@ class BaseDataset(Dataset):
         else:
             modified_prompt = self.__get_prompt__(row)
 
-
         return modified_prompt
 
     def __get_prompt__(self, d: Dict) -> str:

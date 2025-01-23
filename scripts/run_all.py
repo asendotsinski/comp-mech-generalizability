@@ -25,6 +25,8 @@ from plotting_scripts.plot_head_pattern_fig_4b_5 import plot_head_pattern_fig_4b
 from plotting_scripts.plot_ablation import plot_ablation
 from plotting_scripts.plot_ov_difference import plot_ov_difference
 
+from model import load_model
+
 from dataclasses import dataclass
 
 import subprocess
@@ -51,6 +53,8 @@ def get_hf_model_name(model_name):
         return "EleutherAI/" + model_name
     elif "gpt2" in model_name:
         return model_name
+    elif "Llama" in model_name:
+        return "meta-llama/" + model_name
     elif "phi" in model_name:
         return "microsoft/" + model_name
     elif "Qwen" in model_name:
@@ -198,9 +202,10 @@ def ov_difference(model, dataset, config, args):
         ov_difference_plot(config, data_slice_name)
 
 def ov_difference_plot(config, data_slice_name):
-        plot_ov_difference(model=config.model_name,
-                           experiment=config.mech_fold,
-                           model_folder=f'{config.model_name}_{data_slice_name}')
+        plot_ov_difference(
+            model=config.model_name,
+            experiment=config.mech_fold,
+            model_folder=f'{config.model_name}_{data_slice_name}')
 
 
 def ablate(model, dataset, config, args):
@@ -265,11 +270,11 @@ def pattern_plot(config, data_slice_name):
         domain=config.domain
     )
 
-def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
-    model = WrapHookedTransformer.from_pretrained(config.hf_model_name, device=config.device)
-    model.to(config.device)
+# def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
+#     model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
+#     model.to(config.device)
 
-    return model # type: ignore
+#     return model # type: ignore
 
 def main(args):
     config = Config().from_args(args)
