@@ -24,15 +24,15 @@ COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 
 # GPT-2
-# MODEL = "gpt2"
-# MODEL_FOLDER = "gpt2_full"
+MODEL = "gpt2"
+MODEL_FOLDER = "gpt2_full"
 
 # Pythia
-MODEL = "pythia-6.9b"
-MODEL_FOLDER = "pythia-6.9b_full"
+# MODEL = "pythia-6.9b"
+# MODEL_FOLDER = "pythia-6.9b_full"
 
-EXPERIMENT = "copyVSfact"
-# EXPERIMENT = "copyVSfactQnA"
+# EXPERIMENT = "copyVSfact"
+EXPERIMENT = "copyVSfactQnA"
 
 positions_name = [
     "-", "Subject", "2nd Subject", "3rd Subject", "Relation", "Relation Last",

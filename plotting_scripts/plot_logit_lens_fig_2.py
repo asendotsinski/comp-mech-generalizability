@@ -24,25 +24,32 @@ COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(300, 10, as_cmap=True)
 
 # GPT-2
-# MODEL = "gpt2"
-# MODEL_FOLDER = "gpt2_full"
+MODEL = "gpt2"
+MODEL_FOLDER = "gpt2_full"
 
 # Pythia
-MODEL = "pythia-6.9b"
-MODEL_FOLDER = "pythia-6.9b_full"
+# MODEL = "pythia-6.9b"
+# MODEL_FOLDER = "pythia-6.9b_full"
 
-EXPERIMENT = "copyVSfact"
-# EXPERIMENT = "copyVSfactQnA"
+# EXPERIMENT = "copyVSfact"
+EXPERIMENT = "copyVSfactQnA"
 
 positions_name = [
     "-", "Subject", "2nd Subject", "3rd Subject", "Relation",
     "Relation Last", "Attribute*", "-", "Subject Repeat",
     "2nd Subject repeat", "3rd Subject repeat", "Relation repeat", "Last"
 ]
-relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                     "Subject repeat", "Relation repeat", "Last"]
-example_position = ["iPhone", "was developed", "by", "Google",
-                    "iPhone", "was developed", "by"]
+
+if EXPERIMENT == "copyVSfact":
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Subject repeat", "Relation repeat", "Last"]
+    example_position = ["iPhone", "was developed", "by", "Google",
+                        "iPhone", "was developed", "by"]
+else:
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+    example_position = ["iPhone", "was developed", "by", "Google",
+                        "Which", "company developed", "iPhone?", "Answer:"]
 
 AXIS_TITLE_SIZE = 20
 if EXPERIMENT == "gpt2":
@@ -120,20 +127,38 @@ def plot_logit_lens_fig_2(
     #     lambda x: positions_name[int(x) + 1]
     # )
     # data_resid_post = data_resid_post[data_resid_post['position'].isin([1, 4, 5, 6, 8, 11, 12])]
-    FIRST_TOKEN_SUBJECT = 1
-    BETWEEN_SUBJECT_AND_OBJECT = 4
-    BEFORE_OBJECT = 5
-    OBJECT = 6
-    FIRST_TOKEN_SECOND_SUBJECT = 9
-    SECOND_SUBJECT_TO_LAST_TOKEN = 12
-    LAST_TOKEN = 13
-    data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
-                                                                        BETWEEN_SUBJECT_AND_OBJECT,
-                                                                        BEFORE_OBJECT,
-                                                                        OBJECT,
-                                                                        FIRST_TOKEN_SECOND_SUBJECT,
-                                                                        SECOND_SUBJECT_TO_LAST_TOKEN,
-                                                                        LAST_TOKEN])]
+    if experiment == "copyVSfactQnA":
+        FIRST_TOKEN_SUBJECT = 1
+        BETWEEN_SUBJECT_AND_OBJECT = 4
+        BEFORE_OBJECT = 5
+        OBJECT = 6
+        INTERROGATIVE = 7
+        FIRST_TOKEN_SECOND_SUBJECT = 9
+        SECOND_SUBJECT_TO_LAST_TOKEN = 12
+        LAST_TOKEN = 13
+        data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
+                                                                            BETWEEN_SUBJECT_AND_OBJECT,
+                                                                            BEFORE_OBJECT,
+                                                                            OBJECT,
+                                                                            INTERROGATIVE,
+                                                                            FIRST_TOKEN_SECOND_SUBJECT,
+                                                                            SECOND_SUBJECT_TO_LAST_TOKEN,
+                                                                            LAST_TOKEN])]
+    else:
+        FIRST_TOKEN_SUBJECT = 1
+        BETWEEN_SUBJECT_AND_OBJECT = 4
+        BEFORE_OBJECT = 5
+        OBJECT = 6
+        FIRST_TOKEN_SECOND_SUBJECT = 9
+        SECOND_SUBJECT_TO_LAST_TOKEN = 12
+        LAST_TOKEN = 13
+        data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
+                                                                            BETWEEN_SUBJECT_AND_OBJECT,
+                                                                            BEFORE_OBJECT,
+                                                                            OBJECT,
+                                                                            FIRST_TOKEN_SECOND_SUBJECT,
+                                                                            SECOND_SUBJECT_TO_LAST_TOKEN,
+                                                                            LAST_TOKEN])]
     unique_positions = data_resid_post['position'].unique()
     position_mapping = {pos: i for i, pos in enumerate(unique_positions)}
     data_resid_post['mapped_position'] = data_resid_post['position'].map(position_mapping)
