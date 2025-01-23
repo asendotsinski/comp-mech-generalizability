@@ -189,13 +189,9 @@ def ov_difference(model, dataset, config, args):
         ov_difference_plot(config, data_slice_name)
 
 def ov_difference_plot(config, data_slice_name):
-        subprocess.run(
-            [
-                "Rscript",
-                "../src_figure/ov_difference.R",
-                f"../results/{config.mech_fold}{config.flag}/ov_difference/{config.model_name}_{data_slice_name}",
-            ]
-        )
+        plot_ov_difference(model=config.model_name,
+                           experiment=config.mech_fold,
+                           model_folder=f'{config.model_name}_{data_slice_name}')
 
 
 def ablate(model, dataset, config, args):
