@@ -40,30 +40,14 @@ from rich.console import Console
 import argparse
 import logging
 import torch
-from transformer_lens import HookedTransformer
 # Local application/library specific imports
 
 from dataset import BaseDataset  # noqa: E402
 from experiment import LogitAttribution, LogitLens, OV, Ablate, HeadPattern  # noqa: E402
-from model import WrapHookedTransformer  # noqa: E402
-from utils import display_config, display_experiments, check_dataset_and_sample  # noqa: E402
+from utils import display_config, display_experiments, check_dataset_and_sample, get_hf_model_name  # noqa: E402
 console = Console()
 # set logging level to suppress warnings
 logging.basicConfig(level=logging.ERROR)
-
-def get_hf_model_name(model_name):
-    if "pythia" in model_name:
-        return "EleutherAI/" + model_name
-    elif "gpt2" in model_name:
-        return model_name
-    elif "Llama" in model_name:
-        return "meta-llama/" + model_name
-    elif "phi" in model_name:
-        return "microsoft/" + model_name
-    elif "Qwen" in model_name:
-        return "Qwen/" + model_name
-    else:
-        raise ValueError("No HF model name found for model name: ", model_name)
 
 @dataclass
 class Config:
