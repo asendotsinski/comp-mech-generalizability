@@ -1,0 +1,504 @@
+{
+    "__instance_type__": [
+        "inseq.data.attribution",
+        "FeatureAttributionOutput"
+    ],
+    "attributes": {
+        "info": {
+            "attr_pos_end": 19,
+            "attr_pos_start": 18,
+            "attribute_target": false,
+            "attributed_fn": "contrast_logits_diff_fn",
+            "attributed_fn_args": {
+                "contrast_targets": "Redefine: Google Workspace, developed by IBM. Google Workspace, developed by IBM",
+                "contrast_targets_alignments": [
+                    [
+                        [
+                            18,
+                            18
+                        ]
+                    ]
+                ]
+            },
+            "attribution_args": {},
+            "attribution_method": "layer_gradient_x_activation",
+            "constrained_decoding": true,
+            "exec_time": 0.164629,
+            "generate_from_target_prefix": false,
+            "generated_texts": [
+                "Redefine: Google Workspace, developed by IBM. Google Workspace, developed by Google"
+            ],
+            "generation_args": {},
+            "include_eos_baseline": false,
+            "input_texts": [
+                "Redefine: Google Workspace, developed by IBM. Google Workspace, developed by"
+            ],
+            "model_class": "GPT2LMHeadModel",
+            "model_name": "gpt2",
+            "output_step_attributions": false,
+            "step_scores": [
+                "probability",
+                "contrast_prob_diff",
+                "contrast_prob",
+                "contrast_logits_diff",
+                "contrast_logits",
+                "logit"
+            ],
+            "step_scores_args": {
+                "contrast_targets": "Redefine: Google Workspace, developed by IBM. Google Workspace, developed by IBM",
+                "contrast_targets_alignments": [
+                    [
+                        [
+                            18,
+                            18
+                        ]
+                    ]
+                ]
+            },
+            "tokenizer_class": "GPT2TokenizerFast",
+            "tokenizer_name": "gpt2"
+        },
+        "sequence_attributions": [
+            {
+                "__instance_type__": [
+                    "inseq.data.attribution",
+                    "GranularFeatureAttributionSequenceOutput"
+                ],
+                "attributes": {
+                    "attr_pos_end": 19,
+                    "attr_pos_start": 18,
+                    "sequence_scores": {},
+                    "source": [
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 7738,
+                                "token": "Red"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 891,
+                                "token": "ef"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 500,
+                                "token": "ine"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 25,
+                                "token": ":"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 3012,
+                                "token": "\u0120Google"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 10933,
+                                "token": "\u0120Works"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 10223,
+                                "token": "pace"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 4166,
+                                "token": "\u0120developed"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 19764,
+                                "token": "\u0120IBM"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 13,
+                                "token": "."
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 3012,
+                                "token": "\u0120Google"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 10933,
+                                "token": "\u0120Works"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 10223,
+                                "token": "pace"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 4166,
+                                "token": "\u0120developed"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        }
+                    ],
+                    "source_attributions": null,
+                    "step_scores": {
+                        "contrast_logits": {
+                            "__ndarray__": "b64:XZw/wg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_logits_diff": {
+                            "__ndarray__": "b64:8L4BwA==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_prob": {
+                            "__ndarray__": "b64:UVI4Pw==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_prob_diff": {
+                            "__ndarray__": "b64:MQwgvw==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "logit": {
+                            "__ndarray__": "b64:TLhHwg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "probability": {
+                            "__ndarray__": "b64:ATHCPQ==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        }
+                    },
+                    "target": [
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 7738,
+                                "token": "Red"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 891,
+                                "token": "ef"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 500,
+                                "token": "ine"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 25,
+                                "token": ":"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 3012,
+                                "token": "\u0120Google"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 10933,
+                                "token": "\u0120Works"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 10223,
+                                "token": "pace"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 4166,
+                                "token": "\u0120developed"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 19764,
+                                "token": "\u0120IBM"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 13,
+                                "token": "."
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 3012,
+                                "token": "\u0120Google"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 10933,
+                                "token": "\u0120Works"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 10223,
+                                "token": "pace"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 4166,
+                                "token": "\u0120developed"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": -1,
+                                "token": "\u0120IBM \u2192 \u0120Google"
+                            }
+                        }
+                    ],
+                    "target_attributions": {
+                        "Corder": true,
+                        "__ndarray__": "b64:tG4JPfYlkDzv0bo8VVk+PfZHbT10c1E9N9hRPUUgHD1I3KE96NODPRHcyj0y5IA97mpfPVjJLT04zFI96/d/PcE+pj2fWKs9AADAfw==",
+                        "dtype": "float32",
+                        "shape": [
+                            19,
+                            1
+                        ]
+                    }
+                }
+            }
+        ],
+        "step_attributions": null
+    }
+}
