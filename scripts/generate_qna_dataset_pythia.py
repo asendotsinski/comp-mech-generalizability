@@ -9,13 +9,13 @@ qa_model_name = "mrm8488/t5-base-finetuned-question-generation-ap"
 qa_tokenizer = AutoTokenizer.from_pretrained(qa_model_name)
 qa_model = T5ForConditionalGeneration.from_pretrained(qa_model_name)
 
-qa_model.to("mps")
+qa_model.to("cuda")
 
 # parallel execution using threading
 def get_question(answer, context, verbose=False, max_length=64):
     input_text = "answer: %s  context: %s </s>" % (answer, context)
     features = qa_tokenizer([input_text], return_tensors='pt')
-    features.to("mps")
+    features.to("cuda")
     output = qa_model.generate(input_ids=features['input_ids'], 
                 attention_mask=features['attention_mask'],
                 max_length=max_length)
