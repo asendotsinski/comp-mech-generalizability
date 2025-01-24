@@ -306,7 +306,7 @@ class LogitLens(BaseExperiment):
                     ):
                         logit_token = to_logit_token(
                             logit,
-                            batch["target"],
+                            batch["target"].to(self.model.device),
                             normalize=normalize_logit,
                             return_index=return_index,
                         )
@@ -330,7 +330,7 @@ class LogitLens(BaseExperiment):
                         ):
                             logit_token = to_logit_token(
                                 logit,
-                                batch["target"],
+                                batch["target"].to(self.model.device),
                                 normalize=normalize_logit,
                                 return_index=return_index,
                             )

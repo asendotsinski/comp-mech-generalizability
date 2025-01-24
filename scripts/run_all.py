@@ -3,6 +3,9 @@ import logging
 import os
 import sys
 
+import cProfile
+import pstats
+
 from pythonjsonlogger.json import JsonFormatter
 
 # creatting logger and setting info level
@@ -333,6 +336,9 @@ def main(args):
             logger.error(f"Experiment - {experiment.__name__} Failed - {e}", exc_info=True)
 
 if __name__ == "__main__":
+    profiler = cProfile.Profile()
+    profiler.enable()
+    
     config_defaults = Config()
 
     parser = argparse.ArgumentParser()
@@ -360,3 +366,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     main(args)
+    
+    profiler.disable()
+    stats = pstats.Stats(profiler).sort_stats('cumulative')
+    stats.print_stats(20)
