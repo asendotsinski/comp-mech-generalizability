@@ -40,18 +40,35 @@ def main(hf_model_name, dataset_path, start, end):
     dataset = dataset[start:end]
 
     # sequential inference
-    gts, preds = [], []
+    ground_truths, counterfactuals, preds = [], [], []
     for row in tqdm(dataset):
-        gts.append(row["target_true"].strip())
+        ground_truths.append(row["target_true"].strip())
+        counterfactuals.append(row["target_new"].strip())
         _, attribute = inference(row["prompt"], model, tokenizer)
         preds.append(attribute.strip())
 
-    gts = np.array(gts)
+    ground_truths = np.array(ground_truths)
     preds = np.array(preds)
-    indices = np.where(gts == preds)
-    print("Indices where elements are equal:", len(indices[0]))
-    print("t-cofac accuracy:", (1-accuracy_score(gts, preds))*100)
-    print("t-fact accuracy:", round((accuracy_score(gts, preds))*100, 2))
+    indices = np.where(ground_truths == preds)[0]
+    counterfactuals = np.array(counterfactuals)
+    counterfactual_indices = np.where(counterfactuals == preds)[0]
+    
+    print(f'indices: {indices}')
+    print(f'counterfactual_indices: {counterfactual_indices}')
+
+    indices_with_unexpected_preds = []
+    for i in range(start, end):
+        if i not in indices and i not in counterfactual_indices:
+            indices_with_unexpected_preds.append(i)
+
+    unexpected_preds = [(dataset[i], preds[i]) for i in indices_with_unexpected_preds]
+
+    print("Indices where prediction is factual:", len(indices))
+    print("Indices where prediction is counterfactual:", len(counterfactual_indices))
+    print("Indices where prediction is unexpected:", len(indices_with_unexpected_preds))
+    print("Unexpected predictions:", unexpected_preds[:min(len(unexpected_preds), 10)])
+    print("t-cofac accuracy:", (1-accuracy_score(ground_truths, preds))*100)
+    print("t-fact accuracy:", round((accuracy_score(ground_truths, preds))*100, 2))
 
     print(preds)
 
@@ -61,10 +78,16 @@ if __name__ == "__main__":
     parser.add_argument("--model", type=str, default="gpt2")
     parser.add_argument("--start", type=int, default=None)
     parser.add_argument("--end", type=int, default=None)
-    
+    parser.add_argument("--dataset", type=str, default="copyVSfactQnA")
+
     args = parser.parse_args()
     hf_model_name = get_hf_model_name(args.model)
 
-    dataset_path = f"../data/full_data_sampled_{args.model}.json"
-    
+    if args.dataset == "copyVSfact":
+        dataset_path = f"../data/full_data_sampled_{args.model}_with_subjects.json"
+    elif args.dataset == "copyVSfactQnA":
+        dataset_path = f"../data/cft_og_combined_data_sampled_gpt2_with_questions.json"
+    else:
+        raise ValueError(f"Dataset {args.dataset} not found")
+
     main(hf_model_name, dataset_path, args.start, args.end)
