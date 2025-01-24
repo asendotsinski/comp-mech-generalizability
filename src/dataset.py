@@ -322,7 +322,7 @@ class BaseDataset(Dataset):
                 d["target_new"] = random.choice(d["target_new_list"])
             if self.prompt_type in ["qna"]:
                 pass
-            elif self.prompt_type in ["fact_check_v1", "fact_check_v2", "context_qna"]:
+            elif self.prompt_type in ["fact_check_v1", "fact_check_v2", "context_qna", "domain"]:
                 d["prompt"] = self.modify_prompt(self.prompt_type, d)
             else:
                 d["prompt"] = self.__get_prompt__(d)
