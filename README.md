@@ -15,7 +15,7 @@ To set up the environment for the `FACT_project`, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/asendotsinski/FACT_project.git
    cd FACT_project
    ```
 2. **Set Up the Conda Environment:**
@@ -24,7 +24,7 @@ To set up the environment for the `FACT_project`, follow these steps:
    - For GPU:
         bash```conda env create -f environment_gpu.yaml```
 2. **Activate the Environment:**
-   - ```conda activate <environment-name>```
+   - ```conda activate fact_gpu```
 
 ## Running the Experiments
  - LogitLens
@@ -40,10 +40,9 @@ cd scripts
 python run_all.py
 ```
 with the following arguments:
-- `--model_name`: The name of the model to run the experiments on. It can be `gpt2` or `pythia-6.9b`.
+- `--model_name`: The name of the model to run the experiments on. It can be `gpt2`, `pythia-6.9b` or `Llama`.
 - `--batch`: The batch size to use for the experiments. (Suggested: 40 for gpt2, 10 for pythia)
-- `--experiment`: The experiment to run. Example: `copyVSfact`.
-- `--dataset`: The dataset to run the experiments on (`data/`).
+- `--dataset`: The dataset to run the experiments on Example: `copyVSfact`.
 - `--start`: Specifies the starting point in the dataset for running the experiment. 
 - `--end`: Specifies the ending index in the dataset for running the experiment.
 - `--prompt_type`: Prompt type for testing different prompt structures `["qna", "fact_check_v1", "fact_check_v2", "context_qna"]`. 
@@ -58,12 +57,12 @@ with the following arguments:
 - `--only-plot`: If you want to only generate plots.
 - `--flag`: An additional flag for custom behavior.
   
-The script will create a folder in the `Results/copyVSfact` directory with the name of the model.
+The script will create a folder in the `results/{dataset}` directory with the name of the model.
 
 Example:
 ```bash
-cd Script
-python run_all.py --model-name gpt2 --batch 40 --experiment copyVSfact --logit-attribution 
+cd scripts
+python run_all.py --model_name gpt2 --batch 40 --experiment copyVSfact --logit-attribution 
 ```
 
 ---
@@ -116,11 +115,3 @@ Scripts for generating visualizations:
 - `plotting_scripts/plot_logit_lens_fig_2.py`: Logit lens analysis plot.
 - `plotting_scripts/plot_head_pattern_fig_4b_5.py`: Head pattern visualization.
 ---
-
-### **Authors**
-The following individuals contributed to the development of this project:
-
-- **Asen Dotsinski**
-- **Hafeez Khan**
-- **Marko Ivanov**
-- **Udit Thakur**

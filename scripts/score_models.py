@@ -124,7 +124,7 @@ def init_dataset(config: LaunchConfig, model: BaseModel):
         dataset_path = f"../data/context_dataset_{save_name}.json"
     else:
         raise ValueError("Experiment not recognized")
-    check_dataset_and_sample(dataset_path, config.model_name, config.hf_model_name)
+    check_dataset_and_sample(dataset_path)
 
     return BaseDataset(
         path=dataset_path,

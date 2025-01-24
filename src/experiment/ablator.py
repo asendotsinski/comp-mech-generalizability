@@ -53,7 +53,9 @@ class Ablator(BaseExperiment):
         self.total_effect = total_effect
         self.hooks = []
 
-    def set_heads(self, heads:List[Tuple[int,int]], position: Literal["all", "attribute"] = "attribute", value: float = 0.0):
+    def set_heads(self, heads:List[Tuple[int,int]],
+                  position: Literal["all", "attribute", "interrogative"] = "attribute",
+                  value: float = 0.0):
         """
         heads: list of tuples (layer, head) to ablate
         position: "all" or "attribute" to ablate all the entries or only the attribute entries
@@ -68,6 +70,12 @@ class Ablator(BaseExperiment):
                 attribute_positions = batch["obj_pos"]
                 #for each element in the batch and for each head, ablate the attention pattern with the corresponding position of the attribute
                 for i, pos in enumerate(attribute_positions):
+                    attention_pattern[i, head, -1, pos] = value * attention_pattern[i, head, -1, pos]
+                return attention_pattern
+            elif position == "interrogative":
+                interrogative_positions = batch["obj_pos"] + 2
+                #for each element in the batch and for each head, ablate the attention pattern with the corresponding position of the attribute
+                for i, pos in enumerate(interrogative_positions):
                     attention_pattern[i, head, -1, pos] = value * attention_pattern[i, head, -1, pos]
                 return attention_pattern
             else:

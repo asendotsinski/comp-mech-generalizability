@@ -15,13 +15,14 @@ import torch.nn.functional as F
 from typing import Literal, Union
 
 
+
 def check_dataset_and_sample(dataset_path, model_name, hf_model_name):
     print(f"Trying to find dataset at {dataset_path}")
     if os.path.exists(dataset_path):
         print("Dataset found!")
         return
     else:
-        raise FileNotFoundError("Dataset not found, please create it first")
+        raise FileNotFoundError(f"Dataset not found, please create it first: {dataset_path}")
 
 
 def display_experiments(experiments, status):

@@ -7,15 +7,14 @@ from torch.utils.data import DataLoader  # noqa: F401
 from tqdm import tqdm  # noqa: F401
 from typing import Literal, Optional, Tuple  # noqa: F401
 from dataclasses import dataclass  # noqa: F401
-
+from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM
 
 sys.path.append("..")
 sys.path.append("../src")
 sys.path.append("../data")
-from Src.dataset import BaseDataset  # noqa: E402
-from Src.model import BaseModel  # noqa: E402
+from dataset import BaseDataset  # noqa: E402
+from model import BaseModel, ModelFactory  # noqa: E402
 
-FILENAME = "../results/{}_evaluate_mechanism_data_sampling.csv"
 
 class EvaluateMechanism:
     def __init__(
@@ -89,7 +88,7 @@ class EvaluateMechanism:
         idx = 0
         for batch in dataloader:
             input_ids = batch["input_ids"].to(self.device)
-            logits = self.model(input_ids)["logits"]
+            logits = self.model(input_ids)
             count = self.check_prediction(logits, batch["target"])
             target_true += len(count[0])
             target_false += len(count[1])
@@ -255,3 +254,30 @@ class EvaluateMechanism:
             )
 
         return target_true, target_false, other
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+models_name = ["gpt2"]
+
+for model_name in models_name:
+    FILENAME = f"../results/{model_name}_evaluate_mechanism_data_sampling.csv"
+
+    print("Loading model", model_name)
+    tokenizer = AutoTokenizer.from_pretrained(
+        model_name,
+    )
+    model = ModelFactory.create(model_name, device=DEVICE)
+
+    # load the dataset
+    dataset = BaseDataset(path="../data/full_data_sampled_gpt2.json",
+                          experiment="copyVSfact",
+                          model=model,
+                          start=0, end=10,
+                          prompt_type=None,
+                          no_subject=True)
+
+    evaluator = EvaluateMechanism(model, dataset,
+                                  device=DEVICE, batch_size=20,
+                                  num_samples=10)
+
+    evaluator.evaluate_all()

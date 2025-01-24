@@ -58,6 +58,10 @@ def get_hf_model_name(model_name):
         return model_name
     elif "Llama" in model_name:
         return "meta-llama/" + model_name
+    elif "phi" in model_name:
+        return "microsoft/" + model_name
+    elif "Qwen" in model_name:
+        return "Qwen/" + model_name
     else:
         raise ValueError("No HF model name found for model name: ", model_name)
 
@@ -105,7 +109,9 @@ def get_dataset_path(args):
     if args.dataset == "copyVSfact":
         return f"../data/full_data_sampled_{args.model_name}_with_subjects.json"
     if args.dataset == "copyVSfactQnA":
-        return f"../data/full_data_sampled_{args.model_name}_with_questions.json"
+        return f"../data/cft_og_combined_data_sampled_{args.model_name}_with_questions.json"
+    if args.dataset == "copyVSfactDomain":
+        return f"../data/full_data_sampled_{args.model_name}_with_domains.json"
     else:
         raise ValueError("No dataset path found for folder: ", args.dataset)
 
@@ -192,11 +198,9 @@ def ov_difference(model, dataset, config, args):
         ov_difference_plot(config, data_slice_name)
 
 def ov_difference_plot(config, data_slice_name):
-        plot_ov_difference(
-            model=config.model_name,
-            experiment=config.mech_fold,
-            model_folder=f'{config.model_name}_{data_slice_name}'
-        )
+        plot_ov_difference(model=config.model_name,
+                           experiment=config.mech_fold,
+                           model_folder=f'{config.model_name}_{data_slice_name}')
 
 
 def ablate(model, dataset, config, args):
@@ -258,9 +262,9 @@ def pattern_plot(config, data_slice_name):
         model_folder=f'{config.model_name}_{data_slice_name}'
     )
 
-# def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
-#     model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
-#     model.to(config.device)
+def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
+    model = WrapHookedTransformer.from_pretrained(config.hf_model_name, device=config.device)
+    model.to(config.device)
 
 #     return model # type: ignore
 
@@ -295,7 +299,7 @@ def main(args):
                 print(f"No {plot.__name__} data found")
         return
 
-    check_dataset_and_sample(config.dataset_path, config.model_name, config.hf_model_name)
+    check_dataset_and_sample(config.dataset_path)
     # load model
     model = load_model(config)
     # load the dataset

@@ -24,36 +24,39 @@ COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(300, 10, as_cmap=True)
 
 # GPT-2
-model = "gpt2"
-model_folder = "gpt2_full"
-n_layers = 12
+MODEL = "gpt2"
+MODEL_FOLDER = "gpt2_full"
 
 # Pythia
-# model = "pythia-6.9b"
-# model_folder = "pythia-6.9b_full"
-# n_layers = 32
+# MODEL = "pythia-6.9b"
+# MODEL_FOLDER = "pythia-6.9b_full"
 
-experiment = "copyVSfact"
-experiment = "copyVSfactQnA"
+# EXPERIMENT = "copyVSfact"
+EXPERIMENT = "copyVSfactQnA"
 
-n_positions = 12
 positions_name = [
     "-", "Subject", "2nd Subject", "3rd Subject", "Relation",
     "Relation Last", "Attribute*", "-", "Subject Repeat",
     "2nd Subject repeat", "3rd Subject repeat", "Relation repeat", "Last"
 ]
-relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                     "Subject repeat", "Relation repeat", "Last"]
-example_position = ["iPhone", "was developed", "by", "Google",
-                    "iPhone", "was developed", "by"]
-n_relevant_position = 7
+
+if EXPERIMENT == "copyVSfact":
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Subject repeat", "Relation repeat", "Last"]
+    example_position = ["iPhone", "was developed", "by", "Google",
+                        "iPhone", "was developed", "by"]
+else:
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+    example_position = ["iPhone", "was developed", "by", "Google",
+                        "Which", "company developed", "iPhone?", "Answer:"]
 
 AXIS_TITLE_SIZE = 20
-if model == "gpt2":
+if EXPERIMENT == "gpt2":
     AXIS_TEXT_SIZE = 16
 else:
     AXIS_TEXT_SIZE = 10
-HEATMAP_SIZE = 10
+
 
 # Define helper function for heatmap
 def create_heatmap(data, x, y, fill, cmap, midpoint=0,
@@ -124,25 +127,43 @@ def plot_logit_lens_fig_2(
     #     lambda x: positions_name[int(x) + 1]
     # )
     # data_resid_post = data_resid_post[data_resid_post['position'].isin([1, 4, 5, 6, 8, 11, 12])]
-    FIRST_TOKEN_SUBJECT = 1
-    BETWEEN_SUBJECT_AND_OBJECT = 4
-    BEFORE_OBJECT = 5
-    OBJECT = 6
-    FIRST_TOKEN_SECOND_SUBJECT = 8
-    SECOND_SUBJECT_TO_LAST_TOKEN = 12
-    LAST_TOKEN = 13
-    data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
-                                                                        BETWEEN_SUBJECT_AND_OBJECT,
-                                                                        BEFORE_OBJECT,
-                                                                        OBJECT,
-                                                                        FIRST_TOKEN_SECOND_SUBJECT,
-                                                                        SECOND_SUBJECT_TO_LAST_TOKEN,
-                                                                        LAST_TOKEN])]
+    if experiment == "copyVSfactQnA":
+        FIRST_TOKEN_SUBJECT = 1
+        BETWEEN_SUBJECT_AND_OBJECT = 4
+        BEFORE_OBJECT = 5
+        OBJECT = 6
+        INTERROGATIVE = 7
+        FIRST_TOKEN_SECOND_SUBJECT = 9
+        SECOND_SUBJECT_TO_LAST_TOKEN = 12
+        LAST_TOKEN = 13
+        data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
+                                                                            BETWEEN_SUBJECT_AND_OBJECT,
+                                                                            BEFORE_OBJECT,
+                                                                            OBJECT,
+                                                                            INTERROGATIVE,
+                                                                            FIRST_TOKEN_SECOND_SUBJECT,
+                                                                            SECOND_SUBJECT_TO_LAST_TOKEN,
+                                                                            LAST_TOKEN])]
+    else:
+        FIRST_TOKEN_SUBJECT = 1
+        BETWEEN_SUBJECT_AND_OBJECT = 4
+        BEFORE_OBJECT = 5
+        OBJECT = 6
+        FIRST_TOKEN_SECOND_SUBJECT = 9
+        SECOND_SUBJECT_TO_LAST_TOKEN = 12
+        LAST_TOKEN = 13
+        data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
+                                                                            BETWEEN_SUBJECT_AND_OBJECT,
+                                                                            BEFORE_OBJECT,
+                                                                            OBJECT,
+                                                                            FIRST_TOKEN_SECOND_SUBJECT,
+                                                                            SECOND_SUBJECT_TO_LAST_TOKEN,
+                                                                            LAST_TOKEN])]
     unique_positions = data_resid_post['position'].unique()
     position_mapping = {pos: i for i, pos in enumerate(unique_positions)}
     data_resid_post['mapped_position'] = data_resid_post['position'].map(position_mapping)
     # print(data_resid_post[["position", "mem"]])
-    # print(data_resid_post[data_resid_post["position"] == 5])
+    # print(data_resid_post[data_resid_post["position"] == 8]["mem"])
 
     #########################################
     ########## Line: Logit Plots ############
@@ -242,9 +263,6 @@ def plot_logit_lens_fig_2(
     )
     plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/resid_post_cp.pdf", bbox_inches='tight')
 
-    # Print success message
-    print(f"Plots saved for {model} in {experiment}")
-
 
     #########################################
     ############ Combined Plots (Optional) #############
@@ -319,13 +337,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
     parser.add_argument('model', type=str, nargs='?',
                         help='Name of the model',
-                        default="gpt2")
+                        default=MODEL)
     parser.add_argument('experiment', type=str, nargs='?',
                         help='Name of the experiment',
-                        default="copyVSfact")
+                        default=EXPERIMENT)
     parser.add_argument('model_folder', type=str, nargs='?',
                         help='Name of the model folder',
-                        default="gpt2_full")
+                        default=MODEL_FOLDER)
     args = parser.parse_args()
     plot_logit_lens_fig_2(
         model=args.model,
