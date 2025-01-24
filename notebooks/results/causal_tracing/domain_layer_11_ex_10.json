@@ -1,0 +1,564 @@
+{
+    "__instance_type__": [
+        "inseq.data.attribution",
+        "FeatureAttributionOutput"
+    ],
+    "attributes": {
+        "info": {
+            "attr_pos_end": 22,
+            "attr_pos_start": 21,
+            "attribute_target": false,
+            "attributed_fn": "contrast_logits_diff_fn",
+            "attributed_fn_args": {
+                "contrast_targets": "Domain(Autos and Vehicles): Airbus A318 is created by Honda. Airbus A318 is created by Honda",
+                "contrast_targets_alignments": [
+                    [
+                        [
+                            21,
+                            21
+                        ]
+                    ]
+                ]
+            },
+            "attribution_args": {},
+            "attribution_method": "layer_gradient_x_activation",
+            "constrained_decoding": true,
+            "exec_time": 0.165958,
+            "generate_from_target_prefix": false,
+            "generated_texts": [
+                "Domain(Autos and Vehicles): Airbus A318 is created by Honda. Airbus A318 is created by Airbus"
+            ],
+            "generation_args": {},
+            "include_eos_baseline": false,
+            "input_texts": [
+                "Domain(Autos and Vehicles): Airbus A318 is created by Honda. Airbus A318 is created by"
+            ],
+            "model_class": "GPT2LMHeadModel",
+            "model_name": "gpt2",
+            "output_step_attributions": false,
+            "step_scores": [
+                "probability",
+                "contrast_prob_diff",
+                "contrast_prob",
+                "contrast_logits_diff",
+                "contrast_logits",
+                "logit"
+            ],
+            "step_scores_args": {
+                "contrast_targets": "Domain(Autos and Vehicles): Airbus A318 is created by Honda. Airbus A318 is created by Honda",
+                "contrast_targets_alignments": [
+                    [
+                        [
+                            21,
+                            21
+                        ]
+                    ]
+                ]
+            },
+            "tokenizer_class": "GPT2TokenizerFast",
+            "tokenizer_name": "gpt2"
+        },
+        "sequence_attributions": [
+            {
+                "__instance_type__": [
+                    "inseq.data.attribution",
+                    "GranularFeatureAttributionSequenceOutput"
+                ],
+                "attributes": {
+                    "attr_pos_end": 22,
+                    "attr_pos_start": 21,
+                    "sequence_scores": {},
+                    "source": [
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 43961,
+                                "token": "Domain"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 7,
+                                "token": "("
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 16541,
+                                "token": "Aut"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 418,
+                                "token": "os"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 290,
+                                "token": "\u0120and"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 31365,
+                                "token": "\u0120Vehicles"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2599,
+                                "token": "):"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 39173,
+                                "token": "\u0120Airbus"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 317,
+                                "token": "\u0120A"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 36042,
+                                "token": "318"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 318,
+                                "token": "\u0120is"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 20059,
+                                "token": "\u0120Honda"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 13,
+                                "token": "."
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 39173,
+                                "token": "\u0120Airbus"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 317,
+                                "token": "\u0120A"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 36042,
+                                "token": "318"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 318,
+                                "token": "\u0120is"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        }
+                    ],
+                    "source_attributions": null,
+                    "step_scores": {
+                        "contrast_logits": {
+                            "__ndarray__": "b64:IbGpwg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_logits_diff": {
+                            "__ndarray__": "b64:AL0ovw==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_prob": {
+                            "__ndarray__": "b64:WEUKPg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_prob_diff": {
+                            "__ndarray__": "b64:p3yFvQ==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "logit": {
+                            "__ndarray__": "b64:mwKrwg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "probability": {
+                            "__ndarray__": "b64:CQ6PPQ==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        }
+                    },
+                    "target": [
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 43961,
+                                "token": "Domain"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 7,
+                                "token": "("
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 16541,
+                                "token": "Aut"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 418,
+                                "token": "os"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 290,
+                                "token": "\u0120and"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 31365,
+                                "token": "\u0120Vehicles"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2599,
+                                "token": "):"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 39173,
+                                "token": "\u0120Airbus"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 317,
+                                "token": "\u0120A"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 36042,
+                                "token": "318"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 318,
+                                "token": "\u0120is"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 20059,
+                                "token": "\u0120Honda"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 13,
+                                "token": "."
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 39173,
+                                "token": "\u0120Airbus"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 317,
+                                "token": "\u0120A"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 36042,
+                                "token": "318"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 318,
+                                "token": "\u0120is"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": -1,
+                                "token": "\u0120Honda \u2192 \u0120Airbus"
+                            }
+                        }
+                    ],
+                    "target_attributions": {
+                        "Corder": true,
+                        "__ndarray__": "b64.gz:H4sIAAAAAAAC/2NgoDZosGdgOFAPACHYw81YAAAA",
+                        "dtype": "float32",
+                        "shape": [
+                            22,
+                            1
+                        ]
+                    }
+                }
+            }
+        ],
+        "step_attributions": null
+    }
+}

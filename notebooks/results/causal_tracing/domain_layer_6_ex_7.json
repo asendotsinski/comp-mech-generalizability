@@ -1,0 +1,524 @@
+{
+    "__instance_type__": [
+        "inseq.data.attribution",
+        "FeatureAttributionOutput"
+    ],
+    "attributes": {
+        "info": {
+            "attr_pos_end": 20,
+            "attr_pos_start": 19,
+            "attribute_target": false,
+            "attributed_fn": "contrast_logits_diff_fn",
+            "attributed_fn_args": {
+                "contrast_targets": "Domain(Autos and Vehicles): Renault 18, created by Suzuki. Renault 18, created by Suzuki",
+                "contrast_targets_alignments": [
+                    [
+                        [
+                            19,
+                            19
+                        ]
+                    ]
+                ]
+            },
+            "attribution_args": {},
+            "attribution_method": "layer_gradient_x_activation",
+            "constrained_decoding": true,
+            "exec_time": 0.178527,
+            "generate_from_target_prefix": false,
+            "generated_texts": [
+                "Domain(Autos and Vehicles): Renault 18, created by Suzuki. Renault 18, created by Renault"
+            ],
+            "generation_args": {},
+            "include_eos_baseline": false,
+            "input_texts": [
+                "Domain(Autos and Vehicles): Renault 18, created by Suzuki. Renault 18, created by"
+            ],
+            "model_class": "GPT2LMHeadModel",
+            "model_name": "gpt2",
+            "output_step_attributions": false,
+            "step_scores": [
+                "probability",
+                "contrast_prob_diff",
+                "contrast_prob",
+                "contrast_logits_diff",
+                "contrast_logits",
+                "logit"
+            ],
+            "step_scores_args": {
+                "contrast_targets": "Domain(Autos and Vehicles): Renault 18, created by Suzuki. Renault 18, created by Suzuki",
+                "contrast_targets_alignments": [
+                    [
+                        [
+                            19,
+                            19
+                        ]
+                    ]
+                ]
+            },
+            "tokenizer_class": "GPT2TokenizerFast",
+            "tokenizer_name": "gpt2"
+        },
+        "sequence_attributions": [
+            {
+                "__instance_type__": [
+                    "inseq.data.attribution",
+                    "GranularFeatureAttributionSequenceOutput"
+                ],
+                "attributes": {
+                    "attr_pos_end": 20,
+                    "attr_pos_start": 19,
+                    "sequence_scores": {},
+                    "source": [
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 43961,
+                                "token": "Domain"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 7,
+                                "token": "("
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 16541,
+                                "token": "Aut"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 418,
+                                "token": "os"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 290,
+                                "token": "\u0120and"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 31365,
+                                "token": "\u0120Vehicles"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2599,
+                                "token": "):"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 44083,
+                                "token": "\u0120Renault"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 1248,
+                                "token": "\u012018"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 35807,
+                                "token": "\u0120Suzuki"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 13,
+                                "token": "."
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 44083,
+                                "token": "\u0120Renault"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 1248,
+                                "token": "\u012018"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        }
+                    ],
+                    "source_attributions": null,
+                    "step_scores": {
+                        "contrast_logits": {
+                            "__ndarray__": "b64:8CFpwg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_logits_diff": {
+                            "__ndarray__": "b64:YDhBwA==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_prob": {
+                            "__ndarray__": "b64:9FoWPw==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_prob_diff": {
+                            "__ndarray__": "b64:ywIPvw==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "logit": {
+                            "__ndarray__": "b64:djV1wg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "probability": {
+                            "__ndarray__": "b64:JgXrPA==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        }
+                    },
+                    "target": [
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 43961,
+                                "token": "Domain"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 7,
+                                "token": "("
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 16541,
+                                "token": "Aut"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 418,
+                                "token": "os"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 290,
+                                "token": "\u0120and"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 31365,
+                                "token": "\u0120Vehicles"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2599,
+                                "token": "):"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 44083,
+                                "token": "\u0120Renault"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 1248,
+                                "token": "\u012018"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 35807,
+                                "token": "\u0120Suzuki"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 13,
+                                "token": "."
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 44083,
+                                "token": "\u0120Renault"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 1248,
+                                "token": "\u012018"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": -1,
+                                "token": "\u0120Suzuki \u2192 \u0120Renault"
+                            }
+                        }
+                    ],
+                    "target_attributions": {
+                        "Corder": true,
+                        "__ndarray__": "b64:KFg+PJbuQTxVkPw7uRYKPGGTtDvmCDs8e6jDPHkb0T3rOL48TGhbPK8opzwNMEU9vNstPg9NrT26fJM9CTXNPOCrED0wRr89n7ltPgAAwH8=",
+                        "dtype": "float32",
+                        "shape": [
+                            20,
+                            1
+                        ]
+                    }
+                }
+            }
+        ],
+        "step_attributions": null
+    }
+}

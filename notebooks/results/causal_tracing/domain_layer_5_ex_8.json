@@ -1,0 +1,564 @@
+{
+    "__instance_type__": [
+        "inseq.data.attribution",
+        "FeatureAttributionOutput"
+    ],
+    "attributes": {
+        "info": {
+            "attr_pos_end": 22,
+            "attr_pos_start": 21,
+            "attribute_target": false,
+            "attributed_fn": "contrast_logits_diff_fn",
+            "attributed_fn_args": {
+                "contrast_targets": "Domain(Computers and Electronics): IBM 704, created by Boeing. IBM 704, created by Boeing",
+                "contrast_targets_alignments": [
+                    [
+                        [
+                            21,
+                            21
+                        ]
+                    ]
+                ]
+            },
+            "attribution_args": {},
+            "attribution_method": "layer_gradient_x_activation",
+            "constrained_decoding": true,
+            "exec_time": 0.175453,
+            "generate_from_target_prefix": false,
+            "generated_texts": [
+                "Domain(Computers and Electronics): IBM 704, created by Boeing. IBM 704, created by IBM"
+            ],
+            "generation_args": {},
+            "include_eos_baseline": false,
+            "input_texts": [
+                "Domain(Computers and Electronics): IBM 704, created by Boeing. IBM 704, created by"
+            ],
+            "model_class": "GPT2LMHeadModel",
+            "model_name": "gpt2",
+            "output_step_attributions": false,
+            "step_scores": [
+                "probability",
+                "contrast_prob_diff",
+                "contrast_prob",
+                "contrast_logits_diff",
+                "contrast_logits",
+                "logit"
+            ],
+            "step_scores_args": {
+                "contrast_targets": "Domain(Computers and Electronics): IBM 704, created by Boeing. IBM 704, created by Boeing",
+                "contrast_targets_alignments": [
+                    [
+                        [
+                            21,
+                            21
+                        ]
+                    ]
+                ]
+            },
+            "tokenizer_class": "GPT2TokenizerFast",
+            "tokenizer_name": "gpt2"
+        },
+        "sequence_attributions": [
+            {
+                "__instance_type__": [
+                    "inseq.data.attribution",
+                    "GranularFeatureAttributionSequenceOutput"
+                ],
+                "attributes": {
+                    "attr_pos_end": 22,
+                    "attr_pos_start": 21,
+                    "sequence_scores": {},
+                    "source": [
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 43961,
+                                "token": "Domain"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 7,
+                                "token": "("
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 5377,
+                                "token": "Com"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 41510,
+                                "token": "puters"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 290,
+                                "token": "\u0120and"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 27828,
+                                "token": "\u0120Electronics"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2599,
+                                "token": "):"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 19764,
+                                "token": "\u0120IBM"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 767,
+                                "token": "\u01207"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 3023,
+                                "token": "04"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 17880,
+                                "token": "\u0120Boeing"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 13,
+                                "token": "."
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 19764,
+                                "token": "\u0120IBM"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 767,
+                                "token": "\u01207"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 3023,
+                                "token": "04"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        }
+                    ],
+                    "source_attributions": null,
+                    "step_scores": {
+                        "contrast_logits": {
+                            "__ndarray__": "b64:o/SKwg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_logits_diff": {
+                            "__ndarray__": "b64:wFGovw==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_prob": {
+                            "__ndarray__": "b64:RP6ZPg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "contrast_prob_diff": {
+                            "__ndarray__": "b64:sExhvg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "logit": {
+                            "__ndarray__": "b64:6pWNwg==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        },
+                        "probability": {
+                            "__ndarray__": "b64:r1+lPQ==",
+                            "dtype": "float32",
+                            "shape": [
+                                1
+                            ]
+                        }
+                    },
+                    "target": [
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 43961,
+                                "token": "Domain"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 7,
+                                "token": "("
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 5377,
+                                "token": "Com"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 41510,
+                                "token": "puters"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 290,
+                                "token": "\u0120and"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 27828,
+                                "token": "\u0120Electronics"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2599,
+                                "token": "):"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 19764,
+                                "token": "\u0120IBM"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 767,
+                                "token": "\u01207"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 3023,
+                                "token": "04"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 17880,
+                                "token": "\u0120Boeing"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 13,
+                                "token": "."
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 19764,
+                                "token": "\u0120IBM"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 767,
+                                "token": "\u01207"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 3023,
+                                "token": "04"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 11,
+                                "token": ","
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 2727,
+                                "token": "\u0120created"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": 416,
+                                "token": "\u0120by"
+                            }
+                        },
+                        {
+                            "__instance_type__": [
+                                "inseq.utils.typing",
+                                "TokenWithId"
+                            ],
+                            "attributes": {
+                                "id": -1,
+                                "token": "\u0120Boeing \u2192 \u0120IBM"
+                            }
+                        }
+                    ],
+                    "target_attributions": {
+                        "Corder": true,
+                        "__ndarray__": "b64:Fwb4O4wSgDwyOxw8o0G1PK5F+jvjrGI8268SPV8RQj2WjN087QSSPMQZuzzmt9U87/1rPbuZ/D074K49+UVgPTC94jzZbHI9AD9ePYiXvD2S+0Q+AADAfw==",
+                        "dtype": "float32",
+                        "shape": [
+                            22,
+                            1
+                        ]
+                    }
+                }
+            }
+        ],
+        "step_attributions": null
+    }
+}
