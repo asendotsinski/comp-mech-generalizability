@@ -208,7 +208,7 @@ def main(model_name):
 
         return results
 
-    qa_dataset = parallel_modify_dataset(cft_dataset_sampled, subset=10000)
+    qa_dataset = parallel_modify_dataset(cft_dataset_sampled)
     qa_dataset
 
     # saving the data

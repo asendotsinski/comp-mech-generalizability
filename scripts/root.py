@@ -37,11 +37,11 @@ def main(model_name):
 
     # gpt2 inference
     tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
-    model = AutoModelForCausalLM.from_pretrained(hf_model_name, pad_token_id=tokenizer.eos_token_id)
+    model = AutoModelForCausalLM.from_pretrained(hf_model_name, pad_token_id=tokenizer.eos_token_id).to(device)
     # tokenizer.pad_token_id = tokenizer.eos_token_id
 
     def inference(prompt, model, tokenizer):
-        inputs = tokenizer(prompt, return_tensors="pt")
+        inputs = tokenizer(prompt, return_tensors="pt").to(device)
         model_outputs = model.generate(**inputs, 
                                     max_new_tokens=1, 
                                     return_dict_in_generate=True, output_scores=True, 
@@ -180,10 +180,14 @@ def main(model_name):
                 if idx in qa_cft_indices:
                     row["idx"] = f"cft_{idx}"
                     combined_qa_dataset.append(row)
+            if len(combined_qa_dataset) > 10000:
+                break
+        if len(combined_qa_dataset) > 10000:
+            break
 
     # save the dataset
-    # with open("../data/cft_og_combined_data_with_questions.json", "w") as f:
-    #     json.dump(combined_qa_dataset, f)
+    with open(f"../data/cft_og_{model_name}_combined_data_with_questions.json", "w") as f:
+        json.dump(combined_qa_dataset, f)
 
     # ##### Default Dataset Run
     # Default Dataset
