@@ -46,6 +46,7 @@ with the following arguments:
 - `--start`: Specifies the starting point in the dataset for running the experiment. 
 - `--end`: Specifies the ending index in the dataset for running the experiment.
 - `--prompt_type`: Prompt type for testing different prompt structures `["qna", "fact_check_v1", "fact_check_v2", "context_qna"]`. 
+- `--domain`: Domain class subset to choose from the dataset Example: `["News", "Games", "Science"] etc.`. 
 - `--logit-attribution`: If you want to run the logit attribution experiment.
 - `--logit-lens`: If you want to run the logit lens experiment (Figure 2).
 - `--ov-diff`: This is useful for comparing model outputs in terms of performance or behavior.

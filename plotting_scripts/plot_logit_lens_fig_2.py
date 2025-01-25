@@ -40,6 +40,23 @@ positions_name = [
     "2nd Subject repeat", "3rd Subject repeat", "Relation repeat", "Last"
 ]
 
+# plotting setup
+if EXPERIMENT == "copyVSfact":
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Subject repeat", "Relation repeat", "Last"]
+    example_position = ["iPhone", "was developed", "by", "Google",
+                        "iPhone", "was developed", "by"]
+else:
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+    example_position = ["iPhone", "was developed", "by", "Google",
+                        "What", "company developed", "iPhone?", "Answer:"]
+
+AXIS_TITLE_SIZE = 20
+if MODEL == "gpt2":
+    AXIS_TEXT_SIZE = 16
+else:
+    AXIS_TEXT_SIZE = 10
 
 # Define helper function for heatmap
 def create_heatmap(data, x, y, fill, cmap, midpoint=0,
@@ -94,9 +111,13 @@ def create_heatmap(data, x, y, fill, cmap, midpoint=0,
 def plot_logit_lens_fig_2(
         model="gpt2",
         experiment="copyVSfact",
-        model_folder="gpt2_full"
+        model_folder="gpt2_full",
+        domain=None
 ):
-    directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream"
+    if domain:
+        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/{domain}"
+    else:
+        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
@@ -175,7 +196,7 @@ def plot_logit_lens_fig_2(
     plt.legend(fontsize=AXIS_TEXT_SIZE)
 
     # Save the figure
-    plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/resid_post_all_linelogit_line.pdf",
+    plt.savefig(f"{directory_path}/resid_post_all_linelogit_line.pdf",
                 bbox_inches='tight')
 
     #########################################
@@ -200,7 +221,7 @@ def plot_logit_lens_fig_2(
     plt.yticks(fontsize=AXIS_TEXT_SIZE)
     plt.legend(fontsize=AXIS_TEXT_SIZE)
     plt.yscale('log')
-    plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/resid_post_index.pdf", bbox_inches='tight')
+    plt.savefig(f"{directory_path}/resid_post_index.pdf", bbox_inches='tight')
 
 
     #########################################
@@ -225,7 +246,7 @@ def plot_logit_lens_fig_2(
     # Adjust the layout with some vertical spacing between subplots
     fig.subplots_adjust(hspace=0.25)
     # plt.tight_layout()
-    plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/resid_post_all_linelogit.pdf",
+    plt.savefig(f"{directory_path}/resid_post_all_linelogit.pdf",
                 bbox_inches='tight')
 
     #########################################
@@ -237,14 +258,14 @@ def plot_logit_lens_fig_2(
         cmap=FACTUAL_CMAP, midpoint=0,
         xlabel="Layer", colorbar_label="Logit of Factual",
     )
-    plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/resid_post_mem.pdf", bbox_inches='tight')
+    plt.savefig(f"{directory_path}/resid_post_mem.pdf", bbox_inches='tight')
 
     create_heatmap(
         data=data_resid_post, x="layer", y="mapped_position", fill="cp",
         cmap=COUNTERFACTUAL_CMAP, midpoint=0,
         xlabel="Layer", colorbar_label="Logit of Counterfactual",
     )
-    plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/resid_post_cp.pdf", bbox_inches='tight')
+    plt.savefig(f"{directory_path}/resid_post_cp.pdf", bbox_inches='tight')
 
 
     #########################################
@@ -292,7 +313,7 @@ def plot_logit_lens_fig_2(
     ax3.legend(fontsize=AXIS_TEXT_SIZE)
     plt.subplots_adjust(wspace=0.5, hspace=0.3)
     # Save the figure
-    plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/resid_post_all_logit_combined.pdf",
+    plt.savefig(f"{directory_path}/resid_post_all_logit_combined.pdf",
                 bbox_inches='tight')
 
     # Line plot logit index (entire right side)
@@ -313,7 +334,7 @@ def plot_logit_lens_fig_2(
     plt.subplots_adjust(wspace=0.5, hspace=0.3)
 
     # Save the figure
-    plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/resid_post_all_index_combined.pdf",
+    plt.savefig(f"{directory_path}/resid_post_all_index_combined.pdf",
                 bbox_inches='tight')
     plt.close()
 

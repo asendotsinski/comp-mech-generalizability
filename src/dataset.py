@@ -22,14 +22,27 @@ REDC = "\033[91m"
 ENDC = "\033[0m"
 
 
+DOMAINS = ['Adult', 'Arts_and_Entertainment', 'Autos_and_Vehicles', 'Beauty_and_Fitness',
+           'Books_and_Literature', 'Business_and_Industrial', 'Computers_and_Electronics', 'Finance',
+           'Food_and_Drink', 'Games', 'Health', 'Hobbies_and_Leisure', 'Home_and_Garden',
+           'Internet_and_Telecom', 'Jobs_and_Education', 'Law_and_Government', 'News',
+           'Online_Communities', 'People_and_Society', 'Pets_and_Animals', 'Real_Estate', 'Science',
+           'Sensitive_Subjects', 'Shopping', 'Sports', 'Travel_and_Transportation']
+
 def load_dataset(
-    path: str, model_name: str, start: Optional[int], end: Optional[int]
+    path: str, experiment: str,
+        start: Optional[int],
+        end: Optional[int],
+        domain=None
 ) -> List[Dict]:
     data = json.load(open(path, "r"))
     if start is None:
         start = 0
     if end is None:
         end = len(data)
+    if domain and isinstance(domain, str) and experiment == "copyVSfactDomain":
+        print(f"Filtering for Domain {domain}!")
+        data = [row for row in data if row["domain"] == domain]
     return data[start:end]
 
 
@@ -85,7 +98,8 @@ class BaseDataset(Dataset):
         ] = (False, 0, "self-similarity"),
         premise: str = "Redefine",
         no_subject: bool = False,
-        prompt_type: str = None
+        prompt_type: str = None,
+        domain: str = None
     ):
         if no_subject:
             print(
@@ -97,8 +111,9 @@ class BaseDataset(Dataset):
         self.similarity = similarity
         self.premise = premise
         self.prompt_type = prompt_type
+        self.domain = domain
         if similarity[0]:
-            self.full_data = load_dataset(path, self.model.cfg.model_name, start, end)
+            self.full_data = load_dataset(path, self.experiment, start, end, self.domain)
             self.similarity_score_dict = load_similarity_score_dict(
                 self.model.cfg.model_name
             )
@@ -108,7 +123,7 @@ class BaseDataset(Dataset):
             self.full_data = self.generate_similarity_data(similarity[2])
             self.base_full_data = self.full_data
         else:
-            self.full_data = load_dataset(path, self.model.cfg.model_name, start, end)
+            self.full_data = load_dataset(path, self.experiment, start, end, self.domain)
 
         self.lengths = self.__get_lenghts_and_tokenize__()
         if similarity[0]:
@@ -226,7 +241,7 @@ class BaseDataset(Dataset):
         return modified_prompt
 
     def __get_prompt__(self, d: Dict) -> str:
-        if self.experiment == "copyVSfact":
+        if self.experiment in ["copyVSfact", "copyVSfactDomain"]:
             return d["template"].format(self.premise, d["target_new"])
         elif self.experiment == "contextVSfact":
             if d["prompt"][0] == " ":
