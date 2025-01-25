@@ -43,6 +43,7 @@ def display_config(config):
         Text.assemble(("Dataset Start: ", "bold"), str(config.dataset_start)),
         Text.assemble(("Dataset End: ", "bold"), str(config.dataset_end)),
         Text.assemble(("Prompt Type: ", "bold"), str(config.prompt_type)),
+        Text.assemble(("Domain: ", "bold"), str(config.domain)),
         Text.assemble(("Produce Plots: ", "bold"), str(config.produce_plots)),
         Text.assemble(("Normalize Logit: ", "bold"), str(config.normalize_logit)),
         Text.assemble(("Std Dev: ", "bold"), str(config.std_dev)),

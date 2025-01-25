@@ -40,6 +40,21 @@ positions_name = [
     "3nd Subject repeat", "Relation repeat", "Last"
 ]
 
+# plotting setup
+if EXPERIMENT == "copyVSfact":
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Subject repeat", "Relation repeat", "Last"]
+    position_filter = [1, 4, 5, 6, 9, 12, 13]
+else:
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+    position_filter = [1, 4, 5, 6, 7, 8, 9, 13]
+
+AXIS_TITLE_SIZE = 20
+if MODEL == "gpt2":
+    AXIS_TEXT_SIZE = 16
+else:
+    AXIS_TEXT_SIZE = 14
 
 # Function to create heatmaps
 def create_heatmap(data, x, y, fill, title,
@@ -129,8 +144,12 @@ def plot_logit_attribution_fig_3_4a(
     model="gpt2",
     model_folder="gpt2_full",
     experiment="copyVSfact",
+    domain=None
 ):
-    directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
+    if domain:
+        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/{domain}"
+    else:
+        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
     
@@ -163,7 +182,7 @@ def plot_logit_attribution_fig_3_4a(
         fill="diff_mean",
         title=r"$\Delta_{cofa}$ Heatmap",
     )
-    filename=f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_head_position{number_of_position}.pdf"
+    filename=f"{directory_path}/logit_attribution_head_position{number_of_position}.pdf"
     plt.savefig(filename, bbox_inches='tight')
 
 
@@ -221,13 +240,13 @@ def plot_logit_attribution_fig_3_4a(
     # data_barplot['layer'] = data_barplot['layer'].astype(int)
 
     # Plot barplot for MLP
-    mlp_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/mlp_block_norm.pdf"
+    mlp_filename = f"{directory_path}/mlp_block_norm.pdf"
     create_barplot(data_mlp, x="layer", y="diff_mean", color="#bc5090", title="MLP Block",
                 axis_title_size=AXIS_TITLE_SIZE, axis_text_size=AXIS_TEXT_SIZE)
     plt.savefig(mlp_filename)
 
     # Plot barplot for Attention
-    attn_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/attn_block_norm.pdf"
+    attn_filename = f"{directory_path}/attn_block_norm.pdf"
     create_barplot(data_attn, x="layer", y="diff_mean", color="#ffa600", title="Attention Block",
                 axis_title_size=AXIS_TITLE_SIZE, axis_text_size=AXIS_TEXT_SIZE)
     plt.savefig(attn_filename)
@@ -275,7 +294,7 @@ def plot_logit_attribution_fig_3_4a(
     create_heatmap(data_mlp, "layer", "mapped_position", "diff_mean",
                 "MLP Block", add_positions=True, block="mlp")
     # Save the MLP heatmap
-    mlp_out_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_mlp_out.pdf"
+    mlp_out_filename = f"{directory_path}/logit_attribution_mlp_out.pdf"
     plt.savefig(mlp_out_filename, bbox_inches="tight")
 
     # Attention Heatmap processing
@@ -284,7 +303,7 @@ def plot_logit_attribution_fig_3_4a(
                 "Attention Block", add_positions=True, block="attn")
     
     # Save the Attention heatmap
-    attn_out_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_attn_out.pdf"
+    attn_out_filename = f"{directory_path}/logit_attribution_attn_out.pdf"
     plt.savefig(attn_out_filename, bbox_inches="tight")
     plt.close()
 
@@ -304,14 +323,10 @@ if __name__ == "__main__":
     if args.experiment == "copyVSfact":
         relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                              "Subject repeat", "Relation repeat", "Last"]
-        example_position = ["iPhone", "was developed", "by", "Google",
-                            "iPhone", "was developed", "by"]
         position_filter = [1, 4, 5, 6, 9, 12, 13]
     else:
         relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                              "Interrogative", "Relation repeat", "Subject repeat", "Last"]
-        example_position = ["iPhone", "was developed", "by", "Google",
-                            "Which", "company developed", "iPhone?", "Answer:"]
         position_filter = [1, 4, 5, 6, 7, 8, 9, 13]
 
     AXIS_TITLE_SIZE = 20

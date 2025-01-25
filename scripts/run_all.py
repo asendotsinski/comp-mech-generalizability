@@ -149,7 +149,8 @@ def logit_attribution(model, dataset, config, args):
 def logit_attribution_plot(config, dataset_slice_name):
         plot_logit_attribution_fig_3_4a(model=config.model_name,
                                         model_folder=f'{config.model_name}_{dataset_slice_name}',
-                                        experiment=config.mech_fold)
+                                        experiment=config.mech_fold,
+                                        domain=config.domain)
 
 
 def logit_lens(model, dataset, config, args):
@@ -176,7 +177,8 @@ def logit_lens(model, dataset, config, args):
 def logit_lens_plot(config, data_slice_name):
         plot_logit_lens_fig_2(model=config.model_name,
                               model_folder=f'{config.model_name}_{data_slice_name}',
-                              experiment=config.mech_fold)
+                              experiment=config.mech_fold,
+                              domain=config.domain)
 
 
 def ov_difference(model, dataset, config, args):
@@ -259,7 +261,8 @@ def pattern_plot(config, data_slice_name):
     plot_head_pattern_fig_4b_5(
         model=config.model_name,
         experiment=config.mech_fold,
-        model_folder=f'{config.model_name}_{data_slice_name}'
+        model_folder=f'{config.model_name}_{data_slice_name}',
+        domain=config.domain
     )
 
 def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
@@ -308,6 +311,7 @@ def main(args):
                           model=model,
                           start=args.start, end=args.end,
                           prompt_type=args.prompt_type,
+                          domain=args.domain,
                           no_subject=False)
 
     experiments = []

@@ -35,6 +35,13 @@ MODEL_FOLDER = "gpt2_full"
 # EXPERIMENT = "copyVSfact"
 EXPERIMENT = "copyVSfactQnA"
 
+# plotting setup
+if EXPERIMENT == "copyVSfact":
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Subject repeat", "Relation repeat", "Last"]
+else:
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Interrogative", "Relation repeat", "Subject repeat", "Last"]
 
 AXIS_TITLE_SIZE = 20
 AXIS_TEXT_SIZE = 15
@@ -100,7 +107,8 @@ def create_heatmap(data, midpoint=0):
 def plot_head_pattern_fig_4b_5(
     model="gpt2",
     experiment="copyVSfact",
-    model_folder="gpt2_full"
+    model_folder="gpt2_full",
+    domain=None
 ):
     if model == "gpt2":
         layer_pattern = [11, 10, 10, 10, 9, 9]
@@ -128,7 +136,10 @@ def plot_head_pattern_fig_4b_5(
         raise Exception("Model not supported!")
 
 
-    directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
+    if domain:
+        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/{domain}"
+    else:
+        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
@@ -156,7 +167,7 @@ def plot_head_pattern_fig_4b_5(
     # print(data_final)
     create_heatmap(data_final)
     # Save plot
-    plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/head_pattern_layer.pdf",
+    plt.savefig(f"{directory_path}/head_pattern_layer.pdf",
                 bbox_inches='tight')
 
 
@@ -225,7 +236,7 @@ def plot_head_pattern_fig_4b_5(
         plt.subplots_adjust(wspace=0.85, hspace=0.85)
 
     # Saving plot for full position
-    plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/full_pattern.pdf",
+    plt.savefig(f"{directory_path}/full_pattern.pdf",
                 bbox_inches='tight')
 
 
@@ -254,7 +265,7 @@ def plot_head_pattern_fig_4b_5(
     plt.tight_layout()
 
     # Save bar plot
-    plt.savefig(f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/multiplied_pattern.pdf", dpi=300, bbox_inches='tight')
+    plt.savefig(f"{directory_path}/multiplied_pattern.pdf", dpi=300, bbox_inches='tight')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
