@@ -69,6 +69,7 @@ class Config:
     up_to_layer: Union[int, str] = "all"
     ablate_component:str = "all"
     flag: str = ""
+    quantize: bool = False
 
     @classmethod
     def from_args(cls, args):
@@ -88,7 +89,8 @@ class Config:
             total_effect=args.total_effect if args.total_effect else False,
             hf_model_name= get_hf_model_name(args.model_name),
             ablate_component=args.ablate_component,
-            flag = args.flag
+            flag = args.flag,
+            quantize=args.quantize
         )
 
 def get_dataset_path(args):
@@ -364,7 +366,8 @@ if __name__ == "__main__":
     parser.add_argument("--ablate-component", type=str, default="all")
     parser.add_argument("--dataset", type=str, default="copyVSfact")
     parser.add_argument("--flag", type=str, default="")
-
+    parser.add_argument("--quantize", action="store_true", default=False)
+    
     args = parser.parse_args()
     main(args)
     

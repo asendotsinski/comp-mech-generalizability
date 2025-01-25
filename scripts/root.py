@@ -33,9 +33,6 @@ model_name = "gpt2"
 
 device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
-import os
-os.environ["ACCELERATE_USE_CUDA_DEVICE"]="0"
-
 def main(model_name):
     hf_model_name = get_hf_model_name(model_name)
 
@@ -55,7 +52,7 @@ def main(model_name):
                 hf_model_name,
                 pad_token_id=tokenizer.eos_token_id,
                 quantization_config=quantization_config,
-                device_map={"": "cuda:0"},
+                device_map="auto",
                 torch_dtype=torch.float16
                 )
     except Exception:

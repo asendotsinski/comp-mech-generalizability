@@ -2,7 +2,7 @@ from functools import partial
 from typing import Union
 import torch
 from transformer_lens import HookedTransformer
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from utils import get_predictions
 from abc import abstractmethod
 
@@ -332,9 +332,27 @@ def load_model(config) -> Union[WrapHookedTransformer, WrapAutoModelForCausalLM]
         model = AutoModelForCausalLM.from_pretrained(config.hf_model_name)
         model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False,
                                                       hf_model=model, device="cpu")
+        if config.quantize:
+            tokenizer = AutoTokenizer.from_pretrained(config.hf_model_name)
+            quantization_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_quant_type="nf4",  # Optional: You can try "fp4" as well
+                bnb_4bit_use_double_quant=True  # Optional: This enables nested quantization
+            )
+            model = AutoModelForCausalLM.from_pretrained(
+                config.hf_model_name,
+                quantization_config=quantization_config,
+                device_map="auto",
+                torch_dtype=torch.float16
+            )
+            model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False,
+                                                      hf_model=model, device="cpu")
     else:
         # Use HookedTransformer for other models
         model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
 
-    model.to(config.device)
+    if not config.quantize:
+        model.to(config.device)
+
     return model
