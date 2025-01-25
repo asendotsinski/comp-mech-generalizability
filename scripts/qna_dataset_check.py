@@ -52,16 +52,13 @@ def main(hf_model_name, dataset_path, start, end):
     indices = np.where(ground_truths == preds)[0]
     counterfactuals = np.array(counterfactuals)
     counterfactual_indices = np.where(counterfactuals == preds)[0]
-    
-    print(f'indices: {indices}')
-    print(f'counterfactual_indices: {counterfactual_indices}')
 
     indices_with_unexpected_preds = []
     for i in range(start, end):
         if i not in indices and i not in counterfactual_indices:
             indices_with_unexpected_preds.append(i)
 
-    unexpected_preds = [(dataset[i], preds[i]) for i in indices_with_unexpected_preds]
+    unexpected_preds = np.unique(preds[indices_with_unexpected_preds], return_counts=True)
 
     print("Indices where prediction is factual:", len(indices))
     print("Indices where prediction is counterfactual:", len(counterfactual_indices))
@@ -70,7 +67,7 @@ def main(hf_model_name, dataset_path, start, end):
     print("t-cofac accuracy:", (1-accuracy_score(ground_truths, preds))*100)
     print("t-fact accuracy:", round((accuracy_score(ground_truths, preds))*100, 2))
 
-    print(preds)
+    print(preds[:10])
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -78,7 +75,7 @@ if __name__ == "__main__":
     parser.add_argument("--model", type=str, default="gpt2")
     parser.add_argument("--start", type=int, default=None)
     parser.add_argument("--end", type=int, default=None)
-    parser.add_argument("--dataset", type=str, default="copyVSfactQnA")
+    parser.add_argument("--dataset", type=str, default="copyVSfact")
 
     args = parser.parse_args()
     hf_model_name = get_hf_model_name(args.model)
@@ -86,7 +83,7 @@ if __name__ == "__main__":
     if args.dataset == "copyVSfact":
         dataset_path = f"../data/full_data_sampled_{args.model}_with_subjects.json"
     elif args.dataset == "copyVSfactQnA":
-        dataset_path = f"../data/cft_og_combined_data_sampled_gpt2_with_questions.json"
+        dataset_path = f"../data/cft_og_combined_data_sampled_{args.model}_with_questions.json"
     else:
         raise ValueError(f"Dataset {args.dataset} not found")
 
