@@ -39,23 +39,15 @@ positions_name = [
     "Attribute*", "-", "Subject Repeat", "2nd Subject repeat",
     "3nd Subject repeat", "Relation repeat", "Last"
 ]
-relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                     "Subject repeat", "Relation repeat", "Last"]
 
-AXIS_TITLE_SIZE = 20
-if MODEL == "gpt2":
-    AXIS_TEXT_SIZE = 16
-else:
-    AXIS_TEXT_SIZE = 14
-HEATMAP_SIZE = 10
 
 # Function to create heatmaps
 def create_heatmap(data, x, y, fill, title,
-                   midpoint=0, relevant_positions=None,
+                   midpoint=0, add_positions=None,
                    block=None):
     plt.figure(figsize=(12, 10))
     pivot_data = data.pivot(index=y, columns=x, values=fill)
-    if relevant_positions:
+    if add_positions:
         cbar_kws = {
             "label": f"Logit Difference"
         }
@@ -66,7 +58,7 @@ def create_heatmap(data, x, y, fill, title,
             center=midpoint,
             linewidths=0.5,
             linecolor="grey",
-            yticklabels=relevant_positions,
+            yticklabels=relevant_position,
             cbar_kws=cbar_kws
         )
         plt.xlabel(x.capitalize(), fontsize=AXIS_TEXT_SIZE)
@@ -278,14 +270,10 @@ def plot_logit_attribution_fig_3_4a(
         return data_filtered
 
 
-    relevant_positions = ["Subject", "Relation", "Relation Last", "Attribute*",
-                        "Subject repeat", "Relation repeat",
-                        "Last"]
-    position_filter=[1, 4, 5, 6, 8, 11, 12]
     # MLP Heatmap processing
     data_mlp = process_heatmap_data(data, pattern="_mlp_out", position_filter=position_filter, block="mlp")
     create_heatmap(data_mlp, "layer", "mapped_position", "diff_mean",
-                "MLP Block", relevant_positions=relevant_positions, block="mlp")
+                "MLP Block", add_positions=True, block="mlp")
     # Save the MLP heatmap
     mlp_out_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_mlp_out.pdf"
     plt.savefig(mlp_out_filename, bbox_inches="tight")
@@ -293,7 +281,7 @@ def plot_logit_attribution_fig_3_4a(
     # Attention Heatmap processing
     data_attn = process_heatmap_data(data, pattern="_attn_out", position_filter=position_filter, block="attn")
     create_heatmap(data_attn, "layer", "mapped_position", "diff_mean",
-                "Attention Block", relevant_positions=relevant_positions, block="attn")
+                "Attention Block", add_positions=True, block="attn")
     
     # Save the Attention heatmap
     attn_out_filename = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/logit_attribution_attn_out.pdf"
@@ -312,6 +300,26 @@ if __name__ == "__main__":
                         help='Name of the model folder',
                         default=MODEL_FOLDER)
     args = parser.parse_args()
+    # plotting setup
+    if args.experiment == "copyVSfact":
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Subject repeat", "Relation repeat", "Last"]
+        example_position = ["iPhone", "was developed", "by", "Google",
+                            "iPhone", "was developed", "by"]
+        position_filter = [1, 4, 5, 6, 9, 12, 13]
+    else:
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+        example_position = ["iPhone", "was developed", "by", "Google",
+                            "Which", "company developed", "iPhone?", "Answer:"]
+        position_filter = [1, 4, 5, 6, 7, 8, 9, 13]
+
+    AXIS_TITLE_SIZE = 20
+    if args.model == "gpt2":
+        AXIS_TEXT_SIZE = 16
+    else:
+        AXIS_TEXT_SIZE = 14
+
     plot_logit_attribution_fig_3_4a(
         model=args.model,
         experiment=args.experiment,

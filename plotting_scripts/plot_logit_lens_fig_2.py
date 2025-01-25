@@ -40,23 +40,6 @@ positions_name = [
     "2nd Subject repeat", "3rd Subject repeat", "Relation repeat", "Last"
 ]
 
-if EXPERIMENT == "copyVSfact":
-    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                         "Subject repeat", "Relation repeat", "Last"]
-    example_position = ["iPhone", "was developed", "by", "Google",
-                        "iPhone", "was developed", "by"]
-else:
-    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                         "Interrogative", "Relation repeat", "Subject repeat", "Last"]
-    example_position = ["iPhone", "was developed", "by", "Google",
-                        "Which", "company developed", "iPhone?", "Answer:"]
-
-AXIS_TITLE_SIZE = 20
-if EXPERIMENT == "gpt2":
-    AXIS_TEXT_SIZE = 16
-else:
-    AXIS_TEXT_SIZE = 10
-
 
 # Define helper function for heatmap
 def create_heatmap(data, x, y, fill, cmap, midpoint=0,
@@ -133,16 +116,16 @@ def plot_logit_lens_fig_2(
         BEFORE_OBJECT = 5
         OBJECT = 6
         INTERROGATIVE = 7
+        INTERROGATIVE_TO_SECOND_SUBJECT = 8
         FIRST_TOKEN_SECOND_SUBJECT = 9
-        SECOND_SUBJECT_TO_LAST_TOKEN = 12
         LAST_TOKEN = 13
         data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
                                                                             BETWEEN_SUBJECT_AND_OBJECT,
                                                                             BEFORE_OBJECT,
                                                                             OBJECT,
                                                                             INTERROGATIVE,
+                                                                            INTERROGATIVE_TO_SECOND_SUBJECT,
                                                                             FIRST_TOKEN_SECOND_SUBJECT,
-                                                                            SECOND_SUBJECT_TO_LAST_TOKEN,
                                                                             LAST_TOKEN])]
     else:
         FIRST_TOKEN_SUBJECT = 1
@@ -313,6 +296,7 @@ def plot_logit_lens_fig_2(
                 bbox_inches='tight')
 
     # Line plot logit index (entire right side)
+    ax3.set_visible(False)
     ax3 = fig.add_subplot(gs[:, 1])  # Line plot: entire right column
     ax3.plot(data_resid_post_altered['layer'], data_resid_post_altered['mem_idx'],
             label='Factual Token', color=FACTUAL_COLOR, linewidth=3, marker='o', markersize=6)
@@ -345,6 +329,25 @@ if __name__ == "__main__":
                         help='Name of the model folder',
                         default=MODEL_FOLDER)
     args = parser.parse_args()
+
+    # plotting setup
+    if args.experiment == "copyVSfact":
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Subject repeat", "Relation repeat", "Last"]
+        example_position = ["iPhone", "was developed", "by", "Google",
+                            "iPhone", "was developed", "by"]
+    else:
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+        example_position = ["iPhone", "was developed", "by", "Google",
+                            "Which", "company developed", "iPhone?", "Answer:"]
+
+    AXIS_TITLE_SIZE = 20
+    if args.model == "gpt2":
+        AXIS_TEXT_SIZE = 16
+    else:
+        AXIS_TEXT_SIZE = 10
+
     plot_logit_lens_fig_2(
         model=args.model,
         experiment=args.experiment,
