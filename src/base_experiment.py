@@ -4,13 +4,20 @@ from model import BaseModel
 import torch
 from torch.utils.data import DataLoader
 from typing import Optional, Literal
-# from line_profiler import profile
+from line_profiler import profile
 
 
 torch.set_grad_enabled(False)
 
+# Compare lengths first, then values if non-empty
+def compare_tensors(t1, t2):
+    if len(t1) != len(t2):
+        return False
+    if len(t1) == 0:  # Both are empty (we know lengths are equal from previous check)
+        return True
+    return torch.all(t1 == t2).item()  # Compare values if non-empty
 
-# @profile
+@profile
 def to_logit_token(
     logit,
     target,
@@ -67,14 +74,19 @@ def to_logit_token(
             sorted_indices = sorted_indices.to(device)
             target_expanded_0 = target[:, 0].unsqueeze(1) == sorted_indices
             target_expanded_1 = target[:, 1].unsqueeze(1) == sorted_indices
-            index_mem = target_expanded_0.nonzero()[
-                :, 1
-            ]  # Select column index for matches of target[:, 0]
-            index_cp = target_expanded_1.nonzero()[
-                :, 1
-            ]  # Select column index for matches of target[:, 1]
+            #index_mem = target_expanded_0.nonzero()[
+            #    :, 1
+            #]  # Select column index for matches of target[:, 0]
+            #index_cp = target_expanded_1.nonzero()[
+            #    :, 1
+            #]  # Select column index for matches of target[:, 1]
         # index_cp[i] = torch.argsort(logit[i], descending=True).tolist().index(target[i, 1])
+            _, index_mem = torch.where(target_expanded_0)
+            # index_mem = cols
+            _, index_cp = torch.where(target_expanded_1)
 
+            # assert compare_tensors(index_mem, cols_0), "Mismatch in first comparison"
+            # assert compare_tensors(index_cp, cols_1), "Mismatch in second comparison"
     if return_winners:
         if return_index:
             return logit_mem, logit_cp, index_mem, index_cp, mem_winners, cp_winners

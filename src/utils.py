@@ -14,8 +14,22 @@ import os
 import torch.nn.functional as F
 from typing import Literal, Union
 
+def get_hf_model_name(model_name):
+    if "pythia" in model_name:
+        return "EleutherAI/" + model_name
+    elif "gpt2" in model_name:
+        return model_name
+    elif "Llama" in model_name:
+        return "meta-llama/" + model_name
+    elif "phi" in model_name:
+        return "microsoft/" + model_name
+    elif "Qwen" in model_name:
+        return "Qwen/" + model_name
+    else:
+        raise ValueError("No HF model name found for model name: ", model_name)
 
 def check_dataset_and_sample(dataset_path):
+    print(f"Trying to find dataset at {dataset_path}")
     if os.path.exists(dataset_path):
         print("Dataset found!")
         return
