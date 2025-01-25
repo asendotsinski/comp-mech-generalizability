@@ -25,18 +25,16 @@ COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(300, 10, as_cmap=True)
 
 # GPT-2
-# MODEL = "gpt2"
-# MODEL_FOLDER = "gpt2_full"
+MODEL = "gpt2"
+MODEL_FOLDER = "gpt2_full"
 
 # Pythia
-MODEL = "pythia-6.9b"
-MODEL_FOLDER = "pythia-6.9b_full"
+# MODEL = "pythia-6.9b"
+# MODEL_FOLDER = "pythia-6.9b_full"
 
-EXPERIMENT = "copyVSfact"
-# EXPERIMENT = "copyVSfactQnA"
+# EXPERIMENT = "copyVSfact"
+EXPERIMENT = "copyVSfactQnA"
 
-relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                     "Subject repeat", "Relation repeat", "Last"]
 
 AXIS_TITLE_SIZE = 20
 AXIS_TEXT_SIZE = 15
@@ -107,16 +105,17 @@ def plot_head_pattern_fig_4b_5(
     if model == "gpt2":
         layer_pattern = [11, 10, 10, 10, 9, 9]
         head_pattern = [10, 0, 7, 10, 6, 9]
-        # subject and others positions
-        source_position = 13
-        source_positions = [1, 4, 5, 6, 9, 12, 13]
-        # source_positions = [2, 4, 5, 6, 8, 12, 13]
-        # source_position = 12
-        dest_positions = [1, 4, 5, 6, 9, 12, 13]
-        # dest_positions = [2, 4, 5, 6, 8, 12, 13]
         factual_heads_layer = [11, 10]
         factual_heads_head = [10, 7]
-    else:
+        # subject and others positions
+        source_position = 13
+        if experiment == "copyVSfact":
+            source_positions = [1, 4, 5, 6, 9, 12, 13]
+            dest_positions = [1, 4, 5, 6, 9, 12, 13]
+        else:
+            source_positions = [1, 4, 5, 6, 7, 8, 9, 13]
+            dest_positions = [1, 4, 5, 6, 7, 8, 9, 13]
+    elif model == "pythia":
         layer_pattern = [10, 10, 15, 17, 17, 19, 19, 20, 20, 21, 23]
         head_pattern = [1, 27, 17, 14, 28, 20, 31, 2, 18, 8, 25]
         factual_heads_layer = [21, 20, 17, 10]
@@ -125,6 +124,8 @@ def plot_head_pattern_fig_4b_5(
         source_position = 13
         source_positions = [1, 4, 5, 6, 9, 12, 13]
         dest_positions = [1, 4, 5, 6, 9, 12, 13]
+    else:
+        raise Exception("Model not supported!")
 
 
     directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
@@ -267,6 +268,15 @@ if __name__ == "__main__":
                         help='Name of the model folder',
                         default=MODEL_FOLDER)
     args = parser.parse_args()
+
+    # plotting setup
+    if args.experiment == "copyVSfact":
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Subject repeat", "Relation repeat", "Last"]
+    else:
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+
     plot_head_pattern_fig_4b_5(
         model=args.model,
         experiment=args.experiment,
