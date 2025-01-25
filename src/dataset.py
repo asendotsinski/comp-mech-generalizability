@@ -330,7 +330,8 @@ class BaseDataset(Dataset):
         to_remove = []
         if self.similarity[0] and self.similarity[2] == "data-sampling":
             self.full_data = [d for d in self.base_full_data if d["similarity_group"] == self.similarity[1]]
-            
+           
+        print(f"Example prompt: {self.full_data[0]}")
         for d in tqdm(self.full_data, desc="Tokenizing and computing lengths"):
             if self.similarity[0] and self.similarity[2] == "data-sampling":
                 d["target_new"] = random.choice(d["target_new_list"])
