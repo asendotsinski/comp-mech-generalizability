@@ -65,6 +65,7 @@ class Config:
     hf_model_name: str = "gpt2"
     device: str = "cuda"
     prompt_type: str = None
+    domain: str = None
     batch_size: int = 10
     dataset_path: str = f"../data/full_data_sampled_{model_name}.json"
     dataset_slice: Optional[int] = None
@@ -90,6 +91,7 @@ class Config:
             dataset_start=args.start,
             dataset_end=args.end,
             prompt_type=args.prompt_type,
+            domain=args.domain,
             produce_plots=args.produce_plots,
             std_dev=1 if not args.std_dev else 0,
             total_effect=args.total_effect if args.total_effect else False,
@@ -127,6 +129,7 @@ def logit_attribution(model, dataset, config, args):
     dataset_slice_name = (
         "full" if config.dataset_slice is None else config.dataset_slice
     )
+    dataset_slice_name = dataset_slice_name if config.domain is None else f"{dataset_slice_name}_{config.domain}"
     dataset_slice_name = (
         dataset_slice_name if config.up_to_layer == "all" else f"{dataset_slice_name}_layer_{config.up_to_layer}"
     )
@@ -151,6 +154,7 @@ def logit_attribution_plot(config, dataset_slice_name):
 
 def logit_lens(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
+    data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
 
     logit_lens_cnfg = logit_lens_config()
     print("Running logit lens")
@@ -177,6 +181,7 @@ def logit_lens_plot(config, data_slice_name):
 
 def ov_difference(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
+    data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
 
     print("Running ov difference")
     ov = OV(dataset, model, config.batch_size, config.mech_fold)
@@ -198,6 +203,7 @@ def ov_difference_plot(config, data_slice_name):
 
 def ablate(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
+    data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
     start_slice_name = "" if config.dataset_start is None else f"{config.dataset_start}_"
     data_slice_name = f"{start_slice_name}{data_slice_name}_total_effect" if config.total_effect else data_slice_name
     LOAD_FROM_PT = None
@@ -236,6 +242,7 @@ def ablate_plot(config, data_slice_name):
 
 def pattern(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
+    data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
     print("Running head pattern")
     pattern = HeadPattern(dataset, model, config.batch_size, config.mech_fold)
     dataframe = pattern.run()
@@ -341,6 +348,7 @@ if __name__ == "__main__":
     parser.add_argument("--start", type=int, default=config_defaults.dataset_start)
     parser.add_argument("--end", type=int, default=config_defaults.dataset_end)
     parser.add_argument("--prompt_type", type=str, default=config_defaults.prompt_type)
+    parser.add_argument("--domain", type=str, default=config_defaults.domain)
     parser.add_argument("--no-plot", dest="produce_plots", action="store_false", default=False)
     parser.add_argument("--batch", type=int, default=config_defaults.batch_size)
     parser.add_argument("--only-plot", action="store_true")
