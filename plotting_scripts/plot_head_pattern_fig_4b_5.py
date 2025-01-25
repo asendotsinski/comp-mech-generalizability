@@ -5,10 +5,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import argparse
 
-# Set working directory
-os.chdir("../results")
+# Set save folder
 SAVE_DIR_NAME = "python_paper_plots"
-print("Current Working Directory:", os.getcwd())
 
 # Configurations
 palette = {
@@ -145,15 +143,15 @@ def plot_head_pattern_fig_4b_5(
 
     # Load data
     try:
-        data = pd.read_csv(f"{experiment}/head_pattern/{model_folder}/head_pattern_data.csv")
+        data = pd.read_csv(f"../results/{experiment}/head_pattern/{model_folder}/head_pattern_data.csv")
     except Exception as e:
         print(f".csv file now found - {e}")
         return
 
     if domain:
-        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/{domain}"
+        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/{domain}"
     else:
-        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
+        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 

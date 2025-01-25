@@ -5,10 +5,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import argparse
 
-# Set working directory
-os.chdir("../results")
+# Set save folder
 SAVE_DIR_NAME = "python_paper_plots"
-print("Current Working Directory:", os.getcwd())
 
 # Configurations
 palette = {
@@ -148,16 +146,16 @@ def plot_logit_attribution_fig_3_4a(
 ):
     # load the data
     try:
-        data_file = f"{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
+        data_file = f"../results/{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
         data = pd.read_csv(data_file)
     except Exception as e:
         print(f".csv file now found - {e}")
         return
 
     if domain:
-        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/{domain}"
+        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/{domain}"
     else:
-        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
+        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 

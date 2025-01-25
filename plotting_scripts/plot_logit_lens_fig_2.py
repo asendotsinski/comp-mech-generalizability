@@ -5,10 +5,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import argparse
 
-# Set working directory
-os.chdir("../results")
+# Set save folder
 SAVE_DIR_NAME = "python_paper_plots"
-print("Current Working Directory:", os.getcwd())
 
 # Configurations
 palette = {
@@ -123,15 +121,15 @@ def plot_logit_lens_fig_2(
 ):
     # Load data
     try:
-        data = pd.read_csv(f"{experiment}/logit_lens/{model_folder}/logit_lens_data.csv")
+        data = pd.read_csv(f"../results/{experiment}/logit_lens/{model_folder}/logit_lens_data.csv")
     except Exception as e:
         print(f".csv file now found - {e}")
         return
 
     if domain:
-        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/{domain}"
+        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/{domain}"
     else:
-        directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream"
+        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
