@@ -32,19 +32,18 @@ scripts = ["plot_logit_lens_fig_2.py",
 
 def plot_results():
     for script in scripts:
-        # for domain in DOMAINS:
-        command = [
-            "python",
-            f"../plotting_scripts/{script}",
-            MODEL,
-            EXPERIMENT,
-            MODEL_FOLDER,
-            DOMAIN
-            # f"{MODEL_FOLDER}_{domain}",
-            # domain
-        ]
-        print(f"Running command: {' '.join(command)}")
-        subprocess.run(command)
+        for domain in DOMAINS:
+            command = [
+                "python",
+                f"../plotting_scripts/{script}",
+                MODEL,
+                EXPERIMENT,
+                f"{MODEL_FOLDER}_{domain}",
+                domain
+            ]
+            print(f"Running command: {' '.join(command)}")
+            subprocess.run(command)
+            print()
 
 
 if __name__ == "__main__":

@@ -143,15 +143,19 @@ def plot_head_pattern_fig_4b_5(
         raise Exception("Model not supported!")
 
 
+    # Load data
+    try:
+        data = pd.read_csv(f"{experiment}/head_pattern/{model_folder}/head_pattern_data.csv")
+    except Exception as e:
+        print(f".csv file now found - {e}")
+        return
+
     if domain:
         directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/{domain}"
     else:
         directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
-
-    # Load data
-    data = pd.read_csv(f"{experiment}/head_pattern/{model_folder}/head_pattern_data.csv")
 
     # Filter and join data
     data_filtered = data[data['source_position'] == source_position]  # last position

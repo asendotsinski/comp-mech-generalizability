@@ -140,27 +140,26 @@ def create_barplot(data, x, y, color, title, axis_title_size, axis_text_size):
     plt.tight_layout()
 
 
-# Load data
-def load_data(experiment, model_folder): 
-    data_file = f"{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
-    print("CSV File:", data_file)
-    data = pd.read_csv(data_file)
-    return data
-
 def plot_logit_attribution_fig_3_4a(
     model="gpt2",
     model_folder="gpt2_full",
     experiment="copyVSfact",
     domain=None
 ):
+    # load the data
+    try:
+        data_file = f"{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
+        data = pd.read_csv(data_file)
+    except Exception as e:
+        print(f".csv file now found - {e}")
+        return
+
     if domain:
         directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/{domain}"
     else:
         directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
-    
-    data = load_data(experiment, model_folder)
 
     #########################################
     ######## Heat Map: Head Position ########

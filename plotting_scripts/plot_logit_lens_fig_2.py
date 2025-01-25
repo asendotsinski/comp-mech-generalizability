@@ -121,15 +121,19 @@ def plot_logit_lens_fig_2(
         model_folder="gpt2_full",
         domain=None
 ):
+    # Load data
+    try:
+        data = pd.read_csv(f"{experiment}/logit_lens/{model_folder}/logit_lens_data.csv")
+    except Exception as e:
+        print(f".csv file now found - {e}")
+        return
+
     if domain:
         directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/{domain}"
     else:
         directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
-
-    # Load data
-    data = pd.read_csv(f"{experiment}/logit_lens/{model_folder}/logit_lens_data.csv")
 
     data_resid_post = data[data['component'].str.contains("resid_post")]
     # print(data['position'].unique())
