@@ -37,7 +37,10 @@ def main(model_name):
 
     # gpt2 inference
     tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
-    model = AutoModelForCausalLM.from_pretrained(hf_model_name, pad_token_id=tokenizer.eos_token_id).to(device)
+    model = AutoModelForCausalLM.from_pretrained(
+            hf_model_name,
+            pad_token_id=tokenizer.eos_token_id,
+            load_in_4bit=True,).to(device)
     # tokenizer.pad_token_id = tokenizer.eos_token_id
 
     def inference(prompt, model, tokenizer):
