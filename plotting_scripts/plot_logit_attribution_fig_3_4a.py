@@ -304,14 +304,10 @@ if __name__ == "__main__":
     if args.experiment == "copyVSfact":
         relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                              "Subject repeat", "Relation repeat", "Last"]
-        example_position = ["iPhone", "was developed", "by", "Google",
-                            "iPhone", "was developed", "by"]
         position_filter = [1, 4, 5, 6, 9, 12, 13]
     else:
         relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                              "Interrogative", "Relation repeat", "Subject repeat", "Last"]
-        example_position = ["iPhone", "was developed", "by", "Google",
-                            "Which", "company developed", "iPhone?", "Answer:"]
         position_filter = [1, 4, 5, 6, 7, 8, 9, 13]
 
     AXIS_TITLE_SIZE = 20

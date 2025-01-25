@@ -340,7 +340,7 @@ if __name__ == "__main__":
         relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                              "Interrogative", "Relation repeat", "Subject repeat", "Last"]
         example_position = ["iPhone", "was developed", "by", "Google",
-                            "Which", "company developed", "iPhone?", "Answer:"]
+                            "What", "company developed", "iPhone?", "Answer:"]
 
     AXIS_TITLE_SIZE = 20
     if args.model == "gpt2":
