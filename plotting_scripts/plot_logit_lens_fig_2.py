@@ -8,7 +8,7 @@ import argparse
 # Set working directory
 os.chdir("../results")
 SAVE_DIR_NAME = "python_paper_plots"
-print(os.getcwd())
+print("Current Working Directory:", os.getcwd())
 
 # Configurations
 palette = {
@@ -23,6 +23,9 @@ FACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(300, 10, as_cmap=True)
 
+# domain name
+DOMAIN = "Science"
+
 # GPT-2
 MODEL = "gpt2"
 MODEL_FOLDER = "gpt2_full"
@@ -32,7 +35,11 @@ MODEL_FOLDER = "gpt2_full"
 # MODEL_FOLDER = "pythia-6.9b_full"
 
 # EXPERIMENT = "copyVSfact"
-EXPERIMENT = "copyVSfactQnA"
+# EXPERIMENT = "copyVSfactQnA"
+EXPERIMENT = "copyVSfactDomain"
+
+if DOMAIN:
+    MODEL_FOLDER += f"_{DOMAIN}"
 
 positions_name = [
     "-", "Subject", "2nd Subject", "3rd Subject", "Relation",
@@ -43,14 +50,14 @@ positions_name = [
 # plotting setup
 if EXPERIMENT == "copyVSfact":
     relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                         "Subject repeat", "Relation repeat", "Last"]
-    example_position = ["iPhone", "was developed", "by", "Google",
-                        "iPhone", "was developed", "by"]
-else:
-    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                          "Interrogative", "Relation repeat", "Subject repeat", "Last"]
     example_position = ["iPhone", "was developed", "by", "Google",
                         "What", "company developed", "iPhone?", "Answer:"]
+else:
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Subject repeat", "Relation repeat", "Last"]
+    example_position = ["iPhone", "was developed", "by", "Google",
+                        "iPhone", "was developed", "by"]
 
 AXIS_TITLE_SIZE = 20
 if MODEL == "gpt2":
@@ -338,6 +345,8 @@ def plot_logit_lens_fig_2(
                 bbox_inches='tight')
     plt.close()
 
+    print("Plots saved at: ", directory_path)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
     parser.add_argument('model', type=str, nargs='?',
@@ -349,19 +358,22 @@ if __name__ == "__main__":
     parser.add_argument('model_folder', type=str, nargs='?',
                         help='Name of the model folder',
                         default=MODEL_FOLDER)
+    parser.add_argument('domain', type=str, nargs='?',
+                        help='Name of the domain',
+                        default=DOMAIN)
     args = parser.parse_args()
 
     # plotting setup
-    if args.experiment == "copyVSfact":
-        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                             "Subject repeat", "Relation repeat", "Last"]
-        example_position = ["iPhone", "was developed", "by", "Google",
-                            "iPhone", "was developed", "by"]
-    else:
+    if args.experiment == "copyVSfactQnA":
         relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                              "Interrogative", "Relation repeat", "Subject repeat", "Last"]
         example_position = ["iPhone", "was developed", "by", "Google",
                             "What", "company developed", "iPhone?", "Answer:"]
+    else:
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Subject repeat", "Relation repeat", "Last"]
+        example_position = ["iPhone", "was developed", "by", "Google",
+                            "iPhone", "was developed", "by"]
 
     AXIS_TITLE_SIZE = 20
     if args.model == "gpt2":
@@ -372,5 +384,6 @@ if __name__ == "__main__":
     plot_logit_lens_fig_2(
         model=args.model,
         experiment=args.experiment,
-        model_folder=args.model_folder
+        model_folder=args.model_folder,
+        domain=args.domain
     )

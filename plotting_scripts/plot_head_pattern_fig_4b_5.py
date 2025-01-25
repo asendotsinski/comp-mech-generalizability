@@ -7,10 +7,10 @@ import argparse
 
 # Set working directory
 os.chdir("../results")
-print("Current working directory:", os.getcwd())
 SAVE_DIR_NAME = "python_paper_plots"
+print("Current Working Directory:", os.getcwd())
 
-# Set color palette
+# Configurations
 palette = {
     "GPT2": "#003f5c",
     "GPT2-medium": "#58508d",
@@ -24,6 +24,9 @@ FACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(300, 10, as_cmap=True)
 
+# domain name
+DOMAIN = "Science"
+
 # GPT-2
 MODEL = "gpt2"
 MODEL_FOLDER = "gpt2_full"
@@ -33,15 +36,19 @@ MODEL_FOLDER = "gpt2_full"
 # MODEL_FOLDER = "pythia-6.9b_full"
 
 # EXPERIMENT = "copyVSfact"
-EXPERIMENT = "copyVSfactQnA"
+# EXPERIMENT = "copyVSfactQnA"
+EXPERIMENT = "copyVSfactDomain"
+
+if DOMAIN:
+    MODEL_FOLDER += f"_{DOMAIN}"
 
 # plotting setup
-if EXPERIMENT == "copyVSfact":
-    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                         "Subject repeat", "Relation repeat", "Last"]
-else:
+if EXPERIMENT in "copyVSfactQnA":
     relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                          "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+else:
+    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                         "Subject repeat", "Relation repeat", "Last"]
 
 AXIS_TITLE_SIZE = 20
 AXIS_TEXT_SIZE = 15
@@ -117,12 +124,12 @@ def plot_head_pattern_fig_4b_5(
         factual_heads_head = [10, 7]
         # subject and others positions
         source_position = 13
-        if experiment == "copyVSfact":
-            source_positions = [1, 4, 5, 6, 9, 12, 13]
-            dest_positions = [1, 4, 5, 6, 9, 12, 13]
-        else:
+        if experiment == "copyVSfactQnA":
             source_positions = [1, 4, 5, 6, 7, 8, 9, 13]
             dest_positions = [1, 4, 5, 6, 7, 8, 9, 13]
+        else:
+            source_positions = [1, 4, 5, 6, 9, 12, 13]
+            dest_positions = [1, 4, 5, 6, 9, 12, 13]
     elif model == "pythia":
         layer_pattern = [10, 10, 15, 17, 17, 19, 19, 20, 20, 21, 23]
         head_pattern = [1, 27, 17, 14, 28, 20, 31, 2, 18, 8, 25]
@@ -266,6 +273,9 @@ def plot_head_pattern_fig_4b_5(
 
     # Save bar plot
     plt.savefig(f"{directory_path}/multiplied_pattern.pdf", dpi=300, bbox_inches='tight')
+    plt.close()
+
+    print("Plots saved at: ", directory_path)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
@@ -278,18 +288,22 @@ if __name__ == "__main__":
     parser.add_argument('model_folder', type=str, nargs='?',
                         help='Name of the model folder',
                         default=MODEL_FOLDER)
+    parser.add_argument('domain', type=str, nargs='?',
+                        help='Name of the domain',
+                        default=DOMAIN)
     args = parser.parse_args()
 
     # plotting setup
-    if args.experiment == "copyVSfact":
-        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                             "Subject repeat", "Relation repeat", "Last"]
-    else:
+    if args.experiment == "copyVSfactQnA":
         relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                              "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+    else:
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Subject repeat", "Relation repeat", "Last"]
 
     plot_head_pattern_fig_4b_5(
         model=args.model,
         experiment=args.experiment,
-        model_folder=args.model_folder
+        model_folder=args.model_folder,
+        domain=args.domain
     )
