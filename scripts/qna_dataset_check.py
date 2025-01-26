@@ -10,42 +10,27 @@ from argparse import ArgumentParser
 
 sys.path.append(os.path.abspath(os.path.join("../src")))
 
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+
 from utils import get_hf_model_name
 
-def main(hf_model_name, dataset_path, start, end):
-    device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+def inference(prompt, model, tokenizer):
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
+    model_outputs = model.generate(**inputs, max_new_tokens=1, return_dict_in_generate=True, output_scores=True, 
+                                pad_token_id=tokenizer.eos_token_id, do_sample=False)
+    generated_tokens_ids = model_outputs.sequences[0]
+    generation = tokenizer.decode(generated_tokens_ids)
+    attribute = tokenizer.decode(generated_tokens_ids[-1])
 
-    tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
-    model = AutoModelForCausalLM.from_pretrained(hf_model_name)
-    model.to(device)
+    return generation, attribute
 
-    def inference(prompt, model, tokenizer):
-        inputs = tokenizer(prompt, return_tensors="pt").to(device)
-        model_outputs = model.generate(**inputs, max_new_tokens=1, return_dict_in_generate=True, output_scores=True, 
-                                    pad_token_id=tokenizer.eos_token_id)
-        generated_tokens_ids = model_outputs.sequences[0]
-        generation = tokenizer.decode(generated_tokens_ids)
-        attribute = tokenizer.decode(generated_tokens_ids[-1])
-
-        return generation, attribute
-
-    with open(dataset_path, "r") as f:
-        dataset = json.load(f)
-
-    if start is None:
-        start = 0   
-    if end is None:
-        end = len(dataset)
-
-    dataset = dataset[start:end]
-
-    # sequential inference
+def check_dataset(dataset, model, tokenizer, start, end, prompt_name="prompt"):
     ground_truths, counterfactuals, preds = [], [], []
     generations = []
     for row in tqdm(dataset):
         ground_truths.append(row["target_true"].strip())
         counterfactuals.append(row["target_new"].strip())
-        generation, attribute = inference(row["base_prompt"], model, tokenizer)
+        generation, attribute = inference(row[prompt_name], model, tokenizer)
         generations.append(generation.strip())
         preds.append(attribute.strip())
 
@@ -70,9 +55,35 @@ def main(hf_model_name, dataset_path, start, end):
     print("t-cofac accuracy:", (1-accuracy_score(ground_truths, preds))*100)
     print("t-fact accuracy:", round((accuracy_score(ground_truths, preds))*100, 2))
 
-    print(preds[:10])
-    print(generations[indices_with_unexpected_preds[:10]])
-    print(counterfactuals[indices_with_unexpected_preds[:10]])
+
+def main(hf_model_name, dataset_path, start, end):
+    tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
+    model = AutoModelForCausalLM.from_pretrained(hf_model_name)
+    model.to(device)
+
+    with open(dataset_path, "r") as f:
+        dataset = json.load(f)
+
+    if start is None:
+        start = 0   
+    if end is None:
+        end = len(dataset)
+
+    dataset = dataset[start:end]
+
+    # sequential inference
+    print("="*100)
+    print("Checking base prompt. This checks whethere the model correctly predicts the factual attribute.")
+    print("="*100)
+    check_dataset(dataset, model, tokenizer, start, end, prompt_name="base_prompt")
+    
+    print("="*100)
+    print("Checking prompt. This checks whethere the model predicts either factual or counterfactual attribute.")
+    print("="*100)
+    check_dataset(dataset, model, tokenizer, start, end, prompt_name="prompt")
+    # print(preds[:10])
+    # print(generations[indices_with_unexpected_preds[:10]])
+    # print(counterfactuals[indices_with_unexpected_preds[:10]])
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -81,15 +92,17 @@ if __name__ == "__main__":
     parser.add_argument("--start", type=int, default=None)
     parser.add_argument("--end", type=int, default=None)
     parser.add_argument("--dataset", type=str, default="copyVSfact")
+    parser.add_argument("--downsampled", action="store_true")
 
     args = parser.parse_args()
     hf_model_name = get_hf_model_name(args.model)
 
     if args.dataset == "copyVSfact":
-        dataset_path = f"../data/full_data_sampled_{args.model}_with_subjects_downsampled.json"
+        dataset_path = f"../data/full_data_sampled_{args.model}_with_subjects{'_downsampled_joint' if args.downsampled else ''}.json"
     elif args.dataset == "copyVSfactQnA":
-        dataset_path = f"../data/cft_og_combined_data_sampled_{args.model}_with_questions_downsampled.json"
+        dataset_path = f"../data/cft_og_combined_data_sampled_{args.model}_with_questions{'_downsampled' if args.downsampled else ''}.json"
     else:
         raise ValueError(f"Dataset {args.dataset} not found")
 
+    print(f"Loading dataset from {dataset_path}")
     main(hf_model_name, dataset_path, args.start, args.end)

@@ -148,7 +148,8 @@ def logit_attribution_plot(config, dataset_slice_name):
         plot_logit_attribution_fig_3_4a(model=config.model_name,
                                         model_folder=f'{config.model_name}_{dataset_slice_name}',
                                         experiment=config.mech_fold,
-                                        domain=config.domain)
+                                        domain=config.domain,
+                                        downsampled=config.downsampled_dataset)
 
 
 def logit_lens(model, dataset, config, args):
@@ -177,7 +178,8 @@ def logit_lens_plot(config, data_slice_name):
         plot_logit_lens_fig_2(model=config.model_name,
                               model_folder=f'{config.model_name}_{data_slice_name}',
                               experiment=config.mech_fold,
-                              domain=config.domain)
+                              domain=config.domain,
+                              downsampled=config.downsampled_dataset)
 
 
 def ov_difference(model, dataset, config, args):
@@ -249,6 +251,8 @@ def ablate_plot(config, data_slice_name):
 def pattern(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
     data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
+    data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
+    
     print("Running head pattern")
     pattern = HeadPattern(dataset, model, config.batch_size, config.mech_fold)
     dataframe = pattern.run()
@@ -266,7 +270,8 @@ def pattern_plot(config, data_slice_name):
         model=config.model_name,
         experiment=config.mech_fold,
         model_folder=f'{config.model_name}_{data_slice_name}',
-        domain=config.domain
+        domain=config.domain,
+        downsampled=config.downsampled_dataset
     )
 
 # def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:

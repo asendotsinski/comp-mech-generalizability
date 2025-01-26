@@ -33,12 +33,30 @@ model_name = "gpt2"
 
 device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
-def main(model_name):
-    hf_model_name = get_hf_model_name(model_name)
+class DatasetEntry:
+    def __init__(self, row):
+        self.row = row
+        self.base_prompt = row["base_prompt"]
+        self.prompt = row["prompt"]
+        self.target_true = row["target_true"]
+        self.target_new = row["target_new"]
+    
+    def __eq__(self, other):
+        return self.base_prompt == other.base_prompt and self.target_true == other.target_true and self.target_new == other.target_new and self.prompt == other.prompt
+    
+
+def are_rows_equal(row1, row2):
+    base_prompt_equal = row1["base_prompt"] == row2["base_prompt"]
+    target_true_equal = row1["target_true"] == row2["target_true"]
+    target_new_equal = row1["target_new"] == row2["target_new"]
+
+    return base_prompt_equal and target_true_equal and target_new_equal
+
+def main(inference_model_name, model_names):
+    hf_model_name = get_hf_model_name(inference_model_name)
 
     # gpt2 inference
     tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
-
     model = AutoModelForCausalLM.from_pretrained(
             hf_model_name,
             pad_token_id=tokenizer.eos_token_id,
@@ -84,22 +102,25 @@ def main(model_name):
 
         return ground_truths, predictions
 
-    with open(f"../data/full_data_sampled_{model_name}_with_subjects.json", "r") as f:
-        dataset = json.load(f)
+    datasets = {model_name: {} for model_name in model_names}
+    for model_name in model_names:
+        with open(f"../data/full_data_sampled_{model_name}_with_subjects.json", "r") as f:
+            datasets[model_name]["og"] = json.load(f)
 
-    with open(f"../data/full_data_sampled_{model_name}_with_questions.json", "r") as f:
-        qa_dataset = json.load(f)
+        with open(f"../data/cft_og_combined_data_sampled_{model_name}_with_questions.json", "r") as f:
+            datasets[model_name]["qa_cft"] = json.load(f)
+    
+    og_ground_truths_per_model, og_predictions_per_model = {}, {}
+    qa_cft_ground_truths_per_model, qa_cft_predictions_per_model = {}, {}
 
-    with open(f"../data/cft_og_combined_data_sampled_{model_name}_with_questions.json", "r") as f:
-        qa_cft_sampled_dataset = json.load(f)
+    for model_name in model_names:
+        og_ground_truths, og_predictions = parallel_inference(datasets[model_name]["og"], prompt_key="base_prompt", subset=None)
+        og_ground_truths_per_model[model_name] = og_ground_truths
+        og_predictions_per_model[model_name] = og_predictions
 
-    pprint(dataset[0])
-    pprint(qa_dataset[0])
-    pprint(qa_cft_sampled_dataset[0])
-
-    og_ground_truths, og_predictions = parallel_inference(dataset, prompt_key="base_prompt", subset=None)
-    qa_ground_truths, qa_predictions = parallel_inference(qa_dataset, prompt_key="base_prompt", subset=None)
-    qa_cft_ground_truths, qa_cft_predictions = parallel_inference(qa_cft_sampled_dataset, prompt_key="base_prompt", subset=None)
+        qa_cft_ground_truths, qa_cft_predictions = parallel_inference(datasets[model_name]["qa_cft"], prompt_key="base_prompt", subset=None)
+        qa_cft_ground_truths_per_model[model_name] = qa_cft_ground_truths
+        qa_cft_predictions_per_model[model_name] = qa_cft_predictions
 
     def check_qa_stats(dataset, ground_truths, predictions):    
         target_new = np.array([row["target_new"].strip() for row in dataset])
@@ -128,71 +149,63 @@ def main(model_name):
 
         return fact_indices, cofact_indices, indices, invalid_indices
 
-    qa_fact_indices, qa_cofact_indices, qa_indices, qa_invalid_indices = check_qa_stats(qa_dataset, 
-                                                            qa_ground_truths, 
-                                                            qa_predictions)
+    qa_cft_fact_indices_per_model, qa_cft_cofact_indices_per_model, qa_cft_indices_per_model, qa_cft_invalid_indices_per_model = {}, {}, {}, {}
+    og_fact_indices_per_model, og_cofact_indices_per_model, og_indices_per_model, og_invalid_indices_per_model = {}, {}, {}, {}
 
-    qa_cft_fact_indices, qa_cft_cofact_indices, qa_cft_indices, qa_cft_invalid_indices = check_qa_stats(qa_cft_sampled_dataset, 
-                                                                                qa_cft_ground_truths, 
-                                                                                qa_cft_predictions)
+    for model_name in model_names:
+        # Checking if the model returns the factual token when given the CFT QnA base prompt    
+        qa_cft_fact_indices, qa_cft_cofact_indices, qa_cft_indices, qa_cft_invalid_indices = check_qa_stats(datasets[model_name]["qa_cft"], 
+                                                                                    qa_cft_ground_truths_per_model[model_name], 
+                                                                                    qa_cft_predictions_per_model[model_name])
+        qa_cft_fact_indices_per_model[model_name] = qa_cft_fact_indices
+        qa_cft_cofact_indices_per_model[model_name] = qa_cft_cofact_indices
+        qa_cft_indices_per_model[model_name] = qa_cft_indices
+        qa_cft_invalid_indices_per_model[model_name] = qa_cft_invalid_indices
 
-    og_fact_indices, og_cofact_indices, og_indices, og_invalid_indices = check_qa_stats(dataset, 
-                                                                                og_ground_truths, 
-                                                                                og_predictions)
+        # Checking if the model returns the factual token when given the original dataset base prompt
+        og_fact_indices, og_cofact_indices, og_indices, og_invalid_indices = check_qa_stats(datasets[model_name]["og"], 
+                                                                                    og_ground_truths_per_model[model_name], 
+                                                                                    og_predictions_per_model[model_name])
+        og_fact_indices_per_model[model_name] = og_fact_indices
+        og_cofact_indices_per_model[model_name] = og_cofact_indices
+        og_indices_per_model[model_name] = og_indices
+        og_invalid_indices_per_model[model_name] = og_invalid_indices
 
-    # Convert list to numpy array for proper indexing
-    dataset_array = np.array(dataset)
-    qa_dataset_array = np.array(qa_dataset)
-    qa_cft_dataset_array = np.array(qa_cft_sampled_dataset)
+    og_dataset_new, qa_cft_dataset_new = [], []
 
-    og_dataset_new = dataset_array[og_fact_indices].tolist()
-    qa_dataset_new = qa_dataset_array[qa_fact_indices].tolist()
-    qa_cft_dataset_new = qa_cft_dataset_array[qa_cft_fact_indices].tolist()
+    for model_name in model_names:
+        dataset_array = np.array(datasets[model_name]["og"])
+        qa_cft_dataset_array = np.array(datasets[model_name]["qa_cft"])
 
-    with open(f"../data/full_data_sampled_{model_name}_with_subjects_downsampled.json", "w") as f:
+        for idx in og_fact_indices_per_model[model_name]:
+            row = DatasetEntry(dataset_array[idx])
+            if row in og_dataset_new:
+                continue
+            og_dataset_new.append(row)
+
+        for idx in qa_cft_fact_indices_per_model[model_name]:
+            row = DatasetEntry(qa_cft_dataset_array[idx])
+            if row in qa_cft_dataset_new:
+                continue
+            qa_cft_dataset_new.append(row)
+
+    og_dataset_new = [row.row for row in og_dataset_new]
+    qa_cft_dataset_new = [row.row for row in qa_cft_dataset_new]
+
+    with open(f"../data/full_data_sampled_{inference_model_name}_with_subjects_downsampled.json", "w") as f:
         json.dump(og_dataset_new, f)
 
-    with open(f"../data/full_data_sampled_{model_name}_with_questions_downsampled.json", "w") as f:
-        json.dump(qa_dataset_new, f)
-
-    with open(f"../data/cft_og_combined_data_sampled_{model_name}_with_questions_downsampled.json", "w") as f:
+    with open(f"../data/cft_og_combined_data_sampled_{inference_model_name}_with_questions_downsampled.json", "w") as f:
         json.dump(qa_cft_dataset_new, f)
-
-    # save the dataset
-    # with open(f"../data/cft_og_{model_name}_combined_data_with_questions.json", "w") as f:
-    #     json.dump(combined_qa_dataset, f)
-
-    # # ##### Default Dataset Run
-    # # Default Dataset
-    # ground_truths, predictions = parallel_inference(combined_qa_dataset, subset=None)
-
-    # len(np.unique(predictions)), len(np.unique(ground_truths))
-
-    # random_tokens = list(set(predictions) - set(list(ground_truths)+target_new))
-    # len(random_tokens), random_tokens
-
-    # df[df["preds"].isin(random_tokens)]
-
-    # df = pd.DataFrame({"ground_truths": ground_truths, "preds": predictions})
-    # df["preds"].value_counts(), df["ground_truths"].value_counts()
-
-    # ground_truths = np.array(ground_truths)
-    # predictions = np.array(predictions)
-    # indices = np.where(ground_truths == predictions)
-    # print("Indices where elements are equal:", len(indices[0]))
-    # print("t-cofac accuracy:", round((1-accuracy_score(ground_truths, predictions))*100, 2))
-    # print("t-fact accuracy:", round((accuracy_score(ground_truths, predictions))*100, 2))
-
-    # # Factual Predictions
-    # for idx in indices[0][:10]:
-    #     print(dataset[idx]["prompt"], ground_truths[idx])
-    # pass
 
 if __name__ == "__main__":
     parser = ArgumentParser()
 
     parser.add_argument("--model", type=str, default="gpt2")
+    parser.add_argument('--models', nargs='+', type=str, default=['gpt2'], help='List of model datasets to use')
 
     args = parser.parse_args()
 
-    main(args.model)
+    print(args)
+
+    main(args.model, args.models)
