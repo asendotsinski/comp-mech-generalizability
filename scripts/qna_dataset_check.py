@@ -41,12 +41,15 @@ def main(hf_model_name, dataset_path, start, end):
 
     # sequential inference
     ground_truths, counterfactuals, preds = [], [], []
+    generations = []
     for row in tqdm(dataset):
         ground_truths.append(row["target_true"].strip())
         counterfactuals.append(row["target_new"].strip())
-        _, attribute = inference(row["base_prompt"], model, tokenizer)
+        generation, attribute = inference(row["base_prompt"], model, tokenizer)
+        generations.append(generation.strip())
         preds.append(attribute.strip())
 
+    generations = np.array(generations)
     ground_truths = np.array(ground_truths)
     preds = np.array(preds)
     indices = np.where(ground_truths == preds)[0]
@@ -68,6 +71,8 @@ def main(hf_model_name, dataset_path, start, end):
     print("t-fact accuracy:", round((accuracy_score(ground_truths, preds))*100, 2))
 
     print(preds[:10])
+    print(generations[indices_with_unexpected_preds[:10]])
+    print(counterfactuals[indices_with_unexpected_preds[:10]])
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -81,9 +86,9 @@ if __name__ == "__main__":
     hf_model_name = get_hf_model_name(args.model)
 
     if args.dataset == "copyVSfact":
-        dataset_path = f"../data/full_data_sampled_{args.model}_with_subjects.json"
+        dataset_path = f"../data/full_data_sampled_{args.model}_with_subjects_downsampled.json"
     elif args.dataset == "copyVSfactQnA":
-        dataset_path = f"../data/cft_og_combined_data_sampled_{args.model}_with_questions.json"
+        dataset_path = f"../data/cft_og_combined_data_sampled_{args.model}_with_questions_downsampled.json"
     else:
         raise ValueError(f"Dataset {args.dataset} not found")
 
