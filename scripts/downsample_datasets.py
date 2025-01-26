@@ -76,20 +76,15 @@ def main(inference_model_name, model_names):
 
         return generation, attribute
 
-    inference_cache = {}
-
     def parallel_inference(dataset, prompt_key="prompt", subset=None):
         # parallel execution using threading
         ground_truths, predictions = [], []
 
         def process_row(row):
-            base_prompt = row["base_prompt"]
-            if base_prompt not in inference_cache:
-                ground_truth = row["target_true"].strip()
-                _, attribute = inference(row[prompt_key], model, tokenizer)
-                inference_cache[base_prompt] = (ground_truth, attribute.strip())
+            ground_truth = row["target_true"].strip()
+            _, attribute = inference(row[prompt_key], model, tokenizer)
 
-            return inference_cache[base_prompt]
+            return ground_truth, attribute.strip()
 
         # Use ThreadPoolExecutor for I/O-bound tasks (or ProcessPoolExecutor for CPU-bound tasks)
         with ThreadPoolExecutor() as executor:
