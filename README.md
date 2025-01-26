@@ -26,6 +26,11 @@ To set up the environment for the `FACT_project`, follow these steps:
 2. **Activate the Environment:**
    - ```conda activate fact_gpu```
 
+## Dashboard for Visualization of Results
+```bash
+streamlit run dashboard.py
+```
+
 ## Running the Experiments
  - LogitLens
  - Logit Attribution

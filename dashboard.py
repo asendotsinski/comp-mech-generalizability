@@ -46,7 +46,10 @@ with st.sidebar:
     model = st.selectbox("Model", MODELS)
     dataset = st.selectbox("Dataset", DATASET)
     experiment = st.selectbox("Experiment", list(EXPERIMENTS.keys()))
-    domain = st.selectbox("Domain", [None]+DOMAINS)
+    domain, comparison_domain = None, None
+
+    if dataset == "copyVSfactDomain":
+        domain = st.selectbox("Domain", DOMAINS)
 
     st.title(":green[Comparison Configuration]")
     comparison = st.selectbox("Compare?", [False, True])
@@ -56,7 +59,8 @@ with st.sidebar:
         comparison_model = st.selectbox("Comparison Model", MODELS)
         comparison_dataset = st.selectbox("Comparison Dataset", DATASET)
         comparison_experiment = st.selectbox("Comparison Experiment", list(EXPERIMENTS.keys()))
-        comparison_domain = st.selectbox("Comparison Domain", [None] + DOMAINS)
+        if comparison_dataset == "copyVSfactDomain":
+            comparison_domain = st.selectbox("Comparison Domain", DOMAINS)
 
 ##  Main Window
 
@@ -68,6 +72,8 @@ def main_window(model, experiment, dataset, domain):
             plots_folder = f"results/python_paper_plots/{model}_{dataset}_{EXPERIMENTS[experiment]}"
 
         plots = glob.glob(f"{plots_folder}/*.pdf")
+        if not plots:
+            st.error("No plots present for this configuration!")
         for plot in sorted(plots):
             if plot.endswith("multiplied_pattern.pdf"):
                 continue
