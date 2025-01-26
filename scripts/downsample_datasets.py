@@ -100,22 +100,31 @@ def main(inference_model_name, model_names):
     datasets = {model_name: {} for model_name in model_names}
     for model_name in model_names:
         with open(f"../data/full_data_sampled_{model_name}_with_subjects.json", "r") as f:
-            datasets[model_name]["og"] = json.load(f)
+            datasets[model_name]["og"] = json.load(f)[:100]
 
         with open(f"../data/cft_og_combined_data_sampled_{model_name}_with_questions.json", "r") as f:
-            datasets[model_name]["qa_cft"] = json.load(f)
+            datasets[model_name]["qa_cft"] = json.load(f)[:100]
     
     og_ground_truths_per_model, og_predictions_per_model = {}, {}
+    og_prompt_ground_truths_per_model, og_prompt_predictions_per_model = {}, {}
     qa_cft_ground_truths_per_model, qa_cft_predictions_per_model = {}, {}
-
+    qa_cft_prompt_ground_truths_per_model, qa_cft_prompt_predictions_per_model = {}, {}
     for model_name in model_names:
         og_ground_truths, og_predictions = parallel_inference(datasets[model_name]["og"], prompt_key="base_prompt", subset=None)
         og_ground_truths_per_model[model_name] = og_ground_truths
         og_predictions_per_model[model_name] = og_predictions
 
+        og_prompt_ground_truths, og_prompt_predictions = parallel_inference(datasets[model_name]["og"], prompt_key="prompt", subset=None)
+        og_prompt_ground_truths_per_model[model_name] = og_prompt_ground_truths
+        og_prompt_predictions_per_model[model_name] = og_prompt_predictions
+
         qa_cft_ground_truths, qa_cft_predictions = parallel_inference(datasets[model_name]["qa_cft"], prompt_key="base_prompt", subset=None)
         qa_cft_ground_truths_per_model[model_name] = qa_cft_ground_truths
         qa_cft_predictions_per_model[model_name] = qa_cft_predictions
+
+        qa_cft_prompt_ground_truths, qa_cft_prompt_predictions = parallel_inference(datasets[model_name]["qa_cft"], prompt_key="prompt", subset=None)
+        qa_cft_prompt_ground_truths_per_model[model_name] = qa_cft_prompt_ground_truths
+        qa_cft_prompt_predictions_per_model[model_name] = qa_cft_prompt_predictions
 
     def check_qa_stats(dataset, ground_truths, predictions):    
         target_new = np.array([row["target_new"].strip() for row in dataset])
@@ -160,9 +169,8 @@ def main(inference_model_name, model_names):
         og_invalid_indices_per_model[model_name] = og_invalid_indices
 
         og_prompt_fact_indices, og_prompt_cofact_indices, og_prompt_indices, og_prompt_invalid_indices = check_qa_stats(datasets[model_name]["og"], 
-                                                                                    og_ground_truths_per_model[model_name], 
-                                                                                    og_predictions_per_model[model_name],
-                                                                                    prompt_key="prompt")
+                                                                                    og_prompt_ground_truths_per_model[model_name], 
+                                                                                    og_prompt_predictions_per_model[model_name])
         og_prompt_fact_indices_per_model[model_name] = og_prompt_fact_indices
         og_prompt_cofact_indices_per_model[model_name] = og_prompt_cofact_indices
         og_prompt_indices_per_model[model_name] = og_prompt_indices
@@ -178,9 +186,8 @@ def main(inference_model_name, model_names):
         qa_cft_invalid_indices_per_model[model_name] = qa_cft_invalid_indices
 
         qa_cft_prompt_fact_indices, qa_cft_prompt_cofact_indices, qa_cft_prompt_indices, qa_cft_prompt_invalid_indices = check_qa_stats(datasets[model_name]["qa_cft"], 
-                                                                                    qa_cft_ground_truths_per_model[model_name], 
-                                                                                    qa_cft_predictions_per_model[model_name],
-                                                                                    prompt_key="prompt")
+                                                                                    qa_cft_prompt_ground_truths_per_model[model_name], 
+                                                                                    qa_cft_prompt_predictions_per_model[model_name])
         qa_cft_prompt_fact_indices_per_model[model_name] = qa_cft_prompt_fact_indices
         qa_cft_prompt_cofact_indices_per_model[model_name] = qa_cft_prompt_cofact_indices
         qa_cft_prompt_indices_per_model[model_name] = qa_cft_prompt_indices
