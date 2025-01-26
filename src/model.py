@@ -118,14 +118,13 @@ class WrapHookedTransformer(BaseModel):
 
     @classmethod
     def from_pretrained(cls, model_name: str, *args, **kwargs):
-        # Initialize an instance of WrapHookedTransformer
-        instance = cls(model_name, *args, **kwargs)
-        # Initialize the model
-        instance.initialize_model(model_name, *args, **kwargs)
-        return instance
+        return cls(model_name, *args, **kwargs)
 
     def initialize_model(self, model_name: str, *args, **kwargs):
-        self.model = HookedTransformer.from_pretrained(model_name, *args, **kwargs)
+        if kwargs.get("quantized", False):
+            self.model = HookedTransformer.from_pretrained_no_processing(model_name, *args, **kwargs)
+        else:
+            self.model = HookedTransformer.from_pretrained(model_name, *args, **kwargs)
         self.device = str(self.model.cfg.device)
         self.tokenizer = self.model.tokenizer
 
@@ -329,16 +328,13 @@ class ModelFactory:
 def load_model(config) -> Union[WrapHookedTransformer, WrapAutoModelForCausalLM]:
     if "llama" in config.model_name.lower():
         tokenizer = AutoTokenizer.from_pretrained(config.hf_model_name)
-        model = AutoModelForCausalLM.from_pretrained(config.hf_model_name)
-        model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False,
-                                                      hf_model=model, device="cpu")
+        
         if config.quantize:
-            tokenizer = AutoTokenizer.from_pretrained(config.hf_model_name)
             quantization_config = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_compute_dtype=torch.float16,
-                bnb_4bit_quant_type="nf4",  # Optional: You can try "fp4" as well
-                bnb_4bit_use_double_quant=True  # Optional: This enables nested quantization
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_use_double_quant=True
             )
             model = AutoModelForCausalLM.from_pretrained(
                 config.hf_model_name,
@@ -346,8 +342,10 @@ def load_model(config) -> Union[WrapHookedTransformer, WrapAutoModelForCausalLM]
                 device_map="auto",
                 torch_dtype=torch.float16
             )
-            model = WrapHookedTransformer.from_pretrained(config.hf_model_name, tokenizer=tokenizer, fold_ln=False,
-                                                      hf_model=model, device="cpu")
+        else:
+            model = AutoModelForCausalLM.from_pretrained(config.hf_model_name)
+        model = WrapHookedTransformer.from_pretrained(config.hf_model_name, quantized=config.quantize, tokenizer=tokenizer, fold_ln=False,
+                                                    hf_model=model, device="cpu")
     else:
         # Use HookedTransformer for other models
         model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
