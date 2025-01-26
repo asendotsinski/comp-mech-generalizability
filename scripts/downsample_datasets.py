@@ -149,19 +149,12 @@ def main(inference_model_name, model_names):
 
         return fact_indices, cofact_indices, indices, invalid_indices
 
-    qa_cft_fact_indices_per_model, qa_cft_cofact_indices_per_model, qa_cft_indices_per_model, qa_cft_invalid_indices_per_model = {}, {}, {}, {}
     og_fact_indices_per_model, og_cofact_indices_per_model, og_indices_per_model, og_invalid_indices_per_model = {}, {}, {}, {}
+    og_prompt_fact_indices_per_model, og_prompt_cofact_indices_per_model, og_prompt_indices_per_model, og_prompt_invalid_indices_per_model = {}, {}, {}, {}
+    qa_cft_fact_indices_per_model, qa_cft_cofact_indices_per_model, qa_cft_indices_per_model, qa_cft_invalid_indices_per_model = {}, {}, {}, {}
+    qa_cft_prompt_fact_indices_per_model, qa_cft_prompt_cofact_indices_per_model, qa_cft_prompt_indices_per_model, qa_cft_prompt_invalid_indices_per_model = {}, {}, {}, {}
 
     for model_name in model_names:
-        # Checking if the model returns the factual token when given the CFT QnA base prompt    
-        qa_cft_fact_indices, qa_cft_cofact_indices, qa_cft_indices, qa_cft_invalid_indices = check_qa_stats(datasets[model_name]["qa_cft"], 
-                                                                                    qa_cft_ground_truths_per_model[model_name], 
-                                                                                    qa_cft_predictions_per_model[model_name])
-        qa_cft_fact_indices_per_model[model_name] = qa_cft_fact_indices
-        qa_cft_cofact_indices_per_model[model_name] = qa_cft_cofact_indices
-        qa_cft_indices_per_model[model_name] = qa_cft_indices
-        qa_cft_invalid_indices_per_model[model_name] = qa_cft_invalid_indices
-
         # Checking if the model returns the factual token when given the original dataset base prompt
         og_fact_indices, og_cofact_indices, og_indices, og_invalid_indices = check_qa_stats(datasets[model_name]["og"], 
                                                                                     og_ground_truths_per_model[model_name], 
@@ -171,19 +164,49 @@ def main(inference_model_name, model_names):
         og_indices_per_model[model_name] = og_indices
         og_invalid_indices_per_model[model_name] = og_invalid_indices
 
+        og_prompt_fact_indices, og_prompt_cofact_indices, og_prompt_indices, og_prompt_invalid_indices = check_qa_stats(datasets[model_name]["og"], 
+                                                                                    og_ground_truths_per_model[model_name], 
+                                                                                    og_predictions_per_model[model_name],
+                                                                                    prompt_key="prompt")
+        og_prompt_fact_indices_per_model[model_name] = og_prompt_fact_indices
+        og_prompt_cofact_indices_per_model[model_name] = og_prompt_cofact_indices
+        og_prompt_indices_per_model[model_name] = og_prompt_indices
+        og_prompt_invalid_indices_per_model[model_name] = og_prompt_invalid_indices
+
+        # Checking if the model returns the factual token when given the CFT QnA base prompt    
+        qa_cft_fact_indices, qa_cft_cofact_indices, qa_cft_indices, qa_cft_invalid_indices = check_qa_stats(datasets[model_name]["qa_cft"], 
+                                                                                    qa_cft_ground_truths_per_model[model_name], 
+                                                                                    qa_cft_predictions_per_model[model_name])
+        qa_cft_fact_indices_per_model[model_name] = qa_cft_fact_indices
+        qa_cft_cofact_indices_per_model[model_name] = qa_cft_cofact_indices
+        qa_cft_indices_per_model[model_name] = qa_cft_indices
+        qa_cft_invalid_indices_per_model[model_name] = qa_cft_invalid_indices
+
+        qa_cft_prompt_fact_indices, qa_cft_prompt_cofact_indices, qa_cft_prompt_indices, qa_cft_prompt_invalid_indices = check_qa_stats(datasets[model_name]["qa_cft"], 
+                                                                                    qa_cft_ground_truths_per_model[model_name], 
+                                                                                    qa_cft_predictions_per_model[model_name],
+                                                                                    prompt_key="prompt")
+        qa_cft_prompt_fact_indices_per_model[model_name] = qa_cft_prompt_fact_indices
+        qa_cft_prompt_cofact_indices_per_model[model_name] = qa_cft_prompt_cofact_indices
+        qa_cft_prompt_indices_per_model[model_name] = qa_cft_prompt_indices
+        qa_cft_prompt_invalid_indices_per_model[model_name] = qa_cft_prompt_invalid_indices
+
     og_dataset_new, qa_cft_dataset_new = [], []
 
     for model_name in model_names:
         dataset_array = np.array(datasets[model_name]["og"])
         qa_cft_dataset_array = np.array(datasets[model_name]["qa_cft"])
 
-        for idx in og_fact_indices_per_model[model_name]:
+        og_indices = set(og_indices_per_model[model_name]) & set(og_prompt_indices_per_model[model_name])
+        qa_cft_indices = set(qa_cft_indices_per_model[model_name]) & set(qa_cft_prompt_indices_per_model[model_name])
+
+        for idx in og_indices:
             row = DatasetEntry(dataset_array[idx])
             if row in og_dataset_new:
                 continue
             og_dataset_new.append(row)
 
-        for idx in qa_cft_fact_indices_per_model[model_name]:
+        for idx in qa_cft_indices:
             row = DatasetEntry(qa_cft_dataset_array[idx])
             if row in qa_cft_dataset_new:
                 continue
