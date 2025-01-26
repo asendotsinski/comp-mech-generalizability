@@ -44,7 +44,7 @@ def main(hf_model_name, dataset_path, start, end):
     for row in tqdm(dataset):
         ground_truths.append(row["target_true"].strip())
         counterfactuals.append(row["target_new"].strip())
-        _, attribute = inference(row["prompt"], model, tokenizer)
+        _, attribute = inference(row["base_prompt"], model, tokenizer)
         preds.append(attribute.strip())
 
     ground_truths = np.array(ground_truths)
