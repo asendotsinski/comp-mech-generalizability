@@ -70,6 +70,7 @@ class Config:
     ablate_component:str = "all"
     flag: str = ""
     quantize: bool = False
+    downsampled_dataset: bool = False
 
     @classmethod
     def from_args(cls, args):
@@ -90,16 +91,18 @@ class Config:
             hf_model_name= get_hf_model_name(args.model_name),
             ablate_component=args.ablate_component,
             flag = args.flag,
-            quantize=args.quantize
+            quantize=args.quantize,
+            downsampled_dataset=args.downsampled_dataset
         )
 
 def get_dataset_path(args):
+    downsample_string = "_downsampled" if args.downsampled_dataset else ""
     if args.dataset == "copyVSfact":
-        return f"../data/full_data_sampled_{args.model_name}_with_subjects.json"
+        return f"../data/full_data_sampled_{args.model_name}_with_subjects{downsample_string}.json"
     if args.dataset == "copyVSfactQnA":
-        return f"../data/cft_og_combined_data_sampled_{args.model_name}_with_questions.json"
+        return f"../data/cft_og_combined_data_sampled_{args.model_name}_with_questions{downsample_string}.json"
     if args.dataset == "copyVSfactDomain":
-        return f"../data/full_data_sampled_{args.model_name}_with_domains.json"
+        return f"../data/full_data_sampled_{args.model_name}_with_domains{downsample_string}.json"
     else:
         raise ValueError("No dataset path found for folder: ", args.dataset)
 
@@ -126,10 +129,12 @@ def logit_attribution(model, dataset, config, args):
     dataset_slice_name = (
         dataset_slice_name if config.up_to_layer == "all" else f"{dataset_slice_name}_layer_{config.up_to_layer}"
     )
+    dataset_slice_name = dataset_slice_name if not args.downsampled_dataset else f"{dataset_slice_name}_downsampled"
 
     print("Running logit attribution")
     attributor = LogitAttribution(dataset, model, config.batch_size // 5, config.mech_fold)
     dataframe = attributor.run(apply_ln=False, normalize_logit=config.normalize_logit, up_to_layer=config.up_to_layer)
+
     save_dataframe(
         f"../results/{config.mech_fold}{config.flag}/logit_attribution/{config.model_name}_{dataset_slice_name}",
         "logit_attribution_data",
@@ -149,6 +154,7 @@ def logit_attribution_plot(config, dataset_slice_name):
 def logit_lens(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
     data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
+    data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
 
     logit_lens_cnfg = logit_lens_config()
     print("Running logit lens")
@@ -177,10 +183,12 @@ def logit_lens_plot(config, data_slice_name):
 def ov_difference(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
     data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
+    data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
 
     print("Running ov difference")
     ov = OV(dataset, model, config.batch_size, config.mech_fold)
-    dataframe = ov.run(normalize_logit=config.normalize_logit)
+    dataframe = ov.run(normalize_logit=config.normalize_logit)  
+
     save_dataframe(
         f"../results/{config.mech_fold}{config.flag}/ov_difference/{config.model_name}_{data_slice_name}",
         "ov_difference_data",
@@ -202,6 +210,8 @@ def ablate(model, dataset, config, args):
     data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
     start_slice_name = "" if config.dataset_start is None else f"{config.dataset_start}_"
     data_slice_name = f"{start_slice_name}{data_slice_name}_total_effect" if config.total_effect else data_slice_name
+    data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
+
     LOAD_FROM_PT = None
     ablator = Ablate(dataset, model, config.batch_size, config.mech_fold)
     if args.ablate_component == "all":
@@ -274,6 +284,7 @@ def main(args):
     # create experiment folder
     if args.only_plot:
         data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
+        data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
         plots = []
 
         if args.logit_attribution:
@@ -367,7 +378,8 @@ if __name__ == "__main__":
     parser.add_argument("--dataset", type=str, default="copyVSfact")
     parser.add_argument("--flag", type=str, default="")
     parser.add_argument("--quantize", action="store_true", default=False)
-    
+    parser.add_argument("--downsampled-dataset", action="store_true", default=False)
+
     args = parser.parse_args()
     main(args)
     
