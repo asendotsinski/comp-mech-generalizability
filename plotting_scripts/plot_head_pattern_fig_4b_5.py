@@ -129,7 +129,7 @@ def plot_head_pattern_fig_4b_5(
         else:
             source_positions = [1, 4, 5, 6, 9, 12, 13]
             dest_positions = [1, 4, 5, 6, 9, 12, 13]
-    elif model == "pythia":
+    elif model == "pythia-6.9b":
         layer_pattern = [10, 10, 15, 17, 17, 19, 19, 20, 20, 21, 23]
         head_pattern = [1, 27, 17, 14, 28, 20, 31, 2, 18, 8, 25]
         factual_heads_layer = [21, 20, 17, 10]
