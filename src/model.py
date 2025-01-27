@@ -121,7 +121,9 @@ class WrapHookedTransformer(BaseModel):
         return cls(model_name, *args, **kwargs)
 
     def initialize_model(self, model_name: str, *args, **kwargs):
-        if kwargs.get("quantized", False):
+        quantized = kwargs.get("quantized", False)
+        kwargs.pop("quantized", None)
+        if quantized:
             self.model = HookedTransformer.from_pretrained_no_processing(model_name, *args, **kwargs)
         else:
             self.model = HookedTransformer.from_pretrained(model_name, *args, **kwargs)
