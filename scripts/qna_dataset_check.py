@@ -58,7 +58,10 @@ def check_dataset(dataset, model, tokenizer, start, end, prompt_name="prompt"):
 
 def main(hf_model_name, dataset_path, start, end):
     tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
-    model = AutoModelForCausalLM.from_pretrained(hf_model_name)
+    model = AutoModelForCausalLM.from_pretrained(
+            hf_model_name,
+            pad_token_id=tokenizer.eos_token_id,
+            device_map="auto")
     model.to(device)
 
     with open(dataset_path, "r") as f:
@@ -98,7 +101,7 @@ if __name__ == "__main__":
     hf_model_name = get_hf_model_name(args.model)
 
     if args.dataset == "copyVSfact":
-        dataset_path = f"../data/full_data_sampled_{args.model}_with_subjects{'_downsampled_joint' if args.downsampled else ''}.json"
+        dataset_path = f"../data/full_data_sampled_{args.model}_with_subjects{'_downsampled' if args.downsampled else ''}.json"
     elif args.dataset == "copyVSfactQnA":
         dataset_path = f"../data/cft_og_combined_data_sampled_{args.model}_with_questions{'_downsampled' if args.downsampled else ''}.json"
     else:
