@@ -100,10 +100,10 @@ def main(inference_model_name, model_names):
     datasets = {model_name: {} for model_name in model_names}
     for model_name in model_names:
         with open(f"../data/full_data_sampled_{model_name}_with_subjects.json", "r") as f:
-            datasets[model_name]["og"] = json.load(f)[:100]
+            datasets[model_name]["og"] = json.load(f)
 
         with open(f"../data/cft_og_combined_data_sampled_{model_name}_with_questions.json", "r") as f:
-            datasets[model_name]["qa_cft"] = json.load(f)[:100]
+            datasets[model_name]["qa_cft"] = json.load(f)
     
     og_ground_truths_per_model, og_predictions_per_model = {}, {}
     og_prompt_ground_truths_per_model, og_prompt_predictions_per_model = {}, {}
@@ -199,8 +199,9 @@ def main(inference_model_name, model_names):
         dataset_array = np.array(datasets[model_name]["og"])
         qa_cft_dataset_array = np.array(datasets[model_name]["qa_cft"])
 
-        og_indices = set(og_indices_per_model[model_name]) & set(og_prompt_indices_per_model[model_name])
-        qa_cft_indices = set(qa_cft_indices_per_model[model_name]) & set(qa_cft_prompt_indices_per_model[model_name])
+        # We join the indices where model outputs factual on the base prompt AND fact/cofact on the custom prompt
+        og_indices = set(og_fact_indices_per_model[model_name]) & set(og_prompt_indices_per_model[model_name])
+        qa_cft_indices = set(qa_cft_fact_indices_per_model[model_name]) & set(qa_cft_prompt_indices_per_model[model_name])
 
         for idx in og_indices:
             row = DatasetEntry(dataset_array[idx])
