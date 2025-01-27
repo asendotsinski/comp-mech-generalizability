@@ -113,7 +113,8 @@ def plot_head_pattern_fig_4b_5(
     model="gpt2",
     experiment="copyVSfact",
     model_folder="gpt2_full",
-    domain=None
+    domain=None,
+    downsampled=False
 ):
     if model == "gpt2":
         layer_pattern = [11, 10, 10, 10, 9, 9]
@@ -140,7 +141,6 @@ def plot_head_pattern_fig_4b_5(
     else:
         raise Exception("Model not supported!")
 
-
     # Load data
     try:
         data = pd.read_csv(f"../results/{experiment}/head_pattern/{model_folder}/head_pattern_data.csv")
@@ -148,10 +148,11 @@ def plot_head_pattern_fig_4b_5(
         print(f".csv file now found - {e}")
         return
 
+    directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
     if domain:
-        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/{domain}"
-    else:
-        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
+        directory_path = f"../results/{directory_path}{domain}"
+    if downsampled:
+        directory_path = f"../results/{directory_path}_downsampled"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 

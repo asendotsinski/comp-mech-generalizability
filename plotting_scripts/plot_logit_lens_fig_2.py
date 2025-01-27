@@ -117,7 +117,8 @@ def plot_logit_lens_fig_2(
         model="gpt2",
         experiment="copyVSfact",
         model_folder="gpt2_full",
-        domain=None
+        domain=None,
+        downsampled=False
 ):
     # Load data
     try:
@@ -126,10 +127,11 @@ def plot_logit_lens_fig_2(
         print(f".csv file now found - {e}")
         return
 
+    directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream"
     if domain:
-        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream/{domain}"
-    else:
-        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream"
+        directory_path = f"{directory_path}{domain}"
+    if downsampled:
+        directory_path = f"{directory_path}_downsampled"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 

@@ -142,7 +142,8 @@ def plot_logit_attribution_fig_3_4a(
     model="gpt2",
     model_folder="gpt2_full",
     experiment="copyVSfact",
-    domain=None
+    domain=None,
+    downsampled=False
 ):
     # load the data
     try:
@@ -152,10 +153,12 @@ def plot_logit_attribution_fig_3_4a(
         print(f".csv file now found - {e}")
         return
 
+    directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
     if domain:
-        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/{domain}"
-    else:
-        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
+        directory_path = f"{directory_path}{domain}"
+    if downsampled:
+        directory_path = f"{directory_path}_downsampled"
+
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
