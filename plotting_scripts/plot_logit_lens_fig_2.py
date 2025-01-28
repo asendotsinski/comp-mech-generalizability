@@ -28,24 +28,42 @@ def get_axis_text_size(model):
     else:
         return 10
     
-def get_relevant_position_and_example_position(experiment):
+def get_relevant_position_and_example_position(experiment,
+                                               subject_agg=False):
     if experiment == "copyVSfactQnA":
-        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                            "Interrogative", "Relation repeat", "Subject repeat", "Last"]
-        example_position = ["iPhone", "was developed", "by", "Google",
-                            "What", "company developed", "iPhone?", "Answer:"]
+        if subject_agg:
+            relevant_position = ["Subject", "Intermediate Subject Token",
+                                 "Last Subject Token", "Relation", "Relation Last", "Attribute*",
+                                "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+            example_position = ["iPhone", "11", "Pro", "was developed", "by", "Google",
+                                "What", "company developed", "iPhone?", "Answer:"]
+        else:
+            relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                                "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+            example_position = ["iPhone", "was developed", "by", "Google",
+                                "What", "company developed", "iPhone?", "Answer:"]
     else:
-        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                            "Subject repeat", "Relation repeat", "Last"]
-        example_position = ["iPhone", "was developed", "by", "Google",
-                            "iPhone", "was developed", "by"]
+        if subject_agg:
+            relevant_position = ["Subject", "Intermediate Subject Token",
+                                 "Last Subject Token", "Relation",
+                                 "Relation Last", "Attribute*",
+                                "Subject repeat", "Relation repeat", "Last"]
+            example_position = ["iPhone", "11", "Pro", "was developed", "by", "Google",
+                                "iPhone", "was developed", "by"]
+        else:
+            relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                                 "Subject repeat", "Relation repeat", "Last"]
+            example_position = ["iPhone", "was developed", "by", "Google",
+                                "iPhone", "was developed", "by"]
     return relevant_position, example_position
 
 
 # Define helper function for heatmap
 def create_heatmap(data, x, y, fill, cmap, midpoint=0,
                    text=False, xlabel=None, ylabel=None,
-                   ax=None, colorbar_label=None, relevant_position=None, example_position=None, axis_text_size=16):
+                   ax=None, colorbar_label=None,
+                   relevant_position=None, example_position=None,
+                   axis_text_size=16):
     pivot_data = data.pivot(index=y, columns=x, values=fill)
     if ax is None:
         plt.figure(figsize=(8, 8))
@@ -97,7 +115,8 @@ def plot_logit_lens_fig_2(
         experiment="copyVSfact",
         model_folder="gpt2_full",
         domain=None,
-        downsampled=False
+        downsampled=False,
+        subject_agg=False
 ):
     print("="*100)
     print("Plotting logit lens. Model: ", model, " Experiment: ", experiment, " Model folder: ", model_folder, " Domain: ", domain, " Downsampled: ", downsampled)
@@ -105,8 +124,7 @@ def plot_logit_lens_fig_2(
     # Setup 
     AXIS_TEXT_SIZE = get_axis_text_size(model)
 
-    relevant_position, example_position = get_relevant_position_and_example_position(experiment)
-
+    relevant_position, example_position = get_relevant_position_and_example_position(experiment, subject_agg)
     # Load data
     data_path = f"../results/{experiment}/logit_lens/{model_folder}/logit_lens_data.csv"
     print("Plotting logit lens. Trying to load data from: ", data_path)
@@ -131,38 +149,59 @@ def plot_logit_lens_fig_2(
     #     lambda x: positions_name[int(x) + 1]
     # )
     # data_resid_post = data_resid_post[data_resid_post['position'].isin([1, 4, 5, 6, 8, 11, 12])]
+    FIRST_TOKEN_SUBJECT = 1
+    INTER_TOKEN_SUBJECT = 2
+    LAST_TOKEN_SUBJECT = 3
+    BETWEEN_SUBJECT_AND_OBJECT = 4
+    BEFORE_OBJECT = 5
+    OBJECT = 6
+    INTERROGATIVE = 7
+    LAST_TOKEN = 13
+    INTERROGATIVE_TO_SECOND_SUBJECT = 8
+    FIRST_TOKEN_SECOND_SUBJECT = 9
+    SECOND_SUBJECT_TO_LAST_TOKEN = 12
+
     if experiment == "copyVSfactQnA":
-        FIRST_TOKEN_SUBJECT = 1
-        BETWEEN_SUBJECT_AND_OBJECT = 4
-        BEFORE_OBJECT = 5
-        OBJECT = 6
-        INTERROGATIVE = 7
-        INTERROGATIVE_TO_SECOND_SUBJECT = 8
-        FIRST_TOKEN_SECOND_SUBJECT = 9
-        LAST_TOKEN = 13
-        data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
-                                                                            BETWEEN_SUBJECT_AND_OBJECT,
-                                                                            BEFORE_OBJECT,
-                                                                            OBJECT,
-                                                                            INTERROGATIVE,
-                                                                            INTERROGATIVE_TO_SECOND_SUBJECT,
-                                                                            FIRST_TOKEN_SECOND_SUBJECT,
-                                                                            LAST_TOKEN])]
+        if subject_agg:
+            data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
+                                                                                INTER_TOKEN_SUBJECT,
+                                                                                LAST_TOKEN_SUBJECT,
+                                                                                BETWEEN_SUBJECT_AND_OBJECT,
+                                                                                BEFORE_OBJECT,
+                                                                                OBJECT,
+                                                                                INTERROGATIVE,
+                                                                                INTERROGATIVE_TO_SECOND_SUBJECT,
+                                                                                FIRST_TOKEN_SECOND_SUBJECT,
+                                                                                LAST_TOKEN])]
+        else:
+            data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
+                                                                                BETWEEN_SUBJECT_AND_OBJECT,
+                                                                                BEFORE_OBJECT,
+                                                                                OBJECT,
+                                                                                INTERROGATIVE,
+                                                                                INTERROGATIVE_TO_SECOND_SUBJECT,
+                                                                                FIRST_TOKEN_SECOND_SUBJECT,
+                                                                                LAST_TOKEN])]
     else:
-        FIRST_TOKEN_SUBJECT = 1
-        BETWEEN_SUBJECT_AND_OBJECT = 4
-        BEFORE_OBJECT = 5
-        OBJECT = 6
-        FIRST_TOKEN_SECOND_SUBJECT = 9
-        SECOND_SUBJECT_TO_LAST_TOKEN = 12
-        LAST_TOKEN = 13
-        data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
-                                                                            BETWEEN_SUBJECT_AND_OBJECT,
-                                                                            BEFORE_OBJECT,
-                                                                            OBJECT,
-                                                                            FIRST_TOKEN_SECOND_SUBJECT,
-                                                                            SECOND_SUBJECT_TO_LAST_TOKEN,
-                                                                            LAST_TOKEN])]
+        if subject_agg:
+            data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
+                                                                                INTER_TOKEN_SUBJECT,
+                                                                                LAST_TOKEN_SUBJECT,
+                                                                                BETWEEN_SUBJECT_AND_OBJECT,
+                                                                                BEFORE_OBJECT,
+                                                                                OBJECT,
+                                                                                FIRST_TOKEN_SECOND_SUBJECT,
+                                                                                SECOND_SUBJECT_TO_LAST_TOKEN,
+                                                                                LAST_TOKEN])]
+        else:
+            data_resid_post = data_resid_post[data_resid_post['position'].isin([FIRST_TOKEN_SUBJECT,
+                                                                                BETWEEN_SUBJECT_AND_OBJECT,
+                                                                                BEFORE_OBJECT,
+                                                                                OBJECT,
+                                                                                FIRST_TOKEN_SECOND_SUBJECT,
+                                                                                SECOND_SUBJECT_TO_LAST_TOKEN,
+                                                                                LAST_TOKEN])]
+
     unique_positions = data_resid_post['position'].unique()
     position_mapping = {pos: i for i, pos in enumerate(unique_positions)}
     data_resid_post['mapped_position'] = data_resid_post['position'].map(position_mapping)
@@ -368,6 +407,9 @@ if __name__ == "__main__":
     parser.add_argument('--downsampled', type=bool, nargs='?',
                         help='Use downsampled dataset',
                         default=False)
+    parser.add_argument('--subject_agg', type=bool, nargs='?',
+                        help='Use all subject tokens',
+                        default=False)
     args = parser.parse_args()
 
     plot_logit_lens_fig_2(
@@ -375,5 +417,6 @@ if __name__ == "__main__":
         experiment=args.experiment,
         model_folder=args.model_folder,
         domain=args.domain,
-        downsampled=args.downsampled
+        downsampled=args.downsampled,
+        subject_agg=args.subject_agg
     )
