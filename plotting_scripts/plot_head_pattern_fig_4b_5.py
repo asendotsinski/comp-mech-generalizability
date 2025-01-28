@@ -113,8 +113,12 @@ def plot_head_pattern_fig_4b_5(
     model="gpt2",
     experiment="copyVSfact",
     model_folder="gpt2_full",
-    domain=None
+    domain=None,
+    downsampled=False
 ):
+    print("="*100)
+    print("Plotting head pattern. Model: ", model, " Experiment: ", experiment, " Model folder: ", model_folder, " Domain: ", domain, " Downsampled: ", downsampled)
+    print("="*100)
     if model == "gpt2":
         layer_pattern = [11, 10, 10, 10, 9, 9]
         head_pattern = [10, 0, 7, 10, 6, 9]
@@ -128,7 +132,7 @@ def plot_head_pattern_fig_4b_5(
         else:
             source_positions = [1, 4, 5, 6, 9, 12, 13]
             dest_positions = [1, 4, 5, 6, 9, 12, 13]
-    elif model == "pythia":
+    elif model == "pythia-6.9b":
         layer_pattern = [10, 10, 15, 17, 17, 19, 19, 20, 20, 21, 23]
         head_pattern = [1, 27, 17, 14, 28, 20, 31, 2, 18, 8, 25]
         factual_heads_layer = [21, 20, 17, 10]
@@ -138,20 +142,23 @@ def plot_head_pattern_fig_4b_5(
         source_positions = [1, 4, 5, 6, 9, 12, 13]
         dest_positions = [1, 4, 5, 6, 9, 12, 13]
     else:
-        raise Exception("Model not supported!")
-
+        print("Model not supported!")
+        return
 
     # Load data
+    data_path = f"../results/{experiment}/head_pattern/{model_folder}/head_pattern_data.csv"
+    print("Plotting head pattern. Trying to load data from: ", data_path)
     try:
-        data = pd.read_csv(f"../results/{experiment}/head_pattern/{model_folder}/head_pattern_data.csv")
+        data = pd.read_csv(data_path)
     except Exception as e:
         print(f".csv file now found - {e}")
         return
 
+    directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
     if domain:
-        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern/{domain}"
-    else:
-        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
+        directory_path = f"../results/{directory_path}{domain}"
+    if downsampled:
+        directory_path = f"../results/{directory_path}_downsampled"
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
@@ -278,6 +285,9 @@ def plot_head_pattern_fig_4b_5(
     plt.close()
 
     print("Plots saved at: ", directory_path)
+    print("="*100)
+    print("Done plotting head pattern")
+    print("="*100 + "\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')

@@ -142,20 +142,27 @@ def plot_logit_attribution_fig_3_4a(
     model="gpt2",
     model_folder="gpt2_full",
     experiment="copyVSfact",
-    domain=None
+    domain=None,
+    downsampled=False
 ):
+    print("="*100)
+    print("Plotting logit attribution. Model: ", model, " Experiment: ", experiment, " Model folder: ", model_folder, " Domain: ", domain, " Downsampled: ", downsampled)
+    print("="*100)
     # load the data
+    data_file = f"../results/{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
+    print("Plotting logit attribution. Trying to load data from: ", data_file)
     try:
-        data_file = f"../results/{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
         data = pd.read_csv(data_file)
     except Exception as e:
         print(f".csv file now found - {e}")
         return
 
+    directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
     if domain:
-        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution/{domain}"
-    else:
-        directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
+        directory_path = f"{directory_path}{domain}"
+    if downsampled:
+        directory_path = f"{directory_path}_downsampled"
+
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
@@ -312,6 +319,9 @@ def plot_logit_attribution_fig_3_4a(
     plt.close()
 
     print("Plots saved at: ", directory_path)
+    print("="*100)
+    print("Done plotting logit attribution")
+    print("="*100 + "\n")
 
 
 if __name__ == "__main__":

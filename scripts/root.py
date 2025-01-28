@@ -1,11 +1,12 @@
 import sys
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, BitsAndBytesConfig, AutoModelForCausalLM
 from pprint import pprint
 import json
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
+import traceback
 from sklearn.metrics import accuracy_score
 from concurrent.futures import ThreadPoolExecutor
 from argparse import ArgumentParser
@@ -35,9 +36,28 @@ device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is
 def main(model_name):
     hf_model_name = get_hf_model_name(model_name)
 
+    quantization_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_compute_dtype=torch.float16,
+        bnb_4bit_quant_type="nf4",  # Optional: You can try "fp4" as well
+        bnb_4bit_use_double_quant=True  # Optional: This enables nested quantization
+    )
+
+    print(f'Q config: {quantization_config}')
+
     # gpt2 inference
     tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
-    model = AutoModelForCausalLM.from_pretrained(hf_model_name, pad_token_id=tokenizer.eos_token_id).to(device)
+    try:
+        model = AutoModelForCausalLM.from_pretrained(
+                hf_model_name,
+                pad_token_id=tokenizer.eos_token_id,
+                quantization_config=quantization_config,
+                device_map="auto",
+                torch_dtype=torch.float16
+                )
+    except Exception:
+        print(traceback.format_exc())
+        print(traceback.print_stack())
     # tokenizer.pad_token_id = tokenizer.eos_token_id
 
     def inference(prompt, model, tokenizer):
