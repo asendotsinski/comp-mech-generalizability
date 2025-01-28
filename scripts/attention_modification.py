@@ -60,6 +60,7 @@ def run_ablator(model, dataset, batch_size, multiplier,
     if not os.path.exists(SAVE_FOLDER):
         os.makedirs(SAVE_FOLDER)
 
+    print(f"Ablating '{ablation_layer_heads}' at position '{position}'")
     results = []
 
     if experiment == "copyVSfactDomain":
@@ -165,4 +166,3 @@ if __name__ == '__main__':
         plot_results(ablation_result)
         plot_filename = f"{SAVE_FOLDER}/ablation_{args.position}_{args.ablation_layer_heads}.pdf"
         plt.savefig(plot_filename, bbox_inches="tight")
-        print("Sving figure")
