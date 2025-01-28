@@ -214,13 +214,8 @@ class BaseDataset(Dataset):
         # "target_true": "True",
         # "target_new": "False"
 
-        ## Template change - Domain
-        if prompt_type == "domain":
-            process_domain = lambda x: " ".join(x.split("_"))
-            modified_prompt = f"{process_domain(row['domain'])}: {row['base_prompt']}{row['target_new']}. " + f"{row['base_prompt']}"
-
         ## Template change - Context Question
-        elif prompt_type == "context_qna":
+        if prompt_type == "context_qna":
             modified_prompt = "Context: " + row["base_prompt"] + f"{row['target_new']}. " + \
                               "Question: " + row["base_prompt"]
 
@@ -337,7 +332,7 @@ class BaseDataset(Dataset):
                 d["target_new"] = random.choice(d["target_new_list"])
             if self.prompt_type in ["qna"]:
                 pass
-            elif self.prompt_type in ["fact_check_v1", "fact_check_v2", "context_qna", "domain"]:
+            elif self.prompt_type in ["fact_check_v1", "fact_check_v2", "context_qna"]:
                 d["prompt"] = self.modify_prompt(self.prompt_type, d)
             else:
                 d["prompt"] = self.__get_prompt__(d)

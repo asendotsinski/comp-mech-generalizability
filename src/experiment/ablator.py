@@ -54,7 +54,7 @@ class Ablator(BaseExperiment):
         self.hooks = []
 
     def set_heads(self, heads:List[Tuple[int,int]],
-                  position: Literal["all", "attribute", "interrogative"] = "attribute",
+                  position: Literal["all", "attribute", "interrogative", "subject"] = "attribute",
                   value: float = 0.0):
         """
         heads: list of tuples (layer, head) to ablate
@@ -78,8 +78,14 @@ class Ablator(BaseExperiment):
                 for i, pos in enumerate(interrogative_positions):
                     attention_pattern[i, head, -1, pos] = value * attention_pattern[i, head, -1, pos]
                 return attention_pattern
+            elif position == "subject":
+                first_subject_positions = batch["1_subj_pos"]
+                #for each element in the batch and for each head, ablate the attention pattern with the corresponding position of the attribute
+                for i, pos in enumerate(first_subject_positions):
+                    attention_pattern[i, head, -1, pos] = value * attention_pattern[i, head, -1, pos]
+                return attention_pattern
             else:
-                raise ValueError("position must be 'all' or 'attribute'")
+                raise ValueError("Invalid position!")
             
         for layer, head in heads:
             self.hooks.append((f"blocks.{layer}.attn.hook_attn_scores", partial(hook_fn, value=value, position=position, head=head)))
