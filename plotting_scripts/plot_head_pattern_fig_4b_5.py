@@ -120,10 +120,10 @@ def plot_head_pattern_fig_4b_5(
     print("Plotting head pattern. Model: ", model, " Experiment: ", experiment, " Model folder: ", model_folder, " Domain: ", domain, " Downsampled: ", downsampled)
     print("="*100)
     if model == "gpt2":
-        layer_pattern = [11, 10, 10, 10, 9, 9]
-        head_pattern = [10, 0, 7, 10, 6, 9]
-        factual_heads_layer = [11, 10]
-        factual_heads_head = [10, 7]
+        layer_pattern = [11, 10, 10, 10, 9, 9, 11, 11]
+        head_pattern = [10, 0, 7, 10, 6, 9, 2, 3]
+        factual_heads_layer = [11, 10, 11, 11]
+        factual_heads_head = [10, 7, 2, 3]
         # subject and others positions
         source_position = 13
         if experiment == "copyVSfactQnA":
@@ -156,7 +156,7 @@ def plot_head_pattern_fig_4b_5(
 
     directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
     if domain:
-        directory_path = f"../results/{directory_path}{domain}"
+        directory_path = f"../results/{directory_path}/{domain}"
     if downsampled:
         directory_path = f"../results/{directory_path}_downsampled"
     if not os.path.exists(directory_path):
@@ -206,15 +206,15 @@ def plot_head_pattern_fig_4b_5(
                         va='bottom',
                         # ha='center',
                         rotation_mode='anchor',
-                        position=(0, -0.2)
+                        position=(0, -0.25)
                         )
 
 
     # Full position plot
     if model == "gpt2":
-        fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(12, 12))  # 2 columns, 3 rows
+        fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(12, 12))
     else:
-        fig, axes = plt.subplots(nrows=4, ncols=3, figsize=(12, 12))  # 2 columns, 3 rows
+        fig, axes = plt.subplots(nrows=4, ncols=3, figsize=(12, 12))
     axes = axes.flatten()  # Flatten the axes array for easy indexing
 
     plot = None
@@ -247,9 +247,10 @@ def plot_head_pattern_fig_4b_5(
                                     'value', f'Layer {layer} Head {head}', cmap, axes[i])
     # Adjust layout with custom spacing
     if model == "gpt2":
-        plt.subplots_adjust(wspace=0.6, hspace=0.6)
-    else:
+        axes[-1].set_axis_off()
         plt.subplots_adjust(wspace=0.85, hspace=0.85)
+    else:
+        plt.subplots_adjust(wspace=0.95, hspace=0.95)
 
     # Saving plot for full position
     plt.savefig(f"{directory_path}/full_pattern.pdf",

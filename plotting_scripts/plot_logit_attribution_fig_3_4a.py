@@ -159,7 +159,7 @@ def plot_logit_attribution_fig_3_4a(
 
     directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_logit_attribution"
     if domain:
-        directory_path = f"{directory_path}{domain}"
+        directory_path = f"{directory_path}/{domain}"
     if downsampled:
         directory_path = f"{directory_path}_downsampled"
 

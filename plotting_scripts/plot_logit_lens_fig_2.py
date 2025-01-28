@@ -118,7 +118,7 @@ def plot_logit_lens_fig_2(
 
     directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_residual_stream"
     if domain:
-        directory_path = f"{directory_path}{domain}"
+        directory_path = f"{directory_path}/{domain}"
     if downsampled:
         directory_path = f"{directory_path}_downsampled"
     if not os.path.exists(directory_path):
