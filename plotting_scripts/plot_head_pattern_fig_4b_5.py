@@ -116,6 +116,9 @@ def plot_head_pattern_fig_4b_5(
     domain=None,
     downsampled=False
 ):
+    print("="*100)
+    print("Plotting head pattern. Model: ", model, " Experiment: ", experiment, " Model folder: ", model_folder, " Domain: ", domain, " Downsampled: ", downsampled)
+    print("="*100)
     if model == "gpt2":
         layer_pattern = [11, 10, 10, 10, 9, 9]
         head_pattern = [10, 0, 7, 10, 6, 9]
@@ -139,11 +142,14 @@ def plot_head_pattern_fig_4b_5(
         source_positions = [1, 4, 5, 6, 9, 12, 13]
         dest_positions = [1, 4, 5, 6, 9, 12, 13]
     else:
-        raise Exception("Model not supported!")
+        print("Model not supported!")
+        return
 
     # Load data
+    data_path = f"../results/{experiment}/head_pattern/{model_folder}/head_pattern_data.csv"
+    print("Plotting head pattern. Trying to load data from: ", data_path)
     try:
-        data = pd.read_csv(f"../results/{experiment}/head_pattern/{model_folder}/head_pattern_data.csv")
+        data = pd.read_csv(data_path)
     except Exception as e:
         print(f".csv file now found - {e}")
         return
@@ -279,6 +285,9 @@ def plot_head_pattern_fig_4b_5(
     plt.close()
 
     print("Plots saved at: ", directory_path)
+    print("="*100)
+    print("Done plotting head pattern")
+    print("="*100 + "\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')

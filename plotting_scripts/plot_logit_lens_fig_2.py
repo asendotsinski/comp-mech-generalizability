@@ -9,35 +9,12 @@ import argparse
 SAVE_DIR_NAME = "python_paper_plots"
 
 # Configurations
-palette = {
-    "GPT2": "#003f5c",
-    "GPT2-medium": "#58508d",
-    "GPT2-large": "#bc5090",
-    "GPT2-xl": "#ff6361",
-    "Pythia-6.9b": "#ffa600"
-}
 FACTUAL_COLOR = "#005CAB"
 FACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(300, 10, as_cmap=True)
 
-# domain name
-DOMAIN = "Science"
-
-# GPT-2
-MODEL = "gpt2"
-MODEL_FOLDER = "gpt2_full"
-
-# Pythia
-# MODEL = "pythia-6.9b"
-# MODEL_FOLDER = "pythia-6.9b_full"
-
-# EXPERIMENT = "copyVSfact"
-# EXPERIMENT = "copyVSfactQnA"
-EXPERIMENT = "copyVSfactDomain"
-
-if DOMAIN:
-    MODEL_FOLDER += f"_{DOMAIN}"
+AXIS_TITLE_SIZE = 20
 
 positions_name = [
     "-", "Subject", "2nd Subject", "3rd Subject", "Relation",
@@ -45,28 +22,30 @@ positions_name = [
     "2nd Subject repeat", "3rd Subject repeat", "Relation repeat", "Last"
 ]
 
-# plotting setup
-if EXPERIMENT == "copyVSfact":
-    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                         "Interrogative", "Relation repeat", "Subject repeat", "Last"]
-    example_position = ["iPhone", "was developed", "by", "Google",
-                        "What", "company developed", "iPhone?", "Answer:"]
-else:
-    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                         "Subject repeat", "Relation repeat", "Last"]
-    example_position = ["iPhone", "was developed", "by", "Google",
-                        "iPhone", "was developed", "by"]
+def get_axis_text_size(model):
+    if model == "gpt2":
+        return 16
+    else:
+        return 10
+    
+def get_relevant_position_and_example_position(experiment):
+    if experiment == "copyVSfactQnA":
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                            "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+        example_position = ["iPhone", "was developed", "by", "Google",
+                            "What", "company developed", "iPhone?", "Answer:"]
+    else:
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                            "Subject repeat", "Relation repeat", "Last"]
+        example_position = ["iPhone", "was developed", "by", "Google",
+                            "iPhone", "was developed", "by"]
+    return relevant_position, example_position
 
-AXIS_TITLE_SIZE = 20
-if MODEL == "gpt2":
-    AXIS_TEXT_SIZE = 16
-else:
-    AXIS_TEXT_SIZE = 10
 
 # Define helper function for heatmap
 def create_heatmap(data, x, y, fill, cmap, midpoint=0,
                    text=False, xlabel=None, ylabel=None,
-                   ax=None, colorbar_label=None):
+                   ax=None, colorbar_label=None, relevant_position=None, example_position=None, axis_text_size=16):
     pivot_data = data.pivot(index=y, columns=x, values=fill)
     if ax is None:
         plt.figure(figsize=(8, 8))
@@ -90,12 +69,12 @@ def create_heatmap(data, x, y, fill, cmap, midpoint=0,
         linewidths=0.5, linecolor="grey", cbar_kws=cbar_kws,
         yticklabels=relevant_position, ax=ax
     )
-    heatmap.figure.axes[-1].xaxis.label.set_size(AXIS_TEXT_SIZE)
-    heatmap.figure.axes[-1].axes.tick_params(labelsize=AXIS_TEXT_SIZE - 2)
+    heatmap.figure.axes[-1].xaxis.label.set_size(axis_text_size)
+    heatmap.figure.axes[-1].axes.tick_params(labelsize=axis_text_size - 2)
     ax.set_xlabel(xlabel, fontsize=AXIS_TITLE_SIZE)
     ax.set_ylabel(ylabel, fontsize=AXIS_TITLE_SIZE)
-    ax.tick_params(axis='x', labelsize=AXIS_TEXT_SIZE)
-    ax.tick_params(axis='y', labelsize=AXIS_TEXT_SIZE)
+    ax.tick_params(axis='x', labelsize=axis_text_size)
+    ax.tick_params(axis='y', labelsize=axis_text_size)
     ax.tick_params(left=False, bottom=False)
 
     # Set colorbar label
@@ -108,7 +87,7 @@ def create_heatmap(data, x, y, fill, cmap, midpoint=0,
     ax2.set_ylim(ax.get_ylim())
     ax2.set_yticks(ax.get_yticks())
     ax2.set_yticklabels(example_position, rotation=0)
-    ax2.tick_params(axis='y', labelsize=AXIS_TEXT_SIZE)
+    ax2.tick_params(axis='y', labelsize=axis_text_size)
     ax2.tick_params(left=False, bottom=False)
     ax2.grid(False)
 
@@ -120,9 +99,19 @@ def plot_logit_lens_fig_2(
         domain=None,
         downsampled=False
 ):
+    print("="*100)
+    print("Plotting logit lens. Model: ", model, " Experiment: ", experiment, " Model folder: ", model_folder, " Domain: ", domain, " Downsampled: ", downsampled)
+    print("="*100)
+    # Setup 
+    AXIS_TEXT_SIZE = get_axis_text_size(model)
+
+    relevant_position, example_position = get_relevant_position_and_example_position(experiment)
+
     # Load data
+    data_path = f"../results/{experiment}/logit_lens/{model_folder}/logit_lens_data.csv"
+    print("Plotting logit lens. Trying to load data from: ", data_path)
     try:
-        data = pd.read_csv(f"../results/{experiment}/logit_lens/{model_folder}/logit_lens_data.csv")
+        data = pd.read_csv(data_path)
     except Exception as e:
         print(f".csv file now found - {e}")
         return
@@ -246,13 +235,15 @@ def plot_logit_lens_fig_2(
         data=data_resid_post, x="layer", y="mapped_position", fill="mem",
         cmap=FACTUAL_CMAP, midpoint=0,
         xlabel="Layer", colorbar_label="Logit of Factual",
-        ax=axes[0]
+        ax=axes[0], relevant_position=relevant_position, example_position=example_position,
+        axis_text_size=AXIS_TEXT_SIZE
     )
     create_heatmap(
         data=data_resid_post, x="layer", y="mapped_position", fill="cp",
         cmap=COUNTERFACTUAL_CMAP, midpoint=0,
         xlabel="Layer", colorbar_label="Logit of Counterfactual",
-        ax=axes[1]
+        ax=axes[1], relevant_position=relevant_position, example_position=example_position,
+        axis_text_size=AXIS_TEXT_SIZE
     )
     # Adjust the layout with some vertical spacing between subplots
     fig.subplots_adjust(hspace=0.25)
@@ -268,6 +259,8 @@ def plot_logit_lens_fig_2(
         data=data_resid_post, x="layer", y="mapped_position", fill="mem",
         cmap=FACTUAL_CMAP, midpoint=0,
         xlabel="Layer", colorbar_label="Logit of Factual",
+        relevant_position=relevant_position, example_position=example_position,
+        axis_text_size=AXIS_TEXT_SIZE
     )
     plt.savefig(f"{directory_path}/resid_post_mem.pdf", bbox_inches='tight')
 
@@ -275,6 +268,8 @@ def plot_logit_lens_fig_2(
         data=data_resid_post, x="layer", y="mapped_position", fill="cp",
         cmap=COUNTERFACTUAL_CMAP, midpoint=0,
         xlabel="Layer", colorbar_label="Logit of Counterfactual",
+        relevant_position=relevant_position, example_position=example_position,
+        axis_text_size=AXIS_TEXT_SIZE
     )
     plt.savefig(f"{directory_path}/resid_post_cp.pdf", bbox_inches='tight')
 
@@ -297,14 +292,16 @@ def plot_logit_lens_fig_2(
         data=data_resid_post, x="layer", y="mapped_position", fill="mem",
         cmap=FACTUAL_CMAP, midpoint=0,
         xlabel="Layer", colorbar_label="Logit of Factual",
-        ax=ax1
+        ax=ax1, relevant_position=relevant_position, example_position=example_position,
+        axis_text_size=AXIS_TEXT_SIZE
     )
     # Second heatmap (Counterfactual)
     create_heatmap(
         data=data_resid_post, x="layer", y="mapped_position", fill="cp",
         cmap=COUNTERFACTUAL_CMAP, midpoint=0,
         xlabel="Layer", colorbar_label="Logit of Counterfactual",
-        ax=ax2
+        ax=ax2, relevant_position=relevant_position, example_position=example_position,
+        axis_text_size=AXIS_TEXT_SIZE
     )
 
     # Line plot last (entire right side)
@@ -350,44 +347,33 @@ def plot_logit_lens_fig_2(
     plt.close()
 
     print("Plots saved at: ", directory_path)
+    print("="*100)
+    print("Done plotting logit lens")
+    print("="*100 + "\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
-    parser.add_argument('model', type=str, nargs='?',
+    parser.add_argument('--model', type=str, nargs='?',
                         help='Name of the model',
-                        default=MODEL)
-    parser.add_argument('experiment', type=str, nargs='?',
+                        default="gpt2")
+    parser.add_argument('--experiment', type=str, nargs='?',
                         help='Name of the experiment',
-                        default=EXPERIMENT)
-    parser.add_argument('model_folder', type=str, nargs='?',
+                        default="copyVSfact")
+    parser.add_argument('--model_folder', type=str, nargs='?',
                         help='Name of the model folder',
-                        default=MODEL_FOLDER)
-    parser.add_argument('domain', type=str, nargs='?',
+                        default="gpt2_full")
+    parser.add_argument('--domain', type=str, nargs='?',
                         help='Name of the domain',
-                        default=DOMAIN)
+                        default=None)
+    parser.add_argument('--downsampled', type=bool, nargs='?',
+                        help='Use downsampled dataset',
+                        default=False)
     args = parser.parse_args()
-
-    # plotting setup
-    if args.experiment == "copyVSfactQnA":
-        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                             "Interrogative", "Relation repeat", "Subject repeat", "Last"]
-        example_position = ["iPhone", "was developed", "by", "Google",
-                            "What", "company developed", "iPhone?", "Answer:"]
-    else:
-        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                             "Subject repeat", "Relation repeat", "Last"]
-        example_position = ["iPhone", "was developed", "by", "Google",
-                            "iPhone", "was developed", "by"]
-
-    AXIS_TITLE_SIZE = 20
-    if args.model == "gpt2":
-        AXIS_TEXT_SIZE = 16
-    else:
-        AXIS_TEXT_SIZE = 10
 
     plot_logit_lens_fig_2(
         model=args.model,
         experiment=args.experiment,
         model_folder=args.model_folder,
-        domain=args.domain
+        domain=args.domain,
+        downsampled=args.downsampled
     )
