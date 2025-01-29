@@ -33,3 +33,4 @@ dependencies:
     - line_profiler==4.2.0
     - streamlit==1.41.1
     - streamlit-pdf-viewer==0.0.20
+    - sentence-transformers==3.4.0
