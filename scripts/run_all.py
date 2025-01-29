@@ -41,7 +41,7 @@ import torch
 
 from dataset import BaseDataset  # noqa: E402
 from experiment import LogitAttribution, LogitLens, OV, Ablate, HeadPattern  # noqa: E402
-from utils import display_config, display_experiments, check_dataset_and_sample, get_hf_model_name  # noqa: E402
+from utils import display_config, display_experiments, check_dataset_and_sample, get_hf_model_name, get_relevant_heads  # noqa: E402
 console = Console()
 # set logging level to suppress warnings
 logging.basicConfig(level=logging.ERROR)
@@ -68,7 +68,7 @@ class Config:
     flag: str = ""
     quantize: bool = False
     downsampled_dataset: bool = False
-
+    relevant_heads: bool = False
     @classmethod
     def from_args(cls, args):
         return cls(
@@ -89,7 +89,8 @@ class Config:
             ablate_component=args.ablate_component,
             flag = args.flag,
             quantize=args.quantize,
-            downsampled_dataset=args.downsampled_dataset
+            downsampled_dataset=args.downsampled_dataset,
+            relevant_heads=args.relevant_heads
         )
 
 def get_dataset_path(args):
@@ -250,8 +251,12 @@ def pattern(model, dataset, config, args):
     data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
     data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
     
+    relevant_heads = None
+    if args.relevant_heads:
+        relevant_heads = get_relevant_heads(config.model_name)
+        
     print("Running head pattern")
-    pattern = HeadPattern(dataset, model, config.batch_size, config.mech_fold)
+    pattern = HeadPattern(dataset, model, config.batch_size, config.mech_fold, relevant_heads)
     dataframe = pattern.run()
     save_dataframe(
         f"../results/{config.mech_fold}{config.flag}/head_pattern/{config.model_name}_{data_slice_name}",
@@ -378,6 +383,7 @@ if __name__ == "__main__":
     parser.add_argument("--flag", type=str, default="")
     parser.add_argument("--quantize", action="store_true", default=False)
     parser.add_argument("--downsampled-dataset", action="store_true", default=False)
+    parser.add_argument("--relevant-heads", action="store_true", default=False)
 
     args = parser.parse_args()
     main(args)

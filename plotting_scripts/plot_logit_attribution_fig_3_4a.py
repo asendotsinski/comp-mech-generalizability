@@ -326,16 +326,16 @@ def plot_logit_attribution_fig_3_4a(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
-    parser.add_argument('model', type=str, nargs='?',
+    parser.add_argument('--model', type=str, nargs='?',
                         help='Name of the model',
                         default=MODEL)
-    parser.add_argument('experiment', type=str, nargs='?',
+    parser.add_argument('--experiment', type=str, nargs='?',
                         help='Name of the experiment',
                         default=EXPERIMENT)
-    parser.add_argument('model_folder', type=str, nargs='?',
+    parser.add_argument('--model_folder', type=str, nargs='?',
                         help='Name of the model folder',
                         default=MODEL_FOLDER)
-    parser.add_argument('domain', type=str, nargs='?',
+    parser.add_argument('--domain', type=str, nargs='?',
                         help='Name of the domain',
                         default=DOMAIN)
     args = parser.parse_args()

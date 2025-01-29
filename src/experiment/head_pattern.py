@@ -4,18 +4,21 @@ from tqdm import tqdm
 from dataset import BaseDataset
 from model import BaseModel
 from base_experiment import BaseExperiment
-from typing import  Dict, Literal
+from typing import  Dict, Literal, List, Tuple
 import pandas as pd
 
 from utils import AGGREGATED_DIMS
 AGGREGATED_DIMS = 14
 
 class HeadPatternStorage():
-    def __init__(self, n_layers:int, n_heads:int, experiment:Literal["copyVSfact", "contextVSfact"]):
+    def __init__(self, n_layers:int, n_heads:int, experiment:Literal["copyVSfact", "contextVSfact"], relevant_heads: List[Tuple[int, int]] = None):
         self.n_layers = n_layers
         self.n_heads = n_heads
         self.experiment:Literal["copyVSfact", "contextVSfact"] = experiment
-        self.storage = {f"L{i}H{j}":[] for i in range(n_layers) for j in range(n_heads)}
+        if relevant_heads is None:
+            self.storage = {f"L{i}H{j}":[] for i in range(n_layers) for j in range(n_heads)}
+        else:
+            self.storage = {f"L{i}H{j}":[] for i, j in relevant_heads}
         
     def _get_position_to_aggregate_copyVSfact(self,
                                             i:int,
@@ -195,9 +198,15 @@ class HeadPatternStorage():
 
 class HeadPattern(BaseExperiment):
     def __init__(
-        self, dataset: BaseDataset, model: BaseModel, batch_size: int, experiment: Literal["copyVSfact", "contextVSfact"],
+        self,
+        dataset: BaseDataset,
+        model: BaseModel,
+        batch_size: int,
+        experiment: Literal["copyVSfact", "contextVSfact"],
+        relevant_heads: List[Tuple[int, int]] = None
     ):
         super().__init__(dataset, model, batch_size, experiment)
+        self.relevant_heads = relevant_heads
         
     def _extract_pattern(self, cache, layer: int, head: int):
         pattern = cache[f"blocks.{layer}.attn.hook_pattern"][:, head, :, :]
@@ -209,11 +218,12 @@ class HeadPattern(BaseExperiment):
         
         # initialize storage
     
-        object_position = self.dataset.obj_pos[0]
         for batch in tqdm(dataloader, total=len(dataloader)):
             _, cache = self.model.run_with_cache(batch["prompt"], prepend_bos=False)
             for layer in range(self.model.cfg.n_layers):
                 for head in range(self.model.cfg.n_heads):
+                    if self.relevant_heads is not None and (layer, head) not in self.relevant_heads:
+                        continue
                     pattern = self._extract_pattern(cache, layer, head)
                     storage.store(
                         layer=layer,
@@ -229,7 +239,7 @@ class HeadPattern(BaseExperiment):
         torch.cuda.empty_cache()
 
     def extract(self) -> Dict[str, torch.Tensor]:
-        self.storage = HeadPatternStorage(self.model.cfg.n_layers, self.model.cfg.n_heads, self.experiment)
+        self.storage = HeadPatternStorage(self.model.cfg.n_layers, self.model.cfg.n_heads, self.experiment, self.relevant_heads)
         for length in tqdm(self.dataset.lengths):
             if length == 11:
                 continue
@@ -249,6 +259,8 @@ class HeadPattern(BaseExperiment):
         
         for layer in range(self.model.cfg.n_layers):
             for head in range(self.model.cfg.n_heads):
+                if self.relevant_heads is not None and (layer, head) not in self.relevant_heads:
+                    continue
                 for source_position in range(n_grid):
                     for dest_position in range(n_grid):
                         data.append({

@@ -303,23 +303,16 @@ def aggregate_single_result_copyVSfact(
     intermediate_aggregate[..., 13] = pattern[..., last_token]
     
     return intermediate_aggregate
+
+def get_relevant_heads(model_name):
+    if "Llama-3.1-8B" in model_name:
+        return [(16, 0), (16, 2), (18, 30), (23, 27), (24, 3),
+                      (26, 13), (26, 15), (27, 20), (27, 6), (27, 7),
+                      (28, 0), (28, 15), (29, 10), (29, 11), (29, 28),
+                      (29, 31), (30, 12), (30, 14), (30, 25), (30, 27),
+                      (31, 14), (31, 20), (31, 7)]
+    elif "gpt2" in model_name:
+        return [(11,10), (10,0), (10,7), (10,10), (9,6), (9,9), (11,2), (11,3)]
     
-    
-    
-
-
-
-def aggregate_result_contextVSfact(
-    pattern: torch.Tensor,
-    object_positions: Union[torch.Tensor, int],
-    length: int,
-    subj_positions: int,
-    batch_dim: int,
-) -> torch.Tensor:
-    raise NotImplementedError("Not implemented yet")
-
-
-def aggregate_single_result_contextVSfact(
-    pattern: torch.Tensor, object_positions: int, length: int, subj_position: int
-) -> torch.Tensor:
-    raise NotImplementedError("Not implemented yet")
+    else:
+        return None

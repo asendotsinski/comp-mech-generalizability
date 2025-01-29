@@ -292,16 +292,16 @@ def plot_head_pattern_fig_4b_5(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
-    parser.add_argument('model', type=str, nargs='?',
+    parser.add_argument('--model', type=str, nargs='?',
                         help='Name of the model',
                         default=MODEL)
-    parser.add_argument('experiment', type=str, nargs='?',
+    parser.add_argument('--experiment', type=str, nargs='?',
                         help='Name of the experiment',
                         default=EXPERIMENT)
-    parser.add_argument('model_folder', type=str, nargs='?',
+    parser.add_argument('--model_folder', type=str, nargs='?',
                         help='Name of the model folder',
                         default=MODEL_FOLDER)
-    parser.add_argument('domain', type=str, nargs='?',
+    parser.add_argument('--domain', type=str, nargs='?',
                         help='Name of the domain',
                         default=DOMAIN)
     args = parser.parse_args()
