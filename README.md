@@ -83,9 +83,10 @@ This section highlights the key files and directories in this repository to help
 - `data/`: Contains various datasets used in the project.
 - `notebooks/`: Jupyter notebooks for analysis and experimentation.
 - `plotting_scripts/`: Python scripts (converted from R) for generating visualizations.
-  - `plot_head_pattern_fig_4b_5.py`: Plot for head pattern visualizations (Figures 4b and 5).
-  - `plot_logit_attribution_fig_3_4a.py`: Logit attribution visualization for Figures 3 and 4a.
   - `plot_logit_lens_fig_2.py`: Logit lens analysis plot for Figure 2.
+  - `plot_logit_attribution_fig_3_4a.py`: Logit attribution visualization for Figures 3 and 4a.
+  - `plot_head_pattern_fig_4b.py`: Plot for head pattern visualizations Figure 4b.
+  - `plot_ablation_fig_5.py`: Plot for ablation results visualizations Figure 5.
 - `results/`: Output directory for storing results and plots.
 - `scripts/`: Core processing and analysis scripts.
 - `src/`: Source code directory containing core functionalities.
@@ -107,17 +108,108 @@ The `src/` directory contains the core codebase for the project. It includes the
   - `ov.py`: Contains functions for analyzing model differences and outputs.
 ---
 
+### **Experiment Data**
+Scripts for generating visualizations:
+
+**Data With Subjects**
+- `data/full_data_sampled_gpt2_with_subjects.json`: Data for `gpt2`.
+- `data/full_data_sampled_pythia-6.9b_with_subjects.json`: Data for `pythia-6.9b`.
+- `data/full_data_sampled_Llama-3.2-1B_with_subjects.json`: Data for `Llama-3.2-1B`.
+- `data/full_data_sampled_Llama-3.1-8B_with_subjects.json`: Data for `Llama-3.1-8B`.
+
+**Data With Question Prompt**
+- `data/cft_og_combined_data_sampled_gpt2_with_questions.json`: Data for `gpt2`.
+- `data/cft_og_combined_data_sampled_pythia-6.9b_with_questions.json`: Data for `pythia-6.9b`.
+- `data/cft_og_combined_data_sampled_Llama-3.2-1B_with_questions.json`: Data for `Llama-3.2-1B`.
+- `data/cft_og_combined_data_sampled_Llama-3.1-8B_with_questions.json`: Data for `Llama-3.1-8B`.
+
+**Data With Domains**
+- `data/full_data_sampled_gpt2_with_domains.json`: Data for `gpt2`.
+
+**Downsampled Datasets**
+- With Subjects
+  - `data/full_data_sampled_gpt2_with_subjects_downsampled.json`: Data for `gpt2`.
+  - `data/full_data_sampled_pythia-6.9b_with_subjects_downsampled.json`: Data for `pythia-6.9b`.
+- With Questions
+  - `data/cft_og_combined_data_sampled_gpt2_with_questions_downsampled.json`: Data for `gpt2`.
+  - `data/cft_og_combined_data_sampled_pythia-6.9b_with_questions_downsampled.json`: Data for `pythia-6.9b`.
+---
+
+### **Data Generation and Extension**
+
+**QnA Dataset (Pseudo Code)**
+```python
+# Load question generation model
+qa_model = load_model("mrm8488/t5-base-finetuned-question-generation-ap")
+
+# Load datasets
+dataset = merge([f"data/full_data_sampled_{model}_with_subjects.json", 
+                 "cft_data_with_subjects.json"])
+
+# Remove duplicates
+dataset = remove_duplicates(dataset)
+
+# Generate questions
+
+# Example: full_data_sampled_gpt2_with_questions.json
+questions = generate_questions(dataset, qa_model)
+
+# Only consider rows where model generates factual or counterfactual token [No Hallucination]
+# "idx" key denotes whether the dataset is from the original set or from CFT set. 
+
+# Example: data/cft_og_combined_data_sampled_gpt2_with_questions.json
+qna_dataset = filter_fact_cofact_predictions(dataset, questions, "prompt")
+```
+
+**Downsampled Dataset (Pseudo Code)**
+```python
+# Load datasets
+dataset = merge([
+    "full_data_sampled_gpt2_with_subjects.json",
+    "full_data_sampled_pythia-6.9b_with_subjects.json",
+])
+
+# Remove duplicates
+dataset = remove_duplicates(dataset)
+
+# Verify predictions using different prompts
+
+# Original Dataset : Only consider rows where model generates factual token
+
+# Example: data/full_data_sampled_gpt2_with_subjects_downsampled.json
+factual_dataset = filter_factual_predictions(dataset, ["gpt2", "pythia"], "base_prompt")
+
+# QnA Dataset: Only consider rows where model generates factual or counterfactual token [No Hallucination]
+
+# Example: data/cft_og_combined_data_sampled_gpt2_with_questions_downsampled.json
+qna_dataset = filter_fact_cofact_predictions(factual_dataset, ["gpt2", "pythia"], "prompt")
+```
+
+**Domain Dataset (Pseudo Code)**
+```python
+# Load domain extraction model
+domain_model = load_model("nvidia/domain-classifier")
+
+# Load datasets
+dataset = f"data/full_data_sampled_{model}_with_subjects.json"
+
+# Generate domains
+
+# Example: data/full_data_sampled_gpt2_with_domains.json
+domain_dataset = generate_domains(dataset, domain_model, "base_prompt")
+```
+---
+
 ### **Notebooks**
 Jupyter notebooks for experiments and analysis:
 - `notebooks/experiments.ipynb`: Key experiments notebook.
+- `notebooks/causal_tracing.ipynb`: Notebook for causal tracing experiments using `inseq` package.
+- `notebooks/counterfact_tracing.ipynb`: Notebook for counterfact tracing data extension.
+- `notebooks/llama_tests.ipynb`: Notebook for running LLama compatibility tests.
+- `notebooks/semantic_similarity.ipynb`: Notebook for cosine similarity analysis of dataset keys.
+- `notebooks/transformer_lens.ipynb`: Notebook for transformer lens activation cache analysis.
+- `notebooks/word_knowledge.ipynb`: Notebook for word knowledge experiments using `ecco` (requires python 3.8).
 - `notebooks/attention_modifcation.ipynb`: Notebook for attention modifications experiments.
 - `notebooks/root`: Experimentation with different data and new approaches.
 ---
 
-### **Plotting Scripts**
-Scripts for generating visualizations:
-
-- `plotting_scripts/plot_ablation.py`: Ablation study plots.
-- `plotting_scripts/plot_logit_lens_fig_2.py`: Logit lens analysis plot.
-- `plotting_scripts/plot_head_pattern_fig_4b_5.py`: Head pattern visualization.
----

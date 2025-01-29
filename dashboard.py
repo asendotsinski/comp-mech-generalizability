@@ -4,6 +4,8 @@ Streamlit Dashboard for Results Visualization
 
 import os
 import sys
+import json
+import pandas as pd
 import streamlit as st
 import glob
 import uuid
@@ -25,6 +27,25 @@ def to_snake_case(text):
     text = "_".join(text)
     return text
 
+def get_dataset_path(dataset, model_name, downsampled):
+    downsample_string = "_downsampled" if downsampled else ""
+    if dataset == "copyVSfact":
+        return f"data/full_data_sampled_{model_name}_with_subjects{downsample_string}.json"
+    if dataset == "copyVSfactQnA":
+        return f"data/cft_og_combined_data_sampled_{model_name}_with_questions{downsample_string}.json"
+    if dataset == "copyVSfactDomain":
+        return f"data/full_data_sampled_{model_name}_with_domains{downsample_string}.json"
+    else:
+        raise ValueError("No dataset path found for folder: ", dataset)
+
+def process_dataset_stats(data):
+    # st.markdown("**Factual Accuracy:** ")
+    # st.markdown("**Counter Factual Accuracy:** ")
+    st.markdown(f"**Total Rows:** :green[{data.shape[0]}]")
+    if "idx" in data.columns:
+        original_data = data[data["idx"].str.startswith("og")].shape[0]
+        extended_data = data[data["idx"].str.startswith("cft")].shape[0]
+        st.markdown(f"**Distribution :** :green[Original ({original_data}) + CounterFactTracing ({extended_data})]")
 
 DATASET = ["copyVSfact", "copyVSfactQnA", "copyVSfactDomain"]
 EXPERIMENTS = {"Logit Lens": "residual_stream",
@@ -62,6 +83,15 @@ with st.sidebar:
 
 def main_window(model, experiment, dataset, domain, downsampled):
     try:
+        try:
+            dataset_path = get_dataset_path(dataset, model, downsampled)
+            with open(dataset_path, "r") as f:
+                data = pd.DataFrame(json.load(f))
+
+            with st.expander("Dataset Stats", expanded=True):
+                process_dataset_stats(data)
+        except: pass
+
         if domain:
             plots_folder = f"results/python_paper_plots/{model}_{dataset}_{EXPERIMENTS[experiment]}/{domain}"
         else:
@@ -71,7 +101,8 @@ def main_window(model, experiment, dataset, domain, downsampled):
 
         plots = glob.glob(f"{plots_folder}/*.pdf")
         if not plots:
-            st.error("No plots present for this configuration!")
+            st.error("No plots present for this configuration! \n\n" 
+                     "Either generate or them using :green[`scripts/run_all.py`] or plot them using :green[`scripts/plot_all.py`]")
         for plot in sorted(plots):
             if plot.endswith("multiplied_pattern.pdf"):
                 continue

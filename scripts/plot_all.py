@@ -32,7 +32,8 @@ EXPERIMENT = "copyVSfactQnA"
 scripts = [
     "plot_logit_lens_fig_2.py",
     # "plot_logit_attribution_fig_3_4a.py",
-    # "plot_head_pattern_fig_4b.py"
+    # "plot_head_pattern_fig_4b.py",
+    # "plot_ablation_fig_5.py"
 ]
 
 def plot_results():
