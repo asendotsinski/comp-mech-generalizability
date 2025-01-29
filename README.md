@@ -109,7 +109,7 @@ The `src/` directory contains the core codebase for the project. It includes the
 ---
 
 ### **Experiment Data**
-Scripts for generating visualizations:
+Different datasets used for various experimentations and results.
 
 **Data With Subjects**
 - `data/full_data_sampled_gpt2_with_subjects.json`: Data for `gpt2`.
@@ -204,7 +204,8 @@ domain_dataset = generate_domains(dataset, domain_model, "base_prompt")
 Jupyter notebooks for experiments and analysis:
 - `notebooks/experiments.ipynb`: Key experiments notebook.
 - `notebooks/causal_tracing.ipynb`: Notebook for causal tracing experiments using `inseq` package.
-- `notebooks/counterfact_tracing.ipynb`: Notebook for counterfact tracing data extension.
+- `notebooks/counterfact_tracing.ipynb`: Notebook for counterfact tracing (QnA) data extension.
+- `notebooks/domain_extraction.ipynb`: Notebook for domain extraction dataset creation.
 - `notebooks/llama_tests.ipynb`: Notebook for running LLama compatibility tests.
 - `notebooks/semantic_similarity.ipynb`: Notebook for cosine similarity analysis of dataset keys.
 - `notebooks/transformer_lens.ipynb`: Notebook for transformer lens activation cache analysis.
