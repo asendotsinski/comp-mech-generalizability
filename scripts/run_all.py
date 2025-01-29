@@ -21,7 +21,7 @@ sys.path.append(os.path.abspath(os.path.join("../plotting_scripts")))
 
 from plotting_scripts.plot_logit_attribution_fig_3_4a import plot_logit_attribution_fig_3_4a
 from plotting_scripts.plot_logit_lens_fig_2 import plot_logit_lens_fig_2
-from plotting_scripts.plot_head_pattern_fig_4b_5 import plot_head_pattern_fig_4b_5
+from plotting_scripts.plot_head_pattern_fig_4b import plot_head_pattern_fig_4b
 from plotting_scripts.plot_ablation import plot_ablation
 from plotting_scripts.plot_ov_difference import plot_ov_difference
 

@@ -9,44 +9,10 @@ import argparse
 SAVE_DIR_NAME = "python_paper_plots"
 
 # Configurations
-palette = {
-    "GPT2": "#003f5c",
-    "GPT2-medium": "#58508d",
-    "GPT2-large": "#bc5090",
-    "GPT2-xl": "#ff6361",
-    "Pythia-6.9b": "#ffa600"
-}
-
 FACTUAL_COLOR = "#005CAB"
 FACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(300, 10, as_cmap=True)
-
-# domain name
-DOMAIN = "Science"
-
-# GPT-2
-MODEL = "gpt2"
-MODEL_FOLDER = "gpt2_full"
-
-# Pythia
-# MODEL = "pythia-6.9b"
-# MODEL_FOLDER = "pythia-6.9b_full"
-
-# EXPERIMENT = "copyVSfact"
-# EXPERIMENT = "copyVSfactQnA"
-EXPERIMENT = "copyVSfactDomain"
-
-if DOMAIN:
-    MODEL_FOLDER += f"_{DOMAIN}"
-
-# plotting setup
-if EXPERIMENT in "copyVSfactQnA":
-    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                         "Interrogative", "Relation repeat", "Subject repeat", "Last"]
-else:
-    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                         "Subject repeat", "Relation repeat", "Last"]
 
 AXIS_TITLE_SIZE = 20
 AXIS_TEXT_SIZE = 15
@@ -109,7 +75,7 @@ def create_heatmap(data, midpoint=0):
     ax.tick_params(left=False, bottom=False)
 
 
-def plot_head_pattern_fig_4b_5(
+def plot_head_pattern_fig_4b(
     model="gpt2",
     experiment="copyVSfact",
     model_folder="gpt2_full",
@@ -119,34 +85,48 @@ def plot_head_pattern_fig_4b_5(
     print("="*100)
     print("Plotting head pattern. Model: ", model, " Experiment: ", experiment, " Model folder: ", model_folder, " Domain: ", domain, " Downsampled: ", downsampled)
     print("="*100)
+
+    # last token position
+    source_position = 13
+
+    # subject and others positions
+    if experiment == "copyVSfactQnA":
+        source_positions = [1, 4, 5, 6, 7, 8, 9, 13]
+        dest_positions = [1, 4, 5, 6, 7, 8, 9, 13]
+    else:
+        source_positions = [1, 4, 5, 6, 9, 12, 13]
+        dest_positions = [1, 4, 5, 6, 9, 12, 13]
+
     if model == "gpt2":
-        layer_pattern = [11, 10, 10, 10, 9, 9, 11, 11]
-        head_pattern = [10, 0, 7, 10, 6, 9, 2, 3]
-        factual_heads_layer = [11, 10, 11, 11]
-        factual_heads_head = [10, 7, 2, 3]
-        # subject and others positions
-        source_position = 13
-        if experiment == "copyVSfactQnA":
-            source_positions = [1, 4, 5, 6, 7, 8, 9, 13]
-            dest_positions = [1, 4, 5, 6, 7, 8, 9, 13]
+        if experiment=="copyVSfactDomain":
+            layer_pattern = [11, 10, 10, 10, 9, 9, 11, 11]
+            head_pattern = [10, 0, 7, 10, 6, 9, 2, 3]
+            factual_heads_layer = [11, 10, 11, 11]
+            factual_heads_head = [10, 7, 2, 3]
         else:
-            source_positions = [1, 4, 5, 6, 9, 12, 13]
-            dest_positions = [1, 4, 5, 6, 9, 12, 13]
+            layer_pattern = [11, 10, 10, 10, 9, 9]
+            head_pattern = [10, 0, 7, 10, 6, 9]
+            factual_heads_layer = [11, 10]
+            factual_heads_head = [10, 7]
     elif model == "pythia-6.9b":
         layer_pattern = [10, 10, 15, 17, 17, 19, 19, 20, 20, 21, 23]
         head_pattern = [1, 27, 17, 14, 28, 20, 31, 2, 18, 8, 25]
         factual_heads_layer = [21, 20, 17, 10]
         factual_heads_head = [8, 18, 28, 27]
-
-        source_position = 13
-        source_positions = [1, 4, 5, 6, 9, 12, 13]
-        dest_positions = [1, 4, 5, 6, 9, 12, 13]
+    elif model == "Llama-3.1-8B":
+        layer_pattern = [27, 28, 26, 30, 29]
+        head_pattern = [20, 15, 13, 12, 10]
+        factual_heads_layer = [28, 29]
+        factual_heads_head = [15, 10]
     else:
         print("Model not supported!")
         return
 
     # Load data
-    data_path = f"../results/{experiment}/head_pattern/{model_folder}/head_pattern_data.csv"
+    if downsampled:
+        data_path = f"../results/{experiment}/head_pattern/{model_folder}_downsampled/head_pattern_data.csv"
+    else:
+        data_path = f"../results/{experiment}/head_pattern/{model_folder}/head_pattern_data.csv"
     print("Plotting head pattern. Trying to load data from: ", data_path)
     try:
         data = pd.read_csv(data_path)
@@ -154,7 +134,7 @@ def plot_head_pattern_fig_4b_5(
         print(f".csv file now found - {e}")
         return
 
-    directory_path = f"{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
+    directory_path = f"../results/{SAVE_DIR_NAME}/{model}_{experiment}_heads_pattern"
     if domain:
         directory_path = f"../results/{directory_path}/{domain}"
     if downsampled:
@@ -212,7 +192,12 @@ def plot_head_pattern_fig_4b_5(
 
     # Full position plot
     if model == "gpt2":
-        fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(12, 12))
+        if experiment == "copyVSfactDomain":
+            fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(12, 12))
+        else:
+            fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(12, 12))
+    elif model == "Llama-3.1-8B":
+        fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(12, 12))
     else:
         fig, axes = plt.subplots(nrows=4, ncols=3, figsize=(12, 12))
     axes = axes.flatten()  # Flatten the axes array for easy indexing
@@ -246,64 +231,37 @@ def plot_head_pattern_fig_4b_5(
         create_multiple_heatmaps(data_head, 'dest_mapped', 'source_mapped',
                                     'value', f'Layer {layer} Head {head}', cmap, axes[i])
     # Adjust layout with custom spacing
-    if model == "gpt2":
+    if len(layer_pattern) % 2 != 0:
         axes[-1].set_axis_off()
-        plt.subplots_adjust(wspace=0.85, hspace=0.85)
-    else:
-        plt.subplots_adjust(wspace=0.95, hspace=0.95)
+    plt.subplots_adjust(wspace=0.85, hspace=0.95)
 
     # Saving plot for full position
     plt.savefig(f"{directory_path}/full_pattern.pdf",
                 bbox_inches='tight')
 
-
-    #########################################
-    ###### Bar Plot: Boosting Heads #########
-    #########################################
-
-    # Boosting Heads Bar Plot
-    data_long = pd.DataFrame({
-        'model': ['GPT2', 'GPT2', 'Pythia-6.9b', 'Pythia-6.9b'],
-        'Type': ['Baseline', 'Multiplied Attention\nAltered', 'Baseline', 'Multiplied Attention\nAltered'],
-        'Percentage': [4.13, 50.29, 30.32, 49.46]
-    })
-
-    fig, ax = plt.subplots(figsize=(8, 6))
-    sns.barplot(x="model", y="Percentage", hue="Type",
-                data=data_long, palette=[FACTUAL_COLOR, COUNTERFACTUAL_COLOR],
-                edgecolor='black', ax=ax)
-
-    # Place legend outside the plot area
-    ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-    ax.tick_params(axis='x', left=False, bottom=False,
-                labelsize=AXIS_TEXT_SIZE)
-    ax.set_xlabel('')
-    ax.set_ylabel('% factual answers', fontsize=AXIS_TEXT_SIZE)
-    plt.tight_layout()
-
-    # Save bar plot
-    plt.savefig(f"{directory_path}/multiplied_pattern.pdf", dpi=300, bbox_inches='tight')
-    plt.close()
-
     print("Plots saved at: ", directory_path)
-    print("="*100)
+    print("=" * 100)
     print("Done plotting head pattern")
-    print("="*100 + "\n")
+    print("=" * 100 + "\n")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
-    parser.add_argument('model', type=str, nargs='?',
+    parser.add_argument('--model', type=str, nargs='?',
                         help='Name of the model',
-                        default=MODEL)
-    parser.add_argument('experiment', type=str, nargs='?',
+                        default="gpt2")
+    parser.add_argument('--experiment', type=str, nargs='?',
                         help='Name of the experiment',
-                        default=EXPERIMENT)
-    parser.add_argument('model_folder', type=str, nargs='?',
+                        default="copyVSfact")
+    parser.add_argument('--model_folder', type=str, nargs='?',
                         help='Name of the model folder',
-                        default=MODEL_FOLDER)
-    parser.add_argument('domain', type=str, nargs='?',
+                        default="gpt2_full")
+    parser.add_argument('--domain', type=str, nargs='?',
                         help='Name of the domain',
-                        default=DOMAIN)
+                        default=None)
+    parser.add_argument('--downsampled', action='store_true',
+                        help='Use downsampled dataset',
+                        default=False)
     args = parser.parse_args()
 
     # plotting setup
@@ -314,9 +272,10 @@ if __name__ == "__main__":
         relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
                              "Subject repeat", "Relation repeat", "Last"]
 
-    plot_head_pattern_fig_4b_5(
+    plot_head_pattern_fig_4b(
         model=args.model,
         experiment=args.experiment,
         model_folder=args.model_folder,
-        domain=args.domain
+        domain=args.domain,
+        downsampled=args.downsampled
     )

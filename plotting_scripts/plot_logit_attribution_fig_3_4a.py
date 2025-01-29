@@ -9,57 +9,11 @@ import argparse
 SAVE_DIR_NAME = "python_paper_plots"
 
 # Configurations
-palette = {
-    "GPT2": "#003f5c",
-    "GPT2-medium": "#58508d",
-    "GPT2-large": "#bc5090",
-    "GPT2-xl": "#ff6361",
-    "Pythia-6.9b": "#ffa600"
-}
 FACTUAL_COLOR = "#005CAB"
 FACTUAL_CMAP = sns.diverging_palette(250, 10, as_cmap=True)
 COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 
-# domain name
-DOMAIN = "Science"
-
-# GPT-2
-MODEL = "gpt2"
-MODEL_FOLDER = "gpt2_full"
-
-# Pythia
-# MODEL = "pythia-6.9b"
-# MODEL_FOLDER = "pythia-6.9b_full"
-
-# EXPERIMENT = "copyVSfact"
-# EXPERIMENT = "copyVSfactQnA"
-EXPERIMENT = "copyVSfactDomain"
-
-if DOMAIN:
-    MODEL_FOLDER += f"_{DOMAIN}"
-
-positions_name = [
-    "-", "Subject", "2nd Subject", "3rd Subject", "Relation", "Relation Last",
-    "Attribute*", "-", "Subject Repeat", "2nd Subject repeat",
-    "3nd Subject repeat", "Relation repeat", "Last"
-]
-
-# plotting setup
-if EXPERIMENT == "copyVSfactQnA":
-    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                         "Interrogative", "Relation repeat", "Subject repeat", "Last"]
-    position_filter = [1, 4, 5, 6, 7, 8, 9, 13]
-else:
-    relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                         "Subject repeat", "Relation repeat", "Last"]
-    position_filter = [1, 4, 5, 6, 9, 12, 13]
-
-AXIS_TITLE_SIZE = 20
-if MODEL == "gpt2":
-    AXIS_TEXT_SIZE = 16
-else:
-    AXIS_TEXT_SIZE = 14
 
 # Function to create heatmaps
 def create_heatmap(data, x, y, fill, title,
@@ -119,12 +73,8 @@ def create_barplot(data, x, y, color, title, axis_title_size, axis_text_size):
     barplot.grid(axis='y', linestyle='-', alpha=0.7, zorder=0)
     barplot.tick_params(left=False, bottom=False)
 
-    # Set y-ticks at 0.5 separation
-    if MODEL == "gpt2":
-        y_ticks = np.arange(-1, 2, 0.5)
-    else:
-        y_ticks = np.arange(-0.25, 0.75, 0.25)
-    plt.yticks(y_ticks, fontsize=axis_text_size)
+    plt.yticks(fontsize=axis_text_size)
+    plt.ylim(-data[y].max()-1, data[y].max()+1)
     barplot.tick_params(left=False, bottom=False)
     barplot.set_axisbelow(True)
 
@@ -149,7 +99,10 @@ def plot_logit_attribution_fig_3_4a(
     print("Plotting logit attribution. Model: ", model, " Experiment: ", experiment, " Model folder: ", model_folder, " Domain: ", domain, " Downsampled: ", downsampled)
     print("="*100)
     # load the data
-    data_file = f"../results/{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
+    if downsampled:
+        data_file = f"../results/{experiment}/logit_attribution/{model_folder}_downsampled/logit_attribution_data.csv"
+    else:
+        data_file = f"../results/{experiment}/logit_attribution/{model_folder}/logit_attribution_data.csv"
     print("Plotting logit attribution. Trying to load data from: ", data_file)
     try:
         data = pd.read_csv(data_file)
@@ -326,18 +279,21 @@ def plot_logit_attribution_fig_3_4a(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and visualize data.')
-    parser.add_argument('model', type=str, nargs='?',
+    parser.add_argument('--model', type=str, nargs='?',
                         help='Name of the model',
-                        default=MODEL)
-    parser.add_argument('experiment', type=str, nargs='?',
+                        default="gpt2")
+    parser.add_argument('--experiment', type=str, nargs='?',
                         help='Name of the experiment',
-                        default=EXPERIMENT)
-    parser.add_argument('model_folder', type=str, nargs='?',
+                        default="copyVSfact")
+    parser.add_argument('--model_folder', type=str, nargs='?',
                         help='Name of the model folder',
-                        default=MODEL_FOLDER)
-    parser.add_argument('domain', type=str, nargs='?',
+                        default="gpt2_full")
+    parser.add_argument('--domain', type=str, nargs='?',
                         help='Name of the domain',
-                        default=DOMAIN)
+                        default=None)
+    parser.add_argument('--downsampled', action='store_true',
+                        help='Use downsampled dataset',
+                        default=False)
     args = parser.parse_args()
     # plotting setup
     if args.experiment == "copyVSfactQnA":
@@ -359,5 +315,6 @@ if __name__ == "__main__":
         model=args.model,
         experiment=args.experiment,
         model_folder=args.model_folder,
-        domain=args.domain
+        domain=args.domain,
+        downsampled=args.downsampled
     )

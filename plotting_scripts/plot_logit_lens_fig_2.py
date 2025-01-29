@@ -108,7 +108,10 @@ def plot_logit_lens_fig_2(
     relevant_position, example_position = get_relevant_position_and_example_position(experiment)
 
     # Load data
-    data_path = f"../results/{experiment}/logit_lens/{model_folder}/logit_lens_data.csv"
+    if downsampled:
+        data_path = f"../results/{experiment}/logit_lens/{model_folder}_downsampled/logit_lens_data.csv"
+    else:
+        data_path = f"../results/{experiment}/logit_lens/{model_folder}/logit_lens_data.csv"
     print("Plotting logit lens. Trying to load data from: ", data_path)
     try:
         data = pd.read_csv(data_path)
@@ -365,7 +368,7 @@ if __name__ == "__main__":
     parser.add_argument('--domain', type=str, nargs='?',
                         help='Name of the domain',
                         default=None)
-    parser.add_argument('--downsampled', type=bool, nargs='?',
+    parser.add_argument('--downsampled', action='store_true',
                         help='Use downsampled dataset',
                         default=False)
     args = parser.parse_args()
