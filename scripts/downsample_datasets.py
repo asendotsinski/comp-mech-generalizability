@@ -76,16 +76,6 @@ def main(inference_model_name, model_names):
         attribute = tokenizer.decode(generated_tokens_ids[-1])
 
         return generation, attribute
-
-    def inference(prompt, model, tokenizer):
-        inputs = tokenizer(prompt, return_tensors="pt").to(device)
-        model_outputs = model.generate(**inputs, max_new_tokens=1, return_dict_in_generate=True, output_scores=True, 
-                                    pad_token_id=tokenizer.eos_token_id, do_sample=False)
-        generated_tokens_ids = model_outputs.sequences[0]
-        generation = tokenizer.decode(generated_tokens_ids)
-        attribute = tokenizer.decode(generated_tokens_ids[-1])
-
-        return generation, attribute
     
     def sequential_inference(dataset, prompt_key="prompt", subset=None):
         generations, attributes = [], []

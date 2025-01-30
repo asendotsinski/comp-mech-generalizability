@@ -36,31 +36,31 @@ streamlit run dashboard.py
  - Logit Attribution
  - Attention Pattern
 
-You can run the experiments running the `notebooks/experiments.ipynb` notebook. This notebook contains the code to run the experiments for the logit lens, logit attribution, and attention pattern.
+You can run the experiments through the `notebooks/experiments.ipynb` notebook. This notebook contains the code to run the experiments for the logit lens, logit attribution, and attention pattern.
 
 #### Script to execute all the experiments
-You can run the experiment running the following command:
+You can run the experiments with the following command:
 ```bash
 cd scripts
 python run_all.py
 ```
-with the following arguments:
-- `--model_name`: The name of the model to run the experiments on. It can be `gpt2`, `pythia-6.9b` or `Llama`.
+using the following arguments:
+- `--model_name`: The name of the model to run the experiments on. `["gpt2", "pythia-6.9b", "Llama"]`
 - `--batch`: The batch size to use for the experiments. (Suggested: 40 for gpt2, 10 for pythia)
-- `--dataset`: The dataset to run the experiments on Example: `copyVSfact`.
-- `--start`: Specifies the starting point in the dataset for running the experiment. 
-- `--end`: Specifies the ending index in the dataset for running the experiment.
-- `--prompt_type`: Prompt type for testing different prompt structures `["qna", "fact_check_v1", "fact_check_v2", "context_qna"]`. 
-- `--domain`: Domain class subset to choose from the dataset Example: `["News", "Games", "Science"] etc.`. 
+- `--dataset`: The dataset to run the experiments on. Choose `copyVSfact` for the "Redefine" dataset, `copyVSfactQnA` for the QnA dataset and `copyVSfactDomain` for the domain-based dataset.
+- `--start`: Specifies the starting index for prompts to be included in the experiment from the dataset.
+- `--end`: Specifies the ending index for prompts to be included in the experiment from the dataset.
+- `--prompt_type`: Prompt type for testing different prompt structures. Only "qna" was used in the paper. `["qna", "fact_check_v1", "fact_check_v2", "context_qna"]`. 
+- `--domain`: Domain class subset to choose from the domain dataset. `["News", "Games", "Science"] etc.`. 
 - `--logit-attribution`: If you want to run the logit attribution experiment.
 - `--logit-lens`: If you want to run the logit lens experiment (Figure 2).
 - `--ov-diff`: This is useful for comparing model outputs in terms of performance or behavior.
-- `--all`: Run all the experiments at once sequentially.
+- `--all`: Run all the experiments at once sequentially. Overrides the other experiment flags.
 - `--ablate`: If you want to perform ablation.
 - `--ablate-component`: The specific component to ablate, default is "all".
 - `--pattern`: If you want to retrieve the attention pattern.
 - `--device`: Specify the device for execution (GPU or CPU).
-- `--only-plot`: If you want to only generate plots.
+- `--only-plot`: If you want to only generate plots, without regenerating the data.
 - `--flag`: An additional flag for custom behavior.
   
 The script will create a folder in the `results/{dataset}` directory with the name of the model.
@@ -94,7 +94,7 @@ This section highlights the key files and directories in this repository to help
 ---
 
 ### **Source Code (`src`)**
-The `src/` directory contains the core codebase for the project. It includes the main modules, utilities, and experiment-specific code.
+The `src/` directory contains the core codebase for the project, and it is a slightly modified version of the code from Ortu et al. It includes the main modules, utilities, and experiment-specific code.
 - `base_experiment.py`: Contains helper functions for running experiments.
 - `dataset.py`: Handles the dataset-related operations like loading and preprocessing.
 - `model.py`: Defines the model architecture and related components.
@@ -111,13 +111,13 @@ The `src/` directory contains the core codebase for the project. It includes the
 ### **Experiment Data**
 Different datasets used for various experimentations and results.
 
-**Data With Subjects**
+**Data With Subjects (The "Redefine" set)**
 - `data/full_data_sampled_gpt2_with_subjects.json`: Data for `gpt2`.
 - `data/full_data_sampled_pythia-6.9b_with_subjects.json`: Data for `pythia-6.9b`.
 - `data/full_data_sampled_Llama-3.2-1B_with_subjects.json`: Data for `Llama-3.2-1B`.
 - `data/full_data_sampled_Llama-3.1-8B_with_subjects.json`: Data for `Llama-3.1-8B`.
 
-**Data With Question Prompt**
+**Data With Question Prompt (The "QnA" set)**
 - `data/cft_og_combined_data_sampled_gpt2_with_questions.json`: Data for `gpt2`.
 - `data/cft_og_combined_data_sampled_pythia-6.9b_with_questions.json`: Data for `pythia-6.9b`.
 - `data/cft_og_combined_data_sampled_Llama-3.2-1B_with_questions.json`: Data for `Llama-3.2-1B`.
@@ -126,7 +126,7 @@ Different datasets used for various experimentations and results.
 **Data With Domains**
 - `data/full_data_sampled_gpt2_with_domains.json`: Data for `gpt2`.
 
-**Downsampled Datasets**
+**Downsampled Datasets (where the base prompts are validated against the models)**
 - With Subjects
   - `data/full_data_sampled_gpt2_with_subjects_downsampled.json`: Data for `gpt2`.
   - `data/full_data_sampled_pythia-6.9b_with_subjects_downsampled.json`: Data for `pythia-6.9b`.
