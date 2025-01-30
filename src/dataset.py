@@ -237,11 +237,8 @@ class BaseDataset(Dataset):
     def __get_prompt__(self, d: Dict) -> str:
         if self.experiment in ["copyVSfact", "copyVSfactDomain"]:
             return d["template"].format(self.premise, d["target_new"])
-        elif self.experiment == "contextVSfact":
-            if d["prompt"][0] == " ":
-                return d["prompt"]
-            else:
-                return " " + d["prompt"]
+        elif self.experiment == "copyVSfactQnA":
+            return d["prompt"]
         else:
             raise NotImplementedError(f"Experiment {self.experiment} is not supported")
 

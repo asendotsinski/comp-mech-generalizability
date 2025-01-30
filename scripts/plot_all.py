@@ -13,8 +13,8 @@ DOMAIN = "Science"
 DOWNSAMPLED = False
 
 # models
-# MODEL = "gpt2"
-MODEL = "pythia-6.9b"
+MODEL = "gpt2"
+# MODEL = "pythia-6.9b"
 # MODEL = "Llama-3.2-1B"
 # MODEL = "Llama-3.1-8B"
 
@@ -31,8 +31,8 @@ EXPERIMENT = "copyVSfactQnA"
 
 scripts = [
     "plot_logit_lens_fig_2.py",
-    # "plot_logit_attribution_fig_3_4a.py",
-    # "plot_head_pattern_fig_4b.py",
+    "plot_logit_attribution_fig_3_4a.py",
+    "plot_head_pattern_fig_4b.py",
     # "plot_ablation_fig_5.py"
 ]
 
@@ -45,9 +45,10 @@ def plot_results():
             "--model", MODEL,
             "--experiment", EXPERIMENT,
             "--model_folder", MODEL_FOLDER,
-            # "--domain", "None",
-            # "--downsampled",
+            # "--domain", domain,
         ]
+        if DOWNSAMPLED:
+            command.append("--downsampled")
         print(f"Running command: {' '.join(command)}")
         subprocess.run(command)
         print()

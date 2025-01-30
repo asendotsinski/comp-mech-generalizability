@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import argparse
@@ -14,11 +13,31 @@ FACTUAL_CMAP = sns.diverging_palette(250, 10, as_cmap=True)
 COUNTERFACTUAL_COLOR = "#E31B23"
 COUNTERFACTUAL_CMAP = sns.diverging_palette(10, 250, as_cmap=True)
 
+AXIS_TITLE_SIZE = 20
+
+def get_axis_text_size(model):
+    if model == "gpt2":
+        return 16
+    else:
+        return 14
+
+def get_relevant_position_and_position_filter(experiment):
+    # plotting setup
+    if experiment == "copyVSfactQnA":
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+        position_filter = [1, 4, 5, 6, 7, 8, 9, 13]
+    else:
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Subject repeat", "Relation repeat", "Last"]
+        position_filter = [1, 4, 5, 6, 9, 12, 13]
+
+    return relevant_position, position_filter
 
 # Function to create heatmaps
 def create_heatmap(data, x, y, fill, title,
-                   midpoint=0, add_positions=None,
-                   block=None):
+                   midpoint=0, add_positions=None, block=None,
+                   relevant_position=None, axis_text_size=16):
     plt.figure(figsize=(12, 10))
     pivot_data = data.pivot(index=y, columns=x, values=fill)
     if add_positions:
@@ -35,7 +54,7 @@ def create_heatmap(data, x, y, fill, title,
             yticklabels=relevant_position,
             cbar_kws=cbar_kws
         )
-        plt.xlabel(x.capitalize(), fontsize=AXIS_TEXT_SIZE)
+        plt.xlabel(x.capitalize(), fontsize=axis_text_size)
         plt.ylabel("")
     else:
         cbar_kws = {
@@ -51,15 +70,15 @@ def create_heatmap(data, x, y, fill, title,
             cbar_kws=cbar_kws,
         )
         plt.gca().invert_yaxis()
-        plt.xlabel(x.capitalize(), fontsize=AXIS_TEXT_SIZE)
-        plt.ylabel(y.capitalize(), fontsize=AXIS_TEXT_SIZE)
+        plt.xlabel(x.capitalize(), fontsize=axis_text_size)
+        plt.ylabel(y.capitalize(), fontsize=axis_text_size)
 
     heatmap.tick_params(left=False, bottom=False)
-    heatmap.figure.axes[-1].yaxis.label.set_size(AXIS_TEXT_SIZE)
+    heatmap.figure.axes[-1].yaxis.label.set_size(axis_text_size)
     plt.title(title, fontsize=AXIS_TITLE_SIZE)
-    plt.xticks(fontsize=AXIS_TEXT_SIZE, rotation=0)
-    plt.yticks(fontsize=AXIS_TEXT_SIZE, rotation=0)
-    heatmap.figure.axes[-1].axes.tick_params(labelsize=AXIS_TEXT_SIZE-2)
+    plt.xticks(fontsize=axis_text_size, rotation=0)
+    plt.yticks(fontsize=axis_text_size, rotation=0)
+    heatmap.figure.axes[-1].axes.tick_params(labelsize=axis_text_size-2)
     plt.tight_layout()
 
 
@@ -119,6 +138,9 @@ def plot_logit_attribution_fig_3_4a(
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
+    # plotting setup
+    AXIS_TEXT_SIZE = get_axis_text_size(model)
+    relevant_position, position_filter = get_relevant_position_and_position_filter(experiment)
     #########################################
     ######## Heat Map: Head Position ########
     #########################################
@@ -145,6 +167,7 @@ def plot_logit_attribution_fig_3_4a(
         y="head",
         fill="diff_mean",
         title=r"$\Delta_{cofa}$ Heatmap",
+        axis_text_size=AXIS_TEXT_SIZE
     )
     filename=f"{directory_path}/logit_attribution_head_position{number_of_position}.pdf"
     plt.savefig(filename, bbox_inches='tight')
@@ -256,7 +279,8 @@ def plot_logit_attribution_fig_3_4a(
     # MLP Heatmap processing
     data_mlp = process_heatmap_data(data, pattern="_mlp_out", position_filter=position_filter, block="mlp")
     create_heatmap(data_mlp, "layer", "mapped_position", "diff_mean",
-                "MLP Block", add_positions=True, block="mlp")
+                "MLP Block", add_positions=True, block="mlp", relevant_position=position_filter,
+                   axis_text_size=AXIS_TEXT_SIZE)
     # Save the MLP heatmap
     mlp_out_filename = f"{directory_path}/logit_attribution_mlp_out.pdf"
     plt.savefig(mlp_out_filename, bbox_inches="tight")
@@ -264,7 +288,8 @@ def plot_logit_attribution_fig_3_4a(
     # Attention Heatmap processing
     data_attn = process_heatmap_data(data, pattern="_attn_out", position_filter=position_filter, block="attn")
     create_heatmap(data_attn, "layer", "mapped_position", "diff_mean",
-                "Attention Block", add_positions=True, block="attn")
+                "Attention Block", add_positions=True, block="attn", relevant_position=position_filter,
+                   axis_text_size=AXIS_TEXT_SIZE)
     
     # Save the Attention heatmap
     attn_out_filename = f"{directory_path}/logit_attribution_attn_out.pdf"
@@ -295,21 +320,6 @@ if __name__ == "__main__":
                         help='Use downsampled dataset',
                         default=False)
     args = parser.parse_args()
-    # plotting setup
-    if args.experiment == "copyVSfactQnA":
-        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                             "Interrogative", "Relation repeat", "Subject repeat", "Last"]
-        position_filter = [1, 4, 5, 6, 7, 8, 9, 13]
-    else:
-        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                             "Subject repeat", "Relation repeat", "Last"]
-        position_filter = [1, 4, 5, 6, 9, 12, 13]
-
-    AXIS_TITLE_SIZE = 20
-    if args.model == "gpt2":
-        AXIS_TEXT_SIZE = 16
-    else:
-        AXIS_TEXT_SIZE = 14
 
     plot_logit_attribution_fig_3_4a(
         model=args.model,

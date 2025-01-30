@@ -22,7 +22,7 @@ AXIS_TEXT_SIZE = 15
 #########################################
 
 # Create a heatmap function
-def create_heatmap(data, midpoint=0):
+def create_heatmap(data, relevant_position, midpoint=0):
     plt.figure(figsize=(10, 8))
 
     # Create the pivot table for all data
@@ -85,6 +85,14 @@ def plot_head_pattern_fig_4b(
     print("="*100)
     print("Plotting head pattern. Model: ", model, " Experiment: ", experiment, " Model folder: ", model_folder, " Domain: ", domain, " Downsampled: ", downsampled)
     print("="*100)
+
+    # plotting setup
+    if experiment == "copyVSfactQnA":
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Interrogative", "Relation repeat", "Subject repeat", "Last"]
+    else:
+        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
+                             "Subject repeat", "Relation repeat", "Last"]
 
     # last token position
     source_position = 13
@@ -161,7 +169,7 @@ def plot_head_pattern_fig_4b(
                                 'Other')
     # data_final.sort_values(by=["layer", "head"], ascending=False, axis=0, inplace=True)
     # print(data_final)
-    create_heatmap(data_final)
+    create_heatmap(data_final, relevant_position)
     # Save plot
     plt.savefig(f"{directory_path}/head_pattern_layer.pdf",
                 bbox_inches='tight')
@@ -263,14 +271,6 @@ if __name__ == "__main__":
                         help='Use downsampled dataset',
                         default=False)
     args = parser.parse_args()
-
-    # plotting setup
-    if args.experiment == "copyVSfactQnA":
-        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                             "Interrogative", "Relation repeat", "Subject repeat", "Last"]
-    else:
-        relevant_position = ["Subject", "Relation", "Relation Last", "Attribute*",
-                             "Subject repeat", "Relation repeat", "Last"]
 
     plot_head_pattern_fig_4b(
         model=args.model,

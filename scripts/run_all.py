@@ -360,7 +360,7 @@ if __name__ == "__main__":
     parser.add_argument("--end", type=int, default=config_defaults.dataset_end)
     parser.add_argument("--prompt_type", type=str, default=config_defaults.prompt_type)
     parser.add_argument("--domain", type=str, default=config_defaults.domain)
-    parser.add_argument("--no-plot", dest="produce_plots", action="store_false", default=False)
+    parser.add_argument("--no-plot", dest="produce_plots", action="store_false", default=True)
     parser.add_argument("--batch", type=int, default=config_defaults.batch_size)
     parser.add_argument("--only-plot", action="store_true")
     parser.add_argument("--std-dev", action="store_true")
