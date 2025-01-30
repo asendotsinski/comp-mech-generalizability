@@ -1,5 +1,6 @@
 # imports
 import argparse
+import json
 import os
 import sys
 from dataset import BaseDataset, DOMAINS
@@ -122,7 +123,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run domain ablation experiments.")
     parser.add_argument("--dataset", type=str, default="copyVSfactDomain", help="Path to the dataset.")
     parser.add_argument("--experiment", type=str, default="copyVSfactDomain", help="Name of the experiment.")
-    parser.add_argument("--downsampled_dataset", type=bool, default=False, help="Whether to use the downnsampled dataset or not.")
+    parser.add_argument("--downsampled_dataset", type=bool, default=True, help="Whether to use the downnsampled dataset or not.")
     parser.add_argument("--model_name", type=str, default="gpt2", help="Model name.")
     parser.add_argument("--position", type=str, default="attribute", help="Position setting for the ablator.")
     parser.add_argument("--batch_size", type=int, default=20, help="Batch size for the ablator.")
@@ -133,15 +134,25 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    # no data present for these domains
-    excluded_domains = ["Adult", "Beauty_and_Fitness", "Pets_and_Animals"]
+    excluded_domains = []
+    if args.dataset == "copyVSfactDomain":
+        # no data present for these domains
+        with open(get_dataset_path(args), "r") as f:
+            data = json.load(f)
+        data_domains = [row["domain"] for row in data]
+
+        excluded_domains = list(set(DOMAINS) - set(data_domains))
+    print(f"Excluded Domains: {excluded_domains}")
 
     # Parse ablation_layer_heads
     ablation_layer_heads = eval(
         args.ablation_layer_heads)
 
 
-    SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full"
+    if args.downsampled_dataset:
+        SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full_downsampled"
+    else:
+        SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full"
 
     # Load model
     model = ModelFactory.create(args.model_name)
