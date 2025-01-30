@@ -45,23 +45,25 @@ cd scripts
 python run_all.py
 ```
 using the following arguments:
-- `--model_name`: The name of the model to run the experiments on. `["gpt2", "pythia-6.9b", "Llama"]`
+- `--model_name`: The name of the model to run the experiments on. `["gpt2", "pythia-6.9b", "Llama-3.2-1B", "Llama-3.1-8B"]`
+- `--quantize`: Use quantized version of models.
+- `--device`: Specify the device for execution (GPU or CPU).
 - `--batch`: The batch size to use for the experiments. (Suggested: 40 for gpt2, 10 for pythia)
 - `--dataset`: The dataset to run the experiments on. Choose `copyVSfact` for the "Redefine" dataset, `copyVSfactQnA` for the QnA dataset and `copyVSfactDomain` for the domain-based dataset.
+- `--downsampled-dataset`: Use the fixed "Redefine" dataset (downsampled).
 - `--start`: Specifies the starting index for prompts to be included in the experiment from the dataset.
 - `--end`: Specifies the ending index for prompts to be included in the experiment from the dataset.
 - `--prompt_type`: Prompt type for testing different prompt structures. Only "qna" was used in the paper. `["qna", "fact_check_v1", "fact_check_v2", "context_qna"]`. 
 - `--domain`: Domain class subset to choose from the domain dataset. `["News", "Games", "Science"] etc.`. 
 - `--logit-attribution`: If you want to run the logit attribution experiment.
-- `--logit-lens`: If you want to run the logit lens experiment (Figure 2).
+- `--logit-lens`: If you want to run the logit lens experiment.
+- `--pattern`: If you want to retrieve the attention pattern.
 - `--ov-diff`: This is useful for comparing model outputs in terms of performance or behavior.
 - `--all`: Run all the experiments at once sequentially. Overrides the other experiment flags.
 - `--ablate`: If you want to perform ablation.
 - `--ablate-component`: The specific component to ablate, default is "all".
-- `--pattern`: If you want to retrieve the attention pattern.
-- `--device`: Specify the device for execution (GPU or CPU).
 - `--only-plot`: If you want to only generate plots, without regenerating the data.
-- `--flag`: An additional flag for custom behavior.
+- `--no-plot`: Disables plotting after each experiment run.
   
 The script will create a folder in the `results/{dataset}` directory with the name of the model.
 
