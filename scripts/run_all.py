@@ -263,7 +263,7 @@ def pattern(model, dataset, config, args):
         pattern_plot(config, data_slice_name)
 
 def pattern_plot(config, data_slice_name):
-    plot_head_pattern_fig_4b_5(
+    plot_head_pattern_fig_4b(
         model=config.model_name,
         experiment=config.mech_fold,
         model_folder=f'{config.model_name}_{data_slice_name}',
