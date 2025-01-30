@@ -90,7 +90,8 @@ def main_window(model, experiment, dataset, domain, downsampled):
 
             with st.expander("Dataset Stats", expanded=True):
                 process_dataset_stats(data)
-        except: pass
+        except:
+            st.error("No data present for this configuration!")
 
         if domain:
             plots_folder = f"results/python_paper_plots/{model}_{dataset}_{EXPERIMENTS[experiment]}/{domain}"

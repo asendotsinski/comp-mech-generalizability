@@ -36,10 +36,10 @@ streamlit run dashboard.py
  - Logit Attribution
  - Attention Pattern
 
-You can run the experiments through the `notebooks/experiments.ipynb` notebook. This notebook contains the code to run the experiments for the logit lens, logit attribution, and attention pattern.
+#### Execute all the experiments
+You can run the all the experiments and save plots through the `notebooks/run_all.ipynb` notebook. 
 
-#### Script to execute all the experiments
-You can run the experiments with the following command:
+Or you can run the experiments with the following command:
 ```bash
 cd scripts
 python run_all.py
@@ -68,7 +68,7 @@ The script will create a folder in the `results/{dataset}` directory with the na
 Example:
 ```bash
 cd scripts
-python run_all.py --model_name gpt2 --batch 40 --experiment copyVSfact --logit-attribution 
+python run_all.py --model_name gpt2 --batch 40 --dataset copyVSfact --logit-attribution 
 ```
 
 ---
