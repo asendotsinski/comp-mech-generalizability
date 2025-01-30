@@ -66,7 +66,6 @@ class Config:
     up_to_layer: Union[int, str] = "all"
     ablate_component:str = "all"
     flag: str = ""
-    quantize: bool = False
     downsampled_dataset: bool = False
 
     @classmethod
@@ -88,7 +87,6 @@ class Config:
             hf_model_name= get_hf_model_name(args.model_name),
             ablate_component=args.ablate_component,
             flag = args.flag,
-            quantize=args.quantize,
             downsampled_dataset=args.downsampled_dataset
         )
 
@@ -376,7 +374,6 @@ if __name__ == "__main__":
     parser.add_argument("--ablate-component", type=str, default="all")
     parser.add_argument("--dataset", type=str, default="copyVSfact")
     parser.add_argument("--flag", type=str, default="")
-    parser.add_argument("--quantize", action="store_true", default=False)
     parser.add_argument("--downsampled-dataset", action="store_true", default=False)
 
     args = parser.parse_args()

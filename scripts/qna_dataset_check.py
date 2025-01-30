@@ -10,9 +10,9 @@ from argparse import ArgumentParser
 
 sys.path.append(os.path.abspath(os.path.join("../src")))
 
-device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
-
 from utils import get_hf_model_name
+
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
 def inference(prompt, model, tokenizer):
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
@@ -84,9 +84,6 @@ def main(hf_model_name, dataset_path, start, end):
     print("Checking prompt. This checks whethere the model predicts either factual or counterfactual attribute.")
     print("="*100)
     check_dataset(dataset, model, tokenizer, start, end, prompt_name="prompt")
-    # print(preds[:10])
-    # print(generations[indices_with_unexpected_preds[:10]])
-    # print(counterfactuals[indices_with_unexpected_preds[:10]])
 
 if __name__ == "__main__":
     parser = ArgumentParser()

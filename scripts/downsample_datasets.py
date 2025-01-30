@@ -1,14 +1,10 @@
 import sys
 import torch
-from transformers import AutoTokenizer, BitsAndBytesConfig, AutoModelForCausalLM
-from pprint import pprint
+from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-import traceback
-from sklearn.metrics import accuracy_score
-from concurrent.futures import ThreadPoolExecutor
 from argparse import ArgumentParser
 
 
@@ -62,8 +58,6 @@ def main(inference_model_name, model_names):
             pad_token_id=tokenizer.eos_token_id,
             device_map="auto",
             do_sample=False)
-    
-    # tokenizer.pad_token_id = tokenizer.eos_token_id
 
     def inference(prompt, model, tokenizer):
         inputs = tokenizer(prompt, return_tensors="pt").to(device)

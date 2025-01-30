@@ -330,38 +330,17 @@ class ModelFactory:
 def load_model(config) -> Union[WrapHookedTransformer, WrapAutoModelForCausalLM]:
     if "llama" in config.model_name.lower():
         tokenizer = AutoTokenizer.from_pretrained(config.hf_model_name)
-        
-        if config.quantize:
-            quantization_config = BitsAndBytesConfig(
-                load_in_4bit=True,
-                bnb_4bit_compute_dtype=torch.float16,
-                bnb_4bit_quant_type="nf4",
-                bnb_4bit_use_double_quant=True
-            )
-            # model = AutoModelForCausalLM.from_pretrained(
-            #     config.hf_model_name,
-            #     quantization_config=quantization_config,
-            #     device_map="auto",
-            #     torch_dtype=torch.float16
-            # )
-        else:
-            # model = AutoModelForCausalLM.from_pretrained(config.hf_model_name)
-            quantization_config = None
         model = WrapHookedTransformer.from_pretrained(
                 config.hf_model_name,
                 quantized=config.quantize,
                 tokenizer=tokenizer,
                 fold_ln=False,
-                # hf_model=model,
-                quantization_config=quantization_config,
                 device_map="auto", torch_dtype=torch.float16,
                 trust_remote_code=True
         )
     else:
-        # Use HookedTransformer for other models
         model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
 
-    if not config.quantize:
-        model.to(config.device)
+    model.to(config.device)
 
     return model
