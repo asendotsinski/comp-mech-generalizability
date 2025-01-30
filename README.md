@@ -214,5 +214,6 @@ Jupyter notebooks for experiments and analysis:
 - `notebooks/word_knowledge.ipynb`: Notebook for word knowledge experiments using `ecco` (requires python 3.8).
 - `notebooks/attention_modifcation.ipynb`: Notebook for attention modifications experiments.
 - `notebooks/root`: Experimentation with different data and new approaches.
+- `notebooks/process_job_resource_usage.ipynb`: Notebook for extracting total energy usage and GPU hours.
 ---
 
