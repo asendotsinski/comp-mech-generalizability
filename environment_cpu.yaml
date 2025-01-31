@@ -8,6 +8,7 @@ dependencies:
   - click==8.1.7
   - cpuonly=2.0
   - gensim==4.3.3
+  - ipykernel
   - numpy==1.26.4
   - matplotlib==3.8.4
   - openai==1.25.0
