@@ -217,3 +217,11 @@ Jupyter notebooks for experiments and analysis:
 - `notebooks/process_job_resource_usage.ipynb`: Notebook for extracting total energy usage and GPU hours.
 ---
 
+### **Notes on running the models**
+- Be aware that the Llama models on HugginFace are gated repositories, for which you would need to request access to. After that you can generate a token a login using the huggingface-cli.
+
+```bash
+huggingface-cli login
+```
+
+- The larger models, pythia-6.9b and Llama-3.1-8B, over 40GB of VRAM due to the extra memory overhead of the Logit. Ensure your hardware has enough VRAM to run these models.
