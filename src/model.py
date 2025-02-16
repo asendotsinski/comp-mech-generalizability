@@ -121,12 +121,7 @@ class WrapHookedTransformer(BaseModel):
         return cls(model_name, *args, **kwargs)
 
     def initialize_model(self, model_name: str, *args, **kwargs):
-        quantized = kwargs.get("quantized", False)
-        kwargs.pop("quantized", None)
-        if quantized:
-            self.model = HookedTransformer.from_pretrained_no_processing(model_name, *args, **kwargs)
-        else:
-            self.model = HookedTransformer.from_pretrained(model_name, *args, **kwargs)
+        self.model = HookedTransformer.from_pretrained(model_name, *args, **kwargs)
         self.device = str(self.model.cfg.device)
         self.tokenizer = self.model.tokenizer
 
@@ -332,10 +327,9 @@ def load_model(config) -> Union[WrapHookedTransformer, WrapAutoModelForCausalLM]
         tokenizer = AutoTokenizer.from_pretrained(config.hf_model_name)
         model = WrapHookedTransformer.from_pretrained(
                 config.hf_model_name,
-                quantized=config.quantize,
                 tokenizer=tokenizer,
                 fold_ln=False,
-                device_map="auto", torch_dtype=torch.float16,
+                device_map="auto",
                 trust_remote_code=True
         )
     else:
