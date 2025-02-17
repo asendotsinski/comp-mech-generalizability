@@ -52,6 +52,7 @@ class Config:
     model_name: str = "gpt2"
     hf_model_name: str = "gpt2"
     device: str = "cuda"
+    premise: str = "Redefine"
     prompt_type: str = None
     domain: str = None
     batch_size: int = 10
@@ -79,6 +80,7 @@ class Config:
             dataset_slice=args.slice,
             dataset_start=args.start,
             dataset_end=args.end,
+            premise=args.premise,
             prompt_type=args.prompt_type,
             domain=args.domain,
             produce_plots=args.produce_plots,
@@ -317,6 +319,7 @@ def main(args):
                           start=args.start, end=args.end,
                           prompt_type=args.prompt_type,
                           domain=args.domain,
+                          premise=config.premise,
                           no_subject=False)
 
     experiments = []
@@ -357,6 +360,7 @@ if __name__ == "__main__":
     parser.add_argument("--start", type=int, default=config_defaults.dataset_start)
     parser.add_argument("--end", type=int, default=config_defaults.dataset_end)
     parser.add_argument("--prompt_type", type=str, default=config_defaults.prompt_type)
+    parser.add_argument("--premise", type=str, default=config_defaults.premise)
     parser.add_argument("--domain", type=str, default=config_defaults.domain)
     parser.add_argument("--no-plot", dest="produce_plots", action="store_false", default=True)
     parser.add_argument("--batch", type=int, default=config_defaults.batch_size)
