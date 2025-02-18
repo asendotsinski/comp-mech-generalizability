@@ -46,7 +46,7 @@ def plot_results(ablation_result,
     for bars in [mem_bars, cp_bars]:
         for bar in bars:
             height = bar.get_height()
-            plt.text(bar.get_x() + bar.get_width()/2., height,
+            plt.text(bar.get_x() + bar.get_width(), height,
                     f'{height:.2f}',
                     ha='center', va='bottom')
 
@@ -161,8 +161,8 @@ def run_ablator(model, dataset, batch_size, multiplier,
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run domain ablation experiments.")
     parser.add_argument("--dataset", type=str, default="copyVSfactDomain", help="Path to the dataset.")
-    parser.add_argument("--start", type=int, default=0, help="Start index of the dataset.")
-    parser.add_argument("--end", type=int, default=10000, help="End index of the dataset.")
+    parser.add_argument("--start", type=int, default=None, help="Start index of the dataset.")
+    parser.add_argument("--end", type=int, default=None, help="End index of the dataset.")
     parser.add_argument("--experiment", type=str, default="copyVSfactDomain", help="Name of the experiment.")
     parser.add_argument("--downsampled_dataset", type=bool, default=True, help="Whether to use the downnsampled dataset or not.")
     parser.add_argument("--model_name", type=str, default="gpt2", help="Model name.")
@@ -176,9 +176,13 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     excluded_domains = []
+
+    dataset_path = get_dataset_path(args)
+    print(f"Dataset path: {dataset_path}")
+
     if args.dataset == "copyVSfactDomain":
         # no data present for these domains
-        with open(get_dataset_path(args), "r") as f:
+        with open(dataset_path, "r") as f:
             data = json.load(f)
         data_domains = [row["domain"] for row in data]
 
@@ -201,7 +205,7 @@ if __name__ == '__main__':
     # Run ablator
     ablation_result = run_ablator(
         model=model,
-        dataset=get_dataset_path(args),
+        dataset=dataset_path,
         batch_size=args.batch_size,
         multiplier=args.multiplier,
         experiment=args.experiment,
