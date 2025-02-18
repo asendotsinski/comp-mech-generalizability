@@ -46,8 +46,8 @@ def plot_results(ablation_result,
     for bars in [mem_bars, cp_bars]:
         for bar in bars:
             height = bar.get_height()
-            plt.text(bar.get_x() + bar.get_width(), height,
-                    f'{height:.2f}',
+            plt.text(bar.get_x() + bar.get_width()/2., height,
+                    f'{height}',
                     ha='center', va='bottom')
 
     plt.grid(axis='y', linestyle='-', alpha=0.7, zorder=0)
@@ -152,7 +152,7 @@ def run_ablator(model, dataset, batch_size, multiplier,
         results.append(ablation_result)
 
     ablation_result = pd.concat(results)
-    ablation_result.to_csv(f"{SAVE_FOLDER}/ablation_{position}_{ablation_layer_heads}_{args.multiplier}.csv",
+    ablation_result.to_csv(f"{SAVE_FOLDER}/ablation_{position}_{ablation_layer_heads}.csv",
                                         index=False)
 
     return ablation_result
@@ -172,8 +172,34 @@ if __name__ == '__main__':
     parser.add_argument("--prompt_type", type=str, default=None, help="Type of prompt used.")
     parser.add_argument("--ablation_layer_heads", type=str, default="[(10, 7), (11, 10)]",
                         help="Heads to ablate in the format '[(layer, head), ...]'.")
+    parser.add_argument("--only_plot", action="store_true", default=False, help="Whether to only plot the results.")
 
     args = parser.parse_args()
+
+    if args.downsampled_dataset:
+        SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full_downsampled"
+    else:
+        SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full"
+
+    # Parse ablation_layer_heads
+    ablation_layer_heads = eval(
+        args.ablation_layer_heads)
+    
+    multiplier = args.multiplier
+
+    if args.only_plot:
+        print(f"Plotting results for {args.position} with {args.ablation_layer_heads} and multiplier {args.multiplier}")
+        # load the results
+        results_path = f"{SAVE_FOLDER}/ablation_{args.position}_{args.ablation_layer_heads}_{args.multiplier}.csv"
+        if not os.path.exists(results_path):
+            print(f"Results file does not exist: {results_path}")
+            exit()
+        ablation_result = pd.read_csv(results_path)
+        print(f"Ablation result: {ablation_result}")
+        plot_results(ablation_result)
+        plot_filename = f"{SAVE_FOLDER}/ablation_{args.position}_{args.ablation_layer_heads}_{args.multiplier}.pdf"
+        plt.savefig(plot_filename, bbox_inches="tight")
+        exit()
 
     excluded_domains = []
 
@@ -188,16 +214,6 @@ if __name__ == '__main__':
 
         excluded_domains = list(set(DOMAINS) - set(data_domains))
     print(f"Excluded Domains: {excluded_domains}")
-
-    # Parse ablation_layer_heads
-    ablation_layer_heads = eval(
-        args.ablation_layer_heads)
-    multiplier = args.multiplier
-
-    if args.downsampled_dataset:
-        SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full_downsampled"
-    else:
-        SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full"
 
     # Load model
     model = ModelFactory.create(args.model_name)
