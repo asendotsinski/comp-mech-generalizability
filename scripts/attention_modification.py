@@ -3,6 +3,12 @@ import argparse
 import json
 import os
 import sys
+
+sys.path.append(os.path.abspath(os.path.join("..")))
+sys.path.append(os.path.abspath(os.path.join("../src")))
+sys.path.append(os.path.abspath(os.path.join("../data")))
+sys.path.append(os.path.abspath(os.path.join("../plotting_scripts")))
+
 from dataset import BaseDataset, DOMAINS
 from experiment import Ablator
 from model import ModelFactory
@@ -40,24 +46,24 @@ def plot_results(ablation_result,
     plt.gca().set_axisbelow(True)
 
     # Adding labels and title
-    plt.xlabel("Domain", fontsize=axis_text_size)
+    # plt.xlabel("Domain", fontsize=axis_text_size)
     plt.ylabel("Wins", fontsize=axis_text_size)
-    # plt.title(f"Ablation comparison - {ablation_layer_heads}",
-    #           fontsize=axis_title_size)
+    plt.title(f"Ablation comparison - {ablation_layer_heads} with multiplier {multiplier}",
+              fontsize=axis_title_size)
     plt.xticks([i + bar_width / 2 for i in x], ablation_result["domain"],
-               rotation=90)
+               rotation=45)
     plt.xticks(fontsize=axis_text_size)
     plt.yticks(fontsize=axis_text_size)
     plt.legend()
     plt.tick_params(left=False, bottom=False)
 
     # Show plot
-    plt.tight_layout()
+    plt.tight_layout(pad=2.0)
     # plt.show()
 
 
 def run_ablator(model, dataset, batch_size, multiplier,
-                experiment, prompt_type, position, ablation_layer_heads):
+                experiment, prompt_type, position, ablation_layer_heads, start, end):
     if not os.path.exists(SAVE_FOLDER):
         os.makedirs(SAVE_FOLDER)
 
@@ -76,7 +82,9 @@ def run_ablator(model, dataset, batch_size, multiplier,
                             experiment=experiment,
                             domain=domain,
                             prompt_type=prompt_type,
-                            no_subject=False)
+                            no_subject=False,
+                            start=start,
+                            end=end)
             ablator = Ablator(model=model, dataset=ds, experiment=experiment, batch_size=batch_size)
             ablator.set_heads(heads=ablation_layer_heads, value=multiplier, position=position)
 
@@ -95,24 +103,47 @@ def run_ablator(model, dataset, batch_size, multiplier,
         ablation_result = pd.concat(results)
     else:
         # experiment setup
+        results = []
+
         ds = BaseDataset(path=dataset,
                          model=model,
                          experiment=experiment,
                          domain=None,
                          prompt_type=prompt_type,
-                         no_subject=False)
+                         no_subject=False,
+                         start=start,
+                         end=end)
+        
+        # Baseline without ablation
+        base_ablator = Ablator(model=model, dataset=ds, experiment=experiment, batch_size=batch_size)
+        base_ablator.set_heads(heads=[], value=multiplier, position=position)
+        
+        # Run the baseline
+        base_ablation_result = base_ablator.run()
+        base_ablation_result["ablation_layer_heads"] = "[]"
+        base_ablation_result["domain"] = "Baseline"
+
+        base_columns = ["ablation_layer_heads"] + [col for col in base_ablation_result.columns if
+                                              col not in ["ablation_layer_heads"]]
+        base_ablation_result = base_ablation_result[base_columns]
+        results.append(base_ablation_result)
+
+        # Run with ablation
         ablator = Ablator(model=model, dataset=ds, experiment=experiment, batch_size=batch_size)
         ablator.set_heads(heads=ablation_layer_heads, value=multiplier, position=position)
-
+        
         # run the ablator
         ablation_result = ablator.run()
         ablation_result["ablation_layer_heads"] = str(ablation_layer_heads)
+        ablation_result["domain"] = "Ablated"
 
         # shift columns
         columns = ["ablation_layer_heads"] + [col for col in ablation_result.columns if
                                               col not in ["ablation_layer_heads"]]
         ablation_result = ablation_result[columns]
+        results.append(ablation_result)
 
+    ablation_result = pd.concat(results)
     ablation_result.to_csv(f"{SAVE_FOLDER}/ablation_{position}_{ablation_layer_heads}.csv",
                                         index=False)
 
@@ -122,6 +153,8 @@ def run_ablator(model, dataset, batch_size, multiplier,
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run domain ablation experiments.")
     parser.add_argument("--dataset", type=str, default="copyVSfactDomain", help="Path to the dataset.")
+    parser.add_argument("--start", type=int, default=0, help="Start index of the dataset.")
+    parser.add_argument("--end", type=int, default=10000, help="End index of the dataset.")
     parser.add_argument("--experiment", type=str, default="copyVSfactDomain", help="Name of the experiment.")
     parser.add_argument("--downsampled_dataset", type=bool, default=True, help="Whether to use the downnsampled dataset or not.")
     parser.add_argument("--model_name", type=str, default="gpt2", help="Model name.")
@@ -147,7 +180,7 @@ if __name__ == '__main__':
     # Parse ablation_layer_heads
     ablation_layer_heads = eval(
         args.ablation_layer_heads)
-
+    multiplier = args.multiplier
 
     if args.downsampled_dataset:
         SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full_downsampled"
@@ -166,14 +199,11 @@ if __name__ == '__main__':
         experiment=args.experiment,
         prompt_type=args.prompt_type,
         position=args.position,
-        ablation_layer_heads=ablation_layer_heads
+        ablation_layer_heads=ablation_layer_heads,
+        start=args.start,
+        end=args.end
     )
 
-    print(ablation_result.sum())
-
-    if args.dataset == "copyVSfactDomain":
-        # ablation_result = pd.read_csv(f"{SAVE_FOLDER}/ablation_{args.position}_{args.ablation_layer_heads}.csv")
-        # save plots
-        plot_results(ablation_result)
-        plot_filename = f"{SAVE_FOLDER}/ablation_{args.position}_{args.ablation_layer_heads}.pdf"
-        plt.savefig(plot_filename, bbox_inches="tight")
+    plot_results(ablation_result)
+    plot_filename = f"{SAVE_FOLDER}/ablation_{args.position}_{args.ablation_layer_heads}.pdf"
+    plt.savefig(plot_filename, bbox_inches="tight")
