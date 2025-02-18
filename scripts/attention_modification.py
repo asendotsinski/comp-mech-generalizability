@@ -152,7 +152,7 @@ def run_ablator(model, dataset, batch_size, multiplier,
         results.append(ablation_result)
 
     ablation_result = pd.concat(results)
-    ablation_result.to_csv(f"{SAVE_FOLDER}/ablation_{position}_{ablation_layer_heads}.csv",
+    ablation_result.to_csv(f"{SAVE_FOLDER}/ablation_{position}_{ablation_layer_heads}_{args.multiplier}.csv",
                                         index=False)
 
     return ablation_result
@@ -217,5 +217,5 @@ if __name__ == '__main__':
     )
 
     plot_results(ablation_result)
-    plot_filename = f"{SAVE_FOLDER}/ablation_{args.position}_{args.ablation_layer_heads}.pdf"
+    plot_filename = f"{SAVE_FOLDER}/ablation_{args.position}_{args.ablation_layer_heads}_{args.multiplier}.pdf"
     plt.savefig(plot_filename, bbox_inches="tight")
