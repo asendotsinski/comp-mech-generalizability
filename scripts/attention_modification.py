@@ -37,10 +37,18 @@ def plot_results(ablation_result,
     x = range(len(ablation_result["domain"]))
 
     # Plotting bars
-    plt.bar(x, ablation_result["mem_win"], width=bar_width,
+    mem_bars = plt.bar(x, ablation_result["mem_win"], width=bar_width,
             label="mem_win", color=FACTUAL_COLOR, edgecolor="black")
-    plt.bar([i + bar_width for i in x], ablation_result["cp_win"], width=bar_width, label="cp_win",
-            color=COUNTERFACTUAL_COLOR, edgecolor="black")
+    cp_bars = plt.bar([i + bar_width for i in x], ablation_result["cp_win"], width=bar_width, 
+            label="cp_win", color=COUNTERFACTUAL_COLOR, edgecolor="black")
+
+    # Add value labels above bars
+    for bars in [mem_bars, cp_bars]:
+        for bar in bars:
+            height = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width()/2., height,
+                    f'{height:.2f}',
+                    ha='center', va='bottom')
 
     plt.grid(axis='y', linestyle='-', alpha=0.7, zorder=0)
     plt.gca().set_axisbelow(True)
