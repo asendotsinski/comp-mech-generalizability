@@ -5,6 +5,7 @@ from transformer_lens import HookedTransformer
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from utils import get_predictions
 from abc import abstractmethod
+from utils import get_hf_model_name
 
 torch.set_grad_enabled(False)
 
@@ -314,9 +315,19 @@ class ModelFactory:
                 device = "mps" if torch.backends.mps.is_available() else "cpu"
         if hf_model:
             model = WrapAutoModelForCausalLM(model_name, device=device)
+        elif "llama" in model_name.lower():
+            hf_model_name = get_hf_model_name(model_name)
+            tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
+            model = WrapHookedTransformer.from_pretrained(
+                    hf_model_name,
+                    tokenizer=tokenizer,
+                    fold_ln=False,
+                    device_map="auto",
+                    trust_remote_code=True
+            )
         else:
             model = WrapHookedTransformer(model_name, device=device)
-
+        
         if device != model.device:
             model = model.to(device)
 

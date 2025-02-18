@@ -277,12 +277,6 @@ def pattern_plot(config, data_slice_name):
         downsampled=config.downsampled_dataset
     )
 
-# def load_model(config) -> Union[WrapHookedTransformer, HookedTransformer]:
-#     model = WrapHookedTransformer.from_pretrained(config.model_name, device=config.device)
-#     model.to(config.device)
-
-#     return model # type: ignore
-
 def main(args):
     config = Config().from_args(args)
     console.print(display_config(config))
