@@ -1,4 +1,4 @@
-name: fact
+name: comp_mech
 channels:
   - pytorch
   - defaults

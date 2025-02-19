@@ -1,4 +1,4 @@
-name: fact_gpu
+name: comp_mech_gpu
 channels:
   - pytorch
   - nvidia

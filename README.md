@@ -11,12 +11,12 @@ The datasets used are also available on [HuggingFace](https://huggingface.co/dat
 
 ## Installation
 
-To set up the environment for the `FACT_project`, follow these steps:
+To set up the environment for this repository, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/asendotsinski/FACT_project.git
-   cd FACT_project
+   git clone https://github.com/asendotsinski/comp-mech-generalizability.git
+   cd comp-mech-generalizability
    ```
 2. **Set Up the Conda Environment:**
     - For CPU:
@@ -24,7 +24,7 @@ To set up the environment for the `FACT_project`, follow these steps:
    - For GPU:
         bash```conda env create -f environment_gpu.yaml```
 2. **Activate the Environment:**
-   - ```conda activate fact_gpu```
+   - ```conda activate comp_mech_gpu```
 
 ## Dashboard for Visualization of Results
 ```bash
