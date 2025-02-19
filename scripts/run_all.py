@@ -94,12 +94,13 @@ class Config:
 
 def get_dataset_path(args):
     downsample_string = "_downsampled" if args.downsampled_dataset else ""
+    premise_string = f"_{args.premise}" if args.premise != "Redefine" else ""
     if args.dataset == "copyVSfact":
-        return f"../data/full_data_sampled_{args.model_name}_with_subjects{downsample_string}.json"
+        return f"../data/full_data_sampled_{args.model_name}_with_subjects{downsample_string}{premise_string}.json"
     if args.dataset == "copyVSfactQnA":
-        return f"../data/cft_og_combined_data_sampled_{args.model_name}_with_questions{downsample_string}.json"
+        return f"../data/cft_og_combined_data_sampled_{args.model_name}_with_questions{downsample_string}{premise_string}.json"
     if args.dataset == "copyVSfactDomain":
-        return f"../data/full_data_sampled_{args.model_name}_with_domains{downsample_string}.json"
+        return f"../data/full_data_sampled_{args.model_name}_with_domains{downsample_string}{premise_string}.json"
     else:
         raise ValueError("No dataset path found for folder: ", args.dataset)
 
