@@ -128,6 +128,7 @@ def logit_attribution(model, dataset, config, args):
         dataset_slice_name if config.up_to_layer == "all" else f"{dataset_slice_name}_layer_{config.up_to_layer}"
     )
     dataset_slice_name = dataset_slice_name if not args.downsampled_dataset else f"{dataset_slice_name}_downsampled"
+    dataset_slice_name = dataset_slice_name if args.premise == "Redefine" else f"{dataset_slice_name}_{args.premise}"
 
     print("Running logit attribution")
     attributor = LogitAttribution(dataset, model, config.batch_size // 5, config.mech_fold)
@@ -154,6 +155,7 @@ def logit_lens(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
     data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
     data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
+    data_slice_name = data_slice_name if args.premise == "Redefine" else f"{data_slice_name}_{args.premise}"
 
     logit_lens_cnfg = logit_lens_config()
     print("Running logit lens")
@@ -184,6 +186,7 @@ def ov_difference(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
     data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
     data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
+    data_slice_name = data_slice_name if args.premise == "Redefine" else f"{data_slice_name}_{args.premise}"
 
     print("Running ov difference")
     ov = OV(dataset, model, config.batch_size, config.mech_fold)
@@ -211,6 +214,7 @@ def ablate(model, dataset, config, args):
     start_slice_name = "" if config.dataset_start is None else f"{config.dataset_start}_"
     data_slice_name = f"{start_slice_name}{data_slice_name}_total_effect" if config.total_effect else data_slice_name
     data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
+    data_slice_name = data_slice_name if args.premise == "Redefine" else f"{data_slice_name}_{args.premise}"
 
     LOAD_FROM_PT = None
     ablator = Ablate(dataset, model, config.batch_size, config.mech_fold)
@@ -250,6 +254,7 @@ def pattern(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
     data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
     data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
+    data_slice_name = data_slice_name if args.premise == "Redefine" else f"{data_slice_name}_{args.premise}"
     
     print("Running head pattern")
     pattern = HeadPattern(dataset, model, config.batch_size, config.mech_fold)
