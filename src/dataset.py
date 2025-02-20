@@ -363,7 +363,7 @@ class BaseDataset(Dataset):
             d["length"] = d["tokenized_prompt"].shape[0]
             if d["length"] not in lengths:
                 lengths.append(d["length"])
-
+        print(f"Example prompt after processing: {self.full_data[0]}")
         if len(log_data) > 0:
             print(
                 f"{REDC} Found {len(log_data)} errors while tokenizing the prompts. Check the logs for more details... {ENDC}"
