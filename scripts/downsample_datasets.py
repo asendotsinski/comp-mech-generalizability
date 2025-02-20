@@ -107,7 +107,6 @@ def downsample_mquake(inference_model_name):
 
     base_prompt_ground_truths, base_prompt_predictions = sequential_inference(model, tokenizer, dataset, prompt_key="base_prompt")
     prompt_ground_truths, prompt_predictions = sequential_inference(model, tokenizer, dataset, prompt_key="prompt")
-    questions_ground_truths, questions_predictions = sequential_inference(model, tokenizer, dataset, prompt_key="question")
 
     print("=" * 100)
     print("Base Prompt Stats:")
