@@ -54,9 +54,9 @@ def plot_results(ablation_result,
     plt.gca().set_axisbelow(True)
 
     # Adding labels and title
-    # plt.xlabel("Domain", fontsize=axis_text_size)
+    # plt.xlabel(f"Premise: {args.premise}", fontsize=axis_title_size)
     plt.ylabel("Wins", fontsize=axis_text_size)
-    plt.title(f"Ablation comparison - {ablation_layer_heads} with multiplier {multiplier}",
+    plt.title(f"Ablation comparison - {ablation_layer_heads} with multiplier {multiplier}\nPremise: {args.premise}",
               fontsize=axis_title_size)
     plt.xticks([i + bar_width/2 for i in x], ablation_result["domain"],
                rotation=45, ha='right')
@@ -176,15 +176,18 @@ if __name__ == '__main__':
     parser.add_argument("--ablation_layer_heads", type=str, default="[(10, 7), (11, 10)]",
                         help="Heads to ablate in the format '[(layer, head), ...]'.")
     parser.add_argument("--only_plot", action="store_true", default=False, help="Whether to only plot the results.")
+    parser.add_argument("--premise", type=str, default="Redefine", help="Premise to use for the ablator.")
 
     args = parser.parse_args()
 
+    premise_path = "" if args.premise == "Redefine" else f"_{args.premise}"
+
     if args.use_mquake:
-        SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_mquake"
+        SAVE_FOLDER = f"../results/{args.dataset}{premise_path}/attention_modification/{args.model_name}_mquake"
     elif args.downsampled_dataset:
-        SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full_downsampled"
+        SAVE_FOLDER = f"../results/{args.dataset}{premise_path}/attention_modification/{args.model_name}_full_downsampled"
     else:
-        SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full"
+        SAVE_FOLDER = f"../results/{args.dataset}{premise_path}/attention_modification/{args.model_name}_full"
 
     # Parse ablation_layer_heads
     ablation_layer_heads = eval(args.ablation_layer_heads)
