@@ -47,7 +47,7 @@ def plot_results(ablation_result,
         for bar in bars:
             height = bar.get_height()
             plt.text(bar.get_x() + bar.get_width()/2., height,
-                    f'{height}',
+                    f'{int(height)}',
                     ha='center', va='bottom')
 
     plt.grid(axis='y', linestyle='-', alpha=0.7, zorder=0)
@@ -209,6 +209,8 @@ if __name__ == '__main__':
     if args.use_mquake:
         dataset_path = f"../data/full_data_sampled_mquake_{args.model_name}_with_subjects_downsampled.json"
     else:
+        # Add premise argument with default value
+        args.premise = getattr(args, 'premise', 'Redefine')  # Default to 'Redefine' if not present
         dataset_path = get_dataset_path(args)
     print(f"Dataset path: {dataset_path}")
 
