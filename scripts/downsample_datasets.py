@@ -138,7 +138,7 @@ def downsample_mquake(inference_model_name):
 
     print(f'Final og dataset length: {len(og_dataset_new)}')
 
-    with open(f"../data/full_data_sampled_{inference_model_name}_with_subjects_downsampled.json", "w") as f:
+    with open(f"../data/full_data_sampled_mquake_{inference_model_name}_with_subjects_downsampled.json", "w") as f:
         json.dump(og_dataset_new, f)
 
 def main(inference_model_name, model_names):
