@@ -58,15 +58,17 @@ def plot_results(ablation_result,
     plt.ylabel("Wins", fontsize=axis_text_size)
     plt.title(f"Ablation comparison - {ablation_layer_heads} with multiplier {multiplier}",
               fontsize=axis_title_size)
-    plt.xticks([i + bar_width / 2 for i in x], ablation_result["domain"],
-               rotation=45)
+    plt.xticks([i + bar_width/2 for i in x], ablation_result["domain"],
+               rotation=45, ha='right')
     plt.xticks(fontsize=axis_text_size)
     plt.yticks(fontsize=axis_text_size)
     plt.legend()
     plt.tick_params(left=False, bottom=False)
 
+    # Adjust bottom margin to prevent label cutoff
+    plt.tight_layout(pad=2.0, rect=[0, 0.1, 1, 1])
+
     # Show plot
-    plt.tight_layout(pad=2.0)
     # plt.show()
 
 
@@ -152,7 +154,7 @@ def run_ablator(model, dataset, batch_size, multiplier,
         results.append(ablation_result)
 
     ablation_result = pd.concat(results)
-    ablation_result.to_csv(f"{SAVE_FOLDER}/ablation_{position}_{ablation_layer_heads}.csv",
+    ablation_result.to_csv(f"{SAVE_FOLDER}/ablation_{position}_{ablation_layer_heads}_{multiplier}.csv",
                                         index=False)
 
     return ablation_result
@@ -164,7 +166,8 @@ if __name__ == '__main__':
     parser.add_argument("--start", type=int, default=None, help="Start index of the dataset.")
     parser.add_argument("--end", type=int, default=None, help="End index of the dataset.")
     parser.add_argument("--experiment", type=str, default="copyVSfactDomain", help="Name of the experiment.")
-    parser.add_argument("--downsampled_dataset", type=bool, default=True, help="Whether to use the downnsampled dataset or not.")
+    parser.add_argument("--downsampled_dataset", action="store_true", default=True, help="Whether to use the downnsampled dataset or not.")
+    parser.add_argument("--use_mquake", action="store_true", default=False, help="Whether to use the mquake dataset or not.")
     parser.add_argument("--model_name", type=str, default="gpt2", help="Model name.")
     parser.add_argument("--position", type=str, default="attribute", help="Position setting for the ablator.")
     parser.add_argument("--batch_size", type=int, default=20, help="Batch size for the ablator.")
@@ -176,15 +179,15 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if args.downsampled_dataset:
+    if args.use_mquake:
+        SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_mquake"
+    elif args.downsampled_dataset:
         SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full_downsampled"
     else:
         SAVE_FOLDER = f"../results/{args.dataset}/attention_modification/{args.model_name}_full"
 
     # Parse ablation_layer_heads
-    ablation_layer_heads = eval(
-        args.ablation_layer_heads)
-    
+    ablation_layer_heads = eval(args.ablation_layer_heads)
     multiplier = args.multiplier
 
     if args.only_plot:
@@ -203,7 +206,10 @@ if __name__ == '__main__':
 
     excluded_domains = []
 
-    dataset_path = get_dataset_path(args)
+    if args.use_mquake:
+        dataset_path = f"../data/full_data_sampled_mquake_{args.model_name}_with_subjects_downsampled.json"
+    else:
+        dataset_path = get_dataset_path(args)
     print(f"Dataset path: {dataset_path}")
 
     if args.dataset == "copyVSfactDomain":
