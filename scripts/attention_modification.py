@@ -94,7 +94,8 @@ def run_ablator(model, dataset, batch_size, multiplier,
                             prompt_type=prompt_type,
                             no_subject=False,
                             start=start,
-                            end=end)
+                            end=end,
+                            premise=args.premise)
             ablator = Ablator(model=model, dataset=ds, experiment=experiment, batch_size=batch_size)
             ablator.set_heads(heads=ablation_layer_heads, value=multiplier, position=position)
 
@@ -122,7 +123,8 @@ def run_ablator(model, dataset, batch_size, multiplier,
                          prompt_type=prompt_type,
                          no_subject=False,
                          start=start,
-                         end=end)
+                         end=end,
+                         premise=args.premise)
         
         # Baseline without ablation
         base_ablator = Ablator(model=model, dataset=ds, experiment=experiment, batch_size=batch_size)
