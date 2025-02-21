@@ -23,7 +23,6 @@ from plotting_scripts.plot_logit_attribution_fig_3_4a import plot_logit_attribut
 from plotting_scripts.plot_logit_lens_fig_2 import plot_logit_lens_fig_2
 from plotting_scripts.plot_head_pattern_fig_4b import plot_head_pattern_fig_4b
 from plotting_scripts.plot_ablation import plot_ablation
-from plotting_scripts.plot_ov_difference import plot_ov_difference
 
 from model import load_model
 
@@ -40,7 +39,7 @@ import torch
 # Local application/library specific imports
 
 from dataset import BaseDataset  # noqa: E402
-from experiment import LogitAttribution, LogitLens, OV, Ablate, HeadPattern  # noqa: E402
+from experiment import LogitAttribution, LogitLens, Ablate, HeadPattern  # noqa: E402
 from utils import display_config, display_experiments, check_dataset_and_sample, get_hf_model_name  # noqa: E402
 console = Console()
 # set logging level to suppress warnings
@@ -180,33 +179,7 @@ def logit_lens_plot(config, data_slice_name):
                               experiment=config.mech_fold,
                               domain=config.domain,
                               downsampled=config.downsampled_dataset)
-
-
-def ov_difference(model, dataset, config, args):
-    data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
-    data_slice_name = data_slice_name if config.domain is None else f"{data_slice_name}_{config.domain}"
-    data_slice_name = data_slice_name if not args.downsampled_dataset else f"{data_slice_name}_downsampled"
-    data_slice_name = data_slice_name if args.premise == "Redefine" else f"{data_slice_name}_{args.premise}"
-
-    print("Running ov difference")
-    ov = OV(dataset, model, config.batch_size, config.mech_fold)
-    dataframe = ov.run(normalize_logit=config.normalize_logit)  
-
-    save_dataframe(
-        f"../results/{config.mech_fold}{config.flag}/ov_difference/{config.model_name}_{data_slice_name}",
-        "ov_difference_data",
-        dataframe,
-    )
-
-    if config.produce_plots:
-        ov_difference_plot(config, data_slice_name)
-
-def ov_difference_plot(config, data_slice_name):
-        plot_ov_difference(
-            model=config.model_name,
-            experiment=config.mech_fold,
-            model_folder=f'{config.model_name}_{data_slice_name}')
-
+        
 
 def ablate(model, dataset, config, args):
     data_slice_name = "full" if config.dataset_slice is None else config.dataset_slice
@@ -293,14 +266,12 @@ def main(args):
             plots.append(logit_attribution_plot)
         if args.logit_lens:
             plots.append(logit_lens_plot)
-        if args.ov_diff:
-            plots.append(ov_difference_plot)
         if args.ablate:
             plots.append(ablate_plot)
         if args.pattern:
             plots.append(pattern_plot)
         if args.all:
-            plots = [logit_attribution_plot, logit_lens_plot, ov_difference_plot, ablate_plot, pattern_plot]
+            plots = [logit_attribution_plot, logit_lens_plot, ablate_plot, pattern_plot]
 
         for plot in plots:
             try:
@@ -327,14 +298,12 @@ def main(args):
         experiments.append(logit_attribution)
     if args.logit_lens:
         experiments.append(logit_lens)
-    if args.ov_diff:
-        experiments.append(ov_difference)
     if args.ablate:
         experiments.append(ablate)
     if args.pattern:
         experiments.append(pattern)
     if args.all:
-        experiments = [logit_attribution, logit_lens, ov_difference, pattern, ablate]
+        experiments = [logit_attribution, logit_lens, pattern, ablate]
 
     status = ["Pending" for _ in experiments]
 
@@ -370,7 +339,6 @@ if __name__ == "__main__":
 
     parser.add_argument("--logit-attribution", action="store_true")
     parser.add_argument("--logit_lens", action="store_true")
-    parser.add_argument("--ov-diff", action="store_true")
     parser.add_argument("--ablate", action="store_true")
     parser.add_argument("--total-effect", action="store_true")
     parser.add_argument("--pattern", action="store_true", default=False)

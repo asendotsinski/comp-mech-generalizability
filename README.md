@@ -58,7 +58,6 @@ using the following arguments:
 - `--logit-attribution`: If you want to run the logit attribution experiment.
 - `--logit-lens`: If you want to run the logit lens experiment.
 - `--pattern`: If you want to retrieve the attention pattern.
-- `--ov-diff`: This is useful for comparing model outputs in terms of performance or behavior.
 - `--all`: Run all the experiments at once sequentially. Overrides the other experiment flags.
 - `--ablate`: If you want to perform ablation.
 - `--ablate-component`: The specific component to ablate, default is "all".
