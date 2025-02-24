@@ -26,7 +26,8 @@ sys.path.append(os.path.abspath(os.path.join("../plotting_scripts")))
 
 def plot_results(ablation_result,
                  axis_title_size=20,
-                 axis_text_size=14):
+                 axis_text_size=14,
+                 title=True):
 
     FACTUAL_COLOR = "#005CAB"
     COUNTERFACTUAL_COLOR = "#E31B23"
@@ -56,7 +57,8 @@ def plot_results(ablation_result,
     # Adding labels and title
     # plt.xlabel(f"Premise: {args.premise}", fontsize=axis_title_size)
     plt.ylabel("Wins", fontsize=axis_text_size)
-    plt.title(f"Ablation comparison - {ablation_layer_heads} with multiplier {multiplier}\nPremise: {args.premise}",
+    if title:
+        plt.title(f"Ablation comparison - {ablation_layer_heads} with multiplier {multiplier}\nPremise: {args.premise}",
               fontsize=axis_title_size)
     plt.xticks([i + bar_width/2 for i in x], ablation_result["domain"],
                rotation=45, ha='right')
