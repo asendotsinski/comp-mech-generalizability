@@ -10,11 +10,13 @@ import streamlit as st
 import glob
 import uuid
 from streamlit_pdf_viewer import pdf_viewer
-sys.path.append(os.path.abspath(os.path.join("src")))
-from dataset import DOMAINS
+# sys.path.append(os.path.abspath(os.path.join("src")))
+# from dataset import DOMAINS
 
-st.title(":violet[Competition of Mechanisms]")
-st.markdown("""
+st.title(':violet[On the Generalizability of "Competition of Mechanisms: Tracing How Language Models Handle Facts and Counterfactuals"]')
+st.image("https://github.com/user-attachments/assets/8a5a8717-3707-468d-844c-dc386f864994")
+
+st.info("""
 Visualization of Experiments
  - Logit Lens
  - Logit Attribution
