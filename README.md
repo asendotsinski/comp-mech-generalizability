@@ -1,11 +1,9 @@
-# MLRC: Competition of Mechanisms
-This repository contains the official code for reproducibility of the [Competition of Mechanisms: Tracing How Language Models Handle Facts and Counterfactuals
-](https://arxiv.org/abs/2402.11655) paper.
-The datasets used are also available on [HuggingFace](https://huggingface.co/datasets/francescortu/comp-mech).
+# On the Generalizability of "Competition of Mechanisms"
+This repository contains the supporting code for the paper [On the Generalizability of "Competition of Mechanisms: Tracing How Language Models Handle Facts and Counterfactuals"](https://openreview.net/forum?id=15keyzQj9h).
 
 
 <p align="center">
-    <img src="comp.png" width="700">
+    <img src="https://github.com/user-attachments/assets/8a5a8717-3707-468d-844c-dc386f864994" width="700">
 </p>
 
 
@@ -217,10 +215,10 @@ Jupyter notebooks for experiments and analysis:
 ---
 
 ### **Notes on running the models**
-- Be aware that the Llama models on HugginFace are gated repositories, for which you would need to request access to. After that you can generate a token a login using the huggingface-cli.
+- Be aware that the Llama models on HuggingFace are gated repositories, for which you would need to request access to. After that you can generate a token a login using the huggingface-cli.
 
 ```bash
 huggingface-cli login
 ```
 
-- The larger models, pythia-6.9b and Llama-3.1-8B, over 40GB of VRAM due to the extra memory overhead of the Logit. Ensure your hardware has enough VRAM to run these models.
+- The larger models, Pythia-6.9B and Llama-3.1-8B, require over 40GB of VRAM due to the extra memory overhead of the logits. Ensure your hardware has enough VRAM to run these models.
